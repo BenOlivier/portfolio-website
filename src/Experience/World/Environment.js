@@ -16,13 +16,36 @@ export default class Environment
             this.debugFolder = this.debug.ui.addFolder('environment')
         }
 
+        this.setPointLight()
         this.setSunLight()
         this.setEnvironmentMap()
     }
 
+    setPointLight()
+    {
+        this.pointLight = new THREE.PointLight('#ffffff', 4)
+        this.pointLight.castShadow = true
+        this.pointLight.shadow.camera.far = 15
+        this.pointLight.shadow.mapSize.set(1024, 1024)
+        this.pointLight.shadow.normalBias = 0.05
+        this.pointLight.position.set(0, 2, 2)
+        this.scene.add(this.pointLight)
+
+        // Debug
+        if(this.debug.active)
+        {
+            this.debugFolder
+                .add(this.pointLight, 'intensity')
+                .name('pointLightIntensity')
+                .min(0)
+                .max(10)
+                .step(0.001)
+        }
+    }
+
     setSunLight()
     {
-        this.sunLight = new THREE.DirectionalLight('#ffffff', 4)
+        this.sunLight = new THREE.DirectionalLight('#ffffff', 0)
         this.sunLight.castShadow = true
         this.sunLight.shadow.camera.far = 15
         this.sunLight.shadow.mapSize.set(1024, 1024)
@@ -45,7 +68,7 @@ export default class Environment
     setEnvironmentMap()
     {
         this.environmentMap = {}
-        this.environmentMap.intensity = 0.4
+        this.environmentMap.intensity = 0
         this.environmentMap.texture = this.resources.items.environmentMapTexture
         this.environmentMap.texture.encoding = THREE.sRGBEncoding
         

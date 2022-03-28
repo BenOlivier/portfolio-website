@@ -13,18 +13,8 @@ export default [
         ]
     },
     {
-        name: 'grassColorTexture',
-        type: 'texture',
-        path: 'textures/dirt/color.jpg'
-    },
-    {
-        name: 'grassNormalTexture',
-        type: 'texture',
-        path: 'textures/dirt/normal.jpg'
-    },
-    {
-        name: 'foxModel',
+        name: 'sculptureModel',
         type: 'gltfModel',
-        path: 'models/Fox/glTF/Fox.gltf'
+        path: 'models/AbstractForm.glb'
     }
 ]

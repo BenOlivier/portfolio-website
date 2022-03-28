@@ -43,6 +43,11 @@ export default class Environment
         }
     }
 
+    updatePointLight()
+    {
+        console.log('Point light updated')
+    }
+
     setSunLight()
     {
         this.sunLight = new THREE.DirectionalLight('#ffffff', 0)

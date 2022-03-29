@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import { Vector3 } from 'three'
 import Experience from '../Experience.js'
 
 export default class Environment
@@ -6,9 +7,12 @@ export default class Environment
     constructor()
     {
         this.experience = new Experience()
+        this.sizes = this.experience.sizes
         this.scene = this.experience.scene
         this.resources = this.experience.resources
         this.debug = this.experience.debug
+        this.mouse = this.experience.mouse
+        this.camera = this.experience.camera
         
         // Debug
         if(this.debug.active)
@@ -19,6 +23,12 @@ export default class Environment
         this.setPointLight()
         this.setSunLight()
         this.setEnvironmentMap()
+
+        // Mouse move event
+        this.mouse.on('mousemove', () =>
+        {
+            this.updatePointLight()
+        })
     }
 
     setPointLight()
@@ -28,8 +38,12 @@ export default class Environment
         this.pointLight.shadow.camera.far = 15
         this.pointLight.shadow.mapSize.set(1024, 1024)
         this.pointLight.shadow.normalBias = 0.05
+        this.pointLightDistance = 3
         this.pointLight.position.set(0, 2, 2)
-        this.scene.add(this.pointLight)
+        this.mouseVec = new THREE.Vector3()
+        this.lightPos = new THREE.Vector3()
+        this.pointLightHelper = new THREE.PointLightHelper(this.pointLight, 1)
+        this.scene.add(this.pointLight, this.pointLightHelper)
 
         // Debug
         if(this.debug.active)
@@ -40,12 +54,26 @@ export default class Environment
                 .min(0)
                 .max(10)
                 .step(0.001)
+            // this.debugFolder
+            //     .add(this.pointLightDistance)
+            //     .name('pointLightDistance')
+            //     .min(0)
+            //     .max(10)
+            //     .step(0.001)
         }
     }
 
     updatePointLight()
     {
-        console.log('Point light updated')
+        this.mouseVec.set(this.mouse.mousePos.x, this.mouse.mousePos.y, 0)
+            .unproject(this.camera.instance)
+        this.mouseVec.sub(this.camera.instance.position).normalize()
+        var distance = (this.pointLightDistance - this.camera.instance.position.z ) / this.mouseVec.z
+        this.lightPos.copy(this.camera.instance.position).add(this.mouseVec.multiplyScalar(distance));
+
+
+        console.log(this.lightPos)
+        this.pointLight.position.set(this.lightPos.x, this.lightPos.y, this.lightPos.z)
     }
 
     setSunLight()

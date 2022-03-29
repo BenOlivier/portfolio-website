@@ -19,6 +19,11 @@ export default class Object
             this.debugFolder = this.debug.ui.addFolder('object')
         }
 
+        this.params = {
+            smoothFactor: 0.005,
+            rotationExtent: 0.5
+        }
+
         // Resource
         this.resource = this.resources.items.objectModel
 
@@ -32,11 +37,31 @@ export default class Object
         this.scene.add(this.model)
 
         this.targetQuaternion = new THREE.Quaternion()
+
+        // Debug
+        if(this.debug.active)
+        {
+            this.debugFolder
+                .add(this.params, 'smoothFactor')
+                .name('smoothFactor')
+                .min(0)
+                .max(0.05)
+                .step(0.0005)
+
+            this.debugFolder
+                .add(this.params, 'rotationExtent')
+                .name('rotationExtent')
+                .min(0)
+                .max(2)
+                .step(0.01)
+        }
     }
 
     update()
     {
-        this.targetQuaternion.setFromEuler(new THREE.Euler(0, this.mouse.mousePos.x, 0, 'XYZ'))
-        this.model.quaternion.slerp(this.targetQuaternion, 0.01)
+        this.targetQuaternion.setFromEuler(new THREE.Euler
+            (0, -this.mouse.mousePos.x * this.params.rotationExtent, 0, 'XYZ'))
+            
+        this.model.quaternion.slerp(this.targetQuaternion, this.params.smoothFactor)
     }
 }

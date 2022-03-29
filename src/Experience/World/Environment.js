@@ -70,7 +70,7 @@ export default class Environment
         this.mouseVec.set(this.mouse.mousePos.x, this.mouse.mousePos.y, 0)
             .unproject(this.camera.instance)
         this.mouseVec.sub(this.camera.instance.position).normalize()
-        var distance = (this.pointLight.position.z - this.camera.instance.position.z ) / this.mouseVec.z
+        const distance = (this.pointLight.position.z - this.camera.instance.position.z ) / this.mouseVec.z
         this.lightPos.copy(this.camera.instance.position).add(this.mouseVec.multiplyScalar(distance))
 
         this.pointLight.position.set(this.lightPos.x, this.lightPos.y, this.lightPos.z)

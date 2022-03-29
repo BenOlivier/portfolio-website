@@ -21,6 +21,6 @@ export default class World
 
     update()
     {
-        
+        if(this.object) this.object.update()
     }
 }

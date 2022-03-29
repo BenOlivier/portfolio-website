@@ -14,6 +14,7 @@ export default class Object
 
         // Parameters
         this.params = {
+            objectScale: 4,
             rotationSmoothing: 0.005,
             rotationExtent: 0.5
         }
@@ -33,7 +34,8 @@ export default class Object
     setModel()
     {
         this.model = this.resource.scene
-        this.model.scale.set(4, 4, 4)
+        this.model.scale.set(this.params.objectScale,
+            this.params.objectScale, this.params.objectScale)
         this.scene.add(this.model)
 
         this.targetQuaternion = new THREE.Quaternion()
@@ -41,6 +43,18 @@ export default class Object
         // Debug
         if(this.debug.active)
         {
+            this.debugFolder
+                .add(this.params, 'objectScale')
+                .name('objectScale')
+                .min(0)
+                .max(20)
+                .step(0.1)
+                .onChange(() =>
+                {
+                    this.model.scale.set(this.params.objectScale,
+                        this.params.objectScale, this.params.objectScale)
+                })
+            
             this.debugFolder
                 .add(this.params, 'rotationSmoothing')
                 .name('rotationSmoothing')

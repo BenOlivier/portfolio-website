@@ -67,7 +67,7 @@ export default class Loading
             if(alpha > 0)
             {
                 alpha -= 0.001
-                console.log(alpha)
+                // console.log(alpha)
             }
             else
             {

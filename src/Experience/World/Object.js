@@ -1,6 +1,6 @@
 import Experience from '../Experience.js'
 
-export default class Sculpture
+export default class Object
 {
     constructor()
     {
@@ -13,11 +13,11 @@ export default class Sculpture
         // Debug
         if(this.debug.active)
         {
-            this.debugFolder = this.debug.ui.addFolder('sculpture')
+            this.debugFolder = this.debug.ui.addFolder('object')
         }
 
         // Resource
-        this.resource = this.resources.items.sculptureModel
+        this.resource = this.resources.items.objectModel
 
         this.setModel()
     }

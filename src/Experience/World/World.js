@@ -1,6 +1,6 @@
 import Experience from '../Experience.js'
 import Environment from './Environment.js'
-import Sculpture from './Sculpture.js'
+import Object from './Object.js'
 
 export default class World
 {
@@ -14,7 +14,7 @@ export default class World
         this.resources.on('ready', () =>
         {
             // Setup
-            this.sculpture = new Sculpture()
+            this.object = new Object()
             this.environment = new Environment()
         })
     }

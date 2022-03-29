@@ -13,7 +13,7 @@ export default [
         ]
     },
     {
-        name: 'sculptureModel',
+        name: 'objectModel',
         type: 'gltfModel',
         path: 'models/AbstractForm.glb'
     }

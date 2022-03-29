@@ -13,8 +13,9 @@ export default class Camera
 
         // Parameters
         this.params = {
-            cameraY: 2,
-            cameraZ: 10
+            positionY: 2,
+            positionZ: 10,
+            rotationX: 0
         }
 
         // Debug
@@ -30,32 +31,54 @@ export default class Camera
     {
         this.instance = new THREE.PerspectiveCamera
             (35, this.sizes.width / this.sizes.height, 0.1, 100)
-        this.instance.position.set(0, 2, this.params.cameraZ)
-        this.scene.add(this.instance)
+        this.instance.position.set(0, this.params.positionY, this.params.positionZ)
 
         this.updatePosition = () =>
         {
-            this.instance.position.set(0, this.params.cameraY, this.params.cameraZ)
+            this.instance.position.set(0, this.params.positionY, this.params.positionZ)
         }
+        this.updateRotation = () =>
+        {
+            this.instance.rotation.x = -this.params.rotationX
+        }
+        
+        this.scene.add(this.instance)
 
         // Debug
         if(this.debug.active)
         {
             this.debugFolder
-                .add(this.params, 'cameraY')
-                .name('cameraY')
+                .add(this.params, 'positionY')
+                .name('positionY')
                 .min(0)
                 .max(20)
                 .step(0.1)
-                .onChange(this.updatePosition())
+                .onChange(() =>
+                {
+                    this.updatePosition()
+                })
 
             this.debugFolder
-                .add(this.params, 'cameraZ')
-                .name('cameraZ')
+                .add(this.params, 'positionZ')
+                .name('positionZ')
                 .min(0)
                 .max(50)
                 .step(0.1)
-                .onChange(this.updatePosition())
+                .onChange(() =>
+                {
+                    this.updatePosition()
+                })
+
+            this.debugFolder
+                .add(this.params, 'rotationX')
+                .name('rotationX')
+                .min(Math.PI * -0.5)
+                .max(Math.PI * 0.5)
+                .step(0.01)
+                .onChange(() =>
+                {
+                    this.updateRotation()
+                })
         }
     }
 
@@ -63,10 +86,5 @@ export default class Camera
     {
         this.instance.aspect = this.sizes.width / this.sizes.height
         this.instance.updateProjectionMatrix()
-    }
-
-    updatePosition()
-    {
-        console.log('move cam')
     }
 }

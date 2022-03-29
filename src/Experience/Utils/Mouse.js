@@ -14,12 +14,6 @@ export default class Mouse extends EventEmitter
         this.sizes = this.experience.sizes
         this.debug = this.experience.debug
 
-        // Debug
-        if(this.debug.active)
-        {
-            this.debugFolder = this.debug.ui.addFolder('input')
-        }
-
         // Parameters
         this.params = {
             mouseSmoothing: 0.5
@@ -28,6 +22,8 @@ export default class Mouse extends EventEmitter
         // Debug
         if(this.debug.active)
         {
+            this.debugFolder = this.debug.ui.addFolder('input')
+
             this.debugFolder
                 .add(this.params, 'mouseSmoothing')
                 .name('mouseSmoothing')

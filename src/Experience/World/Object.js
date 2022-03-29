@@ -13,18 +13,18 @@ export default class Object
         this.debug = this.experience.debug
         this.mouse = this.experience.mouse
 
-        // Debug
-        if(this.debug.active)
-        {
-            this.debugFolder = this.debug.ui.addFolder('object')
-        }
-
         // Parameters
         this.params = {
             rotationSmoothing: 0.005,
             rotationExtent: 0.5
         }
 
+        // Debug
+        if(this.debug.active)
+        {
+            this.debugFolder = this.debug.ui.addFolder('object')
+        }
+        
         // Resource
         this.resource = this.resources.items.objectModel
 

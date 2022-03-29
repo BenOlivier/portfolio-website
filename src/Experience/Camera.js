@@ -10,15 +10,34 @@ export default class Camera
         this.scene = this.experience.scene
         this.canvas = this.experience.canvas
 
+        // // Parameters
+        // this.params = {
+        //     mouseSmoothing: 0.5
+        // }
+
+        // // Debug
+        // if(this.debug.active)
+        // {
+        //     this.debugFolder
+        //         .add(this.params, 'mouseSmoothing')
+        //         .name('mouseSmoothing')
+        //         .min(0)
+        //         .max(1)
+        //         .step(0.001)
+        // }
+
         this.setInstance()
     }
 
     setInstance()
     {
-        this.instance = new THREE.PerspectiveCamera(35, this.sizes.width / this.sizes.height, 0.1, 100)
+        this.instance = new THREE.PerspectiveCamera
+            (35, this.sizes.width / this.sizes.height, 0.1, 100)
         this.instance.position.set(0, 2, 10)
         this.scene.add(this.instance)
     }
+
+    
 
     resize()
     {

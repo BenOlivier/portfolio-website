@@ -38,7 +38,6 @@ export default class Environment
         this.pointLight.shadow.camera.far = 15
         this.pointLight.shadow.mapSize.set(1024, 1024)
         this.pointLight.shadow.normalBias = 0.05
-        this.pointLightDistance = 3
         this.pointLight.position.set(0, 2, 2)
         this.mouseVec = new THREE.Vector3()
         this.lightPos = new THREE.Vector3()
@@ -54,12 +53,13 @@ export default class Environment
                 .min(0)
                 .max(10)
                 .step(0.001)
-            // this.debugFolder
-            //     .add(this.pointLightDistance)
-            //     .name('pointLightDistance')
-            //     .min(0)
-            //     .max(10)
-            //     .step(0.001)
+            
+            this.debugFolder
+                .add(this.pointLight.position, 'z')
+                .name('pointLightDistance')
+                .min(0)
+                .max(10)
+                .step(0.001)
         }
     }
 
@@ -68,11 +68,9 @@ export default class Environment
         this.mouseVec.set(this.mouse.mousePos.x, this.mouse.mousePos.y, 0)
             .unproject(this.camera.instance)
         this.mouseVec.sub(this.camera.instance.position).normalize()
-        var distance = (this.pointLightDistance - this.camera.instance.position.z ) / this.mouseVec.z
-        this.lightPos.copy(this.camera.instance.position).add(this.mouseVec.multiplyScalar(distance));
+        var distance = (this.pointLight.position.z - this.camera.instance.position.z ) / this.mouseVec.z
+        this.lightPos.copy(this.camera.instance.position).add(this.mouseVec.multiplyScalar(distance))
 
-
-        console.log(this.lightPos)
         this.pointLight.position.set(this.lightPos.x, this.lightPos.y, this.lightPos.z)
     }
 

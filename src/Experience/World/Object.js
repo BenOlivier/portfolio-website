@@ -1,5 +1,4 @@
 import * as THREE from 'three'
-import { Quaternion } from 'three'
 import Experience from '../Experience.js'
 
 export default class Object
@@ -61,7 +60,7 @@ export default class Object
     update()
     {
         this.targetQuaternion.setFromEuler(new THREE.Euler
-            (0, -this.mouse.mousePos.x * this.params.rotationExtent, 0, 'XYZ'))
+            (0, this.mouse.mousePos.x * this.params.rotationExtent, 0, 'XYZ'))
             
         this.model.quaternion.slerp(this.targetQuaternion, this.params.rotationSmoothing)
     }

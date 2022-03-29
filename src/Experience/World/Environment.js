@@ -32,7 +32,7 @@ export default class Environment
 
     setPointLight()
     {
-        this.pointLight = new THREE.PointLight('#ffffff', 4)
+        this.pointLight = new THREE.PointLight('#ffffff', 5)
         this.pointLight.castShadow = true
         this.pointLight.shadow.camera.far = 15
         this.pointLight.shadow.mapSize.set(1024, 1024)
@@ -40,8 +40,8 @@ export default class Environment
         this.pointLight.position.set(0, 2, 2)
         this.mouseVec = new THREE.Vector3()
         this.lightPos = new THREE.Vector3()
-        this.pointLightHelper = new THREE.PointLightHelper(this.pointLight, 1)
-        this.scene.add(this.pointLight, this.pointLightHelper)
+        //this.pointLightHelper = new THREE.PointLightHelper(this.pointLight, 1)
+        this.scene.add(this.pointLight)
 
         // Debug
         if(this.debug.active)
@@ -59,6 +59,10 @@ export default class Environment
                 .min(0)
                 .max(10)
                 .step(0.001)
+
+            this.debugFolder
+                .addColor(this.pointLight, 'color')
+                .name('pointLightColor')
         }
     }
 

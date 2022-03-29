@@ -8,7 +8,9 @@ export default class Debug
 
         if(this.active)
         {
-            this.ui = new dat.GUI()
+            this.ui = new dat.GUI({
+                width: 400
+            })
         }
     }
 }

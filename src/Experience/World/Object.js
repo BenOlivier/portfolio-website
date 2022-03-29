@@ -19,8 +19,9 @@ export default class Object
             this.debugFolder = this.debug.ui.addFolder('object')
         }
 
+        // Parameters
         this.params = {
-            smoothFactor: 0.005,
+            rotationSmoothing: 0.005,
             rotationExtent: 0.5
         }
 
@@ -42,8 +43,8 @@ export default class Object
         if(this.debug.active)
         {
             this.debugFolder
-                .add(this.params, 'smoothFactor')
-                .name('smoothFactor')
+                .add(this.params, 'rotationSmoothing')
+                .name('rotationSmoothing')
                 .min(0)
                 .max(0.05)
                 .step(0.0005)
@@ -62,6 +63,6 @@ export default class Object
         this.targetQuaternion.setFromEuler(new THREE.Euler
             (0, -this.mouse.mousePos.x * this.params.rotationExtent, 0, 'XYZ'))
             
-        this.model.quaternion.slerp(this.targetQuaternion, this.params.smoothFactor)
+        this.model.quaternion.slerp(this.targetQuaternion, this.params.rotationSmoothing)
     }
 }

@@ -21,7 +21,6 @@ export default class Environment
         }
 
         this.setPointLight()
-        this.setSunLight()
         this.setEnvironmentMap()
 
         // Mouse move event
@@ -72,28 +71,6 @@ export default class Environment
         this.lightPos.copy(this.camera.instance.position).add(this.mouseVec.multiplyScalar(distance))
 
         this.pointLight.position.set(this.lightPos.x, this.lightPos.y, this.lightPos.z)
-    }
-
-    setSunLight()
-    {
-        this.sunLight = new THREE.DirectionalLight('#ffffff', 0)
-        this.sunLight.castShadow = true
-        this.sunLight.shadow.camera.far = 15
-        this.sunLight.shadow.mapSize.set(1024, 1024)
-        this.sunLight.shadow.normalBias = 0.05
-        this.sunLight.position.set(3.5, 2, - 1.25)
-        this.scene.add(this.sunLight)
-
-        // Debug
-        if(this.debug.active)
-        {
-            this.debugFolder
-                .add(this.sunLight, 'intensity')
-                .name('sunLightIntensity')
-                .min(0)
-                .max(10)
-                .step(0.001)
-        }
     }
 
     setEnvironmentMap()

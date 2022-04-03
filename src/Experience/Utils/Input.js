@@ -16,7 +16,7 @@ export default class Input extends EventEmitter
 
         // Parameters
         this.params = {
-            mouseSmoothing: 0.5
+            inputSmoothing: 0.5
         }
 
         // Debug
@@ -25,8 +25,8 @@ export default class Input extends EventEmitter
             this.debugFolder = this.debug.ui.addFolder('input')
 
             this.debugFolder
-                .add(this.params, 'mouseSmoothing')
-                .name('mouseSmoothing')
+                .add(this.params, 'inputSmoothing')
+                .name('inputSmoothing')
                 .min(0)
                 .max(1)
                 .step(0.001)
@@ -36,12 +36,26 @@ export default class Input extends EventEmitter
         window.addEventListener('mousemove', (event) =>
         {
             this.mousePos.x = THREE.MathUtils.lerp
-                (this.mousePos.x, event.clientX /this.sizes.width * 2 - 1,
-                this.params.mouseSmoothing)
+                (this.mousePos.x, event.clientX / this.sizes.width * 2 - 1,
+                this.params.inputSmoothing)
             
             this.mousePos.y = THREE.MathUtils.lerp
                 (this.mousePos.y, - (event.clientY / this.sizes.height) * 2 + 1,
-                this.params.mouseSmoothing)
+                this.params.inputSmoothing)
+
+            this.trigger('mousemove')
+        })
+
+        // Touch move event
+        window.addEventListener('touchmove', (event) =>
+        {
+            this.mousePos.x = THREE.MathUtils.lerp
+                (this.mousePos.x, event.touches[0].clientX / this.sizes.width * 2 - 1,
+                this.params.inputSmoothing)
+            
+            this.mousePos.y = THREE.MathUtils.lerp
+                (this.mousePos.y, - (event.touches[0].clientY / this.sizes.height) * 2 + 1,
+                this.params.inputSmoothing)
 
             this.trigger('mousemove')
         })

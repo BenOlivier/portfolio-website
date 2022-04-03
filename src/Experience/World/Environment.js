@@ -20,7 +20,6 @@ export default class Environment
         }
 
         this.setPointLight()
-        this.setEnvironmentMap()
 
         // Mouse move event
         this.mouse.on('mousemove', () =>
@@ -74,41 +73,5 @@ export default class Environment
         this.lightPos.copy(this.camera.instance.position).add(this.mouseVec.multiplyScalar(distance))
 
         this.pointLight.position.set(this.lightPos.x, this.lightPos.y, this.lightPos.z)
-    }
-
-    setEnvironmentMap()
-    {
-        this.environmentMap = {}
-        this.environmentMap.intensity = 0
-        this.environmentMap.texture = this.resources.items.environmentMapTexture
-        this.environmentMap.texture.encoding = THREE.sRGBEncoding
-        
-        this.scene.environment = this.environmentMap.texture
-
-        this.environmentMap.updateMaterials = () =>
-        {
-            this.scene.traverse((child) =>
-            {
-                if(child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial)
-                {
-                    child.material.envMap = this.environmentMap.texture
-                    child.material.envMapIntensity = this.environmentMap.intensity
-                    child.material.needsUpdate = true
-                }
-            })
-        }
-        this.environmentMap.updateMaterials()
-
-        // Debug
-        if(this.debug.active)
-        {
-            this.debugFolder
-                .add(this.environmentMap, 'intensity')
-                .name('envMapIntensity')
-                .min(0)
-                .max(4)
-                .step(0.001)
-                .onChange(this.environmentMap.updateMaterials)
-        }
     }
 }

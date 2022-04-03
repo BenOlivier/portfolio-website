@@ -67,10 +67,9 @@ export default class Environment
     updatePointLight()
     {
         this.mouseVec.set(this.input.mousePos.x, this.input.mousePos.y, 0)
-            .unproject(this.camera.instance)
-        this.mouseVec.sub(this.camera.instance.position).normalize()
-        const distance = (this.pointLight.position.z - this.camera.instance.position.z ) / this.mouseVec.z
-        this.lightPos.copy(this.camera.instance.position).add(this.mouseVec.multiplyScalar(distance))
+            .unproject(this.camera.instance).sub(this.camera.instance.position).normalize()
+        this.lightPos.copy(this.camera.instance.position).add(this.mouseVec.multiplyScalar
+            ((this.pointLight.position.z - this.camera.instance.position.z ) / this.mouseVec.z))
 
         this.pointLight.position.set(this.lightPos.x, this.lightPos.y, this.lightPos.z)
     }

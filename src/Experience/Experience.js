@@ -1,5 +1,4 @@
 import * as THREE from 'three'
-
 import Debug from './Utils/Debug.js'
 import Sizes from './Utils/Sizes.js'
 import Loading from './Utils/Loading.js'

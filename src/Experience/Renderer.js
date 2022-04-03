@@ -39,7 +39,7 @@ export default class Renderer
         this.effectComposer.setSize(this.sizes.width, this.sizes.height)
         this.effectComposer.setPixelRatio(Math.min(this.sizes.pixelRatio, 2))
 
-        this.renderScene = new RenderPass(this.scene, this.camera.instance)
+        this.renderScene = new RenderPass(this.scene, this.camera.camera)
         this.effectComposer.addPass(this.renderScene)
 
         this.bloomPass = new UnrealBloomPass()

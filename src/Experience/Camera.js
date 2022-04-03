@@ -24,25 +24,25 @@ export default class Camera
             this.debugFolder = this.debug.ui.addFolder('camera')
         }
 
-        this.setInstance()
+        this.setCamera()
     }
 
-    setInstance()
+    setCamera()
     {
-        this.instance = new THREE.PerspectiveCamera
+        this.camera = new THREE.PerspectiveCamera
             (35, this.sizes.width / this.sizes.height, 0.1, 100)
-        this.instance.position.set(0, this.params.positionY, this.params.positionZ)
+        this.camera.position.set(0, this.params.positionY, this.params.positionZ)
 
         this.updatePosition = () =>
         {
-            this.instance.position.set(0, this.params.positionY, this.params.positionZ)
+            this.camera.position.set(0, this.params.positionY, this.params.positionZ)
         }
         this.updateRotation = () =>
         {
-            this.instance.rotation.x = -this.params.rotationX
+            this.camera.rotation.x = -this.params.rotationX
         }
         
-        this.scene.add(this.instance)
+        this.scene.add(this.camera)
 
         // Debug
         if(this.debug.active)
@@ -84,7 +84,7 @@ export default class Camera
 
     resize()
     {
-        this.instance.aspect = this.sizes.width / this.sizes.height
-        this.instance.updateProjectionMatrix()
+        this.camera.aspect = this.sizes.width / this.sizes.height
+        this.camera.updateProjectionMatrix()
     }
 }

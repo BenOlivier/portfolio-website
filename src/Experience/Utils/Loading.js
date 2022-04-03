@@ -57,24 +57,26 @@ export default class Loading
     fadeOverlay()
     {
         let alpha = 1
+        let alphaValue = 1
         let interval = setInterval(() =>
         {
-            fade(this.overlayMaterial.uniforms.uAlpha)
+            alphaValue = fade(alpha)
+            this.overlayMaterial.uniforms.uAlpha.value = alphaValue
         }, 10)
 
         function fade()
         {
             if(alpha > 0)
             {
-                alpha -= 0.001
-                // console.log(alpha)
+                alpha -= 0.01
+                return alpha
             }
             else
             {
                 clearInterval(interval)
+                return 0
             }
         }
-        this.overlayMaterial.uniforms.uAlpha = 0
     }
 
     

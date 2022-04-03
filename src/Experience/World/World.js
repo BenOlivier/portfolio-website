@@ -14,8 +14,8 @@ export default class World
         this.resources.on('ready', () =>
         {
             // Setup
-            this.object = new Object()
             this.environment = new Environment()
+            this.object = new Object()
         })
     }
 

@@ -10,7 +10,7 @@ export default class Environment
         this.scene = this.experience.scene
         this.resources = this.experience.resources
         this.debug = this.experience.debug
-        this.mouse = this.experience.mouse
+        this.input = this.experience.input
         this.camera = this.experience.camera
         
         // Debug
@@ -22,7 +22,7 @@ export default class Environment
         this.setPointLight()
 
         // Mouse move event
-        this.mouse.on('mousemove', () =>
+        this.input.on('mousemove', () =>
         {
             this.updatePointLight()
         })
@@ -66,7 +66,7 @@ export default class Environment
 
     updatePointLight()
     {
-        this.mouseVec.set(this.mouse.mousePos.x, this.mouse.mousePos.y, 0)
+        this.mouseVec.set(this.input.mousePos.x, this.input.mousePos.y, 0)
             .unproject(this.camera.instance)
         this.mouseVec.sub(this.camera.instance.position).normalize()
         const distance = (this.pointLight.position.z - this.camera.instance.position.z ) / this.mouseVec.z

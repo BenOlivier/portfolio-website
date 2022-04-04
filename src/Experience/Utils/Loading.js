@@ -76,6 +76,7 @@ export default class Loading
             uniforms:
             {
                 progress: { value: 0.75 },
+                alpha: { value: 1.0 },
                 u_resolution: { type: 'v2', value:
                     new THREE.Vector2(this.sizes.width, this.sizes.height) }
             },
@@ -87,6 +88,7 @@ export default class Loading
             `,
             fragmentShader: `
                 uniform float progress;
+                uniform float alpha;
                 uniform vec2 u_resolution;
                 float plot(vec2 st, float pct)
                 {
@@ -104,7 +106,7 @@ export default class Loading
                     color = (1.0 - pct) * color
                         + pct * vec3(1.0,1.0,1.0);
 
-                    gl_FragColor = vec4(color,1.0);
+                    gl_FragColor = vec4(color,alpha);
                 }
             `
         })
@@ -124,24 +126,47 @@ export default class Loading
         else
         {
             this.loadingBarMaterial.uniforms.progress.value += this.experience.resources.progressRatio
-            * this.params.loadingBarSmoothing
+                * this.params.loadingBarSmoothing
+        }
+    }
+
+    fadeLoadingBar()
+    {
+        let barAlpha = 1
+        let interval = setInterval(() =>
+        {
+            this.loadingBarMaterial.uniforms.alpha.value = animateFade(barAlpha)
+        }, 10)
+
+        function animateFade()
+        {
+            if(barAlpha > 0)
+            {
+                barAlpha -= 0.05
+                return barAlpha
+            }
+            else
+            {
+                clearInterval(interval)
+                return 0
+            }
         }
     }
 
     fadeOverlay()
     {
-        let alpha = 1
+        let overlayAlpha = 1
         let interval = setInterval(() =>
         {
-            this.overlayMaterial.uniforms.uAlpha.value = fade(alpha)
+            this.overlayMaterial.uniforms.uAlpha.value = animateFade(overlayAlpha)
         }, 10)
 
-        function fade()
+        function animateFade()
         {
-            if(alpha > 0)
+            if(overlayAlpha > 0)
             {
-                alpha -= 0.01
-                return alpha
+                overlayAlpha -= 0.01
+                return overlayAlpha
             }
             else
             {
@@ -157,5 +182,16 @@ export default class Loading
             = this.sizes.width
         this.loadingBarMaterial.uniforms.u_resolution.value.y
             = this.sizes.height
+    }
+
+    destroy()
+    {
+        this.sizes.off('resize')
+        this.time.off('tick')
+
+        this.overlayGeometry.dispose()
+        this.loadingBarGeometry.dispose()
+        this.overlayMaterial.dispose()
+        this.loadingBarMaterial.dispose()
     }
 }

@@ -29,7 +29,18 @@ export default class Resources extends EventEmitter
             // Loaded
             () =>
             {
-                this.experience.loading.fadeOverlay()
+                // Fade out loading bar
+                setTimeout(() => {
+                    this.experience.loading.fadeLoadingBar()
+                }, 500)
+                // Fade out overlay
+                setTimeout(() => {
+                    this.experience.loading.fadeOverlay()
+                }, 1000)
+                // Destroy loading bar and overlay
+                setTimeout(() => {
+                    this.experience.loading.destroy()
+                }, 2000)
             },
 
             // Progress

@@ -7,6 +7,7 @@ export default class Loading
     {
         this.experience = new Experience()
         this.sizes = this.experience.sizes
+        this.time = this.experience.time
         this.scene = this.experience.scene
         this.canvas = this.experience.canvas
         this.renderer = this.experience.renderer
@@ -17,6 +18,22 @@ export default class Loading
         {
             this.resize()
         })
+
+        this.time.on('tick', () =>
+        {
+            if(this.loadingBar) this.updateLoadingBar()
+        })
+
+        // Parameters
+        this.params = {
+            loadingBarSmoothing: 0.01
+        }
+
+        // Debug
+        if(this.debug.active)
+        {
+            this.debugFolder = this.debug.ui.addFolder('loading')
+        }
         
         this.setLoadingBar()
         this.setOverlay()
@@ -58,7 +75,7 @@ export default class Loading
             transparent: true,
             uniforms:
             {
-                completion: { value: 0.75 },
+                progress: { value: 0.75 },
                 u_resolution: { type: 'v2', value:
                     new THREE.Vector2(this.sizes.width, this.sizes.height) }
             },
@@ -69,7 +86,7 @@ export default class Loading
                 }
             `,
             fragmentShader: `
-                uniform float completion;
+                uniform float progress;
                 uniform vec2 u_resolution;
                 float plot(vec2 st, float pct)
                 {
@@ -80,7 +97,7 @@ export default class Loading
                 {
                     vec2 st = gl_FragCoord.xy / u_resolution;
                     
-                    float y = step(st.x, completion);
+                    float y = step(st.x, progress);
                     vec3 color = vec3(y);
 
                     float pct = plot(st, y);
@@ -96,6 +113,19 @@ export default class Loading
         this.loadingBar.renderOrder = 999
         this.loadingBar.position.set(0, 2, 0)
         this.scene.add(this.loadingBar)
+    }
+
+    updateLoadingBar()
+    {
+        if(this.experience.resources.progressRatio == 0)
+        {
+            this.loadingBarMaterial.uniforms.progress.value += 0.0005
+        }
+        else
+        {
+            this.loadingBarMaterial.uniforms.progress.value += this.experience.resources.progressRatio
+            * this.params.loadingBarSmoothing
+        }
     }
 
     fadeOverlay()

@@ -2,7 +2,6 @@ import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import EventEmitter from './EventEmitter.js'
 import Experience from '../Experience.js'
-import { MathUtils } from 'three'
 
 export default class Resources extends EventEmitter
 {
@@ -17,17 +16,7 @@ export default class Resources extends EventEmitter
         this.items = {}
         this.toLoad = this.sources.length
         this.loaded = 0
-
-        // Parameters
-        this.params = {
-            loadingBarSmoothing: 0.5
-        }
-
-        // Debug
-        if(this.debug.active)
-        {
-            this.debugFolder = this.debug.ui.addFolder('loading')
-        }
+        this.progressRatio = 0
 
         this.setLoaders()
         this.startLoading()
@@ -46,10 +35,7 @@ export default class Resources extends EventEmitter
             // Progress
             (itemUrl, itemsLoaded, itemsTotal) =>
             {
-                const progressRatio = itemsLoaded / itemsTotal
-                const targetProgress = THREE.MathUtils.lerp(0.75, 1.25, progressRatio)
-                this.experience.loading.loadingBarMaterial.uniforms.completion.value
-                    = targetProgress
+                this.progressRatio = itemsLoaded / itemsTotal
             }
         )
         this.loaders.gltfLoader = new GLTFLoader(this.loadingManager)

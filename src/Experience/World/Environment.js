@@ -31,11 +31,16 @@ export default class Environment
 
     setBackground()
     {
+        let colorController = {
+            color1: "#333333",
+            color2: "#000000"
+        }
+        
         this.backgroundGeometry = new THREE.PlaneGeometry(10, 10, 1, 1)
         this.backgroundMaterial = new THREE.ShaderMaterial({
             uniforms: {
-              color1: { value: new THREE.Color(0x333333) },
-              color2: { value: new THREE.Color(0x000000) },
+              color1: { value: new THREE.Color(colorController.color1) },
+              color2: { value: new THREE.Color(colorController.color2) },
             },
             vertexShader: `varying vec2 vUv;
                 void main()
@@ -59,6 +64,20 @@ export default class Environment
         this.background.position.set(0, -3, -4)
         this.background.scale.set(3, 3, 3)
         this.scene.add(this.background)
+
+        // Debug
+        if(this.debug.active)
+        {
+            this.debugFolder
+                .addColor(colorController, 'color1')
+                .name('backgroundColor1')
+                .onChange(val => { this.backgroundMaterial.uniforms.color1.value.set(val) })
+            
+                this.debugFolder
+                .addColor(colorController, 'color2')
+                .name('backgroundColor2')
+                .onChange(val => { this.backgroundMaterial.uniforms.color2.value.set(val) })
+        }
     }
 
     setPointLight()

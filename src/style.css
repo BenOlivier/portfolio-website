@@ -9,10 +9,10 @@ html
     background: #000000;
 }
 
-body
+/* body
 {
     overflow: hidden;
-}
+} */
 
 .webgl
 {
@@ -24,14 +24,10 @@ body
 
 .heading-container
 {
-    display: inline;
-    align-items: top;
+    display: block;
+    position: relative;
     text-align: center;
-    justify-content: center;
-    position: fixed;
-    left: 0;
-    right: 0;
-    padding-top: 20px;
+    padding: 50vh;
     
     font-family: 'Montserrat', sans-serif;
     color: #ffffff;
@@ -41,16 +37,37 @@ body
 .heading
 {
     font-weight: 100;
-    font-size: 20px;
-    letter-spacing: 15px;
+    font-size: 4vh;
+    letter-spacing: 12px;
 }
 
 .subheading
 {
     padding-top: 8px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
     text-transform: uppercase;
-    font-size: 10px;
+
+    font-size: 2vh;
     letter-spacing: 20px;
+}
+
+.section
+{
+    display: flex;
+    align-items: top;
+    height: 100vh;
+    position: relative;
+    padding-left: 10%;
+    padding-right: 10%;
+
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 100;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-size: 2vmin;
+    letter-spacing: 5px;
+}
+
+section:nth-child(even)
+{
+    justify-content: flex-end;
 }

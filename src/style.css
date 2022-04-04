@@ -54,9 +54,9 @@ body
 
 .section
 {
-    align-items: top;
     height: 50vh;
     position: relative;
+    padding-left: 25vw;
     padding-bottom: 100px;
 }
 
@@ -70,20 +70,8 @@ body
     font-weight: 100;
 }
 
-.section:nth-child(even)
-{
-    justify-content: flex-end;
-    display: flex;
-    padding-right: 25vw;
-}
-.section:nth-child(odd)
-{
-    padding-left: 25vw;
-}
-
 .paragraph
 {
-    /* display: flex; */
     align-items: top;
     position: relative;
     padding-right: 25%;
@@ -93,4 +81,17 @@ body
     font-size: 2vmin;
     letter-spacing: 5px;
     line-height: 25px;
+}
+
+.gallery
+{
+    padding-bottom: 10vh;
+    padding-right: 25vw;
+    height: 300px;
+
+    vertical-align: middle;
+    text-align: center;
+    /* background-clip: content-box; */
+    background-color: rgba(186, 186, 186, 0.5);
+    border-radius: 25px;
 }

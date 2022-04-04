@@ -21,3 +21,36 @@ body
     left: 0;
     outline: none;
 }
+
+.heading-container
+{
+    display: inline;
+    align-items: top;
+    text-align: center;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    right: 0;
+    padding-top: 20px;
+    
+    font-family: 'Montserrat', sans-serif;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+.heading
+{
+    font-weight: 100;
+    font-size: 20px;
+    letter-spacing: 15px;
+}
+
+.subheading
+{
+    padding-top: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 20px;
+}

@@ -186,9 +186,6 @@ export default class Loading
 
     destroy()
     {
-        this.sizes.off('resize')
-        this.time.off('tick')
-
         this.overlayGeometry.dispose()
         this.loadingBarGeometry.dispose()
         this.overlayMaterial.dispose()

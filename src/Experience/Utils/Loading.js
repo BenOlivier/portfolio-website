@@ -12,18 +12,13 @@ export default class Loading
         this.renderer = this.experience.renderer
         this.debug = this.experience.debug
 
-        // Parameters
-        this.params = {
-            
-        }
-
-        // Debug
-        if(this.debug.active)
+        // Resize event
+        this.sizes.on('resize', () =>
         {
-            this.debugFolder = this.debug.ui.addFolder('loading')
-        }
+            this.resize()
+        })
         
-        // this.setLoadingBar()
+        this.setLoadingBar()
         this.setOverlay()
     }
 
@@ -32,7 +27,6 @@ export default class Loading
         this.overlayGeometry = new THREE.PlaneGeometry(2, 2, 1, 1)
         this.overlayMaterial = new THREE.ShaderMaterial({
             transparent: true,
-            // depthFunc: THREE.GreaterEqualDepth,
             uniforms:
             {
                 uAlpha: { value: 1 }
@@ -59,31 +53,48 @@ export default class Loading
 
     setLoadingBar()
     {
-        this.loadingBarGeometry = new THREE.PlaneGeometry(2, 0.02, 1, 1)
+        this.loadingBarGeometry = new THREE.PlaneGeometry(0.5, 0.01, 1, 1)
         this.loadingBarMaterial = new THREE.ShaderMaterial({
-            depthTest: false,
-            depthWrite: true,
-            // depthFunc: THREE.GreaterEqualDepth,
+            transparent: true,
             uniforms:
             {
-                completion: { value: 0 }
+                completion: { value: 0.75 },
+                u_resolution: { type: 'v2', value:
+                    new THREE.Vector2(this.sizes.width, this.sizes.height) }
             },
             vertexShader: `
                 void main()
                 {
-                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                    gl_Position = vec4(position, 1.0);
                 }
             `,
             fragmentShader: `
+                uniform float completion;
+                uniform vec2 u_resolution;
+                float plot(vec2 st, float pct)
+                {
+                    return  smoothstep(pct - 0.02, pct, st.y) -
+                        smoothstep(pct, pct + 0.02, st.y);
+                }
                 void main()
                 {
-                    gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+                    vec2 st = gl_FragCoord.xy / u_resolution;
+                    
+                    float y = step(st.x, completion);
+                    vec3 color = vec3(y);
+
+                    float pct = plot(st, y);
+                    color = (1.0 - pct) * color
+                        + pct * vec3(1.0,1.0,1.0);
+
+                    gl_FragColor = vec4(color,1.0);
                 }
             `
         })
 
         this.loadingBar = new THREE.Mesh(this.loadingBarGeometry, this.loadingBarMaterial)
         this.loadingBar.renderOrder = 999
+        this.loadingBar.position.set(0, 2, 0)
         this.scene.add(this.loadingBar)
     }
 
@@ -110,5 +121,11 @@ export default class Loading
         }
     }
 
-    
+    resize()
+    {
+        this.loadingBarMaterial.uniforms.u_resolution.value.x
+            = this.sizes.width
+        this.loadingBarMaterial.uniforms.u_resolution.value.y
+            = this.sizes.height
+    }
 }

@@ -22,7 +22,6 @@ export default class Renderer
         this.renderer = new THREE.WebGLRenderer({
             canvas: this.canvas,
             antialias: true,
-            sortObjects: false,
             alpha: true
         })
         this.renderer.physicallyCorrectLights = true

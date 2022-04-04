@@ -9,10 +9,10 @@ html
     background: #000000;
 }
 
-/* body
+body
 {
-    overflow: hidden;
-} */
+    color:#ffffff
+}
 
 .webgl
 {
@@ -33,7 +33,6 @@ html
     padding-right: 10vw;
     
     font-family: 'Montserrat', sans-serif;
-    color: #ffffff;
     text-transform: uppercase;
 }
 
@@ -55,22 +54,43 @@ html
 
 .section
 {
-    display: flex;
     align-items: top;
-    height: 100vh;
+    height: 50vh;
     position: relative;
-    padding-left: 10%;
-    padding-right: 10%;
-
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 100;
-    color: #ffffff;
-    text-transform: uppercase;
-    font-size: 2vmin;
-    letter-spacing: 5px;
+    padding-bottom: 100px;
 }
 
-section:nth-child(even)
+.section-heading
+{
+    padding-bottom: 25px;
+    
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2vmin;
+    letter-spacing: 5px;
+    font-weight: 100;
+}
+
+.section:nth-child(even)
 {
     justify-content: flex-end;
+    display: flex;
+    padding-right: 25vw;
+}
+.section:nth-child(odd)
+{
+    padding-left: 25vw;
+}
+
+.paragraph
+{
+    /* display: flex; */
+    align-items: top;
+    position: relative;
+    padding-right: 25%;
+
+    /* font-family: 'Montserrat', sans-serif; */
+    font-weight: 100;
+    font-size: 2vmin;
+    letter-spacing: 5px;
+    line-height: 25px;
 }

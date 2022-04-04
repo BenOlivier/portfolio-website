@@ -7,6 +7,7 @@ export default class Object
     {
         this.experience = new Experience()
         this.scene = this.experience.scene
+        this.sizes = this.experience.sizes
         this.resources = this.experience.resources
         this.time = this.experience.time
         this.debug = this.experience.debug
@@ -16,7 +17,7 @@ export default class Object
         this.params = {
             objectScale: 4,
             rotationSmoothing: 0.005,
-            rotationExtent: 0.5
+            rotationExtent: 500
         }
 
         // Debug
@@ -66,15 +67,15 @@ export default class Object
                 .add(this.params, 'rotationExtent')
                 .name('rotationExtent')
                 .min(0)
-                .max(2)
-                .step(0.01)
+                .max(2000)
+                .step(10)
         }
     }
 
     update()
     {
         this.targetQuaternion.setFromEuler(new THREE.Euler
-            (0, this.input.mousePos.x * this.params.rotationExtent, 0, 'XYZ'))
+            (0, this.input.mousePos.x * this.params.rotationExtent / this.sizes.width, 0, 'XYZ'))
             
         this.model.quaternion.slerp(this.targetQuaternion, this.params.rotationSmoothing)
     }

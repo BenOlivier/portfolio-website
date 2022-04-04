@@ -27,7 +27,10 @@ html
     display: block;
     position: relative;
     text-align: center;
-    padding: 50vh;
+    padding-top: 50vh;
+    padding-bottom: 50vh;
+    padding-left: 10vw;
+    padding-right: 10vw;
     
     font-family: 'Montserrat', sans-serif;
     color: #ffffff;

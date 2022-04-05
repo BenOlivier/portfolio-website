@@ -11,7 +11,8 @@ html
 
 body
 {
-    color:#ffffff
+    color:#ffffff;
+    overflow: hidden;
 }
 
 .webgl

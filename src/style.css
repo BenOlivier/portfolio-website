@@ -7,12 +7,13 @@
 html
 {
     background: #000000;
+    /* scroll-behavior: smooth; */
 }
 
 body
 {
     color:#ffffff;
-    overflow: auto;
+    overflow: hidden;
 }
 
 canvas
@@ -28,10 +29,19 @@ main
     width: 100vw;
 }
 
+.button
+{
+    position: fixed;
+    display: block;
+    top: 90%;
+    left: 50%;
+    margin-left: -16px;
+}
+
 .heading
 {
     position: relative;
-    padding-top: 45vh;
+    padding-top: 48vh;
     padding-bottom: 8px;
     
     font-family: 'Montserrat', sans-serif;
@@ -45,7 +55,7 @@ main
 .subheading
 {
     position: relative;
-    padding-bottom: 50vh;
+    padding-bottom: 48vh;
     
     font-family: 'Montserrat', sans-serif;
     text-transform: uppercase;

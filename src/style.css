@@ -36,6 +36,7 @@ main
     top: 90%;
     left: 50%;
     margin-left: -16px;
+    cursor: pointer;
 }
 
 img

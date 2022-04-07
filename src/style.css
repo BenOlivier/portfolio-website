@@ -38,6 +38,17 @@ main
     margin-left: -16px;
 }
 
+img
+{
+    opacity: 0.5;
+    transition: opacity 0.1s ease-in-out; 
+}
+img:hover
+{
+    opacity:0.8;
+    transition: opacity 0.1s ease-in-out;
+}
+
 .heading
 {
     position: relative;

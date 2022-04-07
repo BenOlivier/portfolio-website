@@ -12,7 +12,7 @@ html
 body
 {
     color:#ffffff;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 canvas
@@ -24,16 +24,12 @@ canvas
 
 main
 {
-    position: absolute;
-}
+    /* position: absolute; */
+    width: 100vw;
 
-/* .webgl
-{
-    position: fixed;
-    top: 0;
-    left: 0;
-    outline: none;
-} */
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+}
 
 .heading-container
 {
@@ -63,4 +59,13 @@ main
 
     font-size: 2vh;
     letter-spacing: 20px;
+}
+
+.lorem
+{
+    color: white;
+    position: relative;
+    display: grid;
+    grid-column: 3 / 6;
+    padding: 10vw;
 }

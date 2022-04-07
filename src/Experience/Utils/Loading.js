@@ -13,15 +13,14 @@ export default class Loading
         this.renderer = this.experience.renderer
         this.debug = this.experience.debug
 
-        // Resize event
+        // Events
         this.sizes.on('resize', () =>
         {
             this.resize()
         })
-
         this.time.on('tick', () =>
         {
-            if(this.loadingBar) this.updateLoadingBar()
+            this.updateLoadingBar()
         })
 
         // Parameters
@@ -70,12 +69,12 @@ export default class Loading
 
     setLoadingBar()
     {
-        this.loadingBarGeometry = new THREE.PlaneGeometry(0.5, 0.01, 1, 1)
+        this.loadingBarGeometry = new THREE.PlaneGeometry(0.35, 0.01, 1, 1)
         this.loadingBarMaterial = new THREE.ShaderMaterial({
             transparent: true,
             uniforms:
             {
-                progress: { value: 0.75 },
+                progress: { value: 0.44 },
                 alpha: { value: 1.0 },
                 u_resolution: { type: 'v2', value:
                     new THREE.Vector2(this.sizes.width, this.sizes.height) }
@@ -99,7 +98,7 @@ export default class Loading
                 {
                     vec2 st = gl_FragCoord.xy / u_resolution;
                     
-                    float y = step(st.x, progress);
+                    float y = step(st.x, 5.0);
                     vec3 color = vec3(y);
 
                     float pct = plot(st, y);
@@ -119,15 +118,16 @@ export default class Loading
 
     updateLoadingBar()
     {
-        if(this.experience.resources.progressRatio == 0)
-        {
-            this.loadingBarMaterial.uniforms.progress.value += 0.0005
-        }
-        else
-        {
-            this.loadingBarMaterial.uniforms.progress.value += this.experience.resources.progressRatio
-                * this.params.loadingBarSmoothing
-        }
+        // if(this.experience.resources.progressRatio == 0)
+        // {
+        //     this.loadingBarMaterial.uniforms.progress.value += 0.0005
+        // }
+        // else
+        // {
+        //     this.loadingBarMaterial.uniforms.progress.value += this.experience.resources.progressRatio
+        //         * this.params.loadingBarSmoothing
+        // }
+        // console.log(this.loadingBarMaterial.uniforms.progress.value)
     }
 
     fadeLoadingBar()
@@ -186,6 +186,8 @@ export default class Loading
 
     destroy()
     {
+        this.scene.remove(this.loadingBar)
+        this.scene.remove(this.overlay)
         this.overlayGeometry.dispose()
         this.loadingBarGeometry.dispose()
         this.overlayMaterial.dispose()

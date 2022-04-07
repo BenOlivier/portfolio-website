@@ -12,7 +12,7 @@ html
 body
 {
     color:#ffffff;
-    /* overflow: hidden; */
+    overflow: auto;
 }
 
 canvas
@@ -24,29 +24,19 @@ canvas
 
 main
 {
-    /* position: absolute; */
+    position: absolute;
     width: 100vw;
-
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-}
-
-.heading-container
-{
-    display: block;
-    position: relative;
-    text-align: center;
-    padding-top: 50vh;
-    padding-bottom: 50vh;
-    padding-left: 10vw;
-    padding-right: 10vw;
-    
-    font-family: 'Montserrat', sans-serif;
-    text-transform: uppercase;
 }
 
 .heading
 {
+    position: relative;
+    padding-top: 45vh;
+    padding-bottom: 8px;
+    
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    text-align: center;
     font-weight: 100;
     font-size: 4vh;
     letter-spacing: 12px;
@@ -54,9 +44,13 @@ main
 
 .subheading
 {
-    padding-top: 8px;
+    position: relative;
+    padding-bottom: 50vh;
+    
+    font-family: 'Montserrat', sans-serif;
     text-transform: uppercase;
-
+    text-align: center;
+    font-weight: 100;
     font-size: 2vh;
     letter-spacing: 20px;
 }
@@ -65,7 +59,5 @@ main
 {
     color: white;
     position: relative;
-    display: grid;
-    grid-column: 3 / 6;
     padding: 10vw;
 }

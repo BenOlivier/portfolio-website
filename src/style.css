@@ -50,7 +50,7 @@ main
 {
     position: relative;
     padding-top: 20vh;
-    padding-bottom: 1vw;
+    padding-bottom: min(1vw, 5px);
     
     font-family: 'Montserrat', sans-serif;
     text-transform: uppercase;
@@ -63,7 +63,7 @@ main
 .subheading
 {
     position: relative;
-    padding-bottom: 48vh;
+    padding-bottom: 70vh;
     
     font-family: 'Montserrat', sans-serif;
     text-transform: uppercase;

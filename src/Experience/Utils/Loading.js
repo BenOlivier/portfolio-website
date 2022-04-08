@@ -21,7 +21,7 @@ export default class Loading
         })
         this.time.on('tick', () =>
         {
-            this.updateLoadingBar()
+            if(this.loadingBar) this.updateLoadingBar()
         })
 
         // Parameters
@@ -74,6 +74,8 @@ export default class Loading
         // let progressController = {
         //     progressValue: 0.4375
         // }
+
+        console.log('set loading bar')
         
         this.loadingBarGeometry = new THREE.PlaneGeometry(0.25, 0.01, 1, 1)
         this.loadingBarMaterial = new THREE.ShaderMaterial({
@@ -89,7 +91,7 @@ export default class Loading
             uniform vec2 u_resolution;
             void main()
                 {
-                    gl_Position = vec4(position, 1.0) + vec4(0.0, -0.25, 0.0, 0.0);
+                    gl_Position = vec4(position, 1.0);
                 }
             `,
             fragmentShader: `
@@ -107,10 +109,9 @@ export default class Loading
                     
                     float y = step(st.x, progress);
                     vec3 color = vec3(y);
-
                     float pct = plot(st, y);
                     color = (1.0 - pct) * color
-                        + pct * vec3(0.0,1.0,0.0);
+                        + pct * vec3(1.0,1.0,1.0);
 
                     gl_FragColor = vec4(color,alpha);
                 }
@@ -143,6 +144,8 @@ export default class Loading
                 MathUtils.lerp(0.4375, 0.5625, this.experience.resources.progressRatio)
                 * this.params.loadingBarSmoothing
         }
+
+        console.log(this.loadingBarMaterial.uniforms.alpha.value)
     }
 
     fadeLoadingBar()
@@ -207,5 +210,7 @@ export default class Loading
         this.loadingBarGeometry.dispose()
         this.overlayMaterial.dispose()
         this.loadingBarMaterial.dispose()
+
+        console.log('destroyed')
     }
 }

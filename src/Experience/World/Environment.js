@@ -73,7 +73,7 @@ export default class Environment
                 .name('backgroundColor1')
                 .onChange(val => { this.backgroundMaterial.uniforms.color1.value.set(val) })
             
-                this.debugFolder
+            this.debugFolder
                 .addColor(colorController, 'color2')
                 .name('backgroundColor2')
                 .onChange(val => { this.backgroundMaterial.uniforms.color2.value.set(val) })

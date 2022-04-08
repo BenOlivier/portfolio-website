@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import { MathUtils } from 'three'
 import Experience from '../Experience.js'
 
 export default class Loading
@@ -25,7 +26,8 @@ export default class Loading
 
         // Parameters
         this.params = {
-            loadingBarSmoothing: 0.01
+            loadingBarSmoothing: 0.01,
+            loadingBarProgress: 0.5
         }
 
         // Debug
@@ -69,19 +71,27 @@ export default class Loading
 
     setLoadingBar()
     {
-        this.loadingBarGeometry = new THREE.PlaneGeometry(0.35, 0.01, 1, 1)
+        let progressController = {
+            progressValue: 0.4375
+        }
+        
+        this.loadingBarGeometry = new THREE.PlaneGeometry(0.25, 0.01, 1, 1)
         this.loadingBarMaterial = new THREE.ShaderMaterial({
             transparent: true,
             uniforms:
             {
-                progress: { value: 0.44 },
+                progress: { value: progressController.progressValue },
                 alpha: { value: 1.0 },
                 u_resolution: { type: 'v2', value:
                     new THREE.Vector2(this.sizes.width, this.sizes.height) }
             },
             vertexShader: `
-                void main()
+            uniform vec2 u_resolution;    
+            void main()
                 {
+                    // gl_Position = vec4((position.x / u_resolution.x) * 100.0,
+                    //     (position.y / u_resolution.y) * 500.0, position.z, 1.0);
+
                     gl_Position = vec4(position, 1.0);
                 }
             `,
@@ -98,12 +108,12 @@ export default class Loading
                 {
                     vec2 st = gl_FragCoord.xy / u_resolution;
                     
-                    float y = step(st.x, 5.0);
+                    float y = step(st.x, progress);
                     vec3 color = vec3(y);
 
                     float pct = plot(st, y);
                     color = (1.0 - pct) * color
-                        + pct * vec3(1.0,1.0,1.0);
+                        + pct * vec3(0.0,1.0,0.0);
 
                     gl_FragColor = vec4(color,alpha);
                 }
@@ -114,20 +124,28 @@ export default class Loading
         this.loadingBar.renderOrder = 999
         this.loadingBar.position.set(0, 2, 0)
         this.scene.add(this.loadingBar)
+
+        this.debugFolder
+                .add(this.params, 'loadingBarProgress')
+                .name('loadingBarProgress')
+                .min(0)
+                .max(1)
+                .step(0.01)
+                .onChange(val => { this.loadingBarMaterial.uniforms.progress.value = val })
     }
 
     updateLoadingBar()
     {
-        // if(this.experience.resources.progressRatio == 0)
-        // {
-        //     this.loadingBarMaterial.uniforms.progress.value += 0.0005
-        // }
-        // else
-        // {
-        //     this.loadingBarMaterial.uniforms.progress.value += this.experience.resources.progressRatio
-        //         * this.params.loadingBarSmoothing
-        // }
-        // console.log(this.loadingBarMaterial.uniforms.progress.value)
+        if(this.experience.resources.progressRatio == 0)
+        {
+            this.loadingBarMaterial.uniforms.progress.value += 0.0005
+        }
+        else
+        {
+            this.loadingBarMaterial.uniforms.progress.value +=
+                MathUtils.lerp(0.4375, 0.5625, this.experience.resources.progressRatio)
+                * this.params.loadingBarSmoothing
+        }
     }
 
     fadeLoadingBar()

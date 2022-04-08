@@ -7,11 +7,11 @@
 html
 {
     background: #000000;
-    /* scroll-behavior: smooth; */
 }
 
 body
 {
+    background: #000000;
     color:#ffffff;
     overflow: hidden;
 }
@@ -53,7 +53,7 @@ main
 .heading
 {
     position: relative;
-    padding-top: 48vh;
+    padding-top: 40vh;
     padding-bottom: 8px;
     
     font-family: 'Montserrat', sans-serif;

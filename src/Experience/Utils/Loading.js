@@ -71,28 +71,25 @@ export default class Loading
 
     setLoadingBar()
     {
-        let progressController = {
-            progressValue: 0.4375
-        }
+        // let progressController = {
+        //     progressValue: 0.4375
+        // }
         
         this.loadingBarGeometry = new THREE.PlaneGeometry(0.25, 0.01, 1, 1)
         this.loadingBarMaterial = new THREE.ShaderMaterial({
             transparent: true,
             uniforms:
             {
-                progress: { value: progressController.progressValue },
+                progress: { value: 0.4375 },
                 alpha: { value: 1.0 },
                 u_resolution: { type: 'v2', value:
                     new THREE.Vector2(this.sizes.width, this.sizes.height) }
             },
             vertexShader: `
-            uniform vec2 u_resolution;    
+            uniform vec2 u_resolution;
             void main()
                 {
-                    // gl_Position = vec4((position.x / u_resolution.x) * 100.0,
-                    //     (position.y / u_resolution.y) * 500.0, position.z, 1.0);
-
-                    gl_Position = vec4(position, 1.0);
+                    gl_Position = vec4(position, 1.0) + vec4(0.0, -0.25, 0.0, 0.0);
                 }
             `,
             fragmentShader: `
@@ -125,13 +122,13 @@ export default class Loading
         this.loadingBar.position.set(0, 2, 0)
         this.scene.add(this.loadingBar)
 
-        this.debugFolder
-                .add(this.params, 'loadingBarProgress')
-                .name('loadingBarProgress')
-                .min(0)
-                .max(1)
-                .step(0.01)
-                .onChange(val => { this.loadingBarMaterial.uniforms.progress.value = val })
+        // this.debugFolder
+        //         .add(this.params, 'loadingBarProgress')
+        //         .name('loadingBarProgress')
+        //         .min(0)
+        //         .max(1)
+        //         .step(0.01)
+        //         .onChange(val => { this.loadingBarMaterial.uniforms.progress.value = val })
     }
 
     updateLoadingBar()

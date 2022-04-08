@@ -4,16 +4,12 @@
     padding: 0;
 }
 
-html
+html, body
 {
-    background: #000000;
-}
-
-body
-{
+    position: relative;
+    overflow: hidden;
     background: #000000;
     color:#ffffff;
-    overflow: hidden;
 }
 
 canvas

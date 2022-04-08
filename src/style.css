@@ -49,15 +49,15 @@ main
 .heading
 {
     position: relative;
-    padding-top: 40vh;
-    padding-bottom: 8px;
+    padding-top: 20vh;
+    padding-bottom: 1vw;
     
     font-family: 'Montserrat', sans-serif;
     text-transform: uppercase;
     text-align: center;
     font-weight: 100;
-    font-size: 4vh;
-    letter-spacing: 12px;
+    font-size: min(6vw, 40px);
+    letter-spacing: min(3vw, 18px);
 }
 
 .subheading
@@ -69,8 +69,8 @@ main
     text-transform: uppercase;
     text-align: center;
     font-weight: 100;
-    font-size: 2vh;
-    letter-spacing: 20px;
+    font-size: min(4vw, 20px);
+    letter-spacing: min(3vw, 18px);
 }
 
 .lorem

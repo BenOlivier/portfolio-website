@@ -49,13 +49,9 @@ export default class Input extends EventEmitter
         // Touch down event
         window.addEventListener('touchdown', (event) =>
         {
-            this.mousePos.x = THREE.MathUtils.lerp
-                (this.mousePos.x, event.touches[0].clientX / this.sizes.width * 2 - 1,
-                this.params.inputSmoothing)
+            this.mousePos.x = event.touches[0].clientX / this.sizes.width * 2 - 1
             
-            this.mousePos.y = THREE.MathUtils.lerp
-                (this.mousePos.y, - (event.touches[0].clientY / this.sizes.height) * 2 + 1,
-                this.params.inputSmoothing)
+            this.mousePos.y = - (event.touches[0].clientY / this.sizes.height) * 2 + 1
 
             this.trigger('mousemove')
         })
@@ -63,13 +59,9 @@ export default class Input extends EventEmitter
         // Touch move event
         window.addEventListener('touchmove', (event) =>
         {
-            this.mousePos.x = THREE.MathUtils.lerp
-                (this.mousePos.x, event.touches[0].clientX / this.sizes.width * 2 - 1,
-                this.params.inputSmoothing)
+            this.mousePos.x = event.touches[0].clientX / this.sizes.width * 2 - 1
             
-            this.mousePos.y = THREE.MathUtils.lerp
-                (this.mousePos.y, - (event.touches[0].clientY / this.sizes.height) * 2 + 1,
-                this.params.inputSmoothing)
+            this.mousePos.y = - (event.touches[0].clientY / this.sizes.height) * 2 + 1
 
             this.trigger('mousemove')
         })

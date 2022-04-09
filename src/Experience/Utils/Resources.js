@@ -29,7 +29,6 @@ export default class Resources extends EventEmitter
             // Loaded
             () =>
             {
-                console.log('loaded')
                 // Fade out loading bar
                 setTimeout(() => {
                     this.experience.loading.fadeLoadingBar()

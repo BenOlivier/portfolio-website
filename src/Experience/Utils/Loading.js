@@ -1,5 +1,4 @@
 import * as THREE from 'three'
-import { MathUtils } from 'three'
 import Experience from '../Experience.js'
 
 export default class Loading
@@ -21,7 +20,7 @@ export default class Loading
         })
         this.time.on('tick', () =>
         {
-            if(this.loadingBar) this.updateLoadingBar()
+            if(this.loadingBar.parent == this.scene) this.updateLoadingBar()
         })
 
         // Parameters
@@ -70,8 +69,6 @@ export default class Loading
 
     setLoadingBar()
     {
-        console.log('set loading bar')
-        
         this.loadingBarGeometry = new THREE.PlaneGeometry(0.2, 0.01, 1, 1)
         this.loadingBarMaterial = new THREE.ShaderMaterial({
             transparent: true,
@@ -184,7 +181,5 @@ export default class Loading
         this.loadingBarGeometry.dispose()
         this.overlayMaterial.dispose()
         this.loadingBarMaterial.dispose()
-
-        console.log('destroyed')
     }
 }

@@ -71,33 +71,34 @@ export default class Loading
 
     setLoadingBar()
     {
-        // let progressController = {
-        //     progressValue: 0.4375
-        // }
-
         console.log('set loading bar')
         
-        this.loadingBarGeometry = new THREE.PlaneGeometry(0.25, 0.01, 1, 1)
+        this.loadingBarGeometry = new THREE.PlaneGeometry(0.2, 0.01, 1, 1)
         this.loadingBarMaterial = new THREE.ShaderMaterial({
             transparent: true,
             uniforms:
             {
-                progress: { value: 0.4375 },
-                alpha: { value: 1.0 },
-                u_resolution: { type: 'v2', value:
-                    new THREE.Vector2(this.sizes.width, this.sizes.height) }
+                uProgress: { value: this.params.loadingBarProgress },
+                uAlpha: { value: 1.0 },
+                uResolution: { value: new THREE.Vector2(this.sizes.width, this.sizes.height) }
             },
             vertexShader: `
-            uniform vec2 u_resolution;
+            uniform vec2 uResolution;
+            varying vec4 vModelPosition;
+
             void main()
                 {
-                    gl_Position = vec4(position, 1.0);
+                    vec4 modelPosition = vec4(position, 1.0) * modelMatrix;
+                    vModelPosition = modelPosition;
+                    gl_Position = modelPosition;
                 }
             `,
             fragmentShader: `
-                uniform float progress;
-                uniform float alpha;
-                uniform vec2 u_resolution;
+                uniform float uProgress;
+                uniform float uAlpha;
+                uniform vec2 uResolution;
+                varying vec4 vModelPosition;
+
                 float plot(vec2 st, float pct)
                 {
                     return  smoothstep(pct - 0.02, pct, st.y) -
@@ -105,15 +106,15 @@ export default class Loading
                 }
                 void main()
                 {
-                    vec2 st = gl_FragCoord.xy / u_resolution;
+                    vec2 st = gl_FragCoord.xy / uResolution;
                     
-                    float y = step(st.x, progress);
+                    float y = step(st.x, uProgress);
                     vec3 color = vec3(y);
                     float pct = plot(st, y);
                     color = (1.0 - pct) * color
                         + pct * vec3(1.0,1.0,1.0);
 
-                    gl_FragColor = vec4(color,alpha);
+                    gl_FragColor = vec4(color,uAlpha);
                 }
             `
         })
@@ -123,29 +124,29 @@ export default class Loading
         this.loadingBar.position.set(0, 2, 0)
         this.scene.add(this.loadingBar)
 
-        // this.debugFolder
-        //         .add(this.params, 'loadingBarProgress')
-        //         .name('loadingBarProgress')
-        //         .min(0)
-        //         .max(1)
-        //         .step(0.01)
-        //         .onChange(val => { this.loadingBarMaterial.uniforms.progress.value = val })
+        if(this.debug.active)
+        {
+            this.debugFolder
+            .add(this.params, 'loadingBarProgress')
+            .name('loadingBarProgress')
+            .min(0)
+            .max(1)
+            .step(0.01)
+            .onChange(val => { this.loadingBarMaterial.uniforms.uProgress.value = val })
+        }
     }
 
     updateLoadingBar()
     {
-        if(this.experience.resources.progressRatio == 0)
-        {
-            this.loadingBarMaterial.uniforms.progress.value += 0.0005
-        }
-        else
-        {
-            this.loadingBarMaterial.uniforms.progress.value +=
-                MathUtils.lerp(0.4375, 0.5625, this.experience.resources.progressRatio)
-                * this.params.loadingBarSmoothing
-        }
-
-        console.log(this.loadingBarMaterial.uniforms.alpha.value)
+        // if(this.experience.resources.progressRatio == 0)
+        // {
+        //     this.loadingBarMaterial.uniforms.uProgress.value += 0.0005
+        // }
+        // else
+        // {
+        //     this.loadingBarMaterial.uniforms.uProgress.value += this.experience.resources.progressRatio
+        //         * this.params.loadingBarSmoothing
+        // }
     }
 
     fadeLoadingBar()
@@ -153,7 +154,7 @@ export default class Loading
         let barAlpha = 1
         let interval = setInterval(() =>
         {
-            this.loadingBarMaterial.uniforms.alpha.value = animateFade(barAlpha)
+            this.loadingBarMaterial.uniforms.uAlpha.value = animateFade(barAlpha)
         }, 10)
 
         function animateFade()

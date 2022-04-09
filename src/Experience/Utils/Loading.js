@@ -77,7 +77,7 @@ export default class Loading
         }
         
         this.loadingBarGeometry = new THREE.PlaneGeometry(this.loadingBarWidth,
-            this.sizes.height * 0.000005, 1, 1)
+            this.sizes.height * 0.00001, 1, 1)
         this.loadingBarMaterial = new THREE.ShaderMaterial({
             transparent: true,
             uniforms:

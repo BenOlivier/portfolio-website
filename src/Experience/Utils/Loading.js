@@ -1,8 +1,6 @@
 import * as THREE from 'three'
 import { MathUtils } from 'three'
 import Experience from '../Experience.js'
-import loadingBarVertex from '../Shaders/loadingBarVertex.glsl'
-import loadingBarFragment from '../Shaders/loadingBarFragment.glsl'
 
 export default class Loading
 {
@@ -29,7 +27,7 @@ export default class Loading
         // Parameters
         this.params = {
             loadingBarSmoothing: 0.01,
-            loadingBarProgress: 0.5
+            loadingBarProgress: 0.0
         }
 
         // Debug
@@ -84,8 +82,26 @@ export default class Loading
                 uAlpha: { value: 1.0 },
                 uResolution: { value: new THREE.Vector2(this.sizes.width, this.sizes.height) }
             },
-            vertexShader: loadingBarVertex,
-            fragmentShader: loadingBarFragment
+            vertexShader: `
+            uniform vec2 uResolution;
+            varying vec2 vUv;
+
+            void main()
+            {
+                gl_Position = vec4(position, 1.0);
+                vUv = uv;
+            }`,
+            fragmentShader: `
+            uniform float uProgress;
+            uniform float uAlpha;
+            uniform vec2 uResolution;
+            varying vec2 vUv;
+
+            void main()
+            {
+                float fragColor = step(vUv.x, uProgress);
+                gl_FragColor = vec4(vec3(fragColor), uAlpha);
+            }`
         })
 
         this.loadingBar = new THREE.Mesh(this.loadingBarGeometry, this.loadingBarMaterial)
@@ -107,15 +123,15 @@ export default class Loading
 
     updateLoadingBar()
     {
-        // if(this.experience.resources.progressRatio == 0)
-        // {
-        //     this.loadingBarMaterial.uniforms.uProgress.value += 0.0005
-        // }
-        // else
-        // {
-        //     this.loadingBarMaterial.uniforms.uProgress.value += this.experience.resources.progressRatio
-        //         * this.params.loadingBarSmoothing
-        // }
+        if(this.experience.resources.progressRatio == 0)
+        {
+            this.loadingBarMaterial.uniforms.uProgress.value += 0.0005
+        }
+        else
+        {
+            this.loadingBarMaterial.uniforms.uProgress.value += this.experience.resources.progressRatio
+                * this.params.loadingBarSmoothing
+        }
     }
 
     fadeLoadingBar()

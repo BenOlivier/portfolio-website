@@ -26,8 +26,7 @@ export default class Loading
 
         // Parameters
         this.params = {
-            loadingBarSmoothing: 0.01,
-            loadingBarProgress: 0.0
+            loadingBarSmoothing: 0.05
         }
 
         // Debug
@@ -78,7 +77,7 @@ export default class Loading
             transparent: true,
             uniforms:
             {
-                uProgress: { value: this.params.loadingBarProgress },
+                uProgress: { value: 0.0 },
                 uAlpha: { value: 1.0 },
                 uResolution: { value: new THREE.Vector2(this.sizes.width, this.sizes.height) }
             },
@@ -108,24 +107,13 @@ export default class Loading
         this.loadingBar.renderOrder = 999
         this.loadingBar.position.set(0, 2, 0)
         this.scene.add(this.loadingBar)
-
-        if(this.debug.active)
-        {
-            this.debugFolder
-            .add(this.params, 'loadingBarProgress')
-            .name('loadingBarProgress')
-            .min(0)
-            .max(1)
-            .step(0.01)
-            .onChange(val => { this.loadingBarMaterial.uniforms.uProgress.value = val })
-        }
     }
 
     updateLoadingBar()
     {
         if(this.experience.resources.progressRatio == 0)
         {
-            this.loadingBarMaterial.uniforms.uProgress.value += 0.0005
+            this.loadingBarMaterial.uniforms.uProgress.value += 0.002
         }
         else
         {

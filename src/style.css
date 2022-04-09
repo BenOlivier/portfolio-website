@@ -25,6 +25,26 @@ main
     width: 100vw;
 }
 
+.home-button
+{
+    position: fixed;
+    display: block;
+    top: 10px;
+    left: 10px;
+    padding: 10px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.1s ease-in-out;
+    transition: transform 0.2s
+}
+.home-button:hover
+{
+    opacity: 1.0;
+    transition: opacity 0.1s ease-in-out;
+    transition: transform 0.2s;
+    transform: scale(1.1);
+}
+
 .button
 {
     position: fixed;
@@ -40,7 +60,7 @@ main
 }
 .button:hover
 {
-    opacity:1.0;
+    opacity: 1.0;
     transition: opacity 0.1s ease-in-out;
     transition: transform 0.2s;
     transform: scale(1.1);

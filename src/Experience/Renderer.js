@@ -13,6 +13,12 @@ export default class Renderer
         this.sizes = this.experience.sizes
         this.scene = this.experience.scene
         this.camera = this.experience.camera
+        this.debug = this.experience.debug
+
+        if(this.debug.active)
+        {
+            this.debugFolder = this.debug.ui.addFolder('renderer')
+        }
 
         this.setRenderer()
     }
@@ -46,6 +52,18 @@ export default class Renderer
         this.bloomPass.strength = 10;
 
         // this.effectComposer.addPass(this.bloomPass)
+
+        if(this.debug.active)
+        {
+            this.debugFolder.add(this.renderer, 'toneMapping', {
+                No: THREE.NoToneMapping,
+                Linear: THREE.ReinhardToneMapping,
+                Cineon: THREE.CineonToneMapping,
+                ACESFilmic: THREE.ACESFilmicToneMapping
+            })
+            
+            this.debugFolder.add(this.renderer, 'toneMappingExposure').min(0).max(10).step(0.001)
+        }
     }
 
     resize()

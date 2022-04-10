@@ -21,6 +21,7 @@ export default class World
 
     update()
     {
-        if(this.object) this.object.update()
+        if(this.environment) this.environment.updatePointLight()
+        if(this.object) this.object.updateObject()
     }
 }

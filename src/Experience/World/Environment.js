@@ -21,12 +21,6 @@ export default class Environment
 
         this.setBackground()
         this.setPointLight()
-
-        // Mouse move event
-        this.pointer.on('pointermove', () =>
-        {
-            this.updatePointLight()
-        })
     }
 
     setBackground()

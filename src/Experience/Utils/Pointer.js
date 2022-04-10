@@ -54,7 +54,5 @@ export default class Pointer extends EventEmitter
     {
         this.pointerPos.x = THREE.MathUtils.lerp(this.pointerPos.x, this.targetPos.x, this.params.pointerSmoothing)
         this.pointerPos.y = THREE.MathUtils.lerp(this.pointerPos.y, this.targetPos.y, this.params.pointerSmoothing)
-
-        this.trigger('pointermove')
     }
 }

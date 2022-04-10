@@ -72,7 +72,7 @@ export default class Object
         }
     }
 
-    update()
+    updateObject()
     {
         this.targetQuaternion.setFromEuler(new THREE.Euler
             (0, this.pointer.pointerPos.x * this.params.rotationExtent / this.sizes.width, 0, 'XYZ'))

@@ -10,6 +10,7 @@ html, body
     overflow: hidden;
     background: #000000;
     color:#ffffff;
+    touch-action: none;
 }
 
 canvas

@@ -10,7 +10,7 @@ export default class Environment
         this.scene = this.experience.scene
         this.resources = this.experience.resources
         this.debug = this.experience.debug
-        this.input = this.experience.input
+        this.pointer = this.experience.pointer
         this.camera = this.experience.camera
         
         // Debug
@@ -23,7 +23,7 @@ export default class Environment
         this.setPointLight()
 
         // Mouse move event
-        this.input.on('mousemove', () =>
+        this.pointer.on('pointermove', () =>
         {
             this.updatePointLight()
         })
@@ -117,7 +117,7 @@ export default class Environment
 
     updatePointLight()
     {
-        this.mouseVec.set(this.input.mousePos.x, this.input.mousePos.y, 0)
+        this.mouseVec.set(this.pointer.pointerPos.x, this.pointer.pointerPos.y, 0)
             .unproject(this.camera.camera).sub(this.camera.camera.position).normalize()
         this.lightPos.copy(this.camera.camera.position).add(this.mouseVec.multiplyScalar
             ((this.pointLight.position.z - this.camera.camera.position.z ) / this.mouseVec.z))

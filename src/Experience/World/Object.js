@@ -11,7 +11,7 @@ export default class Object
         this.resources = this.experience.resources
         this.time = this.experience.time
         this.debug = this.experience.debug
-        this.input = this.experience.input
+        this.pointer = this.experience.pointer
 
         // Parameters
         this.params = {
@@ -75,7 +75,7 @@ export default class Object
     update()
     {
         this.targetQuaternion.setFromEuler(new THREE.Euler
-            (0, this.input.mousePos.x * this.params.rotationExtent / this.sizes.width, 0, 'XYZ'))
+            (0, this.pointer.pointerPos.x * this.params.rotationExtent / this.sizes.width, 0, 'XYZ'))
             
         this.model.quaternion.slerp(this.targetQuaternion, this.params.rotationSmoothing)
     }

@@ -4,7 +4,7 @@ import Sizes from './Utils/Sizes.js'
 import Loading from './Utils/Loading.js'
 import Time from './Utils/Time.js'
 import Camera from './World/Camera.js'
-import Input from './Utils/Input.js'
+import Pointer from './Utils/Pointer.js'
 import Renderer from './Renderer.js'
 import World from './World/World.js'
 import Resources from './Utils/Resources.js'
@@ -37,7 +37,7 @@ export default class Experience
         this.loading = new Loading()
         this.resources = new Resources(sources)
         this.camera = new Camera()
-        this.input = new Input()
+        this.pointer = new Pointer()
         this.renderer = new Renderer()
         this.world = new World()
 

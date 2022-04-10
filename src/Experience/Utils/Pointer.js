@@ -12,12 +12,15 @@ export default class Pointer extends EventEmitter
         this.targetPos = new THREE.Vector2()
         this.pointerPos = new THREE.Vector2()
         this.experience = new Experience()
+        this.time = this.experience.time
         this.sizes = this.experience.sizes
         this.debug = this.experience.debug
+        this.shouldUpdate = false
+        this.timer = 0
 
         // Parameters
         this.params = {
-            pointerSmoothing: 0.5
+            pointerSmoothing: 0.4
         }
 
         // Debug
@@ -28,13 +31,14 @@ export default class Pointer extends EventEmitter
                 .min(0).max(1).step(0.001)
         }
 
+        // Time tick event
+        this.time.on('tick', () => { this.updatePointerPosition() })
+
         // Pointer down event
         window.addEventListener('pointerdown', (event) =>
         {
             this.targetPos.x = event.clientX / this.sizes.width * 2 - 1
             this.targetPos.y = -(event.clientY / this.sizes.height) * 2 + 1
-            this.trigger('pointermove')
-            this.updatePointerPosition()
         })
 
         // Pointer move event
@@ -42,18 +46,15 @@ export default class Pointer extends EventEmitter
         {
             this.targetPos.x = event.clientX / this.sizes.width * 2 - 1
             this.targetPos.y = -(event.clientY / this.sizes.height) * 2 + 1
-            this.trigger('pointermove')
-            this.updatePointerPosition()
-            console.log('pointer move')
         })
     }
 
     // Update pointer position
     updatePointerPosition()
     {
-        this.pointerPos = new THREE.Vector2(
-            THREE.MathUtils.lerp(this.pointerPos.x, this.targetPos.x, this.params.pointerSmoothing),
-            THREE.MathUtils.lerp(this.pointerPos.y, this.targetPos.y, this.params.pointerSmoothing)
-        )
+        this.pointerPos.x = THREE.MathUtils.lerp(this.pointerPos.x, this.targetPos.x, this.params.pointerSmoothing)
+        this.pointerPos.y = THREE.MathUtils.lerp(this.pointerPos.y, this.targetPos.y, this.params.pointerSmoothing)
+
+        this.trigger('pointermove')
     }
 }

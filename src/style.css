@@ -17,7 +17,7 @@ html, body
     touch-action: none;
 }
 
-.canvas
+.webgl
 {
     position: fixed;
     top: 0;

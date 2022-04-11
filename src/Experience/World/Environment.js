@@ -26,32 +26,40 @@ export default class Environment
     setBackground()
     {
         let colorController = {
-            color1: "#333333",
-            color2: "#000000"
+            uColor1: "#5c5c5c",
+            uColor2: "#000000"
         }
         
         this.backgroundGeometry = new THREE.PlaneGeometry(10, 10, 1, 1)
         this.backgroundMaterial = new THREE.ShaderMaterial({
             uniforms: {
-              color1: { value: new THREE.Color(colorController.color1) },
-              color2: { value: new THREE.Color(colorController.color2) },
+                uColor1: { value: new THREE.Color(colorController.uColor1) },
+                uColor2: { value: new THREE.Color(colorController.uColor2) },
+                uRadius: { value: 0.3 }
             },
-            vertexShader: `varying vec2 vUv;
+            vertexShader: `
+                varying vec2 vUv;
+
                 void main()
                 {
-                    // vUv = uv;
-                    vUv = vec2(position.x, position.y) * 0.5 + 0.5;
                     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-                }`,
-            fragmentShader: `varying vec2 vUv;
-                uniform vec3 color1;
-                uniform vec3 color2;
+                    vUv = uv;
+                }
+            `,
+            fragmentShader: `
+                uniform vec3 uColor1;
+                uniform vec3 uColor2;
+                uniform float uRadius;
+
+                varying vec2 vUv;
+
                 void main()
                 {
-                    vec2 uv = (vUv - 0.5);
-                    gl_FragColor = vec4( mix( color1, color2, length(uv)), 1.0);
-                }`
-            })
+                    float strength = length(vUv - 0.5) / uRadius;
+                    gl_FragColor = vec4(mix(uColor1, uColor2, strength), 1.0);
+                }
+            `
+        })
 
         this.background = new THREE.Mesh
             (this.backgroundGeometry, this.backgroundMaterial)
@@ -63,14 +71,16 @@ export default class Environment
         if(this.debug.active)
         {
             this.debugFolder
-                .addColor(colorController, 'color1')
+                .addColor(colorController, 'uColor1')
                 .name('backgroundColor1')
-                .onChange(val => { this.backgroundMaterial.uniforms.color1.value.set(val) })
+                .onChange(val => { this.backgroundMaterial.uniforms.uColor1.value.set(val) })
             
             this.debugFolder
-                .addColor(colorController, 'color2')
+                .addColor(colorController, 'uColor2')
                 .name('backgroundColor2')
-                .onChange(val => { this.backgroundMaterial.uniforms.color2.value.set(val) })
+                .onChange(val => { this.backgroundMaterial.uniforms.uColor2.value.set(val) })
+            
+            this.debugFolder.add(this.backgroundMaterial.uniforms.uRadius, 'value').min(0).max(1).step(0.01).name('radius')
         }
     }
 

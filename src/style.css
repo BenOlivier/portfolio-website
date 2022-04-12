@@ -82,7 +82,7 @@ html, body
     letter-spacing: min(3vw, 18px);
 }
 
-.h1
+.archetype
 {
     padding-bottom: min(1vw, 5px);
     
@@ -91,7 +91,7 @@ html, body
     letter-spacing: min(3vw, 18px);
 }
 
-.h2
+.studio
 {
     font-weight: 200;
     font-size: min(4vw, 20px);

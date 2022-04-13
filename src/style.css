@@ -26,6 +26,11 @@ html, body
     height: 100%;
 }
 
+.section
+{
+    height: 100vh;
+}
+
 .home-button
 {
     position: fixed;
@@ -46,28 +51,7 @@ html, body
     transform: scale(1.1);
 }
 
-.down-button
-{
-    position: absolute;
-    display: block;
-    top: 85%;
-    left: 50%;
-    margin-left: -56px;
-    cursor: pointer;
-    padding: 30px;
-    opacity: 0.7;
-    transition: opacity 0.1s ease-in-out;
-    transition: transform 0.2s
-}
-.down-button:hover
-{
-    opacity: 1.0;
-    transition: opacity 0.1s ease-in-out;
-    transition: transform 0.2s;
-    transform: scale(1.1);
-}
-
-.headings
+.heading
 {
     position: relative;
     text-align: center;
@@ -80,9 +64,18 @@ html, body
     font-weight: 100;
     font-size: min(6vw, 40px);
     letter-spacing: min(3vw, 18px);
+    opacity: 0;
+    transition: opacity 2s, transform 1s;
+    transform: scale(0.95, 0.95);
 }
 
-.headings h1
+.heading.visible
+{
+    opacity: 1;
+    transform: scale(1, 1);
+}
+
+.heading h1
 {
     padding-bottom: min(3vw, 30px);
     
@@ -91,13 +84,13 @@ html, body
     letter-spacing: min(3vw, 18px);
 }
 
-.headings hr
+.heading hr
 {
     width: 10vw;
     margin: auto;
 }
 
-.headings h2
+.heading h2
 {
     padding-top: min(3vw, 30px);
     
@@ -106,14 +99,33 @@ html, body
     letter-spacing: min(1vw, 10px);
 }
 
+.down-button
+{
+    position: absolute;
+    display: block;
+    top: 85%;
+    left: 50%;
+    margin-left: -56px;
+    cursor: pointer;
+    padding: 30px;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.down-button.visible
+{
+    opacity: 0.7;
+}
+
+.down-button.visible:hover
+{
+    opacity: 1.0;
+    transform: scale(1.1);
+}
+
 .lorem
 {
     font-family: 'Open Sans', sans-serif;
     position: relative;
     padding: 10vw;
-}
-
-.section
-{
-    height: 100vh;
 }

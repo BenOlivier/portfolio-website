@@ -12,6 +12,8 @@ export default class Loading
         this.canvas = this.experience.canvas
         this.renderer = this.experience.renderer
         this.debug = this.experience.debug
+        this.heading = document.querySelector('.heading')
+        this.downButton = document.querySelector('.down-button')
 
         // Events
         this.sizes.on('resize', () =>
@@ -25,7 +27,8 @@ export default class Loading
 
         // Parameters
         this.params = {
-            loadingBarSmoothing: 0.05
+            loadingBarSmoothing: 0.05,
+            fadeInTime: 2
         }
 
         // Debug
@@ -65,6 +68,8 @@ export default class Loading
         this.overlay = new THREE.Mesh(this.overlayGeometry, this.overlayMaterial)
         this.overlay.renderOrder = 0
         this.scene.add(this.overlay)
+
+        this.debugFolder.add(this.params, 'fadeInTime').min(0).max(5).step(0.1).name('fadeInTime')
     }
 
     setLoadingBar()
@@ -127,6 +132,30 @@ export default class Loading
         }
     }
 
+    initiateLoadedSequence()
+    {
+        // Fade out loading bar
+        setTimeout(() => {
+            this.fadeLoadingBar()
+        }, 500)
+        // Fade in heading
+        setTimeout(() => {
+            this.heading.classList.add('visible')
+        }, 500)
+        // Fade out overlay
+        setTimeout(() => {
+            this.fadeOverlay()
+        }, 2000)
+        // Fade in down button
+        setTimeout(() => {
+            this.downButton.classList.add('visible')
+        }, 3000)
+        // Destroy loading bar and overlay
+        setTimeout(() => {
+            this.destroy()
+        }, 4000)
+    }
+
     fadeLoadingBar()
     {
         let barAlpha = 1
@@ -153,6 +182,7 @@ export default class Loading
     fadeOverlay()
     {
         let overlayAlpha = 1
+        let fadeInTime = this.params.fadeInTime
         let interval = setInterval(() =>
         {
             this.overlayMaterial.uniforms.uAlpha.value = animateFade(overlayAlpha)
@@ -162,7 +192,7 @@ export default class Loading
         {
             if(overlayAlpha > 0)
             {
-                overlayAlpha -= 0.01
+                overlayAlpha -= 1 / (fadeInTime * 100)
                 return overlayAlpha
             }
             else

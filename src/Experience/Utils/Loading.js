@@ -87,25 +87,25 @@ export default class Loading
                 uResolution: { value: new THREE.Vector2(this.sizes.width, this.sizes.height) }
             },
             vertexShader: `
-            uniform vec2 uResolution;
-            varying vec2 vUv;
+                varying vec2 vUv;
 
-            void main()
-            {
-                gl_Position = vec4(position, 1.0);
-                vUv = uv;
-            }`,
+                void main()
+                {
+                    gl_Position = vec4(position, 1.0);
+                    vUv = uv;
+                }
+            `,
             fragmentShader: `
-            uniform float uProgress;
-            uniform float uAlpha;
-            uniform vec2 uResolution;
-            varying vec2 vUv;
+                uniform float uProgress;
+                uniform float uAlpha;
+                varying vec2 vUv;
 
-            void main()
-            {
-                float fragColor = step(vUv.x, uProgress);
-                gl_FragColor = vec4(vec3(fragColor), uAlpha);
-            }`
+                void main()
+                {
+                    float fragColor = step(vUv.x, uProgress);
+                    gl_FragColor = vec4(vec3(fragColor), uAlpha);
+                }
+            `
         })
 
         this.loadingBar = new THREE.Mesh(this.loadingBarGeometry, this.loadingBarMaterial)

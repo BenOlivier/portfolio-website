@@ -69,7 +69,10 @@ export default class Loading
         this.overlay.renderOrder = 0
         this.scene.add(this.overlay)
 
-        this.debugFolder.add(this.params, 'fadeInTime').min(0).max(5).step(0.1).name('fadeInTime')
+        if(this.debug.active)
+        {
+            this.debugFolder.add(this.params, 'fadeInTime').min(0).max(5).step(0.1).name('fadeInTime')
+        }
     }
 
     setLoadingBar()

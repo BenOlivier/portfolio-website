@@ -67,12 +67,12 @@ html, body
     transform: scale(1.1);
 }
 
-.header-container
+.headings
 {
     position: relative;
     text-align: center;
-    padding-top: 30vh;
-    padding-bottom: 70vh;
+    padding-top: 42vh;
+    padding-bottom: 45vh;
     padding-left: 1vw;
     
     font-family: 'Montserrat', sans-serif;
@@ -82,20 +82,28 @@ html, body
     letter-spacing: min(3vw, 18px);
 }
 
-.archetype
+.headings h1
 {
-    padding-bottom: min(1vw, 5px);
+    padding-bottom: min(3vw, 30px);
     
     font-weight: 100;
     font-size: min(6vw, 40px);
     letter-spacing: min(3vw, 18px);
 }
 
-.studio
+.headings hr
 {
+    width: 10vw;
+    margin: auto;
+}
+
+.headings h2
+{
+    padding-top: min(3vw, 30px);
+    
     font-weight: 200;
-    font-size: min(4vw, 20px);
-    letter-spacing: min(3vw, 18px);
+    font-size: min(2vw, 10px);
+    letter-spacing: min(1vw, 10px);
 }
 
 .lorem

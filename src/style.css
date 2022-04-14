@@ -30,9 +30,18 @@ html, body
 {
     position: relative;
     height: 100vh;
-
     display: flex;
+}
+
+.section:nth-of-type(1)
+{
     justify-content: center;
+    align-items: center;
+}
+
+.section:nth-of-type(2)
+{
+    justify-content: left;
     align-items: center;
 }
 
@@ -125,8 +134,40 @@ html, body
     transform: scale(1.1);
 }
 
-.lorem
+.card
 {
     font-family: 'Open Sans', sans-serif;
     position: relative;
+    padding: 0 5%;
+    margin: 5%;
+    height: 60%;
+    width: 30%;
+    border-radius: 10px;
+    backdrop-filter: blur(20px);
+    background-color: #77777740;
+}
+
+#section2 h3
+{
+    padding: 10% 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2em;
+}
+
+#section2 p
+{
+    margin-bottom: 10%;
+    line-height: 1.5em;
+}
+
+#section2 h4
+{
+    padding: 0 0 2% 0;
+}
+
+#section2 li
+{
+    margin-left: 5%;
+    padding-bottom: 0.5em;
+    font-weight: 500;
 }

@@ -80,23 +80,23 @@ html, body
     margin-bottom: 1em;
     margin-right: -0.5em;
     
-    font-weight: 100;
+    font-weight: 400;
     font-size: 1em;
     letter-spacing: 0.5em;
 }
 
 .heading hr
 {
-    width: 10vw;
+    width: 2em;
     margin: auto;
 }
 
 .heading h2
 {
-    margin-top: 2em;
+    margin-top: 2.2em;
     margin-right: -0.5em;
 
-    font-weight: 200;
+    font-weight: 500;
     font-size: 0.3em;
     letter-spacing: 0.5em;
 }
@@ -129,5 +129,4 @@ html, body
 {
     font-family: 'Open Sans', sans-serif;
     position: relative;
-    padding: 10vw;
 }

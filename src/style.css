@@ -28,13 +28,18 @@ html, body
 
 .section
 {
+    position: relative;
     height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .home-button
 {
     position: fixed;
-    display: block;
+    z-index:1000;
     top: 10px;
     left: 10px;
     padding: 20px;
@@ -53,17 +58,14 @@ html, body
 
 .heading
 {
-    position: relative;
     text-align: center;
-    margin: 42vh 0 42vh 0;
-    
     font-family: 'Montserrat', sans-serif;
     text-transform: uppercase;
     font-weight: 100;
     font-size: min(6vw, 40px);
     letter-spacing: min(3vw, 18px);
     opacity: 0;
-    transition: opacity 2s, transform 1s;
+    transition: opacity 2s, transform 1s ease-out;
     transform: scale(0.95, 0.95);
 }
 

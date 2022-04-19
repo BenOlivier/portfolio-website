@@ -78,5 +78,7 @@ export default class Object
             (0, this.pointer.pointerPos.x * this.params.rotationExtent / this.sizes.width, 0, 'XYZ'))
             
         this.model.quaternion.slerp(this.targetQuaternion, this.params.rotationSmoothing)
+
+        this.model.position.y = window.scrollY * 0.001
     }
 }

@@ -44,13 +44,6 @@ export default class Camera
         
         this.scene.add(this.camera)
 
-        let scrollY = window.scrollY
-
-        window.addEventListener('scroll', () =>
-        {
-            console.log('scrolling ' + window.scrollY)
-        })
-
         // Debug
         if(this.debug.active)
         {

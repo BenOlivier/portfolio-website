@@ -6,8 +6,8 @@
 
 html, body
 {
-    /* position: fixed; */
-    /* overflow: hidden; */
+    /* position: fixed;
+    overflow: hidden; */
     top: 0;
     left: 0;
     width: 100%;
@@ -177,7 +177,7 @@ html, body
 #section3
 {
     display: block;
-    backdrop-filter: blur(50px);
+    backdrop-filter: blur(25px);
     background-color: #77777740;
 }
 
@@ -253,5 +253,6 @@ html, body
     text-align: center;
     font-family: 'Open Sans', sans-serif;
     font-size: 15px;
+    font-weight: 200;
     padding: 100px 0;
 }

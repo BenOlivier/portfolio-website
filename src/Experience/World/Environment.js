@@ -10,7 +10,6 @@ export default class Environment
         this.scene = this.experience.scene
         this.resources = this.experience.resources
         this.debug = this.experience.debug
-        this.pointer = this.experience.pointer
         this.camera = this.experience.camera
         
         // Debug
@@ -117,15 +116,5 @@ export default class Environment
                 .addColor(this.pointLight, 'color')
                 .name('pointLightColor')
         }
-    }
-
-    updatePointLight()
-    {
-        this.mouseVec.set(this.pointer.pointerPos.x, this.pointer.pointerPos.y, 0)
-            .unproject(this.camera.camera).sub(this.camera.camera.position).normalize()
-        this.lightPos.copy(this.camera.camera.position).add(this.mouseVec.multiplyScalar
-            ((this.pointLight.position.z - this.camera.camera.position.z ) / this.mouseVec.z))
-
-        this.pointLight.position.set(this.lightPos.x, this.lightPos.y, this.lightPos.z)
     }
 }

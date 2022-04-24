@@ -17,7 +17,7 @@ export default class Object
         this.params = {
             objectScale: 0.5,
             rotationSmoothing: 0.005,
-            rotationExtent: 500
+            rotationExtent: 100
         }
 
         // Debug
@@ -74,11 +74,9 @@ export default class Object
 
     updateObject()
     {
-        // this.targetQuaternion.setFromEuler(new THREE.Euler
-        //     (0, this.pointer.pointerPos.x * this.params.rotationExtent / this.sizes.width, 0, 'XYZ'))
+        this.targetQuaternion.setFromEuler(new THREE.Euler
+            (0, -this.pointer.pointerPos.x * this.params.rotationExtent / this.sizes.width, 0, 'XYZ'))
             
-        // this.model.quaternion.slerp(this.targetQuaternion, this.params.rotationSmoothing)
-
-        // this.model.position.y = window.scrollY * 0.001
+        this.model.quaternion.slerp(this.targetQuaternion, this.params.rotationSmoothing)
     }
 }

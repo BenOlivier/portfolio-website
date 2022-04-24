@@ -18,7 +18,7 @@ export default class Environment
             this.debugFolder = this.debug.ui.addFolder('environment')
         }
 
-        this.setBackground()
+        // this.setBackground()
         this.setPointLight()
     }
 
@@ -26,7 +26,7 @@ export default class Environment
     {
         let colorController = {
             uColor1: "#5c5c5c",
-            uColor2: "#000000"
+            uColor2: "#e8e8e8"
         }
         
         this.backgroundGeometry = new THREE.PlaneGeometry(10, 10, 1, 1)

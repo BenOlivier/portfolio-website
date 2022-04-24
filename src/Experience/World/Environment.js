@@ -19,7 +19,8 @@ export default class Environment
         }
 
         // this.setBackground()
-        this.setPointLight()
+        this.setDirectionalLight()
+        this.setAmbientLight()
     }
 
     setBackground()
@@ -83,38 +84,60 @@ export default class Environment
         }
     }
 
-    setPointLight()
+    setDirectionalLight()
     {
-        this.pointLight = new THREE.PointLight('#ffffff', 5)
-        this.pointLight.castShadow = true
-        this.pointLight.shadow.camera.far = 15
-        this.pointLight.shadow.mapSize.set(1024, 1024)
-        this.pointLight.shadow.normalBias = 0.05
-        this.pointLight.position.set(0, 2, 2)
-        this.mouseVec = new THREE.Vector3()
-        this.lightPos = new THREE.Vector3()
-        this.scene.add(this.pointLight)
+        this.directionalLight = new THREE.DirectionalLight('#ffffff', 1)
+        this.directionalLight.position.set(0, 2, 2)
+        this.scene.add(this.directionalLight)
 
         // Debug
         if(this.debug.active)
         {
             this.debugFolder
-                .add(this.pointLight, 'intensity')
-                .name('pointLightIntensity')
+                .add(this.directionalLight, 'intensity')
+                .name('directionalLightIntensity')
                 .min(0)
                 .max(10)
                 .step(0.001)
             
             this.debugFolder
-                .add(this.pointLight.position, 'z')
-                .name('pointLightDistance')
+                .add(this.directionalLight.position, 'x')
+                .name('directionalLightX')
                 .min(0)
                 .max(10)
                 .step(0.001)
 
             this.debugFolder
-                .addColor(this.pointLight, 'color')
-                .name('pointLightColor')
+                .add(this.directionalLight.position, 'z')
+                .name('directionalLightZ')
+                .min(0)
+                .max(10)
+                .step(0.001)
+
+            this.debugFolder
+                .addColor(this.directionalLight, 'color')
+                .name('directionalLightColor')
+        }
+    }
+
+    setAmbientLight()
+    {
+        this.ambientLight = new THREE.AmbientLight('#ffffff', 0.5)
+        this.scene.add(this.ambientLight)
+
+        // Debug
+        if(this.debug.active)
+        {
+            this.debugFolder
+                .add(this.ambientLight, 'intensity')
+                .name('ambientLightIntensity')
+                .min(0)
+                .max(10)
+                .step(0.001)
+
+            this.debugFolder
+                .addColor(this.ambientLight, 'color')
+                .name('ambientLightColor')
         }
     }
 }

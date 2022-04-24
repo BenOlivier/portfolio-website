@@ -38,6 +38,7 @@ export default class Renderer
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
         this.renderer.setSize(this.sizes.width, this.sizes.height)
         this.renderer.setPixelRatio(Math.min(this.sizes.pixelRatio, 2))
+        // this.renderer.sortObjects = false
 
         this.renderTarget = new THREE.WebGLRenderTarget()
         this.effectComposer = new EffectComposer(this.renderer, this.renderTarget)

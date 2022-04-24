@@ -12,6 +12,19 @@ export default class Object
         this.time = this.experience.time
         this.debug = this.experience.debug
         this.pointer = this.experience.pointer
+        this.camera = this.experience.camera
+
+        // Raycaster
+        this.raycaster = new THREE.Raycaster()
+        this.rayOrigin  = new THREE.Vector3(-3, 0, 0)
+        this.rayDirection = new THREE.Vector3(10, 0, 0)
+        this.rayDirection.normalize()
+        this.raycaster.set(this.rayOrigin, this.rayDirection)
+        // this.intersect = raycaster.intersectObject(overlay1)
+        window.addEventListener('mousemove', (event) =>
+        {
+            this.castRays()
+        })
 
         // Parameters
         this.params = {
@@ -30,6 +43,7 @@ export default class Object
         this.resource = this.resources.items.objectModel
 
         this.setModel()
+        this.intersect = this.raycaster.intersectObject(this.overlay1)
     }
 
     setModel()
@@ -39,7 +53,10 @@ export default class Object
             this.params.objectScale, this.params.objectScale)
         this.scene.add(this.model)
 
-        this.targetQuaternion = new THREE.Quaternion()
+        this.overlay1 = this.model.children[0].children[1].children[0]
+        this.overlay2 = this.model.children[0].children[1].children[1]
+        this.overlay3 = this.model.children[0].children[1].children[2]
+        // this.overlays = [this.overlay1, this.overlay2, this.overlay3]
 
         // Debug
         if(this.debug.active)
@@ -72,11 +89,29 @@ export default class Object
         }
     }
 
-    updateObject()
+    castRays()
     {
-        this.targetQuaternion.setFromEuler(new THREE.Euler
-            (0, -this.pointer.pointerPos.x * this.params.rotationExtent / this.sizes.width, 0, 'XYZ'))
-            
-        this.model.quaternion.slerp(this.targetQuaternion, this.params.rotationSmoothing)
+        this.raycaster.setFromCamera(this.pointer, this.camera.camera)
+        this.intersects = this.raycaster.intersectObjects(this.overlay1)
+
+        console.log('update')
+
+        if(this.intersects.length)
+        {
+            console.log('length')
+            if(this.currentIntersect == null)
+            {
+                console.log('mouse enter')
+            }
+            this.currentIntersect = this.intersects[0]
+        }
+        else
+        {
+            if(this.currentIntersect)
+            {
+                console.log('mouse leave')
+            }
+            this.currentIntersect = null
+        }
     }
 }

@@ -14,18 +14,6 @@ export default class Object
         this.pointer = this.experience.pointer
         this.camera = this.experience.camera
 
-        // Raycaster
-        this.raycaster = new THREE.Raycaster()
-        this.rayOrigin  = new THREE.Vector3(-3, 0, 0)
-        this.rayDirection = new THREE.Vector3(10, 0, 0)
-        this.rayDirection.normalize()
-        this.raycaster.set(this.rayOrigin, this.rayDirection)
-        // this.intersect = raycaster.intersectObject(overlay1)
-        window.addEventListener('mousemove', (event) =>
-        {
-            this.castRays()
-        })
-
         // Parameters
         this.params = {
             objectScale: 0.5,
@@ -43,7 +31,7 @@ export default class Object
         this.resource = this.resources.items.objectModel
 
         this.setModel()
-        this.intersect = this.raycaster.intersectObject(this.overlay1)
+        this.setRaycaster()
     }
 
     setModel()
@@ -53,10 +41,17 @@ export default class Object
             this.params.objectScale, this.params.objectScale)
         this.scene.add(this.model)
 
+        this.cube1 = this.model.children[0].children[0].children[0]
+        this.cube2 = this.model.children[0].children[0].children[1]
+        this.cube3 = this.model.children[0].children[0].children[2]
+
         this.overlay1 = this.model.children[0].children[1].children[0]
         this.overlay2 = this.model.children[0].children[1].children[1]
         this.overlay3 = this.model.children[0].children[1].children[2]
-        // this.overlays = [this.overlay1, this.overlay2, this.overlay3]
+        
+        this.overlay1.visible = false
+        this.overlay2.visible = false
+        this.overlay3.visible = false
 
         // Debug
         if(this.debug.active)
@@ -89,29 +84,38 @@ export default class Object
         }
     }
 
+    setRaycaster()
+    {
+        this.raycaster = new THREE.Raycaster()
+
+        window.addEventListener('mousemove', (event) =>
+        {
+            this.castRays()
+        })
+    }
+
     castRays()
     {
-        this.raycaster.setFromCamera(this.pointer, this.camera.camera)
-        this.intersects = this.raycaster.intersectObjects(this.overlay1)
-
-        console.log('update')
+        this.raycaster.setFromCamera(this.pointer.pointerPos, this.camera.camera)
+        this.intersects = this.raycaster.intersectObjects([this.overlay1, this.overlay2, this.overlay3])
 
         if(this.intersects.length)
         {
-            console.log('length')
             if(this.currentIntersect == null)
             {
                 console.log('mouse enter')
+                this.currentIntersect = this.intersects[0]
+                this.currentIntersect.object.visible = true
             }
-            this.currentIntersect = this.intersects[0]
         }
         else
         {
             if(this.currentIntersect)
             {
                 console.log('mouse leave')
+                this.currentIntersect.object.visible = false
+                this.currentIntersect = null
             }
-            this.currentIntersect = null
         }
     }
 }

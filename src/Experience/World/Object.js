@@ -45,13 +45,30 @@ export default class Object
         this.cube2 = this.model.children[0].children[0].children[1]
         this.cube3 = this.model.children[0].children[0].children[2]
 
-        this.overlay1 = this.model.children[0].children[1].children[0]
-        this.overlay2 = this.model.children[0].children[1].children[1]
-        this.overlay3 = this.model.children[0].children[1].children[2]
+        this.overlays = this.model.children[0].children[1]
+        this.overlay1 = this.overlays.children[0].children[0]
+        this.overlay2 = this.overlays.children[1].children[0]
+        this.overlay3 = this.overlays.children[2].children[0]
+
+        this.text1 = this.model.children[0].children[1].children[0].children[1]
+        this.text2 = this.model.children[0].children[1].children[1].children[1]
+        this.text3 = this.model.children[0].children[1].children[2].children[1]
         
         this.overlay1.visible = false
         this.overlay2.visible = false
         this.overlay3.visible = false
+
+        this.text1.visible = false
+        this.text2.visible = false
+        this.text3.visible = false
+
+        this.overlay1Mat = new THREE.MeshStandardMaterial({ color: 0xff0000, transparent: true, opacity: 0.2 })
+        this.overlay2Mat = new THREE.MeshStandardMaterial({ color: 0x00ff00, transparent: true, opacity: 0.2 })
+        this.overlay3Mat = new THREE.MeshStandardMaterial({ color: 0x0000ff, transparent: true, opacity: 0.2 })
+
+        this.overlay1.material = this.overlay1Mat
+        this.overlay2.material = this.overlay2Mat
+        this.overlay3.material = this.overlay3Mat
 
         // Debug
         if(this.debug.active)
@@ -103,18 +120,54 @@ export default class Object
         {
             if(this.currentIntersect == null)
             {
-                console.log('mouse enter')
+                console.log('yo')
                 this.currentIntersect = this.intersects[0]
                 this.currentIntersect.object.visible = true
+
+                if(this.currentIntersect.object == this.overlay1)
+                {
+                    // this.fadeOverlay()
+                }
+                else if(this.currentIntersect.object == this.overlay2)
+                {
+                    
+                }
+                else if(this.currentIntersect.object == this.overlay3)
+                {
+                    
+                }
             }
         }
         else
         {
             if(this.currentIntersect)
             {
-                console.log('mouse leave')
                 this.currentIntersect.object.visible = false
                 this.currentIntersect = null
+            }
+        }
+    }
+
+    fadeOverlay()
+    {
+        let overlayAlpha = 0
+        let fadeInTime = 1
+        let interval = setInterval(() =>
+        {
+            // this.overlayMaterial1.uniforms.uAlpha.value = animateFade(overlayAlpha)
+        }, 10)
+
+        function animateFade()
+        {
+            if(overlayAlpha < 1)
+            {
+                overlayAlpha += 1 / (fadeInTime * 100)
+                return overlayAlpha
+            }
+            else
+            {
+                clearInterval(interval)
+                return 1
             }
         }
     }

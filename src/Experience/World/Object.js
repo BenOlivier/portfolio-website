@@ -15,7 +15,7 @@ export default class Object
 
         // Parameters
         this.params = {
-            objectScale: 8,
+            objectScale: 0.5,
             rotationSmoothing: 0.005,
             rotationExtent: 500
         }

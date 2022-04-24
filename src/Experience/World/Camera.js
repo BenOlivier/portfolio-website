@@ -13,9 +13,11 @@ export default class Camera
 
         // Parameters
         this.params = {
-            positionY: 4,
-            positionZ: 10,
-            rotationX: 0
+            positionX: -5,
+            positionY: 1,
+            positionZ: 5,
+            rotationX: 0,
+            rotationY: -45
         }
 
         // Debug
@@ -31,7 +33,8 @@ export default class Camera
     {
         this.camera = new THREE.PerspectiveCamera
             (35, this.sizes.width / this.sizes.height, 0.1, 100)
-        this.camera.position.set(0, this.params.positionY, this.params.positionZ)
+        this.camera.position.set(this.params.positionX, this.params.positionY, this.params.positionZ)
+        this.camera.rotation.y = Math.PI * -0.22
 
         this.updatePosition = () =>
         {

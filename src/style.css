@@ -67,6 +67,8 @@ html, body
 }
 
 
+/* HOME__________________________________________________________________________*/
+
 .heading
 {
     text-align: center;
@@ -149,6 +151,8 @@ html, body
     background-color: #77777740;
 }
 
+/* ABOUT__________________________________________________________________________*/
+
 #section2 h3
 {
     padding: 10% 0;
@@ -174,11 +178,15 @@ html, body
     font-weight: 500;
 }
 
+
+/* CONTACT__________________________________________________________________________*/
+
 #section3
 {
     display: block;
-    backdrop-filter: blur(25px);
+    backdrop-filter: blur(30px);
     background-color: #77777740;
+    padding: 100px 0 0 0;
 }
 
 .form
@@ -190,7 +198,7 @@ html, body
 
 .form h3
 {
-    padding: 100px 0 0 0;
+    padding: 20px 0 0 0;
     margin: 0 0 1em 0;
     font-size: 2em;
     font-weight: 400;
@@ -254,5 +262,5 @@ html, body
     font-family: 'Open Sans', sans-serif;
     font-size: 15px;
     font-weight: 200;
-    padding: 100px 0;
+    padding: 50px 0;
 }

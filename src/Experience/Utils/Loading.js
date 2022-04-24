@@ -140,11 +140,11 @@ export default class Loading
         // Fade out loading bar
         setTimeout(() => {
             this.fadeLoadingBar()
-        }, 500)
+        }, 250)
         // Fade out overlay
         setTimeout(() => {
             this.fadeOverlay()
-        }, 2000)
+        }, 250)
         // Destroy loading bar and overlay
         setTimeout(() => {
             this.destroy()

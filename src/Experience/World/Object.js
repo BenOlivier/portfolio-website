@@ -172,25 +172,25 @@ export default class Object
                     value: this.params.overlayAlpha
                 })
 
-                var mx = new THREE.Matrix4().lookAt(new THREE.Vector3(this.camera.params.startPosX,
+                const matrix = new THREE.Matrix4().lookAt(new THREE.Vector3(this.camera.params.startPosX,
                     this.camera.params.startPosY, this.camera.params.startPosZ),
                     this.currentIntersect.object.position, new THREE.Vector3(0, 1, 0))
-                var qt = new THREE.Quaternion().setFromRotationMatrix(mx)
+                const quaternion = new THREE.Quaternion().setFromRotationMatrix(matrix)
 
                 if(this.currentIntersect.object == this.overlay1)
                 {
                     this.camera.moveCamera(new THREE.Vector3(this.params.aboutHoverX,
-                        this.params.aboutHoverY, this.params.aboutHoverZ), qt)
+                        this.params.aboutHoverY, this.params.aboutHoverZ), quaternion)
                 }
                 else if(this.currentIntersect.object == this.overlay2)
                 {
                     this.camera.moveCamera(new THREE.Vector3(this.params.workHoverX,
-                        this.params.workHoverY, this.params.workHoverZ), qt)
+                        this.params.workHoverY, this.params.workHoverZ), quaternion)
                 }
                 else if(this.currentIntersect.object == this.overlay3)
                 {
                     this.camera.moveCamera(new THREE.Vector3(this.params.contactHoverX,
-                        this.params.contactHoverY, this.params.contactHoverZ), qt)
+                        this.params.contactHoverY, this.params.contactHoverZ), quaternion)
                 }
             }
         }

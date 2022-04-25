@@ -61,12 +61,12 @@ export default class Camera
             z: targetPos.z
         })
 
-        gsap.to(this.camera.rotation, {
-            duration: this.params.hoverDuration,
-            ease: "power1.inOut",
-            x: targetOrientation.x,
-            y: targetOrientation.y,
-            z: targetOrientation.z
-        })
+        // gsap.to(this.camera.rotation, {
+        //     duration: this.params.hoverDuration,
+        //     ease: "power1.inOut",
+        //     x: targetOrientation.x,
+        //     y: targetOrientation.y,
+        //     z: targetOrientation.z
+        // })
     }
 }

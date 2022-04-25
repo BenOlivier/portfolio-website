@@ -14,17 +14,17 @@ export default class Raycaster
 
         // Parameters
         this.params = {
-            aboutClickX: 0,
-            aboutClickY: 2.5,
-            aboutClickZ: 2,
+            aboutX: 0,
+            aboutY: 2.5,
+            aboutZ: 2,
 
-            workClickX: -1.2,
-            workClickY: 1.2,
-            workClickZ: 0,
+            workX: -1.2,
+            workY: 1.2,
+            workZ: 0,
 
-            contactClickX: 0,
-            contactClickY: 0,
-            contactClickZ: 4
+            contactX: 0,
+            contactY: 0,
+            contactZ: 4
         }
 
         // Debug
@@ -102,18 +102,18 @@ export default class Raycaster
         switch(this.currentIntersect.object)
         {
             case this.object.overlay1:
-                this.camera.moveCamera(new THREE.Vector3(this.params.aboutClickX,
-                    this.params.aboutClickY, this.params.aboutClickZ), new THREE.Quaternion(0, 0, 0, 0))
+                this.camera.moveCamera(new THREE.Vector3(this.params.aboutX,
+                    this.params.aboutY, this.params.aboutZ), new THREE.Quaternion(0, 0, 0, 0))
                 break
 
             case this.object.overlay2:
-                this.camera.moveCamera(new THREE.Vector3(this.params.workHoverX,
-                    this.params.workClickY, this.params.workClickZ), new THREE.Quaternion(0, -0.7071068, 0, 0.7071068))
+                this.camera.moveCamera(new THREE.Vector3(this.params.workX,
+                    this.params.workY, this.params.workZ), new THREE.Quaternion(0, -0.7071068, 0, 0.7071068))
                 break
 
             case this.object.overlay3:
-                this.camera.moveCamera(new THREE.Vector3(this.params.contactClickX,
-                    this.params.contactClickY, this.params.contactClickZ), new THREE.Quaternion(0, 0, 0, 0))
+                this.camera.moveCamera(new THREE.Vector3(this.params.contactX,
+                    this.params.contactY, this.params.contactZ), new THREE.Quaternion(0, 0, 0, 0))
                 break
         }
     }

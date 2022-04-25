@@ -13,9 +13,9 @@ export default class Camera
 
         // Parameters
         this.params = {
-            positionX: -10,
-            positionY: 1,
-            positionZ: 10,
+            positionX: -6,
+            positionY: 1.2,
+            positionZ: 6,
             rotationX: 0,
             rotationY: -45
         }

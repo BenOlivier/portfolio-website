@@ -28,7 +28,7 @@ export default class Loading
         // Parameters
         this.params = {
             loadingBarSmoothing: 0.05,
-            fadeInTime: 2
+            fadeInTime: 0.5
         }
 
         // Debug
@@ -60,7 +60,7 @@ export default class Loading
                 uniform float uAlpha;
                 void main()
                 {
-                    gl_FragColor = vec4(0.0, 0.0, 0.0, uAlpha);
+                    gl_FragColor = vec4(0.13, 0.13, 0.13, uAlpha);
                 }
             `
         })
@@ -148,7 +148,7 @@ export default class Loading
         // Destroy loading bar and overlay
         setTimeout(() => {
             this.destroy()
-        }, 4000)
+        }, 250 + this.params.fadeInTime * 1000)
     }
 
     fadeLoadingBar()

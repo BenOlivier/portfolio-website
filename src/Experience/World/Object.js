@@ -51,28 +51,53 @@ export default class Object
         this.text2 = this.overlays.children[1].children[1]
         this.text3 = this.overlays.children[2].children[1]
         
-        this.overlay1.visible = false
-        this.overlay2.visible = false
-        this.overlay3.visible = false
+        // this.overlay1.visible = false
+        // this.overlay2.visible = false
+        // this.overlay3.visible = false
 
         // this.text1.visible = false
         // this.text2.visible = false
         // this.text3.visible = false
 
-
-        this.overlayMaterial = new THREE.ShaderMaterial({
+        this.debugObject = {}
+        this.debugObject.overlay1Color = '#ff8e7a'
+        this.debugObject.overlay2Color = '#9eee81'
+        this.debugObject.overlay3Color = '#99bbff'
+        
+        this.overlay1Material = new THREE.ShaderMaterial({
             transparent: true,
             uniforms:
             {
-                uAlpha: { value: 0.4 }
+                uAlpha: { value: 0.4 },
+                uColor: { value: new THREE.Color(this.debugObject.overlay1Color) }
+            },
+            vertexShader: overlayVertexShader,
+            fragmentShader: overlayFragmentShader
+        })
+        this.overlay2Material = new THREE.ShaderMaterial({
+            transparent: true,
+            uniforms:
+            {
+                uAlpha: { value: 0.4 },
+                uColor: { value: new THREE.Color(this.debugObject.overlay2Color) }
+            },
+            vertexShader: overlayVertexShader,
+            fragmentShader: overlayFragmentShader
+        })
+        this.overlay3Material = new THREE.ShaderMaterial({
+            transparent: true,
+            uniforms:
+            {
+                uAlpha: { value: 0.4 },
+                uColor: { value: new THREE.Color(this.debugObject.overlay3Color) }
             },
             vertexShader: overlayVertexShader,
             fragmentShader: overlayFragmentShader
         })
 
-        this.overlay1.material = this.overlayMaterial
-        this.overlay2.material = this.overlayMaterial
-        this.overlay3.material = this.overlayMaterial
+        this.overlay1.material = this.overlay1Material
+        this.overlay2.material = this.overlay2Material
+        this.overlay3.material = this.overlay3Material
 
 
         this.scene.add(this.model)
@@ -105,6 +130,19 @@ export default class Object
                 .min(0)
                 .max(2000)
                 .step(10)
+
+            this.debugFolder.addColor(this.debugObject, 'overlay1Color').name('overlay1Color').onChange(() =>
+            {
+                (this.overlay1Material.uniforms.uColor.value.set(this.debugObject.overlay1Color))
+            })
+            this.debugFolder.addColor(this.debugObject, 'overlay2Color').name('overlay2Color').onChange(() =>
+            {
+                (this.overlay2Material.uniforms.uColor.value.set(this.debugObject.overlay2Color))
+            })
+            this.debugFolder.addColor(this.debugObject, 'overlay3Color').name('overlay3Color').onChange(() =>
+            {
+                (this.overlay3Material.uniforms.uColor.value.set(this.debugObject.overlay3Color))
+            })
         }
     }
 
@@ -114,7 +152,7 @@ export default class Object
 
         window.addEventListener('mousemove', (event) =>
         {
-            this.castRays()
+            // this.castRays()
         })
     }
 

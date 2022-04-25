@@ -66,4 +66,10 @@ export default class Camera
             z: targetOrientation.z
         })
     }
+
+    resetCamera()
+    {
+        this.moveCamera(new Vector3(this.defaultPosition.x, this.defaultPosition.y,
+            this.defaultPosition.z), this.defaultOrientation)
+    }
 }

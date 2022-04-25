@@ -3,7 +3,6 @@ import Experience from '../Experience.js'
 import overlayVertexShader from '../Shaders/Overlay/vertex.glsl'
 import overlayFragmentShader from '../Shaders/Overlay/fragment.glsl'
 import gsap from 'gsap'
-import { Quaternion, Vector3 } from 'three'
 
 export default class Object
 {
@@ -15,7 +14,6 @@ export default class Object
         this.resources = this.experience.resources
         this.time = this.experience.time
         this.debug = this.experience.debug
-        this.pointer = this.experience.pointer
         this.camera = this.experience.camera
 
         // Parameters
@@ -25,31 +23,7 @@ export default class Object
             rotationExtent: 100,
 
             overlayFadeTime: 0.2,
-            overlayAlpha: 0.5,
-
-            aboutHoverX: -5,
-            aboutHoverY: 2,
-            aboutHoverZ: 4,
-
-            workHoverX: -6,
-            workHoverY: 1.2,
-            workHoverZ: 4,
-
-            contactHoverX: -5,
-            contactHoverY: 0.8,
-            contactHoverZ: 5,
-
-            aboutClickX: 0,
-            aboutClickY: 2.5,
-            aboutClickZ: 2,
-
-            workClickX: -1.2,
-            workClickY: 1.2,
-            workClickZ: 0,
-
-            contactClickX: 0,
-            contactClickY: 0,
-            contactClickZ: 4
+            overlayAlpha: 0.5
         }
 
         // Debug
@@ -62,7 +36,6 @@ export default class Object
         this.resource = this.resources.items.objectModel
 
         this.setModel()
-        this.setRaycaster()
     }
 
     setModel()
@@ -158,96 +131,21 @@ export default class Object
         }
     }
 
-    setRaycaster()
+    fadeInOverlay(overlay)
     {
-        this.raycaster = new THREE.Raycaster()
-        this.mainMenu = true
-        window.addEventListener('mousemove', (event) => {
-            if(this.mainMenu)
-            {
-                this.castRay()
-            }
-        })
-
-        window.addEventListener('click', () =>
-        {
-            if(this.currentIntersect)
-            {
-                switch(this.currentIntersect.object)
-                {
-                    case this.overlay1:
-                        this.camera.moveCamera(new THREE.Vector3(this.params.aboutClickX,
-                            this.params.aboutClickY, this.params.aboutClickZ), new THREE.Quaternion(0, 0, 0, 0))
-                        break
-
-                    case this.overlay2:
-                        this.camera.moveCamera(new THREE.Vector3(this.params.workHoverX,
-                            this.params.workClickY, this.params.workClickZ), new THREE.Quaternion(0, -0.7071068, 0, 0.7071068))
-                        break
-
-                    case this.overlay3:
-                        this.camera.moveCamera(new THREE.Vector3(this.params.contactClickX,
-                            this.params.contactClickY, this.params.contactClickZ), new THREE.Quaternion(0, 0, 0, 0))
-                        break
-                }
-                this.fadeOutOverlay()
-                this.currentIntersect = null
-                this.mainMenu = false
-            }
-            else
-            {
-                if(!this.mainMenu)
-                {
-                    this.resetCamera()
-                    this.mainMenu = true
-                }
-            }
+        gsap.to(overlay.material.uniforms.uAlpha, {
+            duration: this.params.overlayFadeTime,
+            ease: "power1.out",
+            value: this.params.overlayAlpha
         })
     }
 
-    castRay()
+    fadeOutOverlay(overlay)
     {
-        this.raycaster.setFromCamera(this.pointer.pointerPos, this.camera.camera)
-        this.intersects = this.raycaster.intersectObjects([this.overlay1, this.overlay2, this.overlay3])
-
-        if(this.intersects.length)
-        {
-            if(this.currentIntersect == null)
-            {
-                this.currentIntersect = this.intersects[0]
-
-                gsap.to(this.currentIntersect.object.material.uniforms.uAlpha, {
-                    duration: this.params.overlayFadeTime,
-                    ease: "power1.out",
-                    value: this.params.overlayAlpha
-                })
-            }
-        }
-        else
-        {
-            if(this.currentIntersect)
-            {
-                this.fadeOutOverlay()
-                this.resetCamera()
-                this.currentIntersect = null
-            }
-        }
-    }
-
-    fadeOutOverlay()
-    {
-        gsap.to(this.currentIntersect.object.material.uniforms.uAlpha, {
+        gsap.to(overlay.material.uniforms.uAlpha, {
             duration: this.params.overlayFadeTime,
             ease: "power1.out",
             value: 0
         })
-    }
-
-    resetCamera()
-    {
-        this.camera.moveCamera(new Vector3(this.camera.defaultPosition.x, this.camera.defaultPosition.y,
-            this.camera.defaultPosition.z), this.camera.defaultOrientation)
-        
-        console.log('reset')
     }
 }

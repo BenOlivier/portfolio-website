@@ -5,8 +5,10 @@ import Loading from './Utils/Loading.js'
 import Time from './Utils/Time.js'
 import Camera from './World/Camera.js'
 import Pointer from './Utils/Pointer.js'
+import Raycaster from './Utils/Raycaster.js'
 import Renderer from './Renderer.js'
-import World from './World/World.js'
+import Environment from './World/Environment.js'
+import Object from './World/Object.js'
 import Resources from './Utils/Resources.js'
 import sources from './sources.js'
 
@@ -39,7 +41,15 @@ export default class Experience
         this.camera = new Camera()
         this.pointer = new Pointer()
         this.renderer = new Renderer()
-        this.world = new World()
+        
+        // Wait for resources
+        this.resources.on('ready', () =>
+        {
+            // Setup
+            this.environment = new Environment()
+            this.object = new Object()
+            this.raycaster = new Raycaster()
+        })
 
         // Resize event
         this.sizes.on('resize', () =>
@@ -62,7 +72,7 @@ export default class Experience
 
     update()
     {
-        this.world.update()
+        // this.objects.update()
         this.renderer.update()
     }
 

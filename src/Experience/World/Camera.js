@@ -19,8 +19,7 @@ export default class Camera
             startPosY: 1.2,
             startPosZ: 5,
 
-            hoverDuration: 3,
-            clickDuration: 2
+            duration: 2
         }
 
         // Debug
@@ -51,16 +50,16 @@ export default class Camera
     moveCamera(targetPos, targetOrientation)
     {
         gsap.to(this.camera.position, {
-            duration: this.params.hoverDuration,
-            ease: "power1.inOut",
+            duration: this.params.duration,
+            ease: "power2.inOut",
             x: targetPos.x,
             y: targetPos.y,
             z: targetPos.z
         })
 
         gsap.to(this.camera.rotation, {
-            duration: this.params.hoverDuration,
-            ease: "power1.inOut",
+            duration: this.params.duration,
+            ease: "power2.inOut",
             x: targetOrientation.x,
             y: targetOrientation.y,
             z: targetOrientation.z

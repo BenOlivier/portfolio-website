@@ -40,18 +40,18 @@ export default class Object
         this.model.scale.set(this.params.objectScale,
             this.params.objectScale, this.params.objectScale)
 
-        // this.overlays = this.model.children[0].children[1]
-        // this.overlay1 = this.overlays.children[0].children[0]
-        // this.overlay2 = this.overlays.children[1].children[0]
-        // this.overlay3 = this.overlays.children[2].children[0]
+        this.overlays = this.model.children[0].children[1]
+        this.overlay1 = this.overlays.children[0].children[0]
+        this.overlay2 = this.overlays.children[1].children[0]
+        this.overlay3 = this.overlays.children[2].children[0]
 
-        // this.text1 = this.model.children[0].children[1].children[0].children[1]
-        // this.text2 = this.model.children[0].children[1].children[1].children[1]
-        // this.text3 = this.model.children[0].children[1].children[2].children[1]
+        this.text1 = this.model.children[0].children[1].children[0].children[1]
+        this.text2 = this.model.children[0].children[1].children[1].children[1]
+        this.text3 = this.model.children[0].children[1].children[2].children[1]
         
-        // this.overlay1.visible = false
-        // this.overlay2.visible = false
-        // this.overlay3.visible = false
+        this.overlay1.visible = false
+        this.overlay2.visible = false
+        this.overlay3.visible = false
 
         // this.text1.visible = false
         // this.text2.visible = false
@@ -96,7 +96,7 @@ export default class Object
 
         window.addEventListener('mousemove', (event) =>
         {
-            // this.castRays()
+            this.castRays()
         })
     }
 

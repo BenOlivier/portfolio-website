@@ -1,5 +1,7 @@
 import * as THREE from 'three'
+import { Vector3 } from 'three'
 import Experience from '../Experience.js'
+import gsap from 'gsap'
 
 export default class Camera
 {
@@ -13,11 +15,9 @@ export default class Camera
 
         // Parameters
         this.params = {
-            positionX: -6,
-            positionY: 1.2,
-            positionZ: 6,
-            rotationX: 0,
-            rotationY: -45
+            startPosX: -0.7,
+            startPosY: 1.2,
+            startPosZ: 8
         }
 
         // Debug
@@ -33,61 +33,36 @@ export default class Camera
     {
         this.camera = new THREE.PerspectiveCamera
             (35, this.sizes.width / this.sizes.height, 0.1, 100)
-        this.camera.position.set(this.params.positionX, this.params.positionY, this.params.positionZ)
-        this.camera.rotation.y = Math.PI * -0.22
-
-        this.updatePosition = () =>
-        {
-            this.camera.position.set(0, this.params.positionY, this.params.positionZ)
-        }
-        this.updateRotation = () =>
-        {
-            this.camera.rotation.x = -this.params.rotationX
-        }
+        this.camera.position.set(this.params.startPosX, this.params.startPosY, this.params.startPosZ)
         
         this.scene.add(this.camera)
-
-        // Debug
-        if(this.debug.active)
-        {
-            this.debugFolder
-                .add(this.params, 'positionY')
-                .name('positionY')
-                .min(0)
-                .max(20)
-                .step(0.1)
-                .onChange(() =>
-                {
-                    this.updatePosition()
-                })
-
-            this.debugFolder
-                .add(this.params, 'positionZ')
-                .name('positionZ')
-                .min(0)
-                .max(50)
-                .step(0.1)
-                .onChange(() =>
-                {
-                    this.updatePosition()
-                })
-
-            this.debugFolder
-                .add(this.params, 'rotationX')
-                .name('rotationX')
-                .min(Math.PI * -0.5)
-                .max(Math.PI * 0.5)
-                .step(0.01)
-                .onChange(() =>
-                {
-                    this.updateRotation()
-                })
-        }
     }
 
     resize()
     {
         this.camera.aspect = this.sizes.width / this.sizes.height
         this.camera.updateProjectionMatrix()
+    }
+
+    moveCamera(targetPos, targetMesh)
+    {
+        // this.startOrientation = this.camera.quaternion.clone()
+        // this.targetOrientation = targetMesh.quaternion.clone().normalize();
+        
+        gsap.to(this.camera.position, {
+            duration: 1,
+            ease: "power1.inOut",
+            x: targetPos.x,
+            y: targetPos.y,
+            z: targetPos.z
+        })
+
+        // gsap.to( {}, {
+        //     duration: 1,
+        //     onUpdate: function() {
+        //         this.camera.lookAt(targetMesh.position)
+        //         // this.camera.quaternion.copy(this.startOrientation).slerp(targetOrientation, this.progress())
+        //     }
+        // })
     }
 }

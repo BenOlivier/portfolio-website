@@ -44,6 +44,7 @@ export default class Object
         this.model = this.resource.scene
         this.model.scale.set(this.params.objectScale,
             this.params.objectScale, this.params.objectScale)
+        this.model.rotation.y = Math.PI * 0.25
 
         this.overlays = this.model.children[0].children[1]
         this.overlay1 = this.overlays.children[0].children[0]
@@ -152,6 +153,7 @@ export default class Object
             {
                 this.currentIntersect = this.intersects[0]
                 this.fadeOverlay(this.currentIntersect.object, this.params.overlayAlpha)
+                this.camera.moveCamera(new THREE.Vector3(-3, 1.2, 5), this.currentIntersect.object)
             }
         }
         else
@@ -159,6 +161,7 @@ export default class Object
             if(this.currentIntersect)
             {
                 this.fadeOverlay(this.currentIntersect.object, 0)
+                this.camera.moveCamera(new THREE.Vector3(-0.7, 1.2, 8), this.currentIntersect.object)
                 this.currentIntersect = null
             }
         }

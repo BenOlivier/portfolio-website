@@ -23,7 +23,7 @@ export default class Object
             rotationExtent: 100,
 
             overlayFadeTime: 0.2,
-            overlayAlpha: 0.5
+            overlayAlpha: 0.2
         }
 
         // Debug

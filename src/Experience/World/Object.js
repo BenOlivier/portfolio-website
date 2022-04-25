@@ -1,5 +1,7 @@
 import * as THREE from 'three'
 import Experience from '../Experience.js'
+import overlayVertexShader from '../Shaders/Overlay/vertex.glsl'
+import overlayFragmentShader from '../Shaders/Overlay/fragment.glsl'
 
 export default class Object
 {
@@ -45,9 +47,9 @@ export default class Object
         this.overlay2 = this.overlays.children[1].children[0]
         this.overlay3 = this.overlays.children[2].children[0]
 
-        this.text1 = this.model.children[0].children[1].children[0].children[1]
-        this.text2 = this.model.children[0].children[1].children[1].children[1]
-        this.text3 = this.model.children[0].children[1].children[2].children[1]
+        this.text1 = this.overlays.children[0].children[1]
+        this.text2 = this.overlays.children[1].children[1]
+        this.text3 = this.overlays.children[2].children[1]
         
         this.overlay1.visible = false
         this.overlay2.visible = false
@@ -56,6 +58,22 @@ export default class Object
         // this.text1.visible = false
         // this.text2.visible = false
         // this.text3.visible = false
+
+
+        this.overlayMaterial = new THREE.ShaderMaterial({
+            transparent: true,
+            uniforms:
+            {
+                uAlpha: { value: 0.4 }
+            },
+            vertexShader: overlayVertexShader,
+            fragmentShader: overlayFragmentShader
+        })
+
+        this.overlay1.material = this.overlayMaterial
+        this.overlay2.material = this.overlayMaterial
+        this.overlay3.material = this.overlayMaterial
+
 
         this.scene.add(this.model)
 

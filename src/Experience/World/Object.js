@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import Experience from '../Experience.js'
 import overlayVertexShader from '../Shaders/Overlay/vertex.glsl'
 import overlayFragmentShader from '../Shaders/Overlay/fragment.glsl'
+import gsap from 'gsap'
 
 export default class Object
 {
@@ -22,8 +23,20 @@ export default class Object
             rotationSmoothing: 0.005,
             rotationExtent: 100,
 
-            overlayFadeTime: 0.5,
-            overlayAlpha: 0.5
+            overlayFadeTime: 0.2,
+            overlayAlpha: 0.5,
+
+            aboutHoverX: 1,
+            aboutHoverY: 2,
+            aboutHoverZ: 6,
+
+            workHoverX: -3,
+            workHoverY: 1.2,
+            workHoverZ: 6,
+
+            contactHoverX: 2,
+            contactHoverY: 0.5,
+            contactHoverZ: 6,
         }
 
         // Debug
@@ -152,62 +165,37 @@ export default class Object
             if(this.currentIntersect == null)
             {
                 this.currentIntersect = this.intersects[0]
-                this.fadeOverlay(this.currentIntersect.object, this.params.overlayAlpha)
-                this.camera.moveCamera(new THREE.Vector3(-3, 1.2, 5), this.currentIntersect.object)
+
+                gsap.to(this.currentIntersect.object.material.uniforms.uAlpha, {
+                    duration: this.params.overlayFadeTime,
+                    ease: "power1.out",
+                    value: this.params.overlayAlpha
+                })
+
+
+                // this.fadeOverlay(this.currentIntersect.object, this.params.overlayAlpha)
+
+                // var mx = new THREE.Matrix4().lookAt(this.currentIntersect.object.position,
+                //     new THREE.Vector3(0,0,0),new THREE.Vector3(0, 1, 0))
+                // var qt = new THREE.Quaternion().setFromRotationMatrix(mx)
+                
+                // this.camera.moveCamera(new THREE.Vector3(-3, 1.2, 5), qt)
             }
         }
         else
         {
             if(this.currentIntersect)
             {
-                this.fadeOverlay(this.currentIntersect.object, 0)
-                this.camera.moveCamera(new THREE.Vector3(-0.7, 1.2, 8), this.currentIntersect.object)
+                // this.fadeOverlay(this.currentIntersect.object, 0)
+                // this.camera.moveCamera(new THREE.Vector3(-0.7, 1.2, 8), new THREE.Quaternion(0, 0, 0, 0))
+
+                gsap.to(this.currentIntersect.object.material.uniforms.uAlpha, {
+                    duration: this.params.overlayFadeTime,
+                    ease: "power1.out",
+                    value: 0
+                })
+
                 this.currentIntersect = null
-            }
-        }
-    }
-
-    // Animate overlay alpha
-    fadeOverlay(overlay, target)
-    {
-        let currentAlpha = overlay.material.uniforms.uAlpha.value
-        const fadeTime = this.params.overlayFadeTime
-        const targetAlpha = target
-
-        let interval = setInterval(() =>
-        {
-            overlay.material.uniforms.uAlpha.value = animateFade(currentAlpha)
-        }, 10)
-
-        // console.log(interval)
-
-        function animateFade()
-        {
-            if(target > 0)
-            {
-                if(currentAlpha < targetAlpha)
-                {
-                    currentAlpha += 1 / (fadeTime * 100)
-                    return currentAlpha
-                }
-                else
-                {
-                    clearInterval(interval)
-                    return targetAlpha
-                }
-            }
-            else
-            {
-                if(currentAlpha > targetAlpha)
-                {
-                    currentAlpha -= 1 / (fadeTime * 100)
-                    return currentAlpha
-                }
-                else
-                {
-                    clearInterval(interval)
-                    return targetAlpha
-                }
             }
         }
     }

@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { Vector3 } from 'three'
+import { Euler, Vector3 } from 'three'
 import Experience from '../Experience.js'
 import gsap from 'gsap'
 
@@ -34,6 +34,7 @@ export default class Camera
         this.camera = new THREE.PerspectiveCamera
             (35, this.sizes.width / this.sizes.height, 0.1, 100)
         this.camera.position.set(this.params.startPosX, this.params.startPosY, this.params.startPosZ)
+        this.defaultOrientation = this.camera.rotation
         
         this.scene.add(this.camera)
     }
@@ -44,10 +45,12 @@ export default class Camera
         this.camera.updateProjectionMatrix()
     }
 
-    moveCamera(targetPos, targetMesh)
+    moveCamera(targetPos, targetOrientation)
     {
-        // this.startOrientation = this.camera.quaternion.clone()
-        // this.targetOrientation = targetMesh.quaternion.clone().normalize();
+        // const startOrientation = this.camera.quaternion.clone()
+        // const targetOrientation = targetMesh.quaternion.clone().normalize()
+
+        console.log(this.defaultOrientation)
         
         gsap.to(this.camera.position, {
             duration: 1,
@@ -57,12 +60,12 @@ export default class Camera
             z: targetPos.z
         })
 
-        // gsap.to( {}, {
-        //     duration: 1,
-        //     onUpdate: function() {
-        //         this.camera.lookAt(targetMesh.position)
-        //         // this.camera.quaternion.copy(this.startOrientation).slerp(targetOrientation, this.progress())
-        //     }
-        // })
+        gsap.to(this.camera.rotation, {
+            duration: 1,
+            ease: "power1.inOut",
+            x: targetOrientation.x,
+            y: targetOrientation.y,
+            z: targetOrientation.z
+        })
     }
 }

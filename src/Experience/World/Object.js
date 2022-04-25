@@ -3,6 +3,7 @@ import Experience from '../Experience.js'
 import overlayVertexShader from '../Shaders/Overlay/vertex.glsl'
 import overlayFragmentShader from '../Shaders/Overlay/fragment.glsl'
 import gsap from 'gsap'
+import { Quaternion, Vector3 } from 'three'
 
 export default class Object
 {
@@ -26,17 +27,29 @@ export default class Object
             overlayFadeTime: 0.2,
             overlayAlpha: 0.5,
 
-            aboutHoverX: -0.4,
-            aboutHoverY: 1.5,
-            aboutHoverZ: 7.2,
+            aboutHoverX: -5,
+            aboutHoverY: 2,
+            aboutHoverZ: 4,
 
-            workHoverX: -1.2,
+            workHoverX: -6,
             workHoverY: 1.2,
-            workHoverZ: 7.2,
+            workHoverZ: 4,
 
-            contactHoverX: 0.4,
-            contactHoverY: 0.6,
-            contactHoverZ: 7.2,
+            contactHoverX: -5,
+            contactHoverY: 0.8,
+            contactHoverZ: 5,
+
+            aboutClickX: 0,
+            aboutClickY: 2.5,
+            aboutClickZ: 2,
+
+            workClickX: -1.2,
+            workClickY: 1.2,
+            workClickZ: 0,
+
+            contactClickX: 0,
+            contactClickY: 0,
+            contactClickZ: 4
         }
 
         // Debug
@@ -57,7 +70,7 @@ export default class Object
         this.model = this.resource.scene
         this.model.scale.set(this.params.objectScale,
             this.params.objectScale, this.params.objectScale)
-        this.model.rotation.y = Math.PI * 0.25
+        // this.model.rotation.y = Math.PI * 0.25
 
         this.overlays = this.model.children[0].children[1]
         this.overlay1 = this.overlays.children[0].children[0]
@@ -68,9 +81,9 @@ export default class Object
         this.text2 = this.overlays.children[1].children[1]
         this.text3 = this.overlays.children[2].children[1]
 
-        this.text1.visible = false
-        this.text2.visible = false
-        this.text3.visible = false
+        // this.text1.visible = false
+        // this.text2.visible = false
+        // this.text3.visible = false
 
         this.debugObject = {}
         this.debugObject.overlay1Color = '#ff8e7a'
@@ -148,14 +161,51 @@ export default class Object
     setRaycaster()
     {
         this.raycaster = new THREE.Raycaster()
+        this.mainMenu = true
+        window.addEventListener('mousemove', (event) => {
+            if(this.mainMenu)
+            {
+                this.castRay()
+            }
+        })
 
-        window.addEventListener('mousemove', (event) =>
+        window.addEventListener('click', () =>
         {
-            this.castRays()
+            if(this.currentIntersect)
+            {
+                switch(this.currentIntersect.object)
+                {
+                    case this.overlay1:
+                        this.camera.moveCamera(new THREE.Vector3(this.params.aboutClickX,
+                            this.params.aboutClickY, this.params.aboutClickZ), new THREE.Quaternion(0, 0, 0, 0))
+                        break
+
+                    case this.overlay2:
+                        this.camera.moveCamera(new THREE.Vector3(this.params.workHoverX,
+                            this.params.workClickY, this.params.workClickZ), new THREE.Quaternion(0, -0.7071068, 0, 0.7071068))
+                        break
+
+                    case this.overlay3:
+                        this.camera.moveCamera(new THREE.Vector3(this.params.contactClickX,
+                            this.params.contactClickY, this.params.contactClickZ), new THREE.Quaternion(0, 0, 0, 0))
+                        break
+                }
+                this.fadeOutOverlay()
+                this.currentIntersect = null
+                this.mainMenu = false
+            }
+            else
+            {
+                if(!this.mainMenu)
+                {
+                    this.resetCamera()
+                    this.mainMenu = true
+                }
+            }
         })
     }
 
-    castRays()
+    castRay()
     {
         this.raycaster.setFromCamera(this.pointer.pointerPos, this.camera.camera)
         this.intersects = this.raycaster.intersectObjects([this.overlay1, this.overlay2, this.overlay3])
@@ -171,43 +221,33 @@ export default class Object
                     ease: "power1.out",
                     value: this.params.overlayAlpha
                 })
-
-                const matrix = new THREE.Matrix4().lookAt(new THREE.Vector3(this.camera.params.startPosX,
-                    this.camera.params.startPosY, this.camera.params.startPosZ),
-                    this.currentIntersect.object.position, new THREE.Vector3(0, 1, 0))
-                const quaternion = new THREE.Quaternion().setFromRotationMatrix(matrix)
-
-                if(this.currentIntersect.object == this.overlay1)
-                {
-                    this.camera.moveCamera(new THREE.Vector3(this.params.aboutHoverX,
-                        this.params.aboutHoverY, this.params.aboutHoverZ), quaternion)
-                }
-                else if(this.currentIntersect.object == this.overlay2)
-                {
-                    this.camera.moveCamera(new THREE.Vector3(this.params.workHoverX,
-                        this.params.workHoverY, this.params.workHoverZ), quaternion)
-                }
-                else if(this.currentIntersect.object == this.overlay3)
-                {
-                    this.camera.moveCamera(new THREE.Vector3(this.params.contactHoverX,
-                        this.params.contactHoverY, this.params.contactHoverZ), quaternion)
-                }
             }
         }
         else
         {
             if(this.currentIntersect)
             {
-                this.camera.moveCamera(new THREE.Vector3(-0.7, 1.2, 8), new THREE.Quaternion(0, 0, 0, 0))
-
-                gsap.to(this.currentIntersect.object.material.uniforms.uAlpha, {
-                    duration: this.params.overlayFadeTime,
-                    ease: "power1.out",
-                    value: 0
-                })
-
+                this.fadeOutOverlay()
+                this.resetCamera()
                 this.currentIntersect = null
             }
         }
+    }
+
+    fadeOutOverlay()
+    {
+        gsap.to(this.currentIntersect.object.material.uniforms.uAlpha, {
+            duration: this.params.overlayFadeTime,
+            ease: "power1.out",
+            value: 0
+        })
+    }
+
+    resetCamera()
+    {
+        this.camera.moveCamera(new Vector3(this.camera.defaultPosition.x, this.camera.defaultPosition.y,
+            this.camera.defaultPosition.z), this.camera.defaultOrientation)
+        
+        console.log('reset')
     }
 }

@@ -15,9 +15,9 @@ export default class Camera
 
         // Parameters
         this.params = {
-            startPosX: -0.7,
+            startPosX: -6,
             startPosY: 1.2,
-            startPosZ: 8,
+            startPosZ: 5,
 
             hoverDuration: 3,
             clickDuration: 2
@@ -34,11 +34,11 @@ export default class Camera
 
     setCamera()
     {
-        this.camera = new THREE.PerspectiveCamera
-            (35, this.sizes.width / this.sizes.height, 0.1, 100)
-        this.camera.position.set(this.params.startPosX, this.params.startPosY, this.params.startPosZ)
-        this.defaultOrientation = this.camera.rotation
-        
+        this.camera = new THREE.PerspectiveCamera(35, this.sizes.width / this.sizes.height, 0.1, 100)
+        this.defaultPosition = new THREE.Vector3(this.params.startPosX, this.params.startPosY, this.params.startPosZ)
+        this.camera.position.set(this.defaultPosition.x, this.defaultPosition.y, this.defaultPosition.z)
+        this.camera.rotation.y = Math.PI * -0.25
+        this.defaultOrientation = this.camera.rotation.clone()
         this.scene.add(this.camera)
     }
 
@@ -50,9 +50,6 @@ export default class Camera
 
     moveCamera(targetPos, targetOrientation)
     {
-        // const startOrientation = this.camera.quaternion.clone()
-        // const targetOrientation = targetMesh.quaternion.clone().normalize()
-        
         gsap.to(this.camera.position, {
             duration: this.params.hoverDuration,
             ease: "power1.inOut",
@@ -61,12 +58,12 @@ export default class Camera
             z: targetPos.z
         })
 
-        // gsap.to(this.camera.rotation, {
-        //     duration: this.params.hoverDuration,
-        //     ease: "power1.inOut",
-        //     x: targetOrientation.x,
-        //     y: targetOrientation.y,
-        //     z: targetOrientation.z
-        // })
+        gsap.to(this.camera.rotation, {
+            duration: this.params.hoverDuration,
+            ease: "power1.inOut",
+            x: targetOrientation.x,
+            y: targetOrientation.y,
+            z: targetOrientation.z
+        })
     }
 }

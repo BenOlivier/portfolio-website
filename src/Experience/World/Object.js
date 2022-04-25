@@ -124,12 +124,13 @@ export default class Object
 
     fadeInOverlay(overlay)
     {
+        // Fade in plane
         gsap.to(overlay.material.uniforms.uAlpha, {
             duration: this.params.overlayFadeTime,
             ease: "power1.out",
             value: this.params.overlayAlpha
         })
-
+        // Scale up text
         gsap.to(overlay.parent.children[1].scale, {
             duration: this.params.overlayFadeTime,
             ease: "power1.out",
@@ -141,12 +142,13 @@ export default class Object
 
     fadeOutOverlay(overlay)
     {
+        // Fade out plane
         gsap.to(overlay.material.uniforms.uAlpha, {
             duration: this.params.overlayFadeTime,
             ease: "power1.out",
             value: 0
         })
-
+        // Scale down text
         gsap.to(overlay.parent.children[1].scale, {
             duration: this.params.overlayFadeTime,
             ease: "power1.out",

@@ -20,7 +20,10 @@ export default class Object
         this.params = {
             objectScale: 0.5,
             rotationSmoothing: 0.005,
-            rotationExtent: 100
+            rotationExtent: 100,
+
+            overlayFadeTime: 0.5,
+            overlayAlpha: 0.5
         }
 
         // Debug
@@ -50,14 +53,10 @@ export default class Object
         this.text1 = this.overlays.children[0].children[1]
         this.text2 = this.overlays.children[1].children[1]
         this.text3 = this.overlays.children[2].children[1]
-        
-        // this.overlay1.visible = false
-        // this.overlay2.visible = false
-        // this.overlay3.visible = false
 
-        // this.text1.visible = false
-        // this.text2.visible = false
-        // this.text3.visible = false
+        this.text1.visible = false
+        this.text2.visible = false
+        this.text3.visible = false
 
         this.debugObject = {}
         this.debugObject.overlay1Color = '#ff8e7a'
@@ -68,32 +67,18 @@ export default class Object
             transparent: true,
             uniforms:
             {
-                uAlpha: { value: 0.4 },
+                uAlpha: { value: 0 },
                 uColor: { value: new THREE.Color(this.debugObject.overlay1Color) }
             },
             vertexShader: overlayVertexShader,
             fragmentShader: overlayFragmentShader
         })
-        this.overlay2Material = new THREE.ShaderMaterial({
-            transparent: true,
-            uniforms:
-            {
-                uAlpha: { value: 0.4 },
-                uColor: { value: new THREE.Color(this.debugObject.overlay2Color) }
-            },
-            vertexShader: overlayVertexShader,
-            fragmentShader: overlayFragmentShader
-        })
-        this.overlay3Material = new THREE.ShaderMaterial({
-            transparent: true,
-            uniforms:
-            {
-                uAlpha: { value: 0.4 },
-                uColor: { value: new THREE.Color(this.debugObject.overlay3Color) }
-            },
-            vertexShader: overlayVertexShader,
-            fragmentShader: overlayFragmentShader
-        })
+
+        this.overlay2Material = this.overlay1Material.clone()
+        this.overlay2Material.uniforms.uColor.value = new THREE.Color(this.debugObject.overlay2Color)
+
+        this.overlay3Material = this.overlay1Material.clone()
+        this.overlay3Material.uniforms.uColor.value = new THREE.Color(this.debugObject.overlay3Color)
 
         this.overlay1.material = this.overlay1Material
         this.overlay2.material = this.overlay2Material
@@ -152,7 +137,7 @@ export default class Object
 
         window.addEventListener('mousemove', (event) =>
         {
-            // this.castRays()
+            this.castRays()
         })
     }
 
@@ -166,52 +151,60 @@ export default class Object
             if(this.currentIntersect == null)
             {
                 this.currentIntersect = this.intersects[0]
-                this.currentIntersect.object.visible = true
-
-                if(this.currentIntersect.object == this.overlay1)
-                {
-                    // this.fadeOverlay()
-                }
-                else if(this.currentIntersect.object == this.overlay2)
-                {
-                    
-                }
-                else if(this.currentIntersect.object == this.overlay3)
-                {
-                    
-                }
+                this.fadeOverlay(this.currentIntersect.object, this.params.overlayAlpha)
             }
         }
         else
         {
             if(this.currentIntersect)
             {
-                this.currentIntersect.object.visible = false
+                this.fadeOverlay(this.currentIntersect.object, 0)
                 this.currentIntersect = null
             }
         }
     }
 
-    fadeOverlay()
+    // Animate overlay alpha
+    fadeOverlay(overlay, target)
     {
-        let overlayAlpha = 0
-        let fadeInTime = 1
+        let currentAlpha = overlay.material.uniforms.uAlpha.value
+        const fadeTime = this.params.overlayFadeTime
+        const targetAlpha = target
+
         let interval = setInterval(() =>
         {
-            // this.overlayMaterial1.uniforms.uAlpha.value = animateFade(overlayAlpha)
+            overlay.material.uniforms.uAlpha.value = animateFade(currentAlpha)
         }, 10)
+
+        // console.log(interval)
 
         function animateFade()
         {
-            if(overlayAlpha < 1)
+            if(target > 0)
             {
-                overlayAlpha += 1 / (fadeInTime * 100)
-                return overlayAlpha
+                if(currentAlpha < targetAlpha)
+                {
+                    currentAlpha += 1 / (fadeTime * 100)
+                    return currentAlpha
+                }
+                else
+                {
+                    clearInterval(interval)
+                    return targetAlpha
+                }
             }
             else
             {
-                clearInterval(interval)
-                return 1
+                if(currentAlpha > targetAlpha)
+                {
+                    currentAlpha -= 1 / (fadeTime * 100)
+                    return currentAlpha
+                }
+                else
+                {
+                    clearInterval(interval)
+                    return targetAlpha
+                }
             }
         }
     }

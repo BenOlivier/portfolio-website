@@ -40,28 +40,18 @@ export default class Object
 
     setModel()
     {
+        // Model
         this.model = this.resource.scene
-        this.model.scale.set(this.params.objectScale,
-            this.params.objectScale, this.params.objectScale)
-        // this.model.rotation.y = Math.PI * 0.25
+        this.overlay1 = this.model.children[0].children[1].children[0]
+        this.overlay2 = this.model.children[0].children[1].children[1]
+        this.overlay3 = this.model.children[0].children[1].children[2]
 
-        this.overlays = this.model.children[0].children[1]
-        this.overlay1 = this.overlays.children[0].children[0]
-        this.overlay2 = this.overlays.children[1].children[0]
-        this.overlay3 = this.overlays.children[2].children[0]
-
-        this.text1 = this.overlays.children[0].children[1]
-        this.text2 = this.overlays.children[1].children[1]
-        this.text3 = this.overlays.children[2].children[1]
-
-        // this.text1.visible = false
-        // this.text2.visible = false
-        // this.text3.visible = false
-
-        this.debugObject = {}
-        this.debugObject.overlay1Color = '#ff8e7a'
-        this.debugObject.overlay2Color = '#9eee81'
-        this.debugObject.overlay3Color = '#99bbff'
+        // Materials
+        this.debugObject = {
+            overlay1Color: '#ff8e7a',
+            overlay2Color:'#9eee81',
+            overlay3Color: '#99bbff'
+        }
         
         this.overlay1Material = new THREE.ShaderMaterial({
             transparent: true,
@@ -80,11 +70,12 @@ export default class Object
         this.overlay3Material = this.overlay1Material.clone()
         this.overlay3Material.uniforms.uColor.value = new THREE.Color(this.debugObject.overlay3Color)
 
-        this.overlay1.material = this.overlay1Material
-        this.overlay2.material = this.overlay2Material
-        this.overlay3.material = this.overlay3Material
+        this.overlay1.children[0].material = this.overlay1Material
+        this.overlay2.children[0].material = this.overlay2Material
+        this.overlay3.children[0].material = this.overlay3Material
 
-
+        this.model.scale.set(this.params.objectScale,
+            this.params.objectScale, this.params.objectScale)
         this.scene.add(this.model)
 
         // Debug
@@ -138,6 +129,14 @@ export default class Object
             ease: "power1.out",
             value: this.params.overlayAlpha
         })
+
+        gsap.to(overlay.parent.children[1].scale, {
+            duration: this.params.overlayFadeTime,
+            ease: "power1.out",
+            x: 0.65,
+            y: 0.65,
+            z: 0.65
+        })
     }
 
     fadeOutOverlay(overlay)
@@ -146,6 +145,14 @@ export default class Object
             duration: this.params.overlayFadeTime,
             ease: "power1.out",
             value: 0
+        })
+
+        gsap.to(overlay.parent.children[1].scale, {
+            duration: this.params.overlayFadeTime,
+            ease: "power1.out",
+            x: 0.6,
+            y: 0.6,
+            z: 0.6
         })
     }
 }

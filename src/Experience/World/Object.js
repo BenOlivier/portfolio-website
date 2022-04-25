@@ -26,17 +26,17 @@ export default class Object
             overlayFadeTime: 0.2,
             overlayAlpha: 0.5,
 
-            aboutHoverX: 1,
-            aboutHoverY: 2,
-            aboutHoverZ: 6,
+            aboutHoverX: -0.4,
+            aboutHoverY: 1.5,
+            aboutHoverZ: 7.2,
 
-            workHoverX: -3,
+            workHoverX: -1.2,
             workHoverY: 1.2,
-            workHoverZ: 6,
+            workHoverZ: 7.2,
 
-            contactHoverX: 2,
-            contactHoverY: 0.5,
-            contactHoverZ: 6,
+            contactHoverX: 0.4,
+            contactHoverY: 0.6,
+            contactHoverZ: 7.2,
         }
 
         // Debug
@@ -172,22 +172,33 @@ export default class Object
                     value: this.params.overlayAlpha
                 })
 
+                var mx = new THREE.Matrix4().lookAt(new THREE.Vector3(this.camera.params.startPosX,
+                    this.camera.params.startPosY, this.camera.params.startPosZ),
+                    this.currentIntersect.object.position, new THREE.Vector3(0, 1, 0))
+                var qt = new THREE.Quaternion().setFromRotationMatrix(mx)
 
-                // this.fadeOverlay(this.currentIntersect.object, this.params.overlayAlpha)
-
-                // var mx = new THREE.Matrix4().lookAt(this.currentIntersect.object.position,
-                //     new THREE.Vector3(0,0,0),new THREE.Vector3(0, 1, 0))
-                // var qt = new THREE.Quaternion().setFromRotationMatrix(mx)
-                
-                // this.camera.moveCamera(new THREE.Vector3(-3, 1.2, 5), qt)
+                if(this.currentIntersect.object == this.overlay1)
+                {
+                    this.camera.moveCamera(new THREE.Vector3(this.params.aboutHoverX,
+                        this.params.aboutHoverY, this.params.aboutHoverZ), qt)
+                }
+                else if(this.currentIntersect.object == this.overlay2)
+                {
+                    this.camera.moveCamera(new THREE.Vector3(this.params.workHoverX,
+                        this.params.workHoverY, this.params.workHoverZ), qt)
+                }
+                else if(this.currentIntersect.object == this.overlay3)
+                {
+                    this.camera.moveCamera(new THREE.Vector3(this.params.contactHoverX,
+                        this.params.contactHoverY, this.params.contactHoverZ), qt)
+                }
             }
         }
         else
         {
             if(this.currentIntersect)
             {
-                // this.fadeOverlay(this.currentIntersect.object, 0)
-                // this.camera.moveCamera(new THREE.Vector3(-0.7, 1.2, 8), new THREE.Quaternion(0, 0, 0, 0))
+                this.camera.moveCamera(new THREE.Vector3(-0.7, 1.2, 8), new THREE.Quaternion(0, 0, 0, 0))
 
                 gsap.to(this.currentIntersect.object.material.uniforms.uAlpha, {
                     duration: this.params.overlayFadeTime,

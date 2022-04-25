@@ -17,7 +17,10 @@ export default class Camera
         this.params = {
             startPosX: -0.7,
             startPosY: 1.2,
-            startPosZ: 8
+            startPosZ: 8,
+
+            hoverDuration: 3,
+            clickDuration: 2
         }
 
         // Debug
@@ -49,11 +52,9 @@ export default class Camera
     {
         // const startOrientation = this.camera.quaternion.clone()
         // const targetOrientation = targetMesh.quaternion.clone().normalize()
-
-        console.log(this.defaultOrientation)
         
         gsap.to(this.camera.position, {
-            duration: 1,
+            duration: this.params.hoverDuration,
             ease: "power1.inOut",
             x: targetPos.x,
             y: targetPos.y,
@@ -61,7 +62,7 @@ export default class Camera
         })
 
         gsap.to(this.camera.rotation, {
-            duration: 1,
+            duration: this.params.hoverDuration,
             ease: "power1.inOut",
             x: targetOrientation.x,
             y: targetOrientation.y,

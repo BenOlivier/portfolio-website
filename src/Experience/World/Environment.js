@@ -20,12 +20,17 @@ export default class Environment
 
         this.setBackground()
         this.setAmbientLight()
+
+        this.resources.on('ready', () =>
+        {
+            this.setBackground()
+        })
     }
 
     setBackground()
     {
         let colorController = {
-            uColor1: "#2b3646",
+            uColor1: "#28313e",
             uColor2: "#121212"
         }
         
@@ -64,11 +69,10 @@ export default class Environment
 
         this.backgroundPos = new THREE.Vector3
         this.camera.camera.getWorldDirection(this.backgroundPos)
-
-        this.background.position.set(this.backgroundPos.x * 2, this.backgroundPos.y - 4, this.backgroundPos.z * 2)
-        this.background.rotation.y = Math.PI * -0.25
+        this.background.position.set(this.backgroundPos.x, this.backgroundPos.y - 2, this.backgroundPos.z * 25)
         this.background.scale.set(3, 3, 3)
-        this.scene.add(this.background)
+        
+        this.camera.camera.add(this.background)
 
         // Debug
         if(this.debug.active)

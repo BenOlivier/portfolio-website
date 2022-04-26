@@ -173,7 +173,7 @@ export default class Loading
         {
             if(overlayAlpha > 0)
             {
-                overlayAlpha -= 1 / 200
+                overlayAlpha -= 1 / 100
                 return overlayAlpha
             }
             else

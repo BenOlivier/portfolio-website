@@ -72,7 +72,7 @@ export default class Experience
 
     update()
     {
-        // this.objects.update()
+        if(this.object) this.object.update()
         this.renderer.update()
     }
 

@@ -36,6 +36,7 @@ export default class Object
         this.resource = this.resources.items.objectModel
 
         this.setModel()
+        this.setAnimation()
     }
 
     setModel()
@@ -145,5 +146,18 @@ export default class Object
             y: 0.5,
             z: 0.5
         })
+    }
+
+    setAnimation()
+    {
+        this.animation = {}
+        this.animation.mixer = new THREE.AnimationMixer(this.model)
+        this.animation.action = this.animation.mixer.clipAction(this.resource.animations[0])
+        this.animation.action.play()
+    }
+
+    update()
+    {
+        this.animation.mixer.update(this.time.delta * 0.001)
     }
 }

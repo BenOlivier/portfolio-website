@@ -104,17 +104,17 @@ export default class Raycaster
     {
         switch(this.currentIntersect.object)
         {
-            case this.object.overlay1.children[0]:
+            case this.object.overlay1:
                 this.camera.moveCamera(new THREE.Vector3(this.params.aboutX,
                     this.params.aboutY, this.params.aboutZ), new THREE.Euler(0, Math.PI * -0.5, 0))
                 break
 
-            case this.object.overlay2.children[0]:
+            case this.object.overlay2:
                 this.camera.moveCamera(new THREE.Vector3(this.params.workX,
                     this.params.workY, this.params.workZ), new THREE.Euler(0, 0, 0))
                 break
 
-            case this.object.overlay3.children[0]:
+            case this.object.overlay3:
                 this.camera.moveCamera(new THREE.Vector3(this.params.contactX,
                     this.params.contactY, this.params.contactZ), new THREE.Euler(0, Math.PI * -0.5, 0))
                 break

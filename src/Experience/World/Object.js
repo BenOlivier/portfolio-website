@@ -23,7 +23,7 @@ export default class Object
             rotationExtent: 100,
 
             overlayFadeTime: 0.2,
-            overlayAlpha: 0.15
+            overlayAlpha: 0.3
         }
 
         // Debug
@@ -45,10 +45,11 @@ export default class Object
         this.overlay1 = this.model.children[1].children[0]
         this.overlay2 = this.model.children[1].children[1]
         this.overlay3 = this.model.children[1].children[2]
+        // console.log(this.overlay1 = this.model.children[0])
 
         // Materials
         this.debugObject = {
-            overlayColor: '#99bbff'
+            overlayColor: '#ffffff'
         }
         
         this.overlay1Material = new THREE.ShaderMaterial({
@@ -64,9 +65,9 @@ export default class Object
         this.overlay2Material = this.overlay1Material.clone()
         this.overlay3Material = this.overlay1Material.clone()
 
-        this.overlay1.children[0].material = this.overlay1Material
-        this.overlay2.children[0].material = this.overlay2Material
-        this.overlay3.children[0].material = this.overlay3Material
+        this.overlay1.material = this.overlay1Material
+        this.overlay2.material = this.overlay2Material
+        this.overlay3.material = this.overlay3Material
 
         this.model.scale.set(this.params.objectScale,
             this.params.objectScale, this.params.objectScale)
@@ -125,7 +126,7 @@ export default class Object
             value: this.params.overlayAlpha
         })
         // Scale up text
-        // gsap.to(overlay.parent.children[1].scale, {
+        // gsap.to(overlay.parent.children[0].scale, {
         //     duration: this.params.overlayFadeTime,
         //     ease: "power1.out",
         //     x: 0.65,
@@ -143,7 +144,7 @@ export default class Object
             value: 0
         })
         // Scale down text
-        // gsap.to(overlay.parent.children[1].scale, {
+        // gsap.to(overlay.parent.children[0].children[0].scale, {
         //     duration: this.params.overlayFadeTime,
         //     ease: "power1.out",
         //     x: 0.6,

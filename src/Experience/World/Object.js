@@ -102,17 +102,11 @@ export default class Object
                 .max(2000)
                 .step(10)
 
-            this.debugFolder.addColor(this.debugObject, 'overlay1Color').name('overlay1Color').onChange(() =>
+            this.debugFolder.addColor(this.debugObject, 'overlayColor').name('overlayColor').onChange(() =>
             {
                 (this.overlay1Material.uniforms.uColor.value.set(this.debugObject.overlay1Color))
-            })
-            this.debugFolder.addColor(this.debugObject, 'overlay2Color').name('overlay2Color').onChange(() =>
-            {
-                (this.overlay2Material.uniforms.uColor.value.set(this.debugObject.overlay2Color))
-            })
-            this.debugFolder.addColor(this.debugObject, 'overlay3Color').name('overlay3Color').onChange(() =>
-            {
-                (this.overlay3Material.uniforms.uColor.value.set(this.debugObject.overlay3Color))
+                (this.overlay1Material.uniforms.uColor.value.set(this.debugObject.overlay2Color))
+                (this.overlay1Material.uniforms.uColor.value.set(this.debugObject.overlay3Color))
             })
         }
     }

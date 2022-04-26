@@ -18,15 +18,15 @@ export default class Environment
             this.debugFolder = this.debug.ui.addFolder('environment')
         }
 
-        // this.setBackground()
+        this.setBackground()
         this.setAmbientLight()
     }
 
     setBackground()
     {
         let colorController = {
-            uColor1: "#5c5c5c",
-            uColor2: "#e8e8e8"
+            uColor1: "#2b3646",
+            uColor2: "#121212"
         }
         
         this.backgroundGeometry = new THREE.PlaneGeometry(10, 10, 1, 1)
@@ -60,9 +60,13 @@ export default class Environment
             `
         })
 
-        this.background = new THREE.Mesh
-            (this.backgroundGeometry, this.backgroundMaterial)
-        this.background.position.set(0, -3, -4)
+        this.background = new THREE.Mesh(this.backgroundGeometry, this.backgroundMaterial)
+
+        this.backgroundPos = new THREE.Vector3
+        this.camera.camera.getWorldDirection(this.backgroundPos)
+
+        this.background.position.set(this.backgroundPos.x * 2, this.backgroundPos.y - 4, this.backgroundPos.z * 2)
+        this.background.rotation.y = Math.PI * -0.25
         this.background.scale.set(3, 3, 3)
         this.scene.add(this.background)
 

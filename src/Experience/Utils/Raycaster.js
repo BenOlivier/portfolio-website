@@ -13,17 +13,17 @@ export default class Raycaster
 
         // Parameters
         this.params = {
-            aboutX: -5,
-            aboutY: 0.8,
-            aboutZ: -1.2,
+            aboutX: -4.1,
+            aboutY: 0.63,
+            aboutZ: -1,
 
-            workX: 0.5,
-            workY: 1.9,
-            workZ: 3.4,
+            workX: 0.7,
+            workY: 1.8,
+            workZ: 4.5,
 
-            contactX: -4,
-            contactY: 3,
-            contactZ: -1
+            contactX: -3.4,
+            contactY: 2.95,
+            contactZ: -0.6
         }
 
         this.setRaycaster()

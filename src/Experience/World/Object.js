@@ -42,15 +42,13 @@ export default class Object
     {
         // Model
         this.model = this.resource.scene
-        this.overlay1 = this.model.children[0].children[1].children[0]
-        this.overlay2 = this.model.children[0].children[1].children[1]
-        this.overlay3 = this.model.children[0].children[1].children[2]
+        this.overlay1 = this.model.children[1].children[0]
+        this.overlay2 = this.model.children[1].children[1]
+        this.overlay3 = this.model.children[1].children[2]
 
         // Materials
         this.debugObject = {
-            overlay1Color: '#ff8e7a',
-            overlay2Color:'#9eee81',
-            overlay3Color: '#99bbff'
+            overlayColor: '#99bbff'
         }
         
         this.overlay1Material = new THREE.ShaderMaterial({
@@ -58,17 +56,13 @@ export default class Object
             uniforms:
             {
                 uAlpha: { value: 0 },
-                uColor: { value: new THREE.Color(this.debugObject.overlay1Color) }
+                uColor: { value: new THREE.Color(this.debugObject.overlayColor) }
             },
             vertexShader: overlayVertexShader,
             fragmentShader: overlayFragmentShader
         })
-
         this.overlay2Material = this.overlay1Material.clone()
-        this.overlay2Material.uniforms.uColor.value = new THREE.Color(this.debugObject.overlay2Color)
-
         this.overlay3Material = this.overlay1Material.clone()
-        this.overlay3Material.uniforms.uColor.value = new THREE.Color(this.debugObject.overlay3Color)
 
         this.overlay1.children[0].material = this.overlay1Material
         this.overlay2.children[0].material = this.overlay2Material

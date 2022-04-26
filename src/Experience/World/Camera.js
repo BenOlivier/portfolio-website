@@ -16,8 +16,8 @@ export default class Camera
         // Parameters
         this.params = {
             startPosX: -6,
-            startPosY: 1.2,
-            startPosZ: 5,
+            startPosY: 1.8,
+            startPosZ: 6,
 
             duration: 2
         }
@@ -54,7 +54,10 @@ export default class Camera
             ease: "power2.inOut",
             x: targetPos.x,
             y: targetPos.y,
-            z: targetPos.z
+            z: targetPos.z,
+            // onUpdate: function() {
+            //     this.raycaster.castRay()
+            // }
         })
 
         gsap.to(this.camera.rotation, {

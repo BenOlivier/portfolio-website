@@ -10,6 +10,7 @@ export default class Loading
         this.time = this.experience.time
         this.scene = this.experience.scene
         this.canvas = this.experience.canvas
+        this.camera = this.experience.camera
         this.renderer = this.experience.renderer
         this.heading = document.querySelector('.heading')
         this.downButton = document.querySelector('.down-button')
@@ -127,10 +128,14 @@ export default class Loading
         setTimeout(() => {
             this.fadeOverlay()
         }, 250)
+        // Initial camera animation
+        setTimeout(() => {
+            this.camera.resetCamera(3, "power1.inOut")
+        }, 0)
         // Destroy loading bar and overlay
         setTimeout(() => {
             this.destroy()
-        }, 1500)
+        }, 2200)
     }
 
     fadeLoadingBar()
@@ -168,7 +173,7 @@ export default class Loading
         {
             if(overlayAlpha > 0)
             {
-                overlayAlpha -= 1 / 100
+                overlayAlpha -= 1 / 200
                 return overlayAlpha
             }
             else

@@ -58,7 +58,7 @@ export default class Raycaster
             {
                 if(!this.mainMenu)
                 {
-                    this.camera.resetCamera()
+                    this.camera.resetCamera(2, "power2.inOut")
                     this.mainMenu = true
                 }
             }
@@ -99,17 +99,20 @@ export default class Raycaster
         {
             case this.object.overlay1:
                 this.camera.moveCamera(new THREE.Vector3(this.params.aboutX,
-                    this.params.aboutY, this.params.aboutZ), new THREE.Euler(0, Math.PI * -0.5, 0))
+                    this.params.aboutY, this.params.aboutZ), new THREE.Euler(0, Math.PI * -0.5, 0),
+                    2.5, "power2.inOut")
                 break
 
             case this.object.overlay2:
                 this.camera.moveCamera(new THREE.Vector3(this.params.workX,
-                    this.params.workY, this.params.workZ), new THREE.Euler(0, 0, 0))
+                    this.params.workY, this.params.workZ), new THREE.Euler(0, 0, 0),
+                    2.5, "power2.inOut")
                 break
 
             case this.object.overlay3:
                 this.camera.moveCamera(new THREE.Vector3(this.params.contactX,
-                    this.params.contactY, this.params.contactZ), new THREE.Euler(0, Math.PI * -0.5, 0))
+                    this.params.contactY, this.params.contactZ), new THREE.Euler(0, Math.PI * -0.5, 0),
+                    2.5, "power2.inOut")
                 break
         }
     }

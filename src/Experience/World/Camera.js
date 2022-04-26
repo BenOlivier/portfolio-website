@@ -18,10 +18,12 @@ export default class Camera
     {
         this.camera = new THREE.PerspectiveCamera(35, this.sizes.width / this.sizes.height, 0.1, 100)
 
-        this.defaultPosition = new THREE.Vector3(-6, 1.8, 6)
-        this.camera.position.set(this.defaultPosition.x, this.defaultPosition.y, this.defaultPosition.z)
-        this.camera.rotation.y = Math.PI * -0.25
-        this.defaultOrientation = this.camera.rotation.clone()
+        this.startPosition = new THREE.Vector3(-8, 6, 8)
+        this.defaultPosition = new THREE.Vector3(-6, 1.4, 6)
+        this.camera.position.set(this.startPosition.x, this.startPosition.y, this.startPosition.z)
+        this.camera.rotation.order = "YXZ"
+        this.camera.rotation.set(Math.PI * -0.12, Math.PI * -0.25, 0)
+        this.defaultOrientation = new THREE.Euler(Math.PI * 0.015, Math.PI * -0.25, 0)
 
         this.scene.add(this.camera)
     }
@@ -32,28 +34,28 @@ export default class Camera
         this.camera.updateProjectionMatrix()
     }
 
-    moveCamera(targetPos, targetOrientation)
+    moveCamera(targetPos, targetOrientation, duration, ease)
     {
         gsap.to(this.camera.position, {
-            duration: 2,
-            ease: "power2.inOut",
+            duration: duration,
+            ease: ease,
             x: targetPos.x,
             y: targetPos.y,
             z: targetPos.z
         })
 
         gsap.to(this.camera.rotation, {
-            duration: 2,
-            ease: "power2.inOut",
+            duration: duration,
+            ease: ease,
             x: targetOrientation.x,
             y: targetOrientation.y,
             z: targetOrientation.z
         })
     }
 
-    resetCamera()
+    resetCamera(duration, ease)
     {
         this.moveCamera(new Vector3(this.defaultPosition.x, this.defaultPosition.y,
-            this.defaultPosition.z), this.defaultOrientation)
+            this.defaultPosition.z), this.defaultOrientation, duration, ease)
     }
 }

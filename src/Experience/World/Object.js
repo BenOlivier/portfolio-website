@@ -42,10 +42,9 @@ export default class Object
     {
         // Model
         this.model = this.resource.scene
-        this.overlay1 = this.model.children[1].children[0]
-        this.overlay2 = this.model.children[1].children[1]
-        this.overlay3 = this.model.children[1].children[2]
-        // console.log(this.overlay1 = this.model.children[0])
+        this.overlay1 = this.model.children[0].children[0]
+        this.overlay2 = this.model.children[0].children[1]
+        this.overlay3 = this.model.children[0].children[2]
 
         // Materials
         this.debugObject = {
@@ -119,14 +118,15 @@ export default class Object
             ease: "power1.out",
             value: this.params.overlayAlpha
         })
+
         // Scale up text
-        // gsap.to(overlay.parent.children[0].scale, {
-        //     duration: this.params.overlayFadeTime,
-        //     ease: "power1.out",
-        //     x: 0.65,
-        //     y: 0.65,
-        //     z: 0.65
-        // })
+        gsap.to(overlay.children[0].scale, {
+            duration: this.params.overlayFadeTime,
+            ease: "power1.out",
+            x: 0.53,
+            y: 0.53,
+            z: 0.53
+        })
     }
 
     fadeOutOverlay(overlay)
@@ -138,12 +138,12 @@ export default class Object
             value: 0
         })
         // Scale down text
-        // gsap.to(overlay.parent.children[0].children[0].scale, {
-        //     duration: this.params.overlayFadeTime,
-        //     ease: "power1.out",
-        //     x: 0.6,
-        //     y: 0.6,
-        //     z: 0.6
-        // })
+        gsap.to(overlay.children[0].scale, {
+            duration: this.params.overlayFadeTime,
+            ease: "power1.out",
+            x: 0.5,
+            y: 0.5,
+            z: 0.5
+        })
     }
 }

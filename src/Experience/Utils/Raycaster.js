@@ -14,17 +14,17 @@ export default class Raycaster
 
         // Parameters
         this.params = {
-            aboutX: 0,
-            aboutY: 2.5,
-            aboutZ: 2,
+            aboutX: -5,
+            aboutY: 0.8,
+            aboutZ: -1.2,
 
-            workX: -5,
-            workY: 1.2,
-            workZ: -0.95,
+            workX: 0.5,
+            workY: 1.9,
+            workZ: 3.4,
 
-            contactX: 0,
-            contactY: 0,
-            contactZ: 4
+            contactX: -4,
+            contactY: 3,
+            contactZ: -1
         }
 
         // Debug
@@ -106,17 +106,17 @@ export default class Raycaster
         {
             case this.object.overlay1.children[0]:
                 this.camera.moveCamera(new THREE.Vector3(this.params.aboutX,
-                    this.params.aboutY, this.params.aboutZ), new THREE.Euler(0, 0, 0))
+                    this.params.aboutY, this.params.aboutZ), new THREE.Euler(0, Math.PI * -0.5, 0))
                 break
 
             case this.object.overlay2.children[0]:
                 this.camera.moveCamera(new THREE.Vector3(this.params.workX,
-                    this.params.workY, this.params.workZ), new THREE.Euler(0, Math.PI * -0.5, 0))
+                    this.params.workY, this.params.workZ), new THREE.Euler(0, 0, 0))
                 break
 
             case this.object.overlay3.children[0]:
                 this.camera.moveCamera(new THREE.Vector3(this.params.contactX,
-                    this.params.contactY, this.params.contactZ), new THREE.Euler(0, 0, 0))
+                    this.params.contactY, this.params.contactZ), new THREE.Euler(0, Math.PI * -0.5, 0))
                 break
         }
     }

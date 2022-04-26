@@ -33,25 +33,11 @@ export default class Renderer
         this.renderer.physicallyCorrectLights = true
         this.renderer.outputEncoding = THREE.sRGBEncoding
         this.renderer.toneMapping = THREE.CineonToneMapping
-        this.renderer.toneMappingExposure = 1.75
+        this.renderer.toneMappingExposure = 1.8
         this.renderer.shadowMap.enabled = true
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
         this.renderer.setSize(this.sizes.width, this.sizes.height)
         this.renderer.setPixelRatio(Math.min(this.sizes.pixelRatio, 2))
-
-        this.renderTarget = new THREE.WebGLRenderTarget()
-        this.effectComposer = new EffectComposer(this.renderer, this.renderTarget)
-        this.effectComposer.setSize(this.sizes.width, this.sizes.height)
-        this.effectComposer.setPixelRatio(Math.min(this.sizes.pixelRatio, 2))
-
-        this.renderScene = new RenderPass(this.scene, this.camera.camera)
-        this.effectComposer.addPass(this.renderScene)
-
-        this.bloomPass = new UnrealBloomPass()
-        this.bloomPass.threshold = 1;
-        this.bloomPass.strength = 10;
-
-        // this.effectComposer.addPass(this.bloomPass)
 
         if(this.debug.active)
         {
@@ -62,7 +48,7 @@ export default class Renderer
                 ACESFilmic: THREE.ACESFilmicToneMapping
             })
             
-            this.debugFolder.add(this.renderer, 'toneMappingExposure').min(0).max(10).step(0.001)
+            this.debugFolder.add(this.renderer, 'toneMappingExposure').min(0).max(5).step(0.001)
         }
     }
 
@@ -74,6 +60,6 @@ export default class Renderer
 
     update()
     {
-        this.effectComposer.render()
+        this.renderer.render(this.scene, this.camera.camera)
     }
 }

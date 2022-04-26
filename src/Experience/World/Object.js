@@ -80,8 +80,8 @@ export default class Object
                 .add(this.params, 'objectScale')
                 .name('objectScale')
                 .min(0)
-                .max(20)
-                .step(0.1)
+                .max(2)
+                .step(0.01)
                 .onChange(() =>
                 {
                     this.model.scale.set(this.params.objectScale,

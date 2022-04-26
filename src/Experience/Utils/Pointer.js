@@ -13,7 +13,6 @@ export default class Pointer extends EventEmitter
         this.experience = new Experience()
         this.time = this.experience.time
         this.sizes = this.experience.sizes
-        this.debug = this.experience.debug
 
         // Pointer down event
         window.addEventListener('pointerdown', (event) =>

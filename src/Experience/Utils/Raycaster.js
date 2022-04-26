@@ -7,7 +7,6 @@ export default class Raycaster
     {
         this.experience = new Experience()
         this.scene = this.experience.scene
-        this.debug = this.experience.debug
         this.pointer = this.experience.pointer
         this.camera = this.experience.camera
         this.object = this.experience.object
@@ -25,12 +24,6 @@ export default class Raycaster
             contactX: -4,
             contactY: 3,
             contactZ: -1
-        }
-
-        // Debug
-        if(this.debug.active)
-        {
-            this.debugFolder = this.debug.ui.addFolder('raycaster')
         }
 
         this.setRaycaster()

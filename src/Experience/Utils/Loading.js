@@ -11,7 +11,6 @@ export default class Loading
         this.scene = this.experience.scene
         this.canvas = this.experience.canvas
         this.renderer = this.experience.renderer
-        this.debug = this.experience.debug
         this.heading = document.querySelector('.heading')
         this.downButton = document.querySelector('.down-button')
 
@@ -24,18 +23,6 @@ export default class Loading
         {
             if(this.loadingBar.parent == this.scene) this.updateLoadingBar()
         })
-
-        // Parameters
-        this.params = {
-            loadingBarSmoothing: 0.05,
-            fadeInTime: 0.5
-        }
-
-        // Debug
-        if(this.debug.active)
-        {
-            this.debugFolder = this.debug.ui.addFolder('loading')
-        }
         
         this.setLoadingBar()
         this.setOverlay()
@@ -68,11 +55,6 @@ export default class Loading
         this.overlay = new THREE.Mesh(this.overlayGeometry, this.overlayMaterial)
         this.overlay.renderOrder = 0
         this.scene.add(this.overlay)
-
-        if(this.debug.active)
-        {
-            this.debugFolder.add(this.params, 'fadeInTime').min(0).max(5).step(0.1).name('fadeInTime')
-        }
     }
 
     setLoadingBar()
@@ -130,8 +112,8 @@ export default class Loading
         }
         else
         {
-            this.loadingBarMaterial.uniforms.uProgress.value += this.experience.resources.progressRatio
-                * this.params.loadingBarSmoothing
+            this.loadingBarMaterial.uniforms.uProgress.value +=
+                this.experience.resources.progressRatio * 0.05
         }
     }
 
@@ -148,7 +130,7 @@ export default class Loading
         // Destroy loading bar and overlay
         setTimeout(() => {
             this.destroy()
-        }, 250 + this.params.fadeInTime * 1000)
+        }, 1500)
     }
 
     fadeLoadingBar()
@@ -177,7 +159,6 @@ export default class Loading
     fadeOverlay()
     {
         let overlayAlpha = 1
-        let fadeInTime = this.params.fadeInTime
         let interval = setInterval(() =>
         {
             this.overlayMaterial.uniforms.uAlpha.value = animateFade(overlayAlpha)
@@ -187,7 +168,7 @@ export default class Loading
         {
             if(overlayAlpha > 0)
             {
-                overlayAlpha -= 1 / (fadeInTime * 100)
+                overlayAlpha -= 1 / 100
                 return overlayAlpha
             }
             else

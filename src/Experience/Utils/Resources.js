@@ -11,7 +11,6 @@ export default class Resources extends EventEmitter
 
         this.sources = sources
         this.experience = new Experience()
-        this.debug = this.experience.debug
 
         this.items = {}
         this.toLoad = this.sources.length

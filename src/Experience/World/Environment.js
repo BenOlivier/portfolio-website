@@ -83,13 +83,14 @@ export default class Environment
                 .name('backgroundColor2')
                 .onChange(val => { this.backgroundMaterial.uniforms.uColor2.value.set(val) })
             
-            this.debugFolder.add(this.backgroundMaterial.uniforms.uRadius, 'value').min(0).max(1).step(0.01).name('radius')
+            this.debugFolder.add(this.backgroundMaterial.uniforms.uRadius, 'value')
+                .min(0).max(1).step(0.01).name('backgroundRadius')
         }
     }
 
     setAmbientLight()
     {
-        this.ambientLight = new THREE.AmbientLight('#ffffff', 0.8)
+        this.ambientLight = new THREE.AmbientLight('#fff9f5', 0.8)
         this.scene.add(this.ambientLight)
 
         // Debug

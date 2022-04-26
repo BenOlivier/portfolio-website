@@ -23,7 +23,7 @@ export default class Object
             rotationExtent: 100,
 
             overlayFadeTime: 0.2,
-            overlayAlpha: 0.2
+            overlayAlpha: 0.15
         }
 
         // Debug
@@ -125,13 +125,13 @@ export default class Object
             value: this.params.overlayAlpha
         })
         // Scale up text
-        gsap.to(overlay.parent.children[1].scale, {
-            duration: this.params.overlayFadeTime,
-            ease: "power1.out",
-            x: 0.65,
-            y: 0.65,
-            z: 0.65
-        })
+        // gsap.to(overlay.parent.children[1].scale, {
+        //     duration: this.params.overlayFadeTime,
+        //     ease: "power1.out",
+        //     x: 0.65,
+        //     y: 0.65,
+        //     z: 0.65
+        // })
     }
 
     fadeOutOverlay(overlay)
@@ -143,12 +143,12 @@ export default class Object
             value: 0
         })
         // Scale down text
-        gsap.to(overlay.parent.children[1].scale, {
-            duration: this.params.overlayFadeTime,
-            ease: "power1.out",
-            x: 0.6,
-            y: 0.6,
-            z: 0.6
-        })
+        // gsap.to(overlay.parent.children[1].scale, {
+        //     duration: this.params.overlayFadeTime,
+        //     ease: "power1.out",
+        //     x: 0.6,
+        //     y: 0.6,
+        //     z: 0.6
+        // })
     }
 }

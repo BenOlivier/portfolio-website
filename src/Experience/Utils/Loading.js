@@ -127,10 +127,10 @@ export default class Loading
         // Fade out overlay
         setTimeout(() => {
             this.fadeOverlay()
-        }, 250)
+        }, 500)
         // Initial camera animation
         setTimeout(() => {
-            this.camera.resetCamera(3, "power1.inOut")
+            this.camera.resetCamera(3, "sine.inOut")
         }, 0)
         // Destroy loading bar and overlay
         setTimeout(() => {

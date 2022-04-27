@@ -26,12 +26,12 @@ export default class Camera
     {
         this.camera = new THREE.PerspectiveCamera(35, this.sizes.width / this.sizes.height, 0.1, 100)
 
-        this.startPosition = new THREE.Vector3(-8, 6, 8)
-        this.defaultPosition = new THREE.Vector3(-6, 1.4, 6)
+        this.startPosition = new THREE.Vector3(-8, 4, 8)
+        this.defaultPosition = new THREE.Vector3(-6, 1.7, 6)
         this.camera.position.set(this.startPosition.x, this.startPosition.y, this.startPosition.z)
         this.camera.rotation.order = "YXZ"
-        this.camera.rotation.set(Math.PI * -0.12, Math.PI * -0.25, 0)
-        this.defaultOrientation = new THREE.Euler(Math.PI * 0.015, Math.PI * -0.25, 0)
+        this.camera.rotation.set(Math.PI * -0.07, Math.PI * -0.25, 0)
+        this.defaultOrientation = new THREE.Euler(0, Math.PI * -0.25, 0)
 
         this.scene.add(this.camera)
     }

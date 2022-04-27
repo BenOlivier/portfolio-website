@@ -46,6 +46,7 @@ export default class Object
         this.overlay1 = this.model.children[0].children[0]
         this.overlay2 = this.model.children[0].children[1]
         this.overlay3 = this.model.children[0].children[2]
+        // this.overlays = { this.overlay1, this.overlay2, this.overlay3 }
 
         // Materials
         this.debugObject = {
@@ -102,11 +103,11 @@ export default class Object
                 .max(2000)
                 .step(10)
 
-            this.debugFolder.addColor(this.debugObject, 'overlayColor').name('overlayColor').onChange(() =>
-            {
-                (this.overlay1Material.uniforms.uColor.value.set(this.debugObject.overlay1Color))
-                (this.overlay1Material.uniforms.uColor.value.set(this.debugObject.overlay2Color))
-                (this.overlay1Material.uniforms.uColor.value.set(this.debugObject.overlay3Color))
+            this.debugFolder.addColor(this.debugObject, 'overlayColor').name('overlayColor')
+            .onChange(val => {
+                this.overlay1Material.uniforms.uColor.value.set(val)
+                this.overlay2Material.uniforms.uColor.value.set(val)
+                this.overlay3Material.uniforms.uColor.value.set(val)
             })
         }
     }

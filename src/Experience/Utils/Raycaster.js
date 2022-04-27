@@ -26,6 +26,10 @@ export default class Raycaster
             contactZ: -0.6
         }
 
+        this.aboutSection = document.querySelector('.aboutSection')
+        this.workSection = document.querySelector('.workSection')
+        this.contactSection = document.querySelector('.contactSection')
+
         this.setRaycaster()
     }
 
@@ -50,6 +54,10 @@ export default class Raycaster
                 this.sendAnimation()
                 this.object.fadeOutOverlay(this.currentIntersect.object)
                 document.body.style.cursor = 'default'
+                // Fade in section
+                setTimeout(() => {
+                    this.aboutSection.classList.add('visible')
+                }, 2200)
                 this.currentIntersect = null
                 this.mainMenu = false
             }
@@ -59,6 +67,7 @@ export default class Raycaster
                 if(!this.mainMenu)
                 {
                     this.camera.resetCamera(2, "power2.inOut")
+                    this.aboutSection.classList.remove('visible')
                     this.mainMenu = true
                 }
             }

@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import { Euler, Vector3 } from 'three'
 import Experience from '../Experience.js'
 import gsap from 'gsap'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 export default class Camera
 {
@@ -11,7 +12,14 @@ export default class Camera
         this.sizes = this.experience.sizes
         this.scene = this.experience.scene
         this.canvas = this.experience.canvas
+        this.debug = this.experience.debug
         this.setCamera()
+
+        // Debug
+        if(this.debug.active)
+        {
+            this.setOrbitControls()
+        }
     }
 
     setCamera()
@@ -26,6 +34,17 @@ export default class Camera
         this.defaultOrientation = new THREE.Euler(Math.PI * 0.015, Math.PI * -0.25, 0)
 
         this.scene.add(this.camera)
+    }
+
+    setOrbitControls()
+    {
+        this.controls = new OrbitControls(this.camera, this.canvas)
+        this.controls.enableDamping = true
+    }
+
+    updateOrbitControls()
+    {
+        this.controls.update()
     }
 
     resize()

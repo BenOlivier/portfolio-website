@@ -74,6 +74,11 @@ export default class Experience
     {
         if(this.object) this.object.update()
         this.renderer.update()
+
+        if(this.debug.active)
+        {
+            this.camera.updateOrbitControls()
+        }
     }
 
     destroy()

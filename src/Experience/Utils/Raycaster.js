@@ -13,17 +13,17 @@ export default class Raycaster
 
         // Parameters
         this.params = {
-            aboutX: -4.1,
+            aboutX: -3.8,
             aboutY: 0.63,
-            aboutZ: -1,
+            aboutZ: 0.5,
 
-            workX: 0.7,
+            workX: -0.5,
             workY: 1.8,
-            workZ: 4.5,
+            workZ: 4,
 
-            contactX: -3.4,
+            contactX: -3,
             contactY: 2.95,
-            contactZ: -0.6
+            contactZ: 1
         }
 
         this.aboutSection = document.querySelector('.aboutSection')
@@ -55,9 +55,9 @@ export default class Raycaster
                 this.object.fadeOutOverlay(this.currentIntersect.object)
                 document.body.style.cursor = 'default'
                 // Fade in section
-                setTimeout(() => {
-                    this.aboutSection.classList.add('visible')
-                }, 2200)
+                // setTimeout(() => {
+                //     this.aboutSection.classList.add('visible')
+                // }, 2200)
                 this.currentIntersect = null
                 this.mainMenu = false
             }
@@ -108,19 +108,19 @@ export default class Raycaster
         {
             case this.object.overlay1:
                 this.camera.moveCamera(new THREE.Vector3(this.params.aboutX,
-                    this.params.aboutY, this.params.aboutZ), new THREE.Euler(0, Math.PI * -0.5, 0),
+                    this.params.aboutY, this.params.aboutZ), new THREE.Euler(0, Math.PI * -0.35, 0),
                     2.5, "power2.inOut")
                 break
 
             case this.object.overlay2:
                 this.camera.moveCamera(new THREE.Vector3(this.params.workX,
-                    this.params.workY, this.params.workZ), new THREE.Euler(0, 0, 0),
+                    this.params.workY, this.params.workZ), new THREE.Euler(0, Math.PI * -0.15, 0),
                     2.5, "power2.inOut")
                 break
 
             case this.object.overlay3:
                 this.camera.moveCamera(new THREE.Vector3(this.params.contactX,
-                    this.params.contactY, this.params.contactZ), new THREE.Euler(0, Math.PI * -0.5, 0),
+                    this.params.contactY, this.params.contactZ), new THREE.Euler(0, Math.PI * -0.35, 0),
                     2.5, "power2.inOut")
                 break
         }

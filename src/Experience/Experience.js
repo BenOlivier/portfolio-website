@@ -11,6 +11,7 @@ import Environment from './World/Environment.js'
 import Object from './World/Object.js'
 import Resources from './Utils/Resources.js'
 import sources from './sources.js'
+import Stats from 'stats.js'
 
 let instance = null
 
@@ -41,6 +42,7 @@ export default class Experience
         this.resources = new Resources(sources)
         this.pointer = new Pointer()
         this.renderer = new Renderer()
+        // this.stats = new Stats()
         
         // Wait for resources
         this.resources.on('ready', () =>
@@ -51,6 +53,10 @@ export default class Experience
             this.raycaster = new Raycaster()
         })
 
+        // Stats
+        // this.stats.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
+        // document.body.appendChild(this.stats.dom)
+
         // Resize event
         this.sizes.on('resize', () =>
         {
@@ -60,7 +66,9 @@ export default class Experience
         // Time tick event
         this.time.on('tick', () =>
         {
+            // this.stats.begin()
             this.update()
+            // this.stats.end()
         })
     }
 

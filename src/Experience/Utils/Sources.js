@@ -2,6 +2,6 @@ export default [
     {
         name: 'objectModel',
         type: 'gltfModel',
-        path: 'models/DefaultCube.glb'
+        path: 'models/Scene.glb'
     }
 ]

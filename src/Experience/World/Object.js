@@ -1,7 +1,5 @@
 import * as THREE from 'three'
 import Experience from '../Experience.js'
-import overlayVertexShader from '../Shaders/Overlay/vertex.glsl'
-import overlayFragmentShader from '../Shaders/Overlay/fragment.glsl'
 
 export default class Object
 {
@@ -31,7 +29,7 @@ export default class Object
         this.resource = this.resources.items.objectModel
 
         this.setModel()
-        // this.setAnimation()
+        this.setAnimation()
     }
 
     setModel()
@@ -80,10 +78,12 @@ export default class Object
 
     setAnimation()
     {
-        this.animation = {}
-        this.animation.mixer = new THREE.AnimationMixer(this.model)
-        this.animation.action = this.animation.mixer.clipAction(this.resource.animations[0])
-        this.animation.action.play()
+        // this.animation = {}
+        // this.animation.mixer = new THREE.AnimationMixer(this.model)
+        // this.animation.action = this.animation.mixer.clipAction(this.resource.animations[0])
+        // this.animation.action.play()
+
+        console.log(this.resource.animations[0])
     }
 
     update()

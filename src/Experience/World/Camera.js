@@ -19,11 +19,7 @@ export default class Camera
     setCamera()
     {
         this.camera = new THREE.PerspectiveCamera(35, this.sizes.width / this.sizes.height, 0.1, 100)
-
-        this.startPosition = new THREE.Vector3(-8, 4, 8)
-        this.camera.position.set(this.startPosition.x, this.startPosition.y, this.startPosition.z)
-        // this.camera.rotation.order = 'YXZ'
-        // this.camera.rotation.set(Math.PI * -0.07, Math.PI * -0.25, 0)
+        this.camera.position.set(0, 0, 2)
 
         this.scene.add(this.camera)
     }

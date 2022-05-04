@@ -38,23 +38,6 @@ export default class Object
     {
         // Model
         this.model = this.resource.scene
-
-        // Materials
-        this.debugObject = {
-            overlayColor: '#ffffff'
-        }
-        
-        this.overlay1Material = new THREE.ShaderMaterial({
-            transparent: true,
-            uniforms:
-            {
-                uAlpha: { value: 0 },
-                uColor: { value: new THREE.Color(this.debugObject.overlayColor) }
-            },
-            vertexShader: overlayVertexShader,
-            fragmentShader: overlayFragmentShader
-        })
-
         this.model.scale.set(this.params.objectScale,
             this.params.objectScale, this.params.objectScale)
         this.scene.add(this.model)

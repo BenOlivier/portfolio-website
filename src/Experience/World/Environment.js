@@ -72,8 +72,8 @@ export default class Environment
     setFloor()
     {
         let colorController = {
-            uInnerColor: "#8894a5",
-            uOuterColor: "#e5e5e5"
+            uInnerColor: "#f2f2f2",
+            uOuterColor: "#f0f0f0"
         }
         
         this.floorGeometry = new THREE.PlaneGeometry(10, 10, 1, 1)
@@ -83,7 +83,7 @@ export default class Environment
                 uInnerColor: { value: new THREE.Color(colorController.uInnerColor) },
                 uOuterColor: { value: new THREE.Color(colorController.uOuterColor) },
                 uRadius: { value: 0.2 },
-                uFalloff: { value: 4 }
+                uFalloff: { value: 2 }
             },
             vertexShader: floorVertexShader,
             fragmentShader: floorFragmentShader

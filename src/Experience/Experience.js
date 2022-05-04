@@ -10,7 +10,7 @@ import Renderer from './Renderer.js'
 import Environment from './World/Environment.js'
 import Object from './World/Object.js'
 import Resources from './Utils/Resources.js'
-import sources from './sources.js'
+import Sources from './Utils/Sources.js'
 // import Stats from 'stats.js'
 
 let instance = null
@@ -38,7 +38,7 @@ export default class Experience
         this.time = new Time()
         this.scene = new THREE.Scene()
         this.loading = new Loading()
-        this.resources = new Resources(sources)
+        this.resources = new Resources(Sources)
         this.camera = new Camera()
         this.pointer = new Pointer()
         // this.raycaster = new Raycaster()

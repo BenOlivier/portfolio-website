@@ -13,7 +13,7 @@ export default class Camera
         this.debug = this.experience.debug
 
         this.setCamera()
-        this.setOrbitControls()
+        this.setControls()
     }
 
     setCamera()
@@ -28,7 +28,7 @@ export default class Camera
         this.scene.add(this.camera)
     }
 
-    setOrbitControls()
+    setControls()
     {
         this.controls = new OrbitControls(this.camera, this.canvas)
         this.controls.enableDamping = true

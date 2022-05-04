@@ -31,7 +31,7 @@ export default class Object
         this.resource = this.resources.items.objectModel
 
         this.setModel()
-        this.setAnimation()
+        // this.setAnimation()
     }
 
     setModel()
@@ -105,6 +105,6 @@ export default class Object
 
     update()
     {
-        this.animation.mixer.update(this.time.delta * 0.001)
+        // this.animation.mixer.update(this.time.delta * 0.001)
     }
 }

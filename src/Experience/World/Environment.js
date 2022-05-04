@@ -18,7 +18,7 @@ export default class Environment
             this.debugFolder = this.debug.ui.addFolder('environment')
         }
 
-        this.setBackground()
+        // this.setBackground()
         this.setAmbientLight()
     }
 
@@ -62,12 +62,12 @@ export default class Environment
 
         this.background = new THREE.Mesh(this.backgroundGeometry, this.backgroundMaterial)
 
-        this.backgroundPos = new THREE.Vector3
-        this.camera.camera.getWorldDirection(this.backgroundPos)
-        this.background.position.set(this.backgroundPos.x, this.backgroundPos.y - 2, this.backgroundPos.z * 25)
-        this.background.scale.set(3, 3, 3)
+        // this.backgroundPos = new THREE.Vector3
+        // this.camera.camera.getWorldDirection(this.backgroundPos)
+        // this.background.position.set(this.backgroundPos.x, this.backgroundPos.y - 2, this.backgroundPos.z * 25)
+        // this.background.scale.set(3, 3, 3)
         
-        this.camera.camera.add(this.background)
+        // this.camera.camera.add(this.background)
 
         // Debug
         if(this.debug.active)

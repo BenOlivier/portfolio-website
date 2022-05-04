@@ -10,7 +10,6 @@ export default class Loading
         this.time = this.experience.time
         this.scene = this.experience.scene
         this.canvas = this.experience.canvas
-        this.camera = this.experience.camera
         this.renderer = this.experience.renderer
         this.heading = document.querySelector('.heading')
         this.downButton = document.querySelector('.down-button')

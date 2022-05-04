@@ -5,11 +5,11 @@ import Experience from '../Experience.js'
 
 export default class Resources extends EventEmitter
 {
-    constructor(sources)
+    constructor(Sources)
     {
         super()
 
-        this.sources = sources
+        this.sources = Sources
         this.experience = new Experience()
 
         this.items = {}

@@ -1,5 +1,7 @@
 import * as THREE from 'three'
 import Experience from '../Experience.js'
+import floorVertexShader from '../Shaders/Floor/vertex.glsl'
+import floorFragmentShader from '../Shaders/Floor/fragment.glsl'
 
 export default class Environment
 {
@@ -18,83 +20,15 @@ export default class Environment
             this.debugFolder = this.debug.ui.addFolder('environment')
         }
 
-        this.setBackground()
-        this.setAmbientLight()
-
-        this.resources.on('ready', () =>
-        {
-            this.setBackground()
-        })
-    }
-
-    setBackground()
-    {
-        let colorController = {
-            uColor1: "#28313e",
-            uColor2: "#121212"
-        }
-        
-        this.backgroundGeometry = new THREE.PlaneGeometry(10, 10, 1, 1)
-        this.backgroundMaterial = new THREE.ShaderMaterial({
-            uniforms: {
-                uColor1: { value: new THREE.Color(colorController.uColor1) },
-                uColor2: { value: new THREE.Color(colorController.uColor2) },
-                uRadius: { value: 0.3 }
-            },
-            vertexShader: `
-                varying vec2 vUv;
-
-                void main()
-                {
-                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-                    vUv = uv;
-                }
-            `,
-            fragmentShader: `
-                uniform vec3 uColor1;
-                uniform vec3 uColor2;
-                uniform float uRadius;
-
-                varying vec2 vUv;
-
-                void main()
-                {
-                    float strength = length(vUv - 0.5) / uRadius;
-                    gl_FragColor = vec4(mix(uColor1, uColor2, strength), 1.0);
-                }
-            `
-        })
-
-        this.background = new THREE.Mesh(this.backgroundGeometry, this.backgroundMaterial)
-
-        this.backgroundPos = new THREE.Vector3
-        this.camera.camera.getWorldDirection(this.backgroundPos)
-        this.background.position.set(this.backgroundPos.x, this.backgroundPos.y - 2, this.backgroundPos.z * 25)
-        this.background.scale.set(3, 3, 3)
-        
-        this.camera.camera.add(this.background)
-
-        // Debug
-        if(this.debug.active)
-        {
-            this.debugFolder
-                .addColor(colorController, 'uColor1')
-                .name('backgroundColor1')
-                .onChange(val => { this.backgroundMaterial.uniforms.uColor1.value.set(val) })
-            
-            this.debugFolder
-                .addColor(colorController, 'uColor2')
-                .name('backgroundColor2')
-                .onChange(val => { this.backgroundMaterial.uniforms.uColor2.value.set(val) })
-            
-            this.debugFolder.add(this.backgroundMaterial.uniforms.uRadius, 'value')
-                .min(0).max(1).step(0.01).name('backgroundRadius')
-        }
+        // this.setAmbientLight()
+        // this.setDirectionalLight()
+        this.setFloor()
     }
 
     setAmbientLight()
     {
-        this.ambientLight = new THREE.AmbientLight('#fff9f5', 1.2)
+        this.ambientLight = new THREE.AmbientLight('#fff9f5', 2)
+        this.ambientLight.position.set(0, 2, 2)
         this.scene.add(this.ambientLight)
 
         // Debug
@@ -110,6 +44,74 @@ export default class Environment
             this.debugFolder
                 .addColor(this.ambientLight, 'color')
                 .name('ambientLightColor')
+        }
+    }
+
+    setDirectionalLight()
+    {
+        this.directionalLight = new THREE.DirectionalLight('#fff9f5', 1.2)
+        this.directionalLight.position.set(0, 2, 2)
+        this.scene.add(this.directionalLight)
+
+        // Debug
+        if(this.debug.active)
+        {
+            this.debugFolder
+                .add(this.directionalLight, 'intensity')
+                .name('directionalLightIntensity')
+                .min(0)
+                .max(10)
+                .step(0.001)
+
+            this.debugFolder
+                .addColor(this.directionalLight, 'color')
+                .name('directionalLightColor')
+        }
+    }
+
+    setFloor()
+    {
+        let colorController = {
+            uInnerColor: "#f2f2f2",
+            uOuterColor: "#f0f0f0"
+        }
+        
+        this.floorGeometry = new THREE.PlaneGeometry(10, 10, 1, 1)
+        this.floorMaterial = new THREE.ShaderMaterial({
+            transparent: true,
+            uniforms: {
+                uInnerColor: { value: new THREE.Color(colorController.uInnerColor) },
+                uOuterColor: { value: new THREE.Color(colorController.uOuterColor) },
+                uRadius: { value: 0.2 },
+                uFalloff: { value: 2 }
+            },
+            vertexShader: floorVertexShader,
+            fragmentShader: floorFragmentShader
+        })
+
+        this.floor = new THREE.Mesh(this.floorGeometry, this.floorMaterial)
+        this.floor.position.set(0, -0.5, 0)
+        this.floor.rotation.set(Math.PI * -0.5, 0, 0)
+        this.scene.add(this.floor)
+
+        // Debug
+        if(this.debug.active)
+        {
+            this.debugFolder
+                .addColor(colorController, 'uInnerColor')
+                .name('floorInnerColor')
+                .onChange(val => { this.floorMaterial.uniforms.uInnerColor.value.set(val) })
+            
+            this.debugFolder
+                .addColor(colorController, 'uOuterColor')
+                .name('floorOuterColor')
+                .onChange(val => { this.floorMaterial.uniforms.uOuterColor.value.set(val) })
+            
+            this.debugFolder.add(this.floorMaterial.uniforms.uRadius, 'value')
+                .min(0).max(1).step(0.01).name('floorRadius')
+
+            this.debugFolder.add(this.floorMaterial.uniforms.uFalloff, 'value')
+                .min(0).max(10).step(0.01).name('floorFalloff')
         }
     }
 }

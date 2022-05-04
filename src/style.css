@@ -12,7 +12,9 @@ html, body
     left: 0;
     width: 100%;
     height: 100%;
-    background: #000000;
+    /* background: #e5e5e5; */
+    /* background-image: linear-gradient(rgb(220, 220, 220) , rgb(240, 240, 240)); */
+    background: #e5e5e5;
     color: #ffffff;
 }
 
@@ -44,35 +46,4 @@ html, body
 .home-button:active
 {
     transform: scale(1);
-}
-
-section
-{
-    display: flex;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-}
-
-section div
-{
-    padding: 50px;
-    width: 50%;
-    height: 50%;
-    box-sizing: border-box;
-    border-radius: 20px;
-
-    transition: transform 0.5s, opacity 0.5s;
-    transform: scale(0.8, 0.8);
-    opacity: 0;
-    background-color: #ffffff2b;
-    backdrop-filter: blur(20px);
-}
-
-section div.visible
-{
-    transform: scale(1, 1);
-    opacity: 1;
 }

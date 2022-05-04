@@ -68,11 +68,6 @@ export default class Object
                 .min(0)
                 .max(2000)
                 .step(10)
-
-            this.debugFolder.addColor(this.debugObject, 'overlayColor').name('overlayColor')
-            .onChange(val => {
-                this.overlay1Material.uniforms.uColor.value.set(val)
-            })
         }
     }
 
@@ -82,8 +77,6 @@ export default class Object
         // this.animation.mixer = new THREE.AnimationMixer(this.model)
         // this.animation.action = this.animation.mixer.clipAction(this.resource.animations[0])
         // this.animation.action.play()
-
-        console.log(this.resource.animations[0])
     }
 
     update()

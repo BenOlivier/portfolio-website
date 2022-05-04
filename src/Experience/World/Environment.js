@@ -1,5 +1,7 @@
 import * as THREE from 'three'
 import Experience from '../Experience.js'
+import floorVertexShader from '../Shaders/Floor/vertex.glsl'
+import floorFragmentShader from '../Shaders/Floor/fragment.glsl'
 
 export default class Environment
 {
@@ -18,8 +20,9 @@ export default class Environment
             this.debugFolder = this.debug.ui.addFolder('environment')
         }
 
-        this.setAmbientLight()
+        // this.setAmbientLight()
         // this.setDirectionalLight()
+        this.setFloor()
     }
 
     setAmbientLight()
@@ -63,6 +66,52 @@ export default class Environment
             this.debugFolder
                 .addColor(this.directionalLight, 'color')
                 .name('directionalLightColor')
+        }
+    }
+
+    setFloor()
+    {
+        let colorController = {
+            uInnerColor: "#8894a5",
+            uOuterColor: "#e5e5e5"
+        }
+        
+        this.floorGeometry = new THREE.PlaneGeometry(10, 10, 1, 1)
+        this.floorMaterial = new THREE.ShaderMaterial({
+            transparent: true,
+            uniforms: {
+                uInnerColor: { value: new THREE.Color(colorController.uInnerColor) },
+                uOuterColor: { value: new THREE.Color(colorController.uOuterColor) },
+                uRadius: { value: 0.2 },
+                uFalloff: { value: 4 }
+            },
+            vertexShader: floorVertexShader,
+            fragmentShader: floorFragmentShader
+        })
+
+        this.floor = new THREE.Mesh(this.floorGeometry, this.floorMaterial)
+        this.floor.position.set(0, -0.5, 0)
+        this.floor.rotation.set(Math.PI * -0.5, 0, 0)
+        this.scene.add(this.floor)
+
+        // Debug
+        if(this.debug.active)
+        {
+            this.debugFolder
+                .addColor(colorController, 'uInnerColor')
+                .name('floorInnerColor')
+                .onChange(val => { this.floorMaterial.uniforms.uInnerColor.value.set(val) })
+            
+            this.debugFolder
+                .addColor(colorController, 'uOuterColor')
+                .name('floorOuterColor')
+                .onChange(val => { this.floorMaterial.uniforms.uOuterColor.value.set(val) })
+            
+            this.debugFolder.add(this.floorMaterial.uniforms.uRadius, 'value')
+                .min(0).max(1).step(0.01).name('floorRadius')
+
+            this.debugFolder.add(this.floorMaterial.uniforms.uFalloff, 'value')
+                .min(0).max(10).step(0.01).name('floorFalloff')
         }
     }
 }

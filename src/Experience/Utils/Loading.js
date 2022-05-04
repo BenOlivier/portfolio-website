@@ -25,7 +25,7 @@ export default class Loading
         })
         
         this.setLoadingBar()
-        this.setOverlay()
+        // this.setOverlay()
     }
 
     setOverlay()
@@ -123,14 +123,14 @@ export default class Loading
         setTimeout(() => {
             this.fadeLoadingBar()
         }, 250)
-        // Fade out overlay
-        setTimeout(() => {
-            this.fadeOverlay()
-        }, 500)
-        // Destroy loading bar and overlay
-        setTimeout(() => {
-            this.destroy()
-        }, 2200)
+        // // Fade out overlay
+        // setTimeout(() => {
+        //     this.fadeOverlay()
+        // }, 500)
+        // // Destroy loading bar and overlay
+        // setTimeout(() => {
+        //     this.destroy()
+        // }, 2200)
     }
 
     fadeLoadingBar()

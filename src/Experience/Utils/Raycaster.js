@@ -42,34 +42,20 @@ export default class Raycaster
         window.addEventListener('mousemove', (event) => {
             if(this.mainMenu)
             {
-                this.castRay()
+                // this.castRay()
             }
         })
 
         window.addEventListener('click', () =>
         {
-            // Clicked on overlay
             if(this.currentIntersect)
             {
-                this.sendAnimation()
-                this.object.fadeOutOverlay(this.currentIntersect.object)
-                document.body.style.cursor = 'default'
-                // Fade in section
-                // setTimeout(() => {
-                //     this.aboutSection.classList.add('visible')
-                // }, 2200)
-                this.currentIntersect = null
-                this.mainMenu = false
+                // Clicked on something
             }
-            // Clicked away from room
+
             else
             {
-                if(!this.mainMenu)
-                {
-                    this.camera.resetCamera(2, "power2.inOut")
-                    this.aboutSection.classList.remove('visible')
-                    this.mainMenu = true
-                }
+                // Clicked on nothing
             }
         })
     }
@@ -104,25 +90,13 @@ export default class Raycaster
 
     sendAnimation()
     {
-        switch(this.currentIntersect.object)
-        {
-            case this.object.overlay1:
-                this.camera.moveCamera(new THREE.Vector3(this.params.aboutX,
-                    this.params.aboutY, this.params.aboutZ), new THREE.Euler(0, Math.PI * -0.35, 0),
-                    2.5, "power2.inOut")
-                break
-
-            case this.object.overlay2:
-                this.camera.moveCamera(new THREE.Vector3(this.params.workX,
-                    this.params.workY, this.params.workZ), new THREE.Euler(0, Math.PI * -0.15, 0),
-                    2.5, "power2.inOut")
-                break
-
-            case this.object.overlay3:
-                this.camera.moveCamera(new THREE.Vector3(this.params.contactX,
-                    this.params.contactY, this.params.contactZ), new THREE.Euler(0, Math.PI * -0.35, 0),
-                    2.5, "power2.inOut")
-                break
-        }
+        // switch(this.currentIntersect.object)
+        // {
+        //     case this.object.overlay1:
+        //         this.camera.moveCamera(new THREE.Vector3(this.params.aboutX,
+        //             this.params.aboutY, this.params.aboutZ), new THREE.Euler(0, Math.PI * -0.35, 0),
+        //             2.5, "power2.inOut")
+        //         break
+        // }
     }
 }

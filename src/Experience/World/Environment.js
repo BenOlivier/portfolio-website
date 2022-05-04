@@ -20,11 +20,6 @@ export default class Environment
 
         this.setBackground()
         this.setAmbientLight()
-
-        this.resources.on('ready', () =>
-        {
-            this.setBackground()
-        })
     }
 
     setBackground()

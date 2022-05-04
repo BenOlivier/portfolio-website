@@ -5,13 +5,13 @@ import Loading from './Utils/Loading.js'
 import Time from './Utils/Time.js'
 import Camera from './World/Camera.js'
 import Pointer from './Utils/Pointer.js'
-import Raycaster from './Utils/Raycaster.js'
+// import Raycaster from './Utils/Raycaster.js'
 import Renderer from './Renderer.js'
 import Environment from './World/Environment.js'
 import Object from './World/Object.js'
 import Resources from './Utils/Resources.js'
 import sources from './sources.js'
-import Stats from 'stats.js'
+// import Stats from 'stats.js'
 
 let instance = null
 
@@ -37,10 +37,11 @@ export default class Experience
         this.sizes = new Sizes()
         this.time = new Time()
         this.scene = new THREE.Scene()
-        this.camera = new Camera()
         this.loading = new Loading()
         this.resources = new Resources(sources)
+        this.camera = new Camera()
         this.pointer = new Pointer()
+        // this.raycaster = new Raycaster()
         this.renderer = new Renderer()
         // this.stats = new Stats()
         
@@ -50,7 +51,6 @@ export default class Experience
             // Setup
             this.environment = new Environment()
             this.object = new Object()
-            this.raycaster = new Raycaster()
         })
 
         // Stats
@@ -82,11 +82,7 @@ export default class Experience
     {
         if(this.object) this.object.update()
         this.renderer.update()
-
-        if(this.debug.active)
-        {
-            this.camera.updateOrbitControls()
-        }
+        this.camera.update()
     }
 
     destroy()
@@ -101,12 +97,10 @@ export default class Experience
             if(child instanceof THREE.Mesh)
             {
                 child.geometry.dispose()
-
                 // Loop through the material properties
                 for(const key in child.material)
                 {
                     const value = child.material[key]
-
                     // Test if there is a dispose function
                     if(value && typeof value.dispose === 'function')
                     {
@@ -117,7 +111,6 @@ export default class Experience
         })
 
         this.renderer.instance.dispose()
-
         if(this.debug.active)
             this.debug.ui.destroy()
     }

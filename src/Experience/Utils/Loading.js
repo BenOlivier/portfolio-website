@@ -29,7 +29,7 @@ export default class Loading
         gsap.to(this.floor.material.uniforms.uAlpha, {
             duration: 1,
             ease: "sine.inOut",
-            value: 0.5
+            value: 0.6
         })
     }
 }

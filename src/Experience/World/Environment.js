@@ -160,6 +160,13 @@ export default class Environment
                 value: 1,
                 onComplete: this.background.material.uniforms.uRadius.value = 0
             })
+            // Increase floor alpha
+            gsap.to(this.floor.material.uniforms.uAlpha, {
+                duration: 0.8,
+                ease: "power4.in",
+                value: 0.6,
+                delay: 0.2
+            })
 
             this.darkModeButton.children[0].src = "images/icons/darkmode.png"
             this.homeButton.children[0].src = "images/icons/logodark.png"
@@ -177,12 +184,27 @@ export default class Environment
                 value: 1,
                 onComplete: this.background.material.uniforms.uRadius.value = 0
             })
-
-            gsap.utils.interpolate()
+            // Reduce floor alpha
+            gsap.to(this.floor.material.uniforms.uAlpha, {
+                duration: 1,
+                ease: "power1.out",
+                value: 0.04
+            })
+            
 
             this.darkModeButton.children[0].src = "images/icons/lightmode.png"
             this.homeButton.children[0].src = "images/icons/logolight.png"
             this.darkModeEnabled = true
         }
+    }
+
+    updatePointLight()
+    {
+        this.mouseVec.set(this.pointer.pointerPos.x, this.pointer.pointerPos.y, 0)
+            .unproject(this.camera.camera).sub(this.camera.camera.position).normalize()
+        this.lightPos.copy(this.camera.camera.position).add(this.mouseVec.multiplyScalar
+            ((this.pointLight.position.z - this.camera.camera.position.z ) / this.mouseVec.z))
+
+        this.pointLight.position.set(this.lightPos.x, this.lightPos.y, this.lightPos.z)
     }
 }

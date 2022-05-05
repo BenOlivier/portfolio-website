@@ -27,9 +27,16 @@ html, body
     height: 100%;
 }
 
-.home-button
+nav
 {
-    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    max-width: 1400px;
+    margin: auto;
+}
+
+nav img
+{
     z-index:1000;
     top: 10px;
     left: 10px;
@@ -38,12 +45,12 @@ html, body
     opacity: 0.8;
     transition: 0.1s ease-in-out;
 }
-.home-button:hover
+nav img:hover
 {
     opacity: 1.0;
     transform: scale(1.05);
 }
-.home-button:active
+nav img:active
 {
     transform: scale(1);
 }

@@ -25,6 +25,12 @@ export default class Object
         {
             this.debugFolder = this.debug.ui.addFolder('object')
         }
+
+        // Reset timer on mouse move
+        this.timer = 0
+        window.addEventListener('mousemove', (event) => {
+            this.timer = 0
+        })
         
         // Resource
         this.resource = this.resources.items.objectModel
@@ -93,11 +99,22 @@ export default class Object
 
     update()
     {
-        this.animation.mixer.update(this.time.delta * 0.001)
+        // this.animation.mixer.update(this.time.delta * 0.001)
 
-        this.targetQuaternion.setFromEuler(new THREE.Euler
-            (0, this.pointer.pointerPos.x * this.params.rotationExtent, 0, 'XYZ'))
-            
+        this.timer += this.time.delta / 1000
+        if(this.timer > 3)
+        {
+            this.targetQuaternion.setFromEuler(new THREE.Euler(0, 0, 0, 'XYZ'))
+            this.params.rotationSmoothing = 0.02
+        }
+        else
+        {
+            this.targetQuaternion.setFromEuler(new THREE.Euler
+                (0, this.pointer.pointerPos.x * this.params.rotationExtent, 0, 'XYZ'))
+            this.params.rotationSmoothing = 0.2
+        }
+
+        // Rotate with mouse position
         this.model.quaternion.slerp(this.targetQuaternion, this.params.rotationSmoothing)
     }
 

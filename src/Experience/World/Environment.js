@@ -127,7 +127,8 @@ export default class Environment
     toggleDarkMode()
     {
         // Update circle centre
-        this.castRay()
+        this.raycaster.setFromCamera(this.pointer.pointerPos, this.camera.camera)
+        this.intersects = this.raycaster.intersectObjects([this.background])
         if(this.intersects.length)
         {
             this.background.material.uniforms.uCentre.value = this.intersects[0].uv
@@ -178,17 +179,5 @@ export default class Environment
             this.homeButton.children[0].src = "images/icons/logolight.png"
             this.darkModeEnabled = true
         }
-    }
-
-    castRay()
-    {
-        this.raycaster.setFromCamera(this.pointer.pointerPos, this.camera.camera)
-        this.intersects = this.raycaster.intersectObjects([this.background])
-
-        // if(this.intersects.length)
-        // {
-        //     console.log(this.intersects[0].uv)
-        //     // this.currentIntersect = this.intersects[0]
-        // }
     }
 }

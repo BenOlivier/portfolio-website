@@ -18,7 +18,7 @@ export default class Environment
 
         this.darkModeEnabled = false
         this.darkModeButton = document.getElementById("dark-mode-button")
-        console.log(this.darkModeButton)
+        this.homeButton = document.getElementById("home-button")
         this.darkModeButton.addEventListener('click', () =>
         {
             this.toggleDarkMode()
@@ -65,7 +65,7 @@ export default class Environment
             uDarkColor: "#252b31"
         }
         
-        this.backgroundGeometry = new THREE.PlaneGeometry(10, 10, 1, 1)
+        this.backgroundGeometry = new THREE.PlaneGeometry(20, 20, 1, 1)
         this.backgroundMaterial = new THREE.ShaderMaterial({
             transparent: true,
             uniforms: {
@@ -149,6 +149,8 @@ export default class Environment
             this.floor.material.uniforms.uInnerColor.value.set(this.floorColors.uLightColor)
             this.floor.material.uniforms.uOuterColor.value.set(this.backgroundColors.uLightColor)
             this.background.material.uniforms.uColor.value.set(this.backgroundColors.uLightColor)
+            this.darkModeButton.children[0].src = "images/icons/darkmode.png"
+            this.homeButton.children[0].src = "images/icons/logodark.png"
             this.darkModeEnabled = false
         }
         else
@@ -156,6 +158,8 @@ export default class Environment
             this.floor.material.uniforms.uInnerColor.value.set(this.floorColors.uDarkColor)
             this.floor.material.uniforms.uOuterColor.value.set(this.backgroundColors.uDarkColor)
             this.background.material.uniforms.uColor.value.set(this.backgroundColors.uDarkColor)
+            this.darkModeButton.children[0].src = "images/icons/lightmode.png"
+            this.homeButton.children[0].src = "images/icons/logolight.png"
             this.darkModeEnabled = true
         }
     }

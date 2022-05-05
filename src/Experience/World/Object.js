@@ -9,14 +9,15 @@ export default class Object
         this.scene = this.experience.scene
         this.sizes = this.experience.sizes
         this.resources = this.experience.resources
+        this.pointer = this.experience.pointer
         this.time = this.experience.time
         this.debug = this.experience.debug
 
         // Parameters
         this.params = {
             objectScale: 0.5,
-            rotationSmoothing: 0.005,
-            rotationExtent: 100
+            rotationSmoothing: 0.05,
+            rotationExtent: 500
         }
 
         // Debug
@@ -38,7 +39,10 @@ export default class Object
         this.model = this.resource.scene
         this.model.scale.set(this.params.objectScale,
             this.params.objectScale, this.params.objectScale)
+        this.model.position.set(0, 0, -4)
         this.scene.add(this.model)
+
+        this.targetQuaternion = new THREE.Quaternion()
 
         // Debug
         if(this.debug.active)
@@ -82,5 +86,10 @@ export default class Object
     update()
     {
         // this.animation.mixer.update(this.time.delta * 0.001)
+
+        this.targetQuaternion.setFromEuler(new THREE.Euler
+            (0, this.pointer.pointerPos.x * this.params.rotationExtent / this.sizes.width, 0, 'XYZ'))
+            
+        this.model.quaternion.slerp(this.targetQuaternion, this.params.rotationSmoothing)
     }
 }

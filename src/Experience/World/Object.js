@@ -37,8 +37,16 @@ export default class Object
     {
         // Model
         this.model = this.resource.scene
-        this.model.scale.set(this.params.objectScale,
-            this.params.objectScale, this.params.objectScale)
+        if(this.sizes.width < 800)
+        {
+            this.model.scale.set(this.params.objectScale / 2,
+                this.params.objectScale / 2, this.params.objectScale / 2)
+        }
+        else
+        {
+            this.model.scale.set(this.params.objectScale,
+                this.params.objectScale, this.params.objectScale)
+        }
         this.model.position.set(0, 0, -4)
         this.scene.add(this.model)
 

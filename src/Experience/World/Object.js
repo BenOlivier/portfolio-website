@@ -17,7 +17,7 @@ export default class Object
         this.params = {
             objectScale: 0.5,
             rotationSmoothing: 0.05,
-            rotationExtent: 500
+            rotationExtent: 0.5
         }
 
         // Debug
@@ -85,18 +85,18 @@ export default class Object
 
     setAnimation()
     {
-        // this.animation = {}
-        // this.animation.mixer = new THREE.AnimationMixer(this.model)
-        // this.animation.action = this.animation.mixer.clipAction(this.resource.animations[0])
-        // this.animation.action.play()
+        this.animation = {}
+        this.animation.mixer = new THREE.AnimationMixer(this.model)
+        this.animation.action = this.animation.mixer.clipAction(this.resource.animations[0])
+        this.animation.action.play()
     }
 
     update()
     {
-        // this.animation.mixer.update(this.time.delta * 0.001)
+        this.animation.mixer.update(this.time.delta * 0.001)
 
         this.targetQuaternion.setFromEuler(new THREE.Euler
-            (0, this.pointer.pointerPos.x * this.params.rotationExtent / this.sizes.width, 0, 'XYZ'))
+            (0, this.pointer.pointerPos.x * this.params.rotationExtent, 0, 'XYZ'))
             
         this.model.quaternion.slerp(this.targetQuaternion, this.params.rotationSmoothing)
     }

@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import gsap from 'gsap'
 import Experience from '../Experience.js'
 import floorVertexShader from '../Shaders/Floor/vertex.glsl'
 import floorFragmentShader from '../Shaders/Floor/fragment.glsl'
@@ -65,11 +66,14 @@ export default class Environment
             uDarkColor: "#252b31"
         }
         
-        this.backgroundGeometry = new THREE.PlaneGeometry(20, 20, 1, 1)
+        this.backgroundGeometry = new THREE.PlaneGeometry(10, 10, 1, 1)
         this.backgroundMaterial = new THREE.ShaderMaterial({
             transparent: true,
             uniforms: {
-                uColor: { value: new THREE.Color(this.backgroundColors.uLightColor) },
+                uCurrentColor: { value: new THREE.Color(this.backgroundColors.uLightColor) },
+                uNewColor: { value: new THREE.Color(this.backgroundColors.uDarkColor) },
+                uCentre: { value: new THREE.Vector2(0.8, 0.5) },
+                uRadius: { value: 0 },
                 uAlpha: { value: 0 }
             },
             vertexShader: backgroundVertexShader,
@@ -86,12 +90,12 @@ export default class Environment
             this.debugFolder
                 .addColor(this.backgroundColors, 'uLightColor')
                 .name('backgroundLightColor')
-                .onChange(val => { this.backgroundMaterial.uniforms.uColor.value.set(val) })
+                .onChange(val => { this.backgroundMaterial.uniforms.uLightColor.value.set(val) })
             
             this.debugFolder
                 .addColor(this.backgroundColors, 'uDarkColor')
                 .name('backgroundDarkColor')
-                .onChange(val => { this.backgroundMaterial.uniforms.uColor.value.set(val) })
+                .onChange(val => { this.backgroundMaterial.uniforms.uDarkColor.value.set(val) })
         }
     }
 
@@ -146,18 +150,36 @@ export default class Environment
     {
         if(this.darkModeEnabled)
         {
-            this.floor.material.uniforms.uInnerColor.value.set(this.floorColors.uLightColor)
-            this.floor.material.uniforms.uOuterColor.value.set(this.backgroundColors.uLightColor)
-            this.background.material.uniforms.uColor.value.set(this.backgroundColors.uLightColor)
+            // this.floor.material.uniforms.uInnerColor.value.set(this.floorColors.uLightColor)
+            // this.floor.material.uniforms.uOuterColor.value.set(this.backgroundColors.uLightColor)
+            this.background.material.uniforms.uCurrentColor.value.set(this.backgroundColors.uDarkColor)
+            this.background.material.uniforms.uNewColor.value.set(this.backgroundColors.uLightColor)
+            gsap.to(this.background.material.uniforms.uRadius, {
+                duration: 1,
+                ease: "power3.in",
+                value: 1,
+                onComplete: this.background.material.uniforms.uRadius.value = 0
+            })
+
             this.darkModeButton.children[0].src = "images/icons/darkmode.png"
             this.homeButton.children[0].src = "images/icons/logodark.png"
             this.darkModeEnabled = false
         }
         else
         {
-            this.floor.material.uniforms.uInnerColor.value.set(this.floorColors.uDarkColor)
-            this.floor.material.uniforms.uOuterColor.value.set(this.backgroundColors.uDarkColor)
-            this.background.material.uniforms.uColor.value.set(this.backgroundColors.uDarkColor)
+            // this.floor.material.uniforms.uInnerColor.value.set(this.floorColors.uDarkColor)
+            // this.floor.material.uniforms.uOuterColor.value.set(this.backgroundColors.uDarkColor)
+            this.background.material.uniforms.uCurrentColor.value.set(this.backgroundColors.uLightColor)
+            this.background.material.uniforms.uNewColor.value.set(this.backgroundColors.uDarkColor)
+            gsap.to(this.background.material.uniforms.uRadius, {
+                duration: 1,
+                ease: "power3.in",
+                value: 1,
+                onComplete: this.background.material.uniforms.uRadius.value = 0
+            })
+
+            gsap.utils.interpolate()
+
             this.darkModeButton.children[0].src = "images/icons/lightmode.png"
             this.homeButton.children[0].src = "images/icons/logolight.png"
             this.darkModeEnabled = true

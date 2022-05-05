@@ -13,7 +13,7 @@ export default class Camera
         this.debug = this.experience.debug
 
         this.setCamera()
-        // this.setControls()
+        this.setControls()
     }
 
     setCamera()
@@ -32,7 +32,7 @@ export default class Camera
 
     update()
     {
-        // this.controls.update()
+        this.controls.update()
     }
 
     resize()

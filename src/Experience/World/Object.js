@@ -92,4 +92,18 @@ export default class Object
             
         this.model.quaternion.slerp(this.targetQuaternion, this.params.rotationSmoothing)
     }
+
+    resize()
+    {
+        if(this.sizes.width < 800)
+        {
+            this.model.scale.set(this.params.objectScale / 2,
+                this.params.objectScale / 2, this.params.objectScale / 2)
+        }
+        else
+        {
+            this.model.scale.set(this.params.objectScale,
+                this.params.objectScale, this.params.objectScale)
+        }
+    }
 }

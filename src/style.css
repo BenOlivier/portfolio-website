@@ -12,6 +12,12 @@ html, body
     height: 100%;
     background: #e5e5e5;
     color: #333333;
+    overscroll-behavior: none;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
 }
 
 .webgl
@@ -60,4 +66,5 @@ section
 {
     position: relative;
     padding: 100px;
+    margin-top: 200%;
 }

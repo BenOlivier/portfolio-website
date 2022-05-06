@@ -41,7 +41,6 @@ export default class Experience
         this.resources = new Resources(Sources)
         this.camera = new Camera()
         this.pointer = new Pointer()
-        this.scroll = new Scroll()
         this.renderer = new Renderer()
         // this.stats = new Stats()
         
@@ -51,6 +50,7 @@ export default class Experience
             // Setup
             this.environment = new Environment()
             this.object = new Object()
+            this.scroll = new Scroll()
         })
 
         // Stats
@@ -84,6 +84,7 @@ export default class Experience
         if(this.object) this.object.update()
         this.renderer.update()
         this.camera.update()
+        if(this.scroll) this.scroll.update()
     }
 
     destroy()

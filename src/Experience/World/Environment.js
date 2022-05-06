@@ -133,51 +133,40 @@ export default class Environment
         {
             this.background.material.uniforms.uCentre.value = this.intersects[0].uv
         }
-        
+        // Set values
         if(this.darkModeEnabled)
         {
             this.background.material.uniforms.uCurrentColor.value.set(this.backgroundColors.uDarkColor)
             this.background.material.uniforms.uNewColor.value.set(this.backgroundColors.uLightColor)
-            // Expand circle radius
-            gsap.to(this.background.material.uniforms.uRadius, {
-                duration: 1,
-                ease: "power3.in",
-                value: 2,
-                onComplete: this.background.material.uniforms.uRadius.value = 0
-            })
-            // Increase floor alpha
-            gsap.to(this.floor.material.uniforms.uAlpha, {
-                duration: 0.8,
-                ease: "power4.in",
-                value: 0.6,
-                delay: 0.2
-            })
-
             this.darkModeButton.children[0].src = "images/icons/darkmode.png"
             this.homeButton.children[0].src = "images/icons/logodark.png"
-            this.darkModeEnabled = false
+            this.startDarkModeAnimation(false)
         }
         else
         {
             this.background.material.uniforms.uCurrentColor.value.set(this.backgroundColors.uLightColor)
             this.background.material.uniforms.uNewColor.value.set(this.backgroundColors.uDarkColor)
-            // Expand circle radius
-            gsap.to(this.background.material.uniforms.uRadius, {
-                duration: 1,
-                ease: "power3.in",
-                value: 2,
-                onComplete: this.background.material.uniforms.uRadius.value = 0
-            })
-            // Reduce floor alpha
-            gsap.to(this.floor.material.uniforms.uAlpha, {
-                duration: 1,
-                ease: "power1.out",
-                value: 0.04
-            })
-
             this.darkModeButton.children[0].src = "images/icons/lightmode.png"
             this.homeButton.children[0].src = "images/icons/logolight.png"
-            this.darkModeEnabled = true
+            this.startDarkModeAnimation(true)
         }
+    }
+
+    startDarkModeAnimation(bool)
+    {
+        // Reset
+        gsap.killTweensOf(this.background.material.uniforms.uRadius)
+        this.background.material.uniforms.uRadius.value = 0
+        
+        // Expand circle radius
+        gsap.to(this.background.material.uniforms.uRadius, {
+            duration: 1,
+            ease: "power3.in",
+            value: 2
+        })
+         // Update bool
+        setTimeout(() => {
+            this.darkModeEnabled = bool
+        }, 1000)
     }
 }

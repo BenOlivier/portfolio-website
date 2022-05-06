@@ -1,8 +1,6 @@
 import * as THREE from 'three'
 import gsap from 'gsap'
 import Experience from '../Experience.js'
-import floorVertexShader from '../Shaders/Floor/vertex.glsl'
-import floorFragmentShader from '../Shaders/Floor/fragment.glsl'
 import backgroundVertexShader from '../Shaders/Background/vertex.glsl'
 import backgroundFragmentShader from '../Shaders/Background/fragment.glsl'
 

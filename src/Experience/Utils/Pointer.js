@@ -11,7 +11,6 @@ export default class Pointer extends EventEmitter
         // Setup
         this.pointerPos = new THREE.Vector2()
         this.experience = new Experience()
-        this.time = this.experience.time
         this.sizes = this.experience.sizes
 
         // Pointer down event

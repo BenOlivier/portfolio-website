@@ -6,8 +6,6 @@
 
 html, body
 {
-    position: fixed;
-    overflow: hidden;
     top: 0;
     left: 0;
     width: 100%;
@@ -27,15 +25,20 @@ html, body
 
 nav
 {
+    position: fixed;
     display: flex;
     justify-content: space-between;
+    z-index: 1000;
     max-width: 1400px;
     margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
 }
 
 nav img
 {
-    z-index:1000;
+    z-index: 1000;
     top: 10px;
     left: 10px;
     padding: 20px;
@@ -55,6 +58,6 @@ nav img:active
 
 section
 {
-    /* position: relative; */
+    position: relative;
     padding: 100px;
 }

@@ -23,13 +23,5 @@ export default class Loading
             y: 0,
             z: 0
         })
-
-        // Fade in floor
-        this.floor = this.experience.environment.floor
-        gsap.to(this.floor.material.uniforms.uAlpha, {
-            duration: 1,
-            ease: "sine.inOut",
-            value: 0.6
-        })
     }
 }

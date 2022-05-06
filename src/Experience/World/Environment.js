@@ -34,25 +34,29 @@ export default class Environment
         }
 
         this.setBackground()
-        this.setFloor()
     }
 
     setBackground()
     {
-        this.backgroundColors = {
-            uLightColor: "#e5e5e5",
-            uDarkColor: "#252b31"
+        this.colors = {
+            uBgLight: "#e5e5e5",
+            uBgDark: "#252b31",
+            uFlLight: "#fafafa",
+            uFlDark: "#3b3d40"
         }
         
         this.backgroundGeometry = new THREE.PlaneGeometry(20, 20, 1, 1)
         this.backgroundMaterial = new THREE.ShaderMaterial({
-            transparent: true,
             uniforms: {
-                uCurrentColor: { value: new THREE.Color(this.backgroundColors.uLightColor) },
-                uNewColor: { value: new THREE.Color(this.backgroundColors.uDarkColor) },
-                uCentre: { value: new THREE.Vector2(1, 1) },
-                uRadius: { value: 0 },
-                uAlpha: { value: 0 }
+                uCurrentBgColor: { value: new THREE.Color(this.colors.uBgLight) },
+                uNewBgColor: { value: new THREE.Color(this.colors.uBgDark) },
+                uCurrentFlColor: { value: new THREE.Color(this.colors.uFlLight) },
+                uNewFlColor: { value: new THREE.Color(this.colors.uFlDark) },
+                uMaskCentre: { value: new THREE.Vector2(1, 1) },
+                uMaskRadius: { value: 0 },
+                uFloorRadius: { value: 0.25 },
+                uFloorFalloff: { value: 2 },
+                uFloorHeight: { value: 1.5 }
             },
             vertexShader: backgroundVertexShader,
             fragmentShader: backgroundFragmentShader
@@ -66,61 +70,33 @@ export default class Environment
         if(this.debug.active)
         {
             this.debugFolder
-                .addColor(this.backgroundColors, 'uLightColor')
-                .name('backgroundLightColor')
-                .onChange(val => { this.backgroundMaterial.uniforms.uLightColor.value.set(val) })
+                .addColor(this.colors, 'uBgLight')
+                .name('backgroundLight')
+                .onChange(val => { this.backgroundMaterial.uniforms.uCurrentBgColor.value.set(val) })
             
             this.debugFolder
-                .addColor(this.backgroundColors, 'uDarkColor')
-                .name('backgroundDarkColor')
-                .onChange(val => { this.backgroundMaterial.uniforms.uDarkColor.value.set(val) })
-        }
-    }
-
-    setFloor()
-    {
-        this.floorColors = {
-            uLightColor: "#ffffff",
-            uDarkColor: "#515458"
-        }
-        
-        this.floorGeometry = new THREE.PlaneGeometry(10, 10, 1, 1)
-        this.floorMaterial = new THREE.ShaderMaterial({
-            transparent: true,
-            uniforms: {
-                uInnerColor: { value: new THREE.Color(this.floorColors.uLightColor) },
-                uOuterColor: { value: new THREE.Color(this.backgroundColors.uLightColor) },
-                uRadius: { value: 0.2 },
-                uFalloff: { value: 2 },
-                uAlpha: { value: 0 }
-            },
-            vertexShader: floorVertexShader,
-            fragmentShader: floorFragmentShader
-        })
-
-        this.floor = new THREE.Mesh(this.floorGeometry, this.floorMaterial)
-        this.floor.position.set(0, -0.5, 0)
-        this.floor.rotation.set(Math.PI * -0.5, 0, 0)
-        this.scene.add(this.floor)
-
-        // Debug
-        if(this.debug.active)
-        {
-            this.debugFolder
-                .addColor(this.floorColors, 'uLightColor')
-                .name('floorLightColor')
-                .onChange(val => { this.floorMaterial.uniforms.uInnerColor.value.set(val) })
+                .addColor(this.colors, 'uBgDark')
+                .name('backgroundDark')
+                .onChange(val => { this.backgroundMaterial.uniforms.uCurrentBgColor.value.set(val) })
             
             this.debugFolder
-                .addColor(this.floorColors, 'uDarkColor')
-                .name('floorDarkColor')
-                .onChange(val => { this.floorMaterial.uniforms.uInnerColor.value.set(val) })
+                .addColor(this.colors, 'uFlLight')
+                .name('floorLight')
+                .onChange(val => { this.backgroundMaterial.uniforms.uCurrentFlColor.value.set(val) })
             
-            this.debugFolder.add(this.floorMaterial.uniforms.uRadius, 'value')
+            this.debugFolder
+                .addColor(this.colors, 'uFlDark')
+                .name('floorDark')
+                .onChange(val => { this.backgroundMaterial.uniforms.uCurrentFlColor.value.set(val) })
+            
+            this.debugFolder.add(this.backgroundMaterial.uniforms.uFloorRadius, 'value')
                 .min(0).max(1).step(0.01).name('floorRadius')
 
-            this.debugFolder.add(this.floorMaterial.uniforms.uFalloff, 'value')
+            this.debugFolder.add(this.backgroundMaterial.uniforms.uFloorFalloff, 'value')
                 .min(0).max(10).step(0.01).name('floorFalloff')
+            
+            this.debugFolder.add(this.backgroundMaterial.uniforms.uFloorHeight, 'value')
+                .min(0).max(10).step(0.01).name('floorHeight')
         }
     }
 
@@ -131,35 +107,39 @@ export default class Environment
         this.intersects = this.raycaster.intersectObjects([this.background])
         if(this.intersects.length)
         {
-            this.background.material.uniforms.uCentre.value = this.intersects[0].uv
+            this.background.material.uniforms.uMaskCentre.value = this.intersects[0].uv
         }
         // Set values
         if(this.darkModeEnabled)
         {
-            this.background.material.uniforms.uCurrentColor.value.set(this.backgroundColors.uDarkColor)
-            this.background.material.uniforms.uNewColor.value.set(this.backgroundColors.uLightColor)
+            this.background.material.uniforms.uCurrentBgColor.value.set(this.colors.uBgDark)
+            this.background.material.uniforms.uNewBgColor.value.set(this.colors.uBgLight)
+            this.background.material.uniforms.uCurrentFlColor.value.set(this.colors.uFlDark)
+            this.background.material.uniforms.uNewFlColor.value.set(this.colors.uFlLight)
             this.darkModeButton.children[0].src = "images/icons/darkmode.png"
             this.homeButton.children[0].src = "images/icons/logodark.png"
-            this.startDarkModeAnimation(false)
+            this.darkModeAnimation(false)
         }
         else
         {
-            this.background.material.uniforms.uCurrentColor.value.set(this.backgroundColors.uLightColor)
-            this.background.material.uniforms.uNewColor.value.set(this.backgroundColors.uDarkColor)
+            this.background.material.uniforms.uCurrentBgColor.value.set(this.colors.uBgLight)
+            this.background.material.uniforms.uNewBgColor.value.set(this.colors.uBgDark)
+            this.background.material.uniforms.uCurrentFlColor.value.set(this.colors.uFlLight)
+            this.background.material.uniforms.uNewFlColor.value.set(this.colors.uFlDark)
             this.darkModeButton.children[0].src = "images/icons/lightmode.png"
             this.homeButton.children[0].src = "images/icons/logolight.png"
-            this.startDarkModeAnimation(true)
+            this.darkModeAnimation(true)
         }
     }
 
-    startDarkModeAnimation(bool)
+    darkModeAnimation(bool)
     {
         // Reset
-        gsap.killTweensOf(this.background.material.uniforms.uRadius)
-        this.background.material.uniforms.uRadius.value = 0
+        gsap.killTweensOf(this.background.material.uniforms.uMaskRadius)
+        this.background.material.uniforms.uMaskRadius.value = 0
         
         // Expand circle radius
-        gsap.to(this.background.material.uniforms.uRadius, {
+        gsap.to(this.background.material.uniforms.uMaskRadius, {
             duration: 1,
             ease: "power3.in",
             value: 2

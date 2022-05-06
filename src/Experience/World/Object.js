@@ -102,7 +102,7 @@ export default class Object
         // this.animation.mixer.update(this.time.delta * 0.001)
 
         this.timer += this.time.delta / 1000
-        if(this.timer > 2)
+        if(this.timer > 1.2)
         {
             this.targetQuaternion.setFromEuler(new THREE.Euler(0, 0, 0, 'XYZ'))
             this.params.rotationSmoothing = 0.04

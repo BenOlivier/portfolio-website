@@ -17,7 +17,7 @@ export default class Scroll
         window.addEventListener('scroll', (event) =>
         {
             this.scroll()
-            console.log(window.scrollY)
+            // console.log(window.scrollY)
         })
     }
 

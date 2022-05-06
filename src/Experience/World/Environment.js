@@ -135,16 +135,38 @@ export default class Environment
         // Reset
         gsap.killTweensOf(this.background.material.uniforms.uMaskRadius)
         this.background.material.uniforms.uMaskRadius.value = 0
-        
+
         // Expand circle radius
         gsap.to(this.background.material.uniforms.uMaskRadius, {
             duration: 1,
             ease: "power3.in",
-            value: 2
+            value: 2,
+            // onComplete: function(){
+            //     if(bool)
+            //     {
+            //         this.darkModeEnabled = false
+            //         console.log('dark mode enabled: ' + this.darkModeEnabled)
+            //     }
+            //     else
+            //     {
+            //         this.darkModeEnabled = true
+            //         console.log('dark mode enabled: ' + this.darkModeEnabled)
+            //     }
+            // }
         })
-         // Update bool
+
         setTimeout(() => {
-            this.darkModeEnabled = bool
+            this.darkModeEnabled ? this.darkModeEnabled = false : this.darkModeEnabled = true
         }, 1000)
+
+        // toggleBool(() => {
+        //     this.darkModeEnabled ? this.darkModeEnabled = false : this.darkModeEnabled = true
+        // })
+
     }
+
+    // function toggleBool()
+    // {
+    //     this.darkModeEnabled ? this.darkModeEnabled = false : this.darkModeEnabled = true
+    // }
 }

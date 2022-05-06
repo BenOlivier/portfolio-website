@@ -101,7 +101,9 @@ export default class Environment
     toggleDarkMode()
     {
         // Update circle centre
-        this.raycaster.setFromCamera(this.pointer.pointerPos, this.camera.camera)
+        this.buttonPos = new THREE.Vector2(this.darkModeButton.getBoundingClientRect().x / this.sizes.width,
+            1 - ((this.darkModeButton.getBoundingClientRect().y + 72) / this.sizes.height))
+        this.raycaster.setFromCamera(this.buttonPos, this.camera.camera)
         this.intersects = this.raycaster.intersectObjects([this.background])
         if(this.intersects.length)
         {

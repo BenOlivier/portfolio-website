@@ -6,20 +6,37 @@ export default class Sizes extends EventEmitter
     {
         super()
 
+        // If using a mobile device
         if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
         {
             this.width = window.screen.availWidth
             this.height = window.screen.availHeight
             this.pixelRatio = Math.min(window.devicePixelRatio, 2)
+            this.isLandscape = false
 
-            // Orientation change event
-            window.addEventListener('orientationchange', () =>
+            // Resize event
+            window.addEventListener('resize', () =>
             {
-                this.width = window.screen.availWidth
-                this.height = window.screen.availHeight
-                this.pixelRatio = Math.min(window.devicePixelRatio, 2)
-
-                this.trigger('resize')
+                // Resize if orientation changed
+                if(this.isLandscape)
+                {
+                    if(window.screen.availWidth < window.screen.availHeight)
+                    {
+                        this.width = window.screen.availWidth
+                        this.height = window.screen.availHeight
+                        this.pixelRatio = Math.min(window.devicePixelRatio, 2)
+                        this.isLandscape = false
+                        this.trigger('resize')
+                    }
+                }
+                else if(window.screen.availWidth > window.screen.availHeight)
+                {
+                    this.width = window.screen.availWidth
+                    this.height = window.screen.availHeight
+                    this.pixelRatio = Math.min(window.devicePixelRatio, 2)
+                    this.isLandscape = true
+                    this.trigger('resize')
+                }
             })
         }
         else

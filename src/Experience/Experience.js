@@ -85,7 +85,7 @@ export default class Experience
         this.renderer.update()
         this.camera.update()
         if(this.scroll) this.scroll.update()
-        if(this.environment) console.log(this.environment.darkModeEnabled)
+        // if(this.environment) console.log(this.environment.darkModeEnabled)
     }
 
     destroy()

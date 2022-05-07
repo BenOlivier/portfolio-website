@@ -6,19 +6,29 @@ export default class Sizes extends EventEmitter
     {
         super()
 
-        // Setup
-        this.width = window.innerWidth
-        this.height = window.innerHeight
-        this.pixelRatio = Math.min(window.devicePixelRatio, 2)
+        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
+        {
+            this.width = window.screen.availWidth
+            this.height = window.screen.availHeight
+            this.pixelRatio = Math.min(window.devicePixelRatio, 2)
 
-        // Resize event
-        window.addEventListener('resize', () =>
+            // Update on orientation change
+        }
+        else
         {
             this.width = window.innerWidth
             this.height = window.innerHeight
             this.pixelRatio = Math.min(window.devicePixelRatio, 2)
 
-            this.trigger('resize')
-        })
+            // Resize event
+            window.addEventListener('resize', () =>
+            {
+                this.width = window.screen.innerWidth
+                this.height = window.screen.innerHeight
+                this.pixelRatio = Math.min(window.devicePixelRatio, 2)
+
+                this.trigger('resize')
+            })
+        }
     }
 }

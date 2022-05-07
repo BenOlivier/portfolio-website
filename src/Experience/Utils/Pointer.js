@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import EventEmitter from './EventEmitter.js'
 import Experience from '../Experience.js'
 
-export default class Pointer extends EventEmitter
+export default class Pointer extends EventEmitter // Make internal events (this.trigger)
 {
     constructor()
     {

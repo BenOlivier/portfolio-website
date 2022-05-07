@@ -32,6 +32,25 @@ export default class Environment
         }
 
         this.setBackground()
+
+        this.defineFunc()
+    }
+
+    defineFunc()
+    {
+        this.toggleBool = function(bool)
+        {
+            if(bool)
+            {
+                console.log('return false')
+                return false
+            }
+            else
+            {
+                console.log('return true')
+                return true
+            }
+        }
     }
 
     setBackground()
@@ -105,10 +124,8 @@ export default class Environment
             1 - ((this.darkModeButton.getBoundingClientRect().y + 72) / this.sizes.height))
         this.raycaster.setFromCamera(this.buttonPos, this.camera.camera)
         this.intersects = this.raycaster.intersectObjects([this.background])
-        if(this.intersects.length)
-        {
-            this.background.material.uniforms.uMaskCentre.value = this.intersects[0].uv
-        }
+        this.background.material.uniforms.uMaskCentre.value = this.intersects[0].uv
+
         // Set values
         if(this.darkModeEnabled)
         {
@@ -118,7 +135,7 @@ export default class Environment
             this.background.material.uniforms.uNewFlColor.value.set(this.colors.uFlLight)
             this.darkModeButton.children[0].src = "images/icons/darkmode.png"
             this.homeButton.children[0].src = "images/icons/logodark.png"
-            this.darkModeAnimation(false)
+            this.darkModeAnimation()
         }
         else
         {
@@ -128,7 +145,7 @@ export default class Environment
             this.background.material.uniforms.uNewFlColor.value.set(this.colors.uFlDark)
             this.darkModeButton.children[0].src = "images/icons/lightmode.png"
             this.homeButton.children[0].src = "images/icons/logolight.png"
-            this.darkModeAnimation(true)
+            this.darkModeAnimation()
         }
     }
 
@@ -143,19 +160,36 @@ export default class Environment
             duration: 1,
             ease: "power3.in",
             value: 2,
-            // onComplete: function(){
+            // onComplete: this.toggleBool,
+            // onCompleteParams: this.darkModeEnabled
+            
+            
+            // this.darkModeEnabled = function(){
             //     if(bool)
             //     {
-            //         this.darkModeEnabled = false
-            //         console.log('dark mode enabled: ' + this.darkModeEnabled)
+            //         console.log('return false')
+            //         return false
             //     }
             //     else
             //     {
-            //         this.darkModeEnabled = true
-            //         console.log('dark mode enabled: ' + this.darkModeEnabled)
+            //         console.log('return true')
+            //         return true
             //     }
             // }
         })
+
+        // toggleBool = function(){
+        //     if(bool)
+        //     {
+        //         console.log('return false')
+        //         return false
+        //     }
+        //     else
+        //     {
+        //         console.log('return true')
+        //         return true
+        //     }
+        // }
 
         setTimeout(() => {
             this.darkModeEnabled ? this.darkModeEnabled = false : this.darkModeEnabled = true

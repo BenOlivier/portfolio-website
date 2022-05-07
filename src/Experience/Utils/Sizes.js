@@ -12,7 +12,15 @@ export default class Sizes extends EventEmitter
             this.height = window.screen.availHeight
             this.pixelRatio = Math.min(window.devicePixelRatio, 2)
 
-            // Update on orientation change
+            // Orientation change event
+            window.addEventListener('orientationchange', () =>
+            {
+                this.width = window.screen.availWidth
+                this.height = window.screen.availHeight
+                this.pixelRatio = Math.min(window.devicePixelRatio, 2)
+
+                this.trigger('resize')
+            })
         }
         else
         {

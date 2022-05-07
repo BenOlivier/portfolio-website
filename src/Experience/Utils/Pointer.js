@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import EventEmitter from './EventEmitter.js'
 import Experience from '../Experience.js'
 
-export default class Pointer extends EventEmitter // Make internal events (this.trigger)
+export default class Pointer extends EventEmitter
 {
     constructor()
     {
@@ -18,6 +18,8 @@ export default class Pointer extends EventEmitter // Make internal events (this.
         {
             this.pointerPos.x = event.clientX / this.sizes.width * 2 - 1
             this.pointerPos.y = -(event.clientY / this.sizes.height) * 2 + 1
+
+            this.trigger('mousemove')
         })
 
         // Pointer move event
@@ -25,6 +27,8 @@ export default class Pointer extends EventEmitter // Make internal events (this.
         {
             this.pointerPos.x = event.clientX / this.sizes.width * 2 - 1
             this.pointerPos.y = -(event.clientY / this.sizes.height) * 2 + 1
+
+            this.trigger('mousemove')
         })
     }
 }

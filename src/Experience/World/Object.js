@@ -28,7 +28,8 @@ export default class Object
 
         // Reset timer on mouse move
         this.timer = 0
-        window.addEventListener('mousemove', (event) => {
+        this.pointer.on('mousemove', () =>
+        {
             this.timer = 0
         })
         

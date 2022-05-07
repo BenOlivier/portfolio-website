@@ -12,7 +12,9 @@ export default class Sizes extends EventEmitter
             this.width = window.screen.availWidth
             this.height = window.screen.availHeight
             this.pixelRatio = Math.min(window.devicePixelRatio, 2)
-            this.isLandscape = false
+            
+            if(window.innerWidth > window.innerHeight) this.isLandscape = true
+            else this.isLandscape = false
 
             // Resize event
             window.addEventListener('resize', () =>
@@ -20,7 +22,7 @@ export default class Sizes extends EventEmitter
                 // Resize if orientation changed
                 if(this.isLandscape)
                 {
-                    if(window.screen.availWidth < window.screen.availHeight)
+                    if(window.innerWidth < window.innerHeight)
                     {
                         this.width = window.screen.availWidth
                         this.height = window.screen.availHeight
@@ -29,7 +31,7 @@ export default class Sizes extends EventEmitter
                         this.trigger('resize')
                     }
                 }
-                else if(window.screen.availWidth > window.screen.availHeight)
+                else if(window.innerWidth > window.innerHeight)
                 {
                     this.width = window.screen.availWidth
                     this.height = window.screen.availHeight

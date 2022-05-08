@@ -1,7 +1,12 @@
 export default [
     {
-        name: 'objectModel',
+        name: 'hello',
         type: 'gltfModel',
-        path: 'models/Scene.glb'
+        path: 'models/Hello.glb'
+    },
+    {
+        name: 'litho',
+        type: 'gltfModel',
+        path: 'models/Litho.glb'
     }
 ]

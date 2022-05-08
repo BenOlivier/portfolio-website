@@ -18,8 +18,8 @@ export default class Scroll
         }
 
         this.objects = {
-            hello: this.experience.object.model,
-            hello2: this.experience.object.model2
+            hello: this.experience.objects.model,
+            // litho: this.experience.object.litho
         }
 
         // Scroll event
@@ -41,6 +41,6 @@ export default class Scroll
         this.scrollPos = this.scrollPos.lerp(this.targetPos, this.params.smoothing)
 
         this.objects.hello.position.set(this.scrollPos.x, this.scrollPos.y -0.4, this.scrollPos.z)
-        this.objects.hello2.position.set(this.scrollPos.x, this.scrollPos.y -0.8, this.scrollPos.z + 2)
+        // this.objects.litho.position.set(this.scrollPos.x, this.scrollPos.y -0.8, this.scrollPos.z + 2)
     }
 }

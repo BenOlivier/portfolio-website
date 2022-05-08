@@ -8,7 +8,7 @@ import Pointer from './Utils/Pointer.js'
 import Scroll from './Utils/Scroll.js'
 import Renderer from './Renderer.js'
 import Environment from './World/Environment.js'
-import Object from './World/Object.js'
+import Objects from './World/Objects.js'
 import Resources from './Utils/Resources.js'
 import Sources from './Utils/Sources.js'
 // import Stats from 'stats.js'
@@ -49,7 +49,7 @@ export default class Experience
         {
             // Setup
             this.environment = new Environment()
-            this.object = new Object()
+            this.objects = new Objects()
             this.scroll = new Scroll()
         })
 
@@ -74,14 +74,14 @@ export default class Experience
 
     resize()
     {
-        this.object.resize()
+        this.objects.resize()
         this.camera.resize()
         this.renderer.resize()
     }
 
     update()
     {
-        if(this.object) this.object.update()
+        if(this.objects) this.objects.update()
         this.renderer.update()
         this.camera.update()
         if(this.scroll) this.scroll.update()

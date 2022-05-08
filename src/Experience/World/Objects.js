@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import Experience from '../Experience.js'
 
-export default class Object
+export default class Objects
 {
     constructor()
     {
@@ -34,7 +34,7 @@ export default class Object
         })
         
         // Resource
-        this.resource = this.resources.items.objectModel
+        this.resource = this.resources.items.hello
 
         this.setModel()
         this.setAnimation()

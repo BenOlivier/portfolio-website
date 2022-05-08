@@ -43,9 +43,9 @@ export default class Environment
     {
         this.colors = {
             uBgLight: "#e5e5e5",
-            uBgDark: "#252b31",
+            uBgDark: "#1d2125",
             uFlLight: "#fafafa",
-            uFlDark: "#3b3d40"
+            uFlDark: "#2e3033"
         }
         
         this.backgroundGeometry = new THREE.PlaneGeometry(20, 20, 1, 1)
@@ -178,7 +178,7 @@ export default class Environment
     setDirectionalLight()
     {
         this.directionalLight = new THREE.DirectionalLight('#fff9f5', 4)
-        this.directionalLight.position.set(1, 1, 2)
+        this.directionalLight.position.set(2, 2, 6)
         this.scene.add(this.directionalLight)
 
         // Debug

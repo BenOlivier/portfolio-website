@@ -8,8 +8,7 @@ export default class Scroll
     {
         // Setup
         this.experience = new Experience()
-        this.scrollPos = new THREE.Vector3(0, 0, 0)
-        this.targetPos = new THREE.Vector3(0, 0, 0)
+        this.direction = new THREE.Vector3(0, 1, -2)
         this.smoothing = 0.5
 
         this.params = {
@@ -19,8 +18,13 @@ export default class Scroll
 
         this.objects = {
             hello: this.experience.objects.hello,
-            // litho: this.experience.object.litho
+            litho: this.experience.objects.litho
         }
+
+        this.helloPos = this.objects.hello.position
+        this.lithoPos = this.objects.litho.position
+        this.helloTargetPos = this.objects.hello.position
+        this.lithoTargetPos = this.objects.litho.position
 
         // Scroll event
         window.addEventListener('scroll', (event) =>
@@ -31,16 +35,16 @@ export default class Scroll
 
     scroll()
     {
-        // this.targetPos.x = -window.scrollY * 0.001
-        this.targetPos.y = window.scrollY * 0.0005
-        this.targetPos.z = -window.scrollY * 0.001
+        this.helloTargetPos.copy(this.direction).normalize().multiplyScalar(window.scrollY * 0.0004)
+        this.lithoTargetPos.copy(this.direction).normalize().multiplyScalar(window.scrollY * 0.0004 - 2)
     }
 
     update()
     {
-        this.scrollPos = this.scrollPos.lerp(this.targetPos, this.params.smoothing)
+        this.helloPos = this.helloPos.lerp(this.helloTargetPos, this.params.smoothing)
+        this.lithoPos = this.lithoPos.lerp(this.lithoTargetPos, this.params.smoothing)
 
-        this.objects.hello.position.set(this.scrollPos.x, this.scrollPos.y -0.4, this.scrollPos.z)
-        // this.objects.litho.position.set(this.scrollPos.x, this.scrollPos.y -0.8, this.scrollPos.z + 2)
+        this.objects.hello.position.set(this.helloPos.x, this.helloPos.y, this.helloPos.z)
+        this.objects.litho.position.set(this.lithoPos.x, this.lithoPos.y, this.lithoPos.z)
     }
 }

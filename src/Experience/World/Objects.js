@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import { Quaternion } from 'three'
 import Experience from '../Experience.js'
 
 export default class Objects
@@ -15,7 +16,6 @@ export default class Objects
 
         // Parameters
         this.params = {
-            objectScale: 0.5,
             rotationSmoothing: 0.2,
             rotationExtent: 0.5
         }
@@ -47,29 +47,26 @@ export default class Objects
         this.hello = this.helloResource.scene
         if(this.sizes.width < 800)
         {
-            this.hello.scale.set(this.params.objectScale / 2,
-                this.params.objectScale / 2, this.params.objectScale / 2)
+            this.hello.scale.set(0.25, 0.25, 0.25)
         }
         else
         {
-            this.hello.scale.set(this.params.objectScale,
-                this.params.objectScale, this.params.objectScale)
+            this.hello.scale.set(0.5, 0.5, 0.5)
         }
-        this.hello.position.set(0, 0, -4)
+        this.hello.position.set(0, 0, 0)
         this.scene.add(this.hello)
 
         // Litho
         this.litho = this.lithoResource.scene
         if(this.sizes.width < 800)
         {
-            this.litho.scale.set(this.params.objectScale / 2,
-                this.params.objectScale / 2, this.params.objectScale / 2)
+            this.litho.scale.set(0.25, 0.25, 0.25)
         }
         else
         {
-            this.litho.scale.set(1, 1, 1)
+            this.litho.scale.set(0.5, 0.5, 0.5)
         }
-        this.litho.position.set(0, 0, -3)
+        this.litho.position.set(0, -1, 2)
         this.scene.add(this.litho)
 
         this.targetQuaternion = new THREE.Quaternion()
@@ -126,7 +123,8 @@ export default class Objects
         else
         {
             this.targetQuaternion.setFromEuler(new THREE.Euler
-                (-this.pointer.pointerPos.y , this.pointer.pointerPos.x * this.params.rotationExtent, 0, 'XYZ'))
+                (-this.pointer.pointerPos.y * this.params.rotationExtent,
+                    this.pointer.pointerPos.x * this.params.rotationExtent, 0, 'XYZ'))
             this.params.rotationSmoothing = 0.2
         }
 

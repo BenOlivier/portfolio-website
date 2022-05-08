@@ -35,7 +35,8 @@ export default class Environment
         }
 
         this.setBackground()
-        this.setDirectLight()
+        // this.setAmbientLight()
+        this.setDirectionalLight()
     }
 
     setBackground()
@@ -153,10 +154,31 @@ export default class Environment
         })
     }
 
-    setDirectLight()
+    setAmbientLight()
     {
-        this.directionalLight = new THREE.DirectionalLight('#fff9f5', 1.2)
-        this.directionalLight.position.set(1, 2, 2)
+        this.ambientLight = new THREE.AmbientLight('#fff9f5', 4)
+        this.scene.add(this.ambientLight)
+
+        // Debug
+        if(this.debug.active)
+        {
+            this.debugFolder
+                .add(this.ambientLight, 'intensity')
+                .name('ambientLightIntensity')
+                .min(0)
+                .max(10)
+                .step(0.001)
+
+            this.debugFolder
+                .addColor(this.ambientLight, 'color')
+                .name('ambientLightColor')
+        }
+    }
+
+    setDirectionalLight()
+    {
+        this.directionalLight = new THREE.DirectionalLight('#fff9f5', 4)
+        this.directionalLight.position.set(1, 1, 2)
         this.scene.add(this.directionalLight)
 
         // Debug

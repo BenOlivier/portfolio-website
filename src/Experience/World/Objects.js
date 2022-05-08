@@ -126,7 +126,7 @@ export default class Objects
         else
         {
             this.targetQuaternion.setFromEuler(new THREE.Euler
-                (0, this.pointer.pointerPos.x * this.params.rotationExtent, 0, 'XYZ'))
+                (-this.pointer.pointerPos.y , this.pointer.pointerPos.x * this.params.rotationExtent, 0, 'XYZ'))
             this.params.rotationSmoothing = 0.2
         }
 

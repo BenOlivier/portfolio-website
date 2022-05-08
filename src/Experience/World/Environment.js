@@ -34,6 +34,9 @@ export default class Environment
         this.setBackground()
 
         this.defineFunc()
+
+        this.fog = new THREE.Fog('#e5e5e5', 4, 7)
+        this.scene.fog = this.fog
     }
 
     defineFunc()

@@ -57,6 +57,10 @@ export default class Object
         this.model.position.set(0, 0, -4)
         this.scene.add(this.model)
 
+        this.model2 = this.model.clone()
+        this.model.position.set(0, 0, -2)
+        this.scene.add(this.model2)
+
         this.targetQuaternion = new THREE.Quaternion()
 
         // Debug

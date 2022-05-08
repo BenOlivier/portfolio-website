@@ -15,7 +15,7 @@ export default class Loading
     initiateLoadedSequence()
     {
         // Animate in hello
-        this.model = this.experience.objects.model
+        this.model = this.experience.objects.hello
         gsap.to(this.model.position, {
             duration: 1,
             ease: "elastic.out(1, 1.2)",

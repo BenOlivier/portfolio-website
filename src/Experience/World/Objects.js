@@ -33,33 +33,44 @@ export default class Objects
             this.timer = 0
         })
         
-        // Resource
-        this.resource = this.resources.items.hello
+        // Resources
+        this.helloResource = this.resources.items.hello
+        this.lithoResource = this.resources.items.litho
 
-        this.setModel()
+        this.setModels()
         this.setAnimation()
     }
 
-    setModel()
+    setModels()
     {
-        // Model
-        this.model = this.resource.scene
+        // Hello
+        this.hello = this.helloResource.scene
         if(this.sizes.width < 800)
         {
-            this.model.scale.set(this.params.objectScale / 2,
+            this.hello.scale.set(this.params.objectScale / 2,
                 this.params.objectScale / 2, this.params.objectScale / 2)
         }
         else
         {
-            this.model.scale.set(this.params.objectScale,
+            this.hello.scale.set(this.params.objectScale,
                 this.params.objectScale, this.params.objectScale)
         }
-        this.model.position.set(0, 0, -4)
-        this.scene.add(this.model)
+        this.hello.position.set(0, 0, -4)
+        this.scene.add(this.hello)
 
-        this.model2 = this.model.clone()
-        this.model.position.set(0, 0, -2)
-        this.scene.add(this.model2)
+        // Litho
+        this.litho = this.lithoResource.scene
+        if(this.sizes.width < 800)
+        {
+            this.litho.scale.set(this.params.objectScale / 2,
+                this.params.objectScale / 2, this.params.objectScale / 2)
+        }
+        else
+        {
+            this.litho.scale.set(1, 1, 1)
+        }
+        this.litho.position.set(0, 0, -3)
+        this.scene.add(this.litho)
 
         this.targetQuaternion = new THREE.Quaternion()
 
@@ -74,7 +85,7 @@ export default class Objects
                 .step(0.01)
                 .onChange(() =>
                 {
-                    this.model.scale.set(this.params.objectScale,
+                    this.hello.scale.set(this.params.objectScale,
                         this.params.objectScale, this.params.objectScale)
                 })
             
@@ -97,8 +108,8 @@ export default class Objects
     setAnimation()
     {
         this.animation = {}
-        this.animation.mixer = new THREE.AnimationMixer(this.model)
-        this.animation.action = this.animation.mixer.clipAction(this.resource.animations[0])
+        this.animation.mixer = new THREE.AnimationMixer(this.hello)
+        this.animation.action = this.animation.mixer.clipAction(this.helloResource.animations[0])
         this.animation.action.play()
     }
 
@@ -120,19 +131,20 @@ export default class Objects
         }
 
         // Rotate with mouse position
-        this.model.quaternion.slerp(this.targetQuaternion, this.params.rotationSmoothing)
+        this.hello.quaternion.slerp(this.targetQuaternion, this.params.rotationSmoothing)
+        this.litho.quaternion.slerp(this.targetQuaternion, this.params.rotationSmoothing)
     }
 
     resize()
     {
         if(this.sizes.width < 800)
         {
-            this.model.scale.set(this.params.objectScale / 2,
+            this.hello.scale.set(this.params.objectScale / 2,
                 this.params.objectScale / 2, this.params.objectScale / 2)
         }
         else
         {
-            this.model.scale.set(this.params.objectScale,
+            this.hello.scale.set(this.params.objectScale,
                 this.params.objectScale, this.params.objectScale)
         }
     }

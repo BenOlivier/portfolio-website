@@ -18,7 +18,7 @@ export default class Scroll
         }
 
         this.objects = {
-            hello: this.experience.objects.model,
+            hello: this.experience.objects.hello,
             // litho: this.experience.object.litho
         }
 

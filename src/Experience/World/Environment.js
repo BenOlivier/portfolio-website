@@ -35,6 +35,7 @@ export default class Environment
         }
 
         this.setBackground()
+        this.setDirectLight()
     }
 
     setBackground()
@@ -120,7 +121,7 @@ export default class Environment
             this.darkModeButton.children[0].src = "images/icons/darkmode.png"
             this.homeButton.children[0].src = "images/icons/logodark.png"
             document.body.style.background = this.colors.uBgLight
-            this.darkModeAnimation(false)
+            this.darkModeAnimation()
         }
         else
         {
@@ -131,11 +132,11 @@ export default class Environment
             this.darkModeButton.children[0].src = "images/icons/lightmode.png"
             this.homeButton.children[0].src = "images/icons/logolight.png"
             document.body.style.background = this.colors.uBgDark
-            this.darkModeAnimation(true)
+            this.darkModeAnimation()
         }
     }
 
-    darkModeAnimation(bool)
+    darkModeAnimation()
     {
         // Reset
         gsap.killTweensOf(this.background.material.uniforms.uMaskRadius)
@@ -150,5 +151,27 @@ export default class Environment
             onComplete: function(){ this.darkModeEnabled ?
                 this.darkModeEnabled = false : this.darkModeEnabled = true }
         })
+    }
+
+    setDirectLight()
+    {
+        this.directionalLight = new THREE.DirectionalLight('#fff9f5', 1.2)
+        this.directionalLight.position.set(1, 2, 2)
+        this.scene.add(this.directionalLight)
+
+        // Debug
+        if(this.debug.active)
+        {
+            this.debugFolder
+                .add(this.directionalLight, 'intensity')
+                .name('directionalLightIntensity')
+                .min(0)
+                .max(10)
+                .step(0.001)
+
+            this.debugFolder
+                .addColor(this.directionalLight, 'color')
+                .name('directionalLightColor')
+        }
     }
 }

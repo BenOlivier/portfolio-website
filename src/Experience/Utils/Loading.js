@@ -27,8 +27,6 @@ export default class Loading
 
     initiateLoadedSequence()
     {
-        console.log('loaded')
-        
         // Fade out loading bar
         setTimeout(() => {
             this.fadeLoadingBar()

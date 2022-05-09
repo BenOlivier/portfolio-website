@@ -8,7 +8,7 @@ export default class Scroll
     {
         // Setup
         this.experience = new Experience()
-        this.direction = new THREE.Vector3(0, 1, -2)
+        this.direction = new THREE.Vector3(0, 0.7, -2)
 
         this.params = {
             smoothing: 0.00005,

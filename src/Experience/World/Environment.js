@@ -17,7 +17,7 @@ export default class Environment
         this.pointer = this.experience.pointer
         this.raycaster = new THREE.Raycaster()
 
-        this.fog = new THREE.Fog('#e5e5e5', 4, 7)
+        this.fog = new THREE.Fog('#e5e5e5', 3, 5)
         this.scene.fog = this.fog
 
         this.darkModeEnabled = false
@@ -35,8 +35,8 @@ export default class Environment
         }
 
         this.setBackground()
-        // this.setAmbientLight()
         this.setDirectionalLight()
+        this.setEnvironmentMap()
     }
 
     setBackground()
@@ -155,31 +155,10 @@ export default class Environment
         })
     }
 
-    setAmbientLight()
-    {
-        this.ambientLight = new THREE.AmbientLight('#fff9f5', 4)
-        this.scene.add(this.ambientLight)
-
-        // Debug
-        if(this.debug.active)
-        {
-            this.debugFolder
-                .add(this.ambientLight, 'intensity')
-                .name('ambientLightIntensity')
-                .min(0)
-                .max(10)
-                .step(0.001)
-
-            this.debugFolder
-                .addColor(this.ambientLight, 'color')
-                .name('ambientLightColor')
-        }
-    }
-
     setDirectionalLight()
     {
-        this.directionalLight = new THREE.DirectionalLight('#fff9f5', 4)
-        this.directionalLight.position.set(2, 2, 6)
+        this.directionalLight = new THREE.DirectionalLight('#fff9f5', 2)
+        this.directionalLight.position.set(2, -4, 6)
         this.scene.add(this.directionalLight)
 
         // Debug
@@ -195,6 +174,42 @@ export default class Environment
             this.debugFolder
                 .addColor(this.directionalLight, 'color')
                 .name('directionalLightColor')
+        }
+    }
+
+    setEnvironmentMap()
+    {
+        this.environmentMap = {}
+        this.environmentMap.intensity = 0.4
+        this.environmentMap.texture = this.resources.items.environmentMapTexture
+        this.environmentMap.texture.encoding = THREE.sRGBEncoding
+        
+        this.scene.environment = this.environmentMap.texture
+
+        this.environmentMap.updateMaterials = () =>
+        {
+            this.scene.traverse((child) =>
+            {
+                if(child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial)
+                {
+                    child.material.envMap = this.environmentMap.texture
+                    child.material.envMapIntensity = this.environmentMap.intensity
+                    child.material.needsUpdate = true
+                }
+            })
+        }
+        this.environmentMap.updateMaterials()
+
+        // Debug
+        if(this.debug.active)
+        {
+            this.debugFolder
+                .add(this.environmentMap, 'intensity')
+                .name('envMapIntensity')
+                .min(0)
+                .max(4)
+                .step(0.001)
+                .onChange(this.environmentMap.updateMaterials)
         }
     }
 }

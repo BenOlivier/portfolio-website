@@ -129,8 +129,8 @@ export default class Objects
         }
 
         // Rotate with mouse position
-        this.hello.quaternion.slerp(this.targetQuaternion, this.params.rotationSmoothing)
-        this.litho.quaternion.slerp(this.targetQuaternion, this.params.rotationSmoothing)
+        // this.hello.quaternion.slerp(this.targetQuaternion, this.params.rotationSmoothing)
+        // this.litho.quaternion.slerp(this.targetQuaternion, this.params.rotationSmoothing)
     }
 
     resize()

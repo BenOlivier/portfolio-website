@@ -10,7 +10,6 @@
 
 <body>
   <canvas class="webgl"></canvas>
-    
   <nav>
     <div id="home-button" onClick="window.location.reload();">
       <img src="/static/images/icons/logodark.png" alt="Home" style="width:24px;height:24px;">
@@ -20,10 +19,20 @@
     </div>
   </nav>
 
-  <section>
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tenetur iure ducimus iste molestiae numquam?
-    Aperiam iusto quasi deleniti repellendus alias, voluptate id, nisi obcaecati dignissimos, corrupti doloremque a. At, vel?
-  </section>
+  <div data-scroll-container>
+    <div data-scroll-section>
+      <div class="spacer"></div>
+
+      <section class="text">
+        <p id="about">
+          Hey, I'm Ben Olivier, I'm a UX designer and creative developer
+        </p>
+      </section>
+
+      <section id="large-space">
+      </section>
+    </div>
+  </div>
   
 </body>
 </html>

@@ -12,6 +12,7 @@ html, body
     height: 100%;
     background: #e5e5e5;
     color: #333333;
+    font-family: 'Montserrat', sans-serif;
     overscroll-behavior: none;
 }
 
@@ -62,7 +63,19 @@ nav img:active
     transform: scale(1);
 }
 
-section
+.spacer
+{
+    margin: 100vh;
+}
+
+.text
+{
+    position: relative;
+    padding: 100px;
+    text-align: center;
+}
+
+#large-space
 {
     position: relative;
     padding: 100px;

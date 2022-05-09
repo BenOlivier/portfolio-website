@@ -1,6 +1,6 @@
 import * as THREE from 'three'
-import { Vector3 } from 'three'
 import Experience from '../Experience.js'
+import LocomotiveScroll from 'locomotive-scroll'
 
 export default class Scroll
 {
@@ -8,6 +8,12 @@ export default class Scroll
     {
         // Setup
         this.experience = new Experience()
+        this.scroll = new LocomotiveScroll({
+            el: document.querySelector('[data-scroll-container]'),
+            smooth: true,
+            lerp: 0.5
+        });
+
         this.direction = new THREE.Vector3(0, 0.7, -2).normalize()
 
         this.params = {
@@ -26,11 +32,11 @@ export default class Scroll
         // Scroll event
         window.addEventListener('scroll', (event) =>
         {
-            this.scroll()
+            this.scrollObjects()
         })
     }
 
-    scroll()
+    scrollObjects()
     {
         this.helloTargetPos = this.direction.clone().multiplyScalar(window.scrollY * 0.0005)
         this.lithoTargetPos = this.direction.clone().multiplyScalar(window.scrollY * 0.0005 - 4)

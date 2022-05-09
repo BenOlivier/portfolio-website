@@ -155,6 +155,25 @@ export default class Environment
                     document.body.style.background = this.colors.uBgDark
             }
         })
+
+        if(this.darkModeEnabled)
+        {
+            gsap.to(document.body, {
+                color: "#333333",
+                duration: 1,
+                ease: "power3.in"
+            })
+        }
+        else
+        {
+            gsap.to(document.body, {
+                color: "#ffffff",
+                duration: 1,
+                ease: "power3.in"
+            })
+        }
+
+        // document.body.style.color = "#ffffff"
     }
 
     setDirectionalLight()

@@ -121,7 +121,6 @@ export default class Environment
             this.background.material.uniforms.uNewFlColor.value.set(this.colors.uFlLight)
             this.darkModeButton.children[0].src = "images/icons/darkmode.png"
             this.homeButton.children[0].src = "images/icons/logodark.png"
-            document.body.style.background = this.colors.uBgLight
             this.darkModeAnimation()
         }
         else
@@ -132,7 +131,6 @@ export default class Environment
             this.background.material.uniforms.uNewFlColor.value.set(this.colors.uFlDark)
             this.darkModeButton.children[0].src = "images/icons/lightmode.png"
             this.homeButton.children[0].src = "images/icons/logolight.png"
-            document.body.style.background = this.colors.uBgDark
             this.darkModeAnimation()
         }
     }
@@ -149,8 +147,11 @@ export default class Environment
             ease: "power3.in",
             value: 2,
             callbackScope: this,
-            onComplete: function(){ this.darkModeEnabled ?
-                this.darkModeEnabled = false : this.darkModeEnabled = true }
+            onComplete: function(){ 
+                this.darkModeEnabled ? this.darkModeEnabled = false : this.darkModeEnabled = true
+                this.darkModeEnabled ? document.body.style.background = this.colors.uBgLight :
+                    document.body.style.background = this.colors.uBgDark
+            }
         })
     }
 

@@ -16,6 +16,7 @@ export default class Objects
 
         // Parameters
         this.params = {
+            objectScale: 0.5,
             rotationSmoothing: 0.2,
             rotationExtent: 0.5
         }
@@ -47,11 +48,12 @@ export default class Objects
         this.hello = this.helloResource.scene
         if(this.sizes.width < 800)
         {
-            this.hello.scale.set(0.25, 0.25, 0.25)
+            this.hello.scale.set(this.params.objectScale / 2, this.params.objectScale / 2,
+                this.params.objectScale / 2)
         }
         else
         {
-            this.hello.scale.set(0.5, 0.5, 0.5)
+            this.hello.scale.set(this.params.objectScale, this.params.objectScale, this.params.objectScale)
         }
         this.hello.position.set(0, 0, 0)
         this.scene.add(this.hello)
@@ -60,13 +62,14 @@ export default class Objects
         this.litho = this.lithoResource.scene
         if(this.sizes.width < 800)
         {
-            this.litho.scale.set(0.25, 0.25, 0.25)
+            this.litho.scale.set(this.params.objectScale / 2, this.params.objectScale / 2,
+                this.params.objectScale / 2)
         }
         else
         {
-            this.litho.scale.set(0.5, 0.5, 0.5)
+            this.litho.scale.set(this.params.objectScale, this.params.objectScale, this.params.objectScale)
         }
-        this.litho.position.set(0, -1, 2)
+        this.litho.position.set(0, -2, 4)
         this.litho.rotation.set(Math.PI * 0.05, Math.PI * 0.2, 0)
         this.scene.add(this.litho)
 
@@ -76,18 +79,6 @@ export default class Objects
         // Debug
         if(this.debug.active)
         {
-            this.debugFolder
-                .add(this.params, 'objectScale')
-                .name('objectScale')
-                .min(0)
-                .max(2)
-                .step(0.01)
-                .onChange(() =>
-                {
-                    this.hello.scale.set(this.params.objectScale,
-                        this.params.objectScale, this.params.objectScale)
-                })
-            
             this.debugFolder
                 .add(this.params, 'rotationSmoothing')
                 .name('rotationSmoothing')

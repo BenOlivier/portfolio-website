@@ -33,7 +33,7 @@ export default class Scroll
     scroll()
     {
         this.helloTargetPos = this.direction.clone().multiplyScalar(window.scrollY * 0.0005)
-        this.lithoTargetPos = this.direction.clone().multiplyScalar(window.scrollY * 0.0005 - 3)
+        this.lithoTargetPos = this.direction.clone().multiplyScalar(window.scrollY * 0.0005 - 4)
     }
 
     update()

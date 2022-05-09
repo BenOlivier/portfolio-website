@@ -36,15 +36,12 @@ export default class Scroll
     {
         this.helloTargetPos.copy(this.direction).normalize().multiplyScalar(window.scrollY * 0.0004)
         this.lithoTargetPos.copy(this.direction).normalize().multiplyScalar(window.scrollY * 0.0004 - 2)
-        // this.helloTargetPos.y = window.scrollY * 0.00004
     }
 
     update()
     {
         this.helloPos.lerp(this.helloTargetPos, this.params.smoothing)
         this.lithoPos.lerp(this.lithoTargetPos, this.params.smoothing)
-        // console.log("target: " + this.helloTargetPos.z)
-        // console.log('current: ' + this.helloPos.z)
 
         this.objects.hello.position.set(this.helloPos.x, this.helloPos.y, this.helloPos.z)
         this.objects.litho.position.set(this.lithoPos.x, this.lithoPos.y, this.lithoPos.z)

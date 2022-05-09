@@ -17,7 +17,7 @@ export default class Environment
         this.pointer = this.experience.pointer
         this.raycaster = new THREE.Raycaster()
 
-        this.fog = new THREE.Fog('#e5e5e5', 3, 5)
+        this.fog = new THREE.Fog('#e5e5e5', 4, 5)
         this.scene.fog = this.fog
 
         this.darkModeEnabled = false
@@ -119,6 +119,7 @@ export default class Environment
             this.background.material.uniforms.uNewBgColor.value.set(this.colors.uBgLight)
             this.background.material.uniforms.uCurrentFlColor.value.set(this.colors.uFlDark)
             this.background.material.uniforms.uNewFlColor.value.set(this.colors.uFlLight)
+            this.fog.color.set(this.colors.uBgLight)
             this.darkModeButton.children[0].src = "images/icons/darkmode.png"
             this.homeButton.children[0].src = "images/icons/logodark.png"
             this.darkModeAnimation()
@@ -129,6 +130,7 @@ export default class Environment
             this.background.material.uniforms.uNewBgColor.value.set(this.colors.uBgDark)
             this.background.material.uniforms.uCurrentFlColor.value.set(this.colors.uFlLight)
             this.background.material.uniforms.uNewFlColor.value.set(this.colors.uFlDark)
+            this.fog.color.set(this.colors.uBgDark)
             this.darkModeButton.children[0].src = "images/icons/lightmode.png"
             this.homeButton.children[0].src = "images/icons/logolight.png"
             this.darkModeAnimation()

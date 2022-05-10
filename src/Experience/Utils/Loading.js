@@ -32,8 +32,17 @@ export default class Loading
             this.fadeLoadingBar()
         }, 200)
         // Fade out overlay
+        this.hello = this.experience.objects.hello
         setTimeout(() => {
             this.fadeOverlay()
+        }, 400)
+        // Animate hello
+        setTimeout(() => {
+            gsap.to(this.hello.position, {
+                duration: 0.8,
+                z: 0,
+                ease: "power3.out"
+            })
         }, 400)
         // Destroy loading bar and overlay
         setTimeout(() => {
@@ -167,7 +176,7 @@ export default class Loading
         {
             if(overlayAlpha > 0)
             {
-                overlayAlpha -= 1 / 100
+                overlayAlpha -= 1 / 50
                 return overlayAlpha
             }
             else

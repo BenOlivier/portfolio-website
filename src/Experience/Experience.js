@@ -84,7 +84,6 @@ export default class Experience
         if(this.objects) this.objects.update()
         this.renderer.update()
         this.camera.update()
-        if(this.scroll) this.scroll.update()
     }
 
     destroy()

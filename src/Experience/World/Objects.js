@@ -55,7 +55,7 @@ export default class Objects
         {
             this.hello.scale.set(this.params.objectScale, this.params.objectScale, this.params.objectScale)
         }
-        this.hello.position.set(0, 0, 0)
+        this.hello.position.set(0, 0, -1)
         this.scene.add(this.hello)
 
         // Litho

@@ -54,13 +54,13 @@ export default class Objects
         // Scan
         this.scan = this.scanResource.scene
         this.setObjectScale(this.scan)
-        this.scan.position.set(0, -3, -2)
+        this.scan.position.set(0, -2, -2)
         this.scene.add(this.scan)
 
         // Litho
         this.litho = this.lithoResource.scene
         this.setObjectScale(this.litho)
-        this.litho.position.set(0, -3, -2)
+        this.litho.position.set(0, -2, -2)
         this.lithoRot = new THREE.Euler(Math.PI * 0.1, Math.PI * -0.15, 0)
         this.litho.rotation.set(this.lithoRot.x, this.lithoRot.y, this.lithoRot.z)
         this.scene.add(this.litho)

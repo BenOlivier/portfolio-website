@@ -9,6 +9,7 @@ export default class Scroll
     {
         // Setup
         this.experience = new Experience()
+        this.objects = this.experience.objects
         this.currentSection = 0
         this.currentSectionProgress = 0
         this.scroll = new LocomotiveScroll({
@@ -17,12 +18,6 @@ export default class Scroll
             lerp: 0.5,
             scrollFromAnywhere: true
         })
-
-        this.objects = {
-            hello: this.experience.objects.hello,
-            scan: this.experience.objects.scan,
-            litho: this.experience.objects.litho
-        }
 
         this.params = {
             inDuration: 1,
@@ -57,6 +52,7 @@ export default class Scroll
                     triggerAnimation(this.objects.scan, -0.5, 0, 0,
                         this.params.inDuration, this.params.delay, "power3.out")
                     this.currentSection = 1
+                    this.objects.currentObject = 1
                 }
                 if(this.currentSection == 1 && this.currentSectionProgress < 0.1)
                 {
@@ -65,6 +61,7 @@ export default class Scroll
                     triggerAnimation(this.objects.scan, 0, -1, 0,
                         this.params.outDuration, 0, "power3.in")
                     this.currentSection = 0
+                    this.objects.currentObject = 0
                 }
             }
             if(typeof args.currentElements['work'])

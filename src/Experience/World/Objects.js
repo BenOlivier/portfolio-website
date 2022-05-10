@@ -51,21 +51,33 @@ export default class Objects
         this.hello.position.set(0, 0, -1)
         this.scene.add(this.hello)
 
-        // Litho
-        this.litho = this.lithoResource.scene
-        this.setObjectScale(this.litho)
-        this.litho.position.set(0, -2, -2)
-        this.litho.rotation.set(Math.PI * 0.05, Math.PI * 0.2, 0)
-        this.scene.add(this.litho)
-
         // Scan
         this.scan = this.scanResource.scene
         this.setObjectScale(this.scan)
         this.scan.position.set(0, -2, -2)
         this.scene.add(this.scan)
 
-        this.helloTargetQuaternion = new THREE.Quaternion()
-        this.lithoTargetQuaternion = new THREE.Quaternion()
+        // Litho
+        this.litho = this.lithoResource.scene
+        this.setObjectScale(this.litho)
+        this.litho.position.set(0, -2, -2)
+        this.lithoRot = new THREE.Euler(Math.PI * 0.05, Math.PI * 0.2, 0)
+        this.litho.rotation.set(this.lithoRot.x, this.lithoRot.y, this.lithoRot.z)
+        this.scene.add(this.litho)
+
+        // Objects
+        this.objectsArray = [
+            this.hello,
+            this.scan,
+            this.litho
+        ]
+        this.rotations = [
+            new THREE.Euler(0, 0, 0),
+            new THREE.Euler(0, 0, 0),
+            this.lithoRot
+        ]
+        this.currentObject = 0
+        this.targetQuaternion = new THREE.Quaternion()
 
         // Debug
         if(this.debug.active)
@@ -114,29 +126,27 @@ export default class Objects
         this.timer += this.time.delta / 1000
         if(this.timer > 1.2)
         {
-            this.helloTargetQuaternion.setFromEuler(new THREE.Euler(0, 0, 0, 'XYZ'))
-            this.lithoTargetQuaternion.setFromEuler(new THREE.Euler(Math.PI * 0.15, Math.PI * 0.1, 0, 'XYZ'))
+            this.targetQuaternion.setFromEuler(new THREE.Euler(this.rotations[this.currentObject].x,
+                this.rotations[this.currentObject].y, this.rotations[this.currentObject].z))
             this.params.rotationSmoothing = 0.04
         }
         else
         {
-            this.helloTargetQuaternion.setFromEuler(new THREE.Euler
-                (0, this.pointer.pointerPos.x * this.params.rotationExtent, 0, 'XYZ'))
-            this.lithoTargetQuaternion.setFromEuler(new THREE.Euler
+            this.targetQuaternion.setFromEuler(new THREE.Euler
                 (-this.pointer.pointerPos.y * this.params.rotationExtent,
                     this.pointer.pointerPos.x * this.params.rotationExtent, 0, 'XYZ'))
             this.params.rotationSmoothing = 0.2
         }
 
         // Rotate with mouse position
-        this.hello.quaternion.slerp(this.helloTargetQuaternion, this.params.rotationSmoothing)
-        this.litho.quaternion.slerp(this.lithoTargetQuaternion, this.params.rotationSmoothing)
+        this.objectsArray[this.currentObject].quaternion.slerp
+            (this.targetQuaternion, this.params.rotationSmoothing)
     }
 
     resize()
     {
         this.setObjectScale(this.hello)
-        this.setObjectScale(this.litho)
         this.setObjectScale(this.scan)
+        this.setObjectScale(this.litho)
     }
 }

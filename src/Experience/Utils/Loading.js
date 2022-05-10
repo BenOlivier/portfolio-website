@@ -39,7 +39,7 @@ export default class Loading
         // Animate hello
         setTimeout(() => {
             gsap.to(this.hello.position, {
-                duration: 0.8,
+                duration: 0.7,
                 z: 0,
                 ease: "power3.out"
             })

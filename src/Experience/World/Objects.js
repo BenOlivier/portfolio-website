@@ -69,7 +69,7 @@ export default class Objects
         {
             this.litho.scale.set(this.params.objectScale, this.params.objectScale, this.params.objectScale)
         }
-        this.litho.position.set(0, -2, 4)
+        this.litho.position.set(0, -2, -2)
         this.litho.rotation.set(Math.PI * 0.05, Math.PI * 0.2, 0)
         this.scene.add(this.litho)
 

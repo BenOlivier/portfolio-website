@@ -160,7 +160,7 @@ export default class Environment
         {
             gsap.to(document.body, {
                 color: "#333333",
-                duration: 1,
+                duration: 0.7,
                 ease: "power3.in"
             })
         }
@@ -168,7 +168,7 @@ export default class Environment
         {
             gsap.to(document.body, {
                 color: "#ffffff",
-                duration: 1,
+                duration: 0.7,
                 ease: "power3.in"
             })
         }

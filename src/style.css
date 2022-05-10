@@ -63,15 +63,21 @@ nav img:active
     transform: scale(1);
 }
 
-.spacer
+section
 {
-    margin: 100vh;
+    padding: 50px;
+    margin: 100px;
+}
+section:nth-of-type(1)
+{
+    margin-top: 100vh;
 }
 
 .text
 {
     position: relative;
-    padding: 100px;
+    padding: 50px;
+    margin: 50px 0;
     text-align: center;
 }
 

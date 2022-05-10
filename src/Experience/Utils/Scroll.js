@@ -66,12 +66,34 @@ export default class Scroll
             }
             if(typeof args.currentElements['work'])
             {
-                
+                if(this.currentSection == 1 && this.currentSectionProgress > 0.5)
+                {
+                    triggerAnimation(this.objects.scan, 0, -0.5, -6,
+                        this.params.outDuration, 0, "power3.in")
+                    triggerAnimation(this.objects.litho, 0.5, 0, 0,
+                        this.params.inDuration, this.params.delay, "power3.out")
+                    this.currentSection = 2
+                    this.objects.currentObject = 2
+                }
+                if(this.currentSection == 2 && this.currentSectionProgress < 0.4)
+                {
+                    triggerAnimation(this.objects.scan, -0.5, 0, 0,
+                        this.params.inDuration, this.params.delay, "power3.out")
+                    triggerAnimation(this.objects.litho, 0.5, -1, 0,
+                        this.params.outDuration, 0, "power3.in")
+                    this.currentSection = 1
+                    this.objects.currentObject = 1
+                }
             }
             if(typeof args.currentElements['contact'])
             {
                 
             }
         })
+
+        function nextSection()
+        {
+            
+        }
     }
 }

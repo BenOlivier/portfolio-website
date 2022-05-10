@@ -179,7 +179,7 @@ export default class Environment
     setDirectionalLight()
     {
         this.directionalLight = new THREE.DirectionalLight('#fff9f5', 2)
-        this.directionalLight.position.set(2, -4, 6)
+        this.directionalLight.position.set(-2, -4, 6)
         this.scene.add(this.directionalLight)
 
         // Debug

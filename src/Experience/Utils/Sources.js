@@ -10,6 +10,11 @@ export default [
         path: 'models/Litho.glb'
     },
     {
+        name: 'scan',
+        type: 'gltfModel',
+        path: 'models/Scan.glb'
+    },
+    {
         name: 'environmentMapTexture',
         type: 'cubeTexture',
         path:

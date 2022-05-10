@@ -40,17 +40,15 @@ export default class Scroll
             if(typeof args.currentElements['about'])
             {
                 this.currentSectionProgress = args.currentElements['about'].progress
-                console.log(this.currentSectionProgress)
+                // console.log(this.currentSectionProgress)
 
-                if(this.currentSection == 0 && this.currentSectionProgress > 0.1)
+                if(this.currentSection == 0 && this.currentSectionProgress > 0.15)
                 {
                     triggerAnimation(this.objects.hello, 0, 0, -4)
                     triggerAnimation(this.objects.litho, -0.5, 0, 0)
                     this.currentSection = 1
-
-                    console.log('eureka')
                 }
-                if(this.currentSection == 1 && this.currentSectionProgress < 0.05)
+                if(this.currentSection == 1 && this.currentSectionProgress < 0.1)
                 {
                     triggerAnimation(this.objects.hello, 0, 0, 0)
                     triggerAnimation(this.objects.litho, 0, -1, 0)

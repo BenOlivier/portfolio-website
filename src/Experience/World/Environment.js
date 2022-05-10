@@ -17,7 +17,7 @@ export default class Environment
         this.pointer = this.experience.pointer
         this.raycaster = new THREE.Raycaster()
 
-        this.fog = new THREE.Fog('#e5e5e5', 4, 5)
+        this.fog = new THREE.Fog('#e5e5e5', 3, 5)
         this.scene.fog = this.fog
 
         this.darkModeEnabled = false

@@ -37,6 +37,7 @@ export default class Objects
         // Resources
         this.helloResource = this.resources.items.hello
         this.lithoResource = this.resources.items.litho
+        this.scanResource = this.resources.items.scan
 
         this.setModels()
         this.setAnimation()
@@ -46,32 +47,22 @@ export default class Objects
     {
         // Hello
         this.hello = this.helloResource.scene
-        if(this.sizes.width < 800)
-        {
-            this.hello.scale.set(this.params.objectScale / 2, this.params.objectScale / 2,
-                this.params.objectScale / 2)
-        }
-        else
-        {
-            this.hello.scale.set(this.params.objectScale, this.params.objectScale, this.params.objectScale)
-        }
+        this.setObjectScale(this.hello)
         this.hello.position.set(0, 0, -1)
         this.scene.add(this.hello)
 
         // Litho
         this.litho = this.lithoResource.scene
-        if(this.sizes.width < 800)
-        {
-            this.litho.scale.set(this.params.objectScale / 2, this.params.objectScale / 2,
-                this.params.objectScale / 2)
-        }
-        else
-        {
-            this.litho.scale.set(this.params.objectScale, this.params.objectScale, this.params.objectScale)
-        }
+        this.setObjectScale(this.litho)
         this.litho.position.set(0, -2, -2)
         this.litho.rotation.set(Math.PI * 0.05, Math.PI * 0.2, 0)
         this.scene.add(this.litho)
+
+        // Scan
+        this.scan = this.scanResource.scene
+        this.setObjectScale(this.scan)
+        this.scan.position.set(0, 0, 0)
+        // this.scene.add(this.scan)
 
         this.helloTargetQuaternion = new THREE.Quaternion()
         this.lithoTargetQuaternion = new THREE.Quaternion()
@@ -92,6 +83,19 @@ export default class Objects
                 .min(0)
                 .max(2000)
                 .step(10)
+        }
+    }
+
+    setObjectScale(object)
+    {
+        if(this.sizes.width < 800)
+        {
+            object.scale.set(this.params.objectScale / 2, this.params.objectScale / 2,
+                this.params.objectScale / 2)
+        }
+        else
+        {
+            object.scale.set(this.params.objectScale, this.params.objectScale, this.params.objectScale)
         }
     }
 

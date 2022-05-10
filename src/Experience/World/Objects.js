@@ -1,6 +1,8 @@
 import * as THREE from 'three'
 import { Quaternion } from 'three'
 import Experience from '../Experience.js'
+import faceVertexShader from '../Shaders/Face/vertex.glsl'
+import faceFragmentShader from '../Shaders/Face/fragment.glsl'
 
 export default class Objects
 {
@@ -52,9 +54,31 @@ export default class Objects
         this.scene.add(this.hello)
 
         // Scan
+        // this.scanMaterial = new THREE.ShaderMaterial({
+        //     depthWrite: false,
+        //     vertexColors: true,
+        //     vertexShader: faceVertexShader,
+        //     fragmentShader: faceFragmentShader,
+        //     uniforms:
+        //     {
+        //         uSize: { value: 10 * this.sizes.pixelRatio }
+        //     }
+        // })
+
+        this.scanMaterial = new THREE.PointsMaterial()
+        this.scanMaterial.size = 0.1
+        this.scanMaterial.sizeAttenuation = true
+        this.scanMaterial.color = new THREE.Color('#ff88cc')
+        this.scanMaterial.transparent = true
+        //particlesMaterial.alphaTest = 0.001
+        this.scanMaterial.depthWrite = false
+        this.scanMaterial.blending = THREE.AdditiveBlending
+        this.scanMaterial.vertexColors = true
+
         this.scan = this.scanResource.scene
         this.setObjectScale(this.scan)
-        this.scan.position.set(0, -2, -2)
+        this.scan.position.set(0, -2, 0)
+        // this.scan.traverse((o) => { if (o.isMesh) o.material = this.scanMaterial })
         this.scene.add(this.scan)
 
         // Litho

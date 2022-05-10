@@ -135,15 +135,8 @@ export default class Objects
 
     resize()
     {
-        if(this.sizes.width < 800)
-        {
-            this.hello.scale.set(this.params.objectScale / 2,
-                this.params.objectScale / 2, this.params.objectScale / 2)
-        }
-        else
-        {
-            this.hello.scale.set(this.params.objectScale,
-                this.params.objectScale, this.params.objectScale)
-        }
+        this.setObjectScale(this.hello)
+        this.setObjectScale(this.litho)
+        this.setObjectScale(this.scan)
     }
 }

@@ -23,14 +23,21 @@ export default class Scroll
             litho: this.experience.objects.litho
         }
 
-        function triggerAnimation(object, x, y, z)
+        this.params = {
+            inDuration: 1,
+            outDuration: 0.5,
+            delay: 0.2
+        }
+
+        function triggerAnimation(object, x, y, z, durarion, delay, ease)
         {
             gsap.to(object.position, {
-                duration: 1,
                 x: x,
                 y: y,
                 z: z,
-                ease: "power3.out"
+                duration: durarion,
+                delay: delay,
+                ease: ease
             })
         }
 
@@ -44,14 +51,18 @@ export default class Scroll
 
                 if(this.currentSection == 0 && this.currentSectionProgress > 0.15)
                 {
-                    triggerAnimation(this.objects.hello, 0, 0, -4)
-                    triggerAnimation(this.objects.litho, -0.5, 0, 0)
+                    triggerAnimation(this.objects.hello, 0, 0, -6,
+                        this.params.outDuration, 0, "power3.in")
+                    triggerAnimation(this.objects.litho, -0.5, 0, 0,
+                        this.params.inDuration, this.params.delay, "power3.out")
                     this.currentSection = 1
                 }
                 if(this.currentSection == 1 && this.currentSectionProgress < 0.1)
                 {
-                    triggerAnimation(this.objects.hello, 0, 0, 0)
-                    triggerAnimation(this.objects.litho, 0, -1, 0)
+                    triggerAnimation(this.objects.hello, 0, 0, 0,
+                        this.params.inDuration, this.params.delay, "power3.out")
+                    triggerAnimation(this.objects.litho, 0, -1, 0,
+                        this.params.outDuration, 0, "power3.in")
                     this.currentSection = 0
                 }
             }

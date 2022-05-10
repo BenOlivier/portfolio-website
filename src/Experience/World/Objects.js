@@ -61,8 +61,8 @@ export default class Objects
         // Scan
         this.scan = this.scanResource.scene
         this.setObjectScale(this.scan)
-        this.scan.position.set(0, 0, 0)
-        // this.scene.add(this.scan)
+        this.scan.position.set(0, -2, -2)
+        this.scene.add(this.scan)
 
         this.helloTargetQuaternion = new THREE.Quaternion()
         this.lithoTargetQuaternion = new THREE.Quaternion()

@@ -20,6 +20,7 @@ export default class Scroll
 
         this.objects = {
             hello: this.experience.objects.hello,
+            scan: this.experience.objects.scan,
             litho: this.experience.objects.litho
         }
 
@@ -53,7 +54,7 @@ export default class Scroll
                 {
                     triggerAnimation(this.objects.hello, 0, 0, -6,
                         this.params.outDuration, 0, "power3.in")
-                    triggerAnimation(this.objects.litho, -0.5, 0, 0,
+                    triggerAnimation(this.objects.scan, -0.5, 0, 0,
                         this.params.inDuration, this.params.delay, "power3.out")
                     this.currentSection = 1
                 }
@@ -61,15 +62,14 @@ export default class Scroll
                 {
                     triggerAnimation(this.objects.hello, 0, 0, 0,
                         this.params.inDuration, this.params.delay, "power3.out")
-                    triggerAnimation(this.objects.litho, 0, -1, 0,
+                    triggerAnimation(this.objects.scan, 0, -1, 0,
                         this.params.outDuration, 0, "power3.in")
                     this.currentSection = 0
                 }
             }
             if(typeof args.currentElements['work'])
             {
-                // let progress = args.currentElements['work'].progress
-                // console.log(progress)
+                
             }
             if(typeof args.currentElements['contact'])
             {

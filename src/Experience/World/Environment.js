@@ -23,7 +23,7 @@ export default class Environment
         this.darkModeEnabled = false
         this.darkModeButton = document.getElementById("dark-mode-button")
         this.homeButton = document.getElementById("home-button")
-        this.navBar = document.getElementById("nav-bar")
+        this.navContainer = document.getElementById("nav-container")
         this.darkModeButton.addEventListener('click', () =>
         {
             this.toggleDarkMode()
@@ -159,7 +159,7 @@ export default class Environment
 
         if(this.darkModeEnabled)
         {
-            this.navBar.style.backgroundColor = "#e5e5e595"
+            this.navContainer.style.backgroundColor = "#e5e5e595"
             gsap.to(document.body, {
                 color: "#333333",
                 duration: 0.7,
@@ -168,7 +168,7 @@ export default class Environment
         }
         else
         {
-            this.navBar.style.backgroundColor = "#1d212595"
+            this.navContainer.style.backgroundColor = "#1d212595"
             gsap.to(document.body, {
                 color: "#ffffff",
                 duration: 0.7,

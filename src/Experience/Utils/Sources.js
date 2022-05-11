@@ -5,14 +5,14 @@ export default [
         path: 'models/Hello.glb'
     },
     {
+        name: 'me',
+        type: 'gltfModel',
+        path: 'models/Me.glb'
+    },
+    {
         name: 'litho',
         type: 'gltfModel',
         path: 'models/Litho.glb'
-    },
-    {
-        name: 'scan',
-        type: 'gltfModel',
-        path: 'models/Scan.glb'
     },
     {
         name: 'environmentMapTexture',

@@ -38,8 +38,8 @@ export default class Objects
         
         // Resources
         this.helloResource = this.resources.items.hello
+        this.meResource = this.resources.items.me
         this.lithoResource = this.resources.items.litho
-        this.scanResource = this.resources.items.scan
 
         this.setModels()
         this.setAnimation()
@@ -53,33 +53,10 @@ export default class Objects
         this.hello.position.set(0, 0, -1)
         this.scene.add(this.hello)
 
-        // Scan
-        // this.scanMaterial = new THREE.ShaderMaterial({
-        //     depthWrite: false,
-        //     vertexColors: true,
-        //     vertexShader: faceVertexShader,
-        //     fragmentShader: faceFragmentShader,
-        //     uniforms:
-        //     {
-        //         uSize: { value: 10 * this.sizes.pixelRatio }
-        //     }
-        // })
-
-        this.scanMaterial = new THREE.PointsMaterial()
-        this.scanMaterial.size = 0.1
-        this.scanMaterial.sizeAttenuation = true
-        this.scanMaterial.color = new THREE.Color('#ff88cc')
-        this.scanMaterial.transparent = true
-        //particlesMaterial.alphaTest = 0.001
-        this.scanMaterial.depthWrite = false
-        this.scanMaterial.blending = THREE.AdditiveBlending
-        this.scanMaterial.vertexColors = true
-
-        this.scan = this.scanResource.scene
-        this.setObjectScale(this.scan)
-        this.scan.position.set(0, -2, 0)
-        // this.scan.traverse((o) => { if (o.isMesh) o.material = this.scanMaterial })
-        this.scene.add(this.scan)
+        this.me = this.meResource.scene
+        this.setObjectScale(this.me)
+        this.me.position.set(0, -2, 0)
+        this.scene.add(this.me)
 
         // Litho
         this.litho = this.lithoResource.scene
@@ -92,7 +69,7 @@ export default class Objects
         // Objects
         this.objectsArray = [
             this.hello,
-            this.scan,
+            this.me,
             this.litho
         ]
         this.rotations = [
@@ -170,7 +147,7 @@ export default class Objects
     resize()
     {
         this.setObjectScale(this.hello)
-        this.setObjectScale(this.scan)
+        this.setObjectScale(this.me)
         this.setObjectScale(this.litho)
     }
 }

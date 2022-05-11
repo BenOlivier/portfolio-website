@@ -49,7 +49,7 @@ export default class Scroll
                 {
                     triggerAnimation(this.objects.hello, 0, 0, -6,
                         this.params.outDuration, 0, "power3.in")
-                    triggerAnimation(this.objects.scan, -0.5, 0, 0,
+                    triggerAnimation(this.objects.me, -0.5, 0, 0,
                         this.params.inDuration, this.params.delay, "power3.out")
                     this.currentSection = 1
                     this.objects.currentObject = 1
@@ -58,7 +58,7 @@ export default class Scroll
                 {
                     triggerAnimation(this.objects.hello, 0, 0, 0,
                         this.params.inDuration, this.params.delay, "power3.out")
-                    triggerAnimation(this.objects.scan, 0, -2, 0,
+                    triggerAnimation(this.objects.me, 0, -2, 0,
                         this.params.outDuration, 0, "power3.in")
                     this.currentSection = 0
                     this.objects.currentObject = 0
@@ -68,7 +68,7 @@ export default class Scroll
             {
                 if(this.currentSection == 1 && this.currentSectionProgress > 0.5)
                 {
-                    triggerAnimation(this.objects.scan, -0.5, 0, -6,
+                    triggerAnimation(this.objects.me, -0.5, 0, -6,
                         this.params.outDuration, 0, "power3.in")
                     triggerAnimation(this.objects.litho, 0.5, 0, 0,
                         this.params.inDuration, this.params.delay, "power3.out")
@@ -77,7 +77,7 @@ export default class Scroll
                 }
                 if(this.currentSection == 2 && this.currentSectionProgress < 0.4)
                 {
-                    triggerAnimation(this.objects.scan, -0.5, 0, 0,
+                    triggerAnimation(this.objects.me, -0.5, 0, 0,
                         this.params.inDuration, this.params.delay, "power3.out")
                     triggerAnimation(this.objects.litho, 0, -2, 0,
                         this.params.outDuration, 0, "power3.in")

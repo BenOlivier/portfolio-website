@@ -38,7 +38,7 @@ export default class Objects
         
         // Resources
         this.helloResource = this.resources.items.hello
-        this.meResource = this.resources.items.me
+        this.deskResource = this.resources.items.desk
         this.lithoResource = this.resources.items.litho
 
         this.setModels()
@@ -53,10 +53,12 @@ export default class Objects
         this.hello.position.set(0, 0, -1)
         this.scene.add(this.hello)
 
-        this.me = this.meResource.scene
-        this.setObjectScale(this.me)
-        this.me.position.set(0, -2, 0)
-        this.scene.add(this.me)
+        this.desk = this.deskResource.scene
+        this.setObjectScale(this.desk)
+        this.desk.position.set(0, -2, 0)
+        this.deskRot = new THREE.Euler(Math.PI * 0.05, Math.PI * 0.2, 0)
+        this.desk.rotation.set(this.deskRot.x, this.deskRot.y, this.deskRot.z)
+        this.scene.add(this.desk)
 
         // Litho
         this.litho = this.lithoResource.scene
@@ -69,12 +71,12 @@ export default class Objects
         // Objects
         this.objectsArray = [
             this.hello,
-            this.me,
+            this.desk,
             this.litho
         ]
         this.rotations = [
             new THREE.Euler(0, 0, 0),
-            new THREE.Euler(0, 0, 0),
+            this.deskRot,
             this.lithoRot
         ]
         this.currentObject = 0
@@ -133,9 +135,11 @@ export default class Objects
         }
         else
         {
+            // this.targetQuaternion.setFromEuler(new THREE.Euler
+            //     (this.rotations[this.currentObject].x + (-this.pointer.pointerPos.y * this.params.rotationExtent),
+            //     this.rotations[this.currentObject].y + (this.pointer.pointerPos.x * this.params.rotationExtent), 0))
             this.targetQuaternion.setFromEuler(new THREE.Euler
-                (this.rotations[this.currentObject].x + (-this.pointer.pointerPos.y * this.params.rotationExtent),
-                this.rotations[this.currentObject].y + (this.pointer.pointerPos.x * this.params.rotationExtent), 0))
+                (this.rotations[this.currentObject].x, this.rotations[this.currentObject].y + (this.pointer.pointerPos.x * this.params.rotationExtent), 0))
             this.params.rotationSmoothing = 0.2
         }
 
@@ -147,7 +151,7 @@ export default class Objects
     resize()
     {
         this.setObjectScale(this.hello)
-        this.setObjectScale(this.me)
+        this.setObjectScale(this.desk)
         this.setObjectScale(this.litho)
     }
 }

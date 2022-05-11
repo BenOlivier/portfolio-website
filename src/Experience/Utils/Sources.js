@@ -5,9 +5,9 @@ export default [
         path: 'models/Hello.glb'
     },
     {
-        name: 'me',
+        name: 'desk',
         type: 'gltfModel',
-        path: 'models/Me.glb'
+        path: 'models/Desk.glb'
     },
     {
         name: 'litho',

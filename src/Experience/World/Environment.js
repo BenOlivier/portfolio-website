@@ -107,11 +107,17 @@ export default class Environment
     toggleDarkMode()
     {
         // Update circle centre
-        this.buttonPos = new THREE.Vector2(this.darkModeButton.getBoundingClientRect().x / this.sizes.width,
-            1 - ((this.darkModeButton.getBoundingClientRect().y + 72) / this.sizes.height))
+        this.buttonPos = new THREE.Vector2((this.darkModeButton.getBoundingClientRect().x
+            + this.darkModeButton.getBoundingClientRect().width / 2) / this.sizes.width * 2 - 1,
+            -((this.darkModeButton.getBoundingClientRect().y
+            + this.darkModeButton.getBoundingClientRect().height / 2) / this.sizes.height * 2 - 1))
+        // this.buttonPos = new THREE.Vector2(this.darkModeButton.getBoundingClientRect().x / this.sizes.width * 2 - 1,
+        //     1 - ((this.darkModeButton.getBoundingClientRect().y + 72) / this.sizes.height * 2 - 1))
         this.raycaster.setFromCamera(this.buttonPos, this.camera.camera)
         this.intersects = this.raycaster.intersectObjects([this.background])
         this.background.material.uniforms.uMaskCentre.value = this.intersects[0].uv
+
+        console.log(this.darkModeButton.getBoundingClientRect().width, this.darkModeButton.getBoundingClientRect().height)
 
         // Set values
         if(this.darkModeEnabled)

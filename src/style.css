@@ -46,18 +46,13 @@ html, body
 {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     max-width: 1400px;
     margin: auto;
-    top: 0;
-    left: 0;
-    right: 0;
 }
 
 nav img
 {
-    z-index: 1000;
-    top: 10px;
-    left: 10px;
     padding: 20px;
     cursor: pointer;
     opacity: 0.8;
@@ -109,11 +104,4 @@ section:nth-of-type(1)
     text-align: center;
     line-height: 3rem;
     margin: 0 20px;
-}
-
-#large-space
-{
-    position: relative;
-    padding: 100px;
-    margin-top: 10000%;
 }

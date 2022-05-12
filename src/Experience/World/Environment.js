@@ -111,13 +111,9 @@ export default class Environment
             + this.darkModeButton.getBoundingClientRect().width / 2) / this.sizes.width * 2 - 1,
             -((this.darkModeButton.getBoundingClientRect().y
             + this.darkModeButton.getBoundingClientRect().height / 2) / this.sizes.height * 2 - 1))
-        // this.buttonPos = new THREE.Vector2(this.darkModeButton.getBoundingClientRect().x / this.sizes.width * 2 - 1,
-        //     1 - ((this.darkModeButton.getBoundingClientRect().y + 72) / this.sizes.height * 2 - 1))
         this.raycaster.setFromCamera(this.buttonPos, this.camera.camera)
         this.intersects = this.raycaster.intersectObjects([this.background])
         this.background.material.uniforms.uMaskCentre.value = this.intersects[0].uv
-
-        console.log(this.darkModeButton.getBoundingClientRect().width, this.darkModeButton.getBoundingClientRect().height)
 
         // Set values
         if(this.darkModeEnabled)
@@ -127,8 +123,8 @@ export default class Environment
             this.background.material.uniforms.uCurrentFlColor.value.set(this.colors.uFlDark)
             this.background.material.uniforms.uNewFlColor.value.set(this.colors.uFlLight)
             this.fog.color.set(this.colors.uBgLight)
-            this.darkModeButton.children[0].src = "images/icons/darkmode.png"
-            this.homeButton.children[0].src = "images/icons/logodark.png"
+            this.darkModeButton.src = "images/icons/darkmode.png"
+            this.homeButton.src = "images/icons/logodark.png"
             this.darkModeAnimation()
         }
         else
@@ -138,8 +134,8 @@ export default class Environment
             this.background.material.uniforms.uCurrentFlColor.value.set(this.colors.uFlLight)
             this.background.material.uniforms.uNewFlColor.value.set(this.colors.uFlDark)
             this.fog.color.set(this.colors.uBgDark)
-            this.darkModeButton.children[0].src = "images/icons/lightmode.png"
-            this.homeButton.children[0].src = "images/icons/logolight.png"
+            this.darkModeButton.src = "images/icons/lightmode.png"
+            this.homeButton.src = "images/icons/logolight.png"
             this.darkModeAnimation()
         }
     }

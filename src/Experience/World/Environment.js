@@ -161,7 +161,6 @@ export default class Environment
 
         if(this.darkModeEnabled)
         {
-            this.navContainer.style.backgroundColor = "#e5e5e595"
             gsap.to(document.body, {
                 color: "#333333",
                 duration: 0.7,
@@ -170,7 +169,6 @@ export default class Environment
         }
         else
         {
-            this.navContainer.style.backgroundColor = "#1d212595"
             gsap.to(document.body, {
                 color: "#ffffff",
                 duration: 0.7,

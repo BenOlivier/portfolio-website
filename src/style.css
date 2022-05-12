@@ -38,8 +38,9 @@ html, body
     top: 0;
     left: 0;
     right: 0;
-    background-color: #e5e5e595;
+    /* background-color: #e5e5e500; */
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 #nav-bar

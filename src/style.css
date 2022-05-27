@@ -81,7 +81,7 @@ section
     display: flex;
     justify-content: space-evenly;
     max-width: 1400px;
-    margin: 20rem auto;
+    margin: 100vh auto;
 }
 section:nth-of-type(1)
 {
@@ -105,4 +105,5 @@ section:nth-of-type(1)
     text-align: center;
     line-height: 3rem;
     margin: 0 20px;
+    text-justify: inter-word;
 }

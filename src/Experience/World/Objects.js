@@ -1,8 +1,5 @@
 import * as THREE from 'three'
-import { Quaternion } from 'three'
 import Experience from '../Experience.js'
-import faceVertexShader from '../Shaders/Face/vertex.glsl'
-import faceFragmentShader from '../Shaders/Face/fragment.glsl'
 
 export default class Objects
 {
@@ -20,7 +17,7 @@ export default class Objects
         this.params = {
             objectScale: 0.5,
             rotationSmoothing: 0.2,
-            rotationExtent: 0.5
+            rotationExtent: 0.2
         }
 
         // Debug
@@ -38,11 +35,9 @@ export default class Objects
         
         // Resources
         this.helloResource = this.resources.items.hello
-        this.deskResource = this.resources.items.desk
         this.lithoResource = this.resources.items.litho
 
         this.setModels()
-        this.setAnimation()
     }
 
     setModels()
@@ -61,17 +56,6 @@ export default class Objects
         this.litho.rotation.set(this.lithoRot.x, this.lithoRot.y, this.lithoRot.z)
         this.scene.add(this.litho)
 
-        // Objects
-        this.objectsArray = [
-            this.hello,
-            this.litho
-        ]
-        this.rotations = [
-            new THREE.Euler(0, 0, 0),
-            this.deskRot,
-            this.lithoRot
-        ]
-        this.currentObject = 0
         this.targetQuaternion = new THREE.Quaternion()
 
         // Debug
@@ -93,7 +77,7 @@ export default class Objects
         }
     }
 
-    setObjectScale(object)
+    setObjectScale(object) //TODO: only scale when necessary
     {
         if(this.sizes.width < 800)
         {
@@ -106,43 +90,31 @@ export default class Objects
         }
     }
 
-    setAnimation()
-    {
-        this.animation = {}
-        this.animation.mixer = new THREE.AnimationMixer(this.hello)
-        this.animation.action = this.animation.mixer.clipAction(this.helloResource.animations[0])
-        this.animation.action.play()
-    }
-
     update()
     {
-        // this.animation.mixer.update(this.time.delta * 0.001)
-
         this.timer += this.time.delta / 1000
         if(this.timer > 1.2)
         {
-            this.targetQuaternion.setFromEuler(new THREE.Euler(this.rotations[this.currentObject].x,
-                this.rotations[this.currentObject].y, this.rotations[this.currentObject].z))
+            this.targetQuaternion.setFromEuler(new THREE.Euler(0, 0, 0))
             this.params.rotationSmoothing = 0.04
         }
         else
         {
-            // this.targetQuaternion.setFromEuler(new THREE.Euler
-            //     (this.rotations[this.currentObject].x + (-this.pointer.pointerPos.y * this.params.rotationExtent),
-            //     this.rotations[this.currentObject].y + (this.pointer.pointerPos.x * this.params.rotationExtent), 0))
             this.targetQuaternion.setFromEuler(new THREE.Euler
-                (this.rotations[this.currentObject].x, this.rotations[this.currentObject].y + (this.pointer.pointerPos.x * this.params.rotationExtent), 0))
+                (0 + (-this.pointer.pointerPos.y * this.params.rotationExtent),
+                0 + (this.pointer.pointerPos.x * this.params.rotationExtent), 0))
+
             this.params.rotationSmoothing = 0.2
         }
 
         // Rotate with mouse position
-        this.objectsArray[this.currentObject].quaternion.slerp
+        this.hello.quaternion.slerp
             (this.targetQuaternion, this.params.rotationSmoothing)
     }
 
     resize()
     {
-        this.setObjectScale(this.hello)
+        this.setObjectScale(this.hello) //TODO: Scale whole scene
         this.setObjectScale(this.litho)
     }
 }

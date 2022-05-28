@@ -38,8 +38,8 @@ export default class Experience
         this.scene = new THREE.Scene()
         this.loading = new Loading()
         this.resources = new Resources(Sources)
-        this.camera = new Camera()
         this.pointer = new Pointer()
+        this.camera = new Camera()
         this.renderer = new Renderer()
         // this.stats = new Stats()
         

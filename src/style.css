@@ -15,6 +15,7 @@ html, body
     font-family: 'Montserrat', sans-serif;
     overscroll-behavior: none;
     scroll-behavior: smooth;
+    overflow: hidden;
 }
 
 ::-webkit-scrollbar {
@@ -66,13 +67,6 @@ nav img:active
     transform: scale(1);
 }
 
-/* .scroll-container
-{
-    top: 0;
-    left: 0;
-    position: fixed;
-} */
-
 section
 {
     display: flex;
@@ -84,10 +78,6 @@ section:nth-of-type(1)
 {
     margin-top: 100vh;
 }
-/* section:nth-of-type(2n)
-{
-    
-} */
 
 .empty
 {

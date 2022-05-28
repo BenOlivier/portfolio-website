@@ -53,13 +53,6 @@ export default class Objects
         this.hello.position.set(0, 0, -1)
         this.scene.add(this.hello)
 
-        this.desk = this.deskResource.scene
-        this.setObjectScale(this.desk)
-        this.desk.position.set(0, -2, 0)
-        this.deskRot = new THREE.Euler(Math.PI * 0.05, Math.PI * 0.2, 0)
-        this.desk.rotation.set(this.deskRot.x, this.deskRot.y, this.deskRot.z)
-        this.scene.add(this.desk)
-
         // Litho
         this.litho = this.lithoResource.scene
         this.setObjectScale(this.litho)
@@ -71,7 +64,6 @@ export default class Objects
         // Objects
         this.objectsArray = [
             this.hello,
-            this.desk,
             this.litho
         ]
         this.rotations = [

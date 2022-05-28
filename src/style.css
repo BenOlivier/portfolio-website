@@ -67,3 +67,23 @@ nav img:active
 {
     transform: scale(1);
 }
+
+.mouse-sides
+{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+}
+
+#left-side
+{
+    cursor: w-resize;
+    flex-grow: 1;
+}
+
+#right-side
+{
+    cursor: e-resize;
+    flex-grow: 1;
+}

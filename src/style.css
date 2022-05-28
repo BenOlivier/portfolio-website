@@ -67,6 +67,36 @@ nav img:active
     transform: scale(1);
 }
 
+#page-buttons
+{
+    z-index: 1000;
+    position: fixed;
+    bottom: 30px;
+    left: 20px;
+}
+#page-buttons button
+{
+    height: 20px;
+    width: 20px;
+    border: solid #333333;
+    border-width: 0 5px 5px 0;
+    margin: 10px;
+}
+#button1
+{
+    transform: rotate(45deg);
+}
+#button2
+{
+    transform: rotate(-135deg);
+}
+
+
+
+
+
+
+
 section
 {
     display: flex;

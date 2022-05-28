@@ -17,9 +17,6 @@ export default class Environment
         this.pointer = this.experience.pointer
         this.raycaster = new THREE.Raycaster()
 
-        this.fog = new THREE.Fog('#e5e5e5', 3, 5)
-        this.scene.fog = this.fog
-
         this.darkModeEnabled = false
         this.darkModeButton = document.getElementById("dark-mode-button")
         this.homeButton = document.getElementById("home-button")

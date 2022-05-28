@@ -42,19 +42,23 @@ export default class Objects
 
     setModels()
     {
+        this.group = new THREE.Group()
+        
         // Hello
         this.hello = this.helloResource.scene
         this.setObjectScale(this.hello)
         this.hello.position.set(0, 0, -1)
-        this.scene.add(this.hello)
+        this.group.add(this.hello)
 
         // Litho
         this.litho = this.lithoResource.scene
         this.setObjectScale(this.litho)
-        this.litho.position.set(0, -2, -2)
+        this.litho.position.set(5, 0, -1)
         this.lithoRot = new THREE.Euler(Math.PI * 0.1, Math.PI * -0.15, 0)
         this.litho.rotation.set(this.lithoRot.x, this.lithoRot.y, this.lithoRot.z)
-        this.scene.add(this.litho)
+        this.group.add(this.litho)
+
+        this.scene.add(this.group)
 
         this.targetQuaternion = new THREE.Quaternion()
 

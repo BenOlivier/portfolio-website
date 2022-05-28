@@ -8,6 +8,7 @@ import Pointer from './Utils/Pointer.js'
 import Renderer from './Renderer.js'
 import Environment from './World/Environment.js'
 import Objects from './World/Objects.js'
+import Scroll from './World/Scroll.js'
 import Resources from './Utils/Resources.js'
 import Sources from './Utils/Sources.js'
 // import Stats from 'stats.js'
@@ -49,6 +50,7 @@ export default class Experience
             // Setup
             this.environment = new Environment()
             this.objects = new Objects()
+            this.scroll = new Scroll()
         })
 
         // Stats

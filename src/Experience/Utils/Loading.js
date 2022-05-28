@@ -116,8 +116,9 @@ export default class Loading
                 varying vec2 vUv;
                 void main()
                 {
-                    vec3 fragColor = step(uProgress, vUv.x) * uColor;
-                    gl_FragColor = vec4(fragColor, uAlpha);
+                    vec3 barColor = step(vUv.x, uProgress) * vec3(1.0, 1.0, 1.0);
+                    vec3 backgroundColor = step(uProgress, vUv.x) * uColor;
+                    gl_FragColor = vec4(barColor + backgroundColor, uAlpha);
                 }
             `
         })

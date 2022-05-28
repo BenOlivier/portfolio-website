@@ -143,7 +143,6 @@ export default class Objects
     resize()
     {
         this.setObjectScale(this.hello)
-        this.setObjectScale(this.desk)
         this.setObjectScale(this.litho)
     }
 }

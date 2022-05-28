@@ -18,65 +18,68 @@
     </div>
   </nav>
 
+
   <div id="page-buttons">
     <div>
-      <button id="button2"></button>
+      <button id="button2">up</button>
     </div>
     <div>
-      <button id="button1"></button>
+      <button id="button1" onclick="scroll()">down</button>
     </div>
   </div>
 
+  <script>
+    function scroll()
+    {
+      document.querySelector("#work").scrollIntoView({behavior: "smooth"})
+      console.log("yo")
+    }
+  </script>
 
 
 
 
-  <div data-scroll-container class="scroll-container">
-    <div data-scroll-section>
-      <section data-scroll data-scroll-id="about">
-        <div class="empty"></div>
-        <div class="text">
-          <p>
-            About about about about about about about about about about about
-            About about about about about about about about about about about
-            About about about about about about about about about about about
-            About about about about about about about about about about about
-            About about about about about about about about about about about
-            About about about about about about about about about about
-          </p>
-        </div>
-      </section>
-
-      <section data-scroll data-scroll-id="work">
-        <div class="text">
-          <p>
-            Work work work work work work work work work work work work work
-            Work work work work work work work work work work work work work
-            Work work work work work work work work work work work work work
-            Work work work work work work work work work work work work work
-            Work work work work work work work work work work work work work
-            Work work work work work work work work work work
-          </p>
-        </div>
-        <div class="empty"></div>
-      </section>
-
-      <section data-scroll data-scroll-id="contact">
-        <div class="empty"></div>
-        <div class="text">
-          <p>
-            Contact contact contact contact contact contact contact contact
-            Contact contact contact contact contact contact contact contact
-            Contact contact contact contact contact contact contact contact
-            Contact contact contact contact contact contact contact contact
-            Contact contact contact contact contact contact contact contact
-            Contact contact contact contact contact contact contact contact
-          </p>
-        </div>
-      </section>
-
+  <section id="about">
+    <div class="empty"></div>
+    <div class="text">
+      <p>
+        About about about about about about about about about about about
+        About about about about about about about about about about about
+        About about about about about about about about about about about
+        About about about about about about about about about about about
+        About about about about about about about about about about about
+        About about about about about about about about about about
+      </p>
     </div>
-  </div>
+  </section>
+
+  <section id="work">
+    <div class="text">
+      <p>
+        Work work work work work work work work work work work work work
+        Work work work work work work work work work work work work work
+        Work work work work work work work work work work work work work
+        Work work work work work work work work work work work work work
+        Work work work work work work work work work work work work work
+        Work work work work work work work work work work
+      </p>
+    </div>
+    <div class="empty"></div>
+  </section>
+
+  <section id="contact">
+    <div class="empty"></div>
+    <div class="text">
+      <p>
+        Contact contact contact contact contact contact contact contact
+        Contact contact contact contact contact contact contact contact
+        Contact contact contact contact contact contact contact contact
+        Contact contact contact contact contact contact contact contact
+        Contact contact contact contact contact contact contact contact
+        Contact contact contact contact contact contact contact contact
+      </p>
+    </div>
+  </section>
   
 </body>
 </html>

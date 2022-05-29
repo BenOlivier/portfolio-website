@@ -119,7 +119,6 @@ export default class Environment
             this.background.material.uniforms.uNewBgColor.value.set(this.colors.uBgLight)
             this.background.material.uniforms.uCurrentFlColor.value.set(this.colors.uFlDark)
             this.background.material.uniforms.uNewFlColor.value.set(this.colors.uFlLight)
-            this.fog.color.set(this.colors.uBgLight)
             this.darkModeButton.src = "images/icons/darkmode.png"
             this.homeButton.src = "images/icons/icondark.png"
             this.darkModeAnimation()
@@ -130,7 +129,6 @@ export default class Environment
             this.background.material.uniforms.uNewBgColor.value.set(this.colors.uBgDark)
             this.background.material.uniforms.uCurrentFlColor.value.set(this.colors.uFlLight)
             this.background.material.uniforms.uNewFlColor.value.set(this.colors.uFlDark)
-            this.fog.color.set(this.colors.uBgDark)
             this.darkModeButton.src = "images/icons/lightmode.png"
             this.homeButton.src = "images/icons/iconlight.png"
             this.darkModeAnimation()

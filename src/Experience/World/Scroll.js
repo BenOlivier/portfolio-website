@@ -18,15 +18,18 @@ export default class Scroll
         // Mouse down event
         window.addEventListener('mousedown', (event) =>
         {
-            if(this.pointer.pointerPos.x > 0) //TODO: && not on nav buttons
+            if(this.pointer.pointerPos.y < 0.7)
             {
-                if(this.currentSection < this.totalSections) this.ChangeSection(1)
-                else if(!this.isAnimating) this.EndSection(-4 * this.totalSections - 0.1)
-            }
-            else
-            {
-                if(this.currentSection > 0) this.ChangeSection(-1)
-                else if(!this.isAnimating) this.EndSection(0.1)
+                if(this.pointer.pointerPos.x > 0) //TODO: && not on nav buttons
+                {
+                    if(this.currentSection < this.totalSections) this.ChangeSection(1)
+                    else if(!this.isAnimating) this.EndSection(-4 * this.totalSections - 0.1)
+                }
+                else
+                {
+                    if(this.currentSection > 0) this.ChangeSection(-1)
+                    else if(!this.isAnimating) this.EndSection(0.1)
+                }
             }
         })
 

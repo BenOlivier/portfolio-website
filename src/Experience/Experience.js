@@ -8,6 +8,7 @@ import Pointer from './Utils/Pointer.js'
 import Renderer from './Renderer.js'
 import Environment from './World/Environment.js'
 import Objects from './World/Objects.js'
+import Text from './World/Text.js'
 import Scroll from './World/Scroll.js'
 import Resources from './Utils/Resources.js'
 import Sources from './Utils/Sources.js'
@@ -39,6 +40,7 @@ export default class Experience
         this.scene = new THREE.Scene()
         this.loading = new Loading()
         this.resources = new Resources(Sources)
+        this.text = new Text()
         this.pointer = new Pointer()
         this.camera = new Camera()
         this.renderer = new Renderer()

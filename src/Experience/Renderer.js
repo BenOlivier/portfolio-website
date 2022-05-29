@@ -1,7 +1,5 @@
 import * as THREE from 'three'
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
-import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
-import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer.js'
 import Experience from './Experience.js'
 
 export default class Renderer
@@ -20,10 +18,10 @@ export default class Renderer
             this.debugFolder = this.debug.ui.addFolder('renderer')
         }
 
-        this.setRenderer()
+        this.setRenderers()
     }
 
-    setRenderer()
+    setRenderers()
     {
         this.renderer = new THREE.WebGLRenderer({
             canvas: this.canvas,
@@ -38,6 +36,12 @@ export default class Renderer
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
         this.renderer.setSize(this.sizes.width, this.sizes.height)
         this.renderer.setPixelRatio(Math.min(this.sizes.pixelRatio, 2))
+
+        this.cssRenderer = new CSS3DRenderer()
+        this.cssRenderer.setSize(this.sizes.width, this.sizes.height)
+        this.cssRenderer.domElement.style.position = 'fixed'
+        this.cssRenderer.domElement.style.top = 0
+        // document.querySelector('#css').appendChild( this.cssRenderer.domElement )
 
         if(this.debug.active)
         {
@@ -61,5 +65,6 @@ export default class Renderer
     update()
     {
         this.renderer.render(this.scene, this.camera.camera)
+        this.cssRenderer.render(this.scene, this.camera.camera)
     }
 }

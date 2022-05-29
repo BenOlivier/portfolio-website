@@ -53,7 +53,7 @@ export default class Objects
         // Litho
         this.litho = this.lithoResource.scene
         this.setObjectScale(this.litho)
-        this.litho.position.set(5, 0, -1)
+        this.litho.position.set(4, 0, -1)
         this.lithoRot = new THREE.Euler(Math.PI * 0.1, Math.PI * -0.15, 0)
         this.litho.rotation.set(this.lithoRot.x, this.lithoRot.y, this.lithoRot.z)
         this.group.add(this.litho)

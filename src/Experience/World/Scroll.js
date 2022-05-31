@@ -10,27 +10,32 @@ export default class Scroll
         this.pointer = this.experience.pointer
         this.objects = this.experience.objects
 
+        this.leftArea = document.getElementById("left-area")
+        this.rightArea = document.getElementById("right-area")
+        this.leftArrow = document.getElementById("left-arrow")
+        this.rightArrow = document.getElementById("right-arrow")
+        
         this.currentSection = 0
         this.totalSections = 1
 
         this.isAnimating = false
-        
-        // Mouse down event
-        window.addEventListener('mousedown', (event) =>
+
+        // Area enter + exit events
+        this.leftArea.addEventListener('mouseenter', () => { this.leftArrow.classList.add('visible') })
+        this.rightArea.addEventListener('mouseenter', () => { this.rightArrow.classList.add('visible') })
+        this.leftArea.addEventListener('mouseleave', () => { this.leftArrow.classList.remove('visible') })
+        this.rightArea.addEventListener('mouseleave', () => { this.rightArrow.classList.remove('visible') })
+
+        // Area click events
+        this.leftArea.addEventListener('click', () =>
         {
-            if(this.pointer.pointerPos.y < 0.7)
-            {
-                if(this.pointer.pointerPos.x > 0) //TODO: && not on nav buttons
-                {
-                    if(this.currentSection < this.totalSections) this.ChangeSection(1)
-                    else if(!this.isAnimating) this.EndSection(-4 * this.totalSections - 0.1)
-                }
-                else
-                {
-                    if(this.currentSection > 0) this.ChangeSection(-1)
-                    else if(!this.isAnimating) this.EndSection(0.1)
-                }
-            }
+            if(this.currentSection > 0) this.ChangeSection(-1)
+            else if(!this.isAnimating) this.EndSection(0.1)
+        })
+        this.rightArea.addEventListener('click', () =>
+        {
+            if(this.currentSection < this.totalSections) this.ChangeSection(1)
+            else if(!this.isAnimating) this.EndSection(-4 * this.totalSections - 0.1)
         })
 
         // Arrow key down event

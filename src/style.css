@@ -71,7 +71,7 @@ nav img:active
 #area-container
 {
     position: fixed;
-    top: calc(50% - 300px);
+    top: 0;
     left: 0;
     right: 0;
     height: 600px;
@@ -82,10 +82,9 @@ nav img:active
 #arrows-container
 {
     position: fixed;
-    top: calc(50% - 300px);
+    top: 50%;
     left: 0;
     right: 0;
-    height: 600px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -95,11 +94,8 @@ nav img:active
 
 .arrow-area
 {
-    border: 2px solid grey;
-    height: 100%;
-    flex-grow: 0.3;
-    display: flex;
-    align-items: center;
+    height: 100vh;
+    width: 32vw;
 }
 
 .arrow-area:hover
@@ -107,21 +103,19 @@ nav img:active
     cursor: pointer;
 }
 
-.arrow-area:hover ~ .arrow
-{
-    background-color: blue;
-}
-
 .arrow
 {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.35);
     width: 30px;
     height: 30px;
     padding: 10px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
+    transition: 0.1s;
+    opacity: 0;
 }
+
 .arrow img
 {
     width: 26px;
@@ -129,12 +123,19 @@ nav img:active
     margin: auto;
 }
 
-.arrow:nth-of-type(1)
+#left-arrow
 {
     transform: rotate(180deg);
-    left: 20px;
 }
-.arrow:nth-of-type(2)
+
+#left-arrow.visible
 {
-    right: 20px;
+    transform: rotate(180deg) translate(-20px);
+    opacity: 1;
+}
+
+#right-arrow.visible
+{
+    transform: translate(-20px);
+    opacity: 1;
 }

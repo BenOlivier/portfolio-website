@@ -9,22 +9,9 @@ export default class Environment
     constructor()
     {
         this.experience = new Experience()
-        this.sizes = this.experience.sizes
         this.scene = this.experience.scene
         this.resources = this.experience.resources
         this.debug = this.experience.debug
-        this.camera = this.experience.camera
-        this.pointer = this.experience.pointer
-        this.raycaster = new THREE.Raycaster()
-
-        this.darkModeEnabled = false
-        this.darkModeButton = document.getElementById("dark-mode-button")
-        this.homeButton = document.getElementById("home-button")
-        this.navContainer = document.getElementById("nav-container")
-        this.darkModeButton.addEventListener('click', () =>
-        {
-            this.toggleDarkMode()
-        })
         
         // Debug
         if(this.debug.active)
@@ -98,77 +85,6 @@ export default class Environment
             
             this.debugFolder.add(this.backgroundMaterial.uniforms.uFloorHeight, 'value')
                 .min(0).max(10).step(0.01).name('floorHeight')
-        }
-    }
-
-    toggleDarkMode()
-    {
-        // Update circle centre
-        this.buttonPos = new THREE.Vector2((this.darkModeButton.getBoundingClientRect().x
-            + this.darkModeButton.getBoundingClientRect().width / 2) / this.sizes.width * 2 - 1,
-            -((this.darkModeButton.getBoundingClientRect().y
-            + this.darkModeButton.getBoundingClientRect().height / 2) / this.sizes.height * 2 - 1))
-        this.raycaster.setFromCamera(this.buttonPos, this.camera.camera)
-        this.intersects = this.raycaster.intersectObjects([this.background])
-        this.background.material.uniforms.uMaskCentre.value = this.intersects[0].uv
-
-        // Set values
-        if(this.darkModeEnabled)
-        {
-            this.background.material.uniforms.uCurrentBgColor.value.set(this.colors.uBgDark)
-            this.background.material.uniforms.uNewBgColor.value.set(this.colors.uBgLight)
-            this.background.material.uniforms.uCurrentFlColor.value.set(this.colors.uFlDark)
-            this.background.material.uniforms.uNewFlColor.value.set(this.colors.uFlLight)
-            this.darkModeButton.src = "images/icons/darkmode.png"
-            this.homeButton.src = "images/icons/icondark.png"
-            this.darkModeAnimation()
-        }
-        else
-        {
-            this.background.material.uniforms.uCurrentBgColor.value.set(this.colors.uBgLight)
-            this.background.material.uniforms.uNewBgColor.value.set(this.colors.uBgDark)
-            this.background.material.uniforms.uCurrentFlColor.value.set(this.colors.uFlLight)
-            this.background.material.uniforms.uNewFlColor.value.set(this.colors.uFlDark)
-            this.darkModeButton.src = "images/icons/lightmode.png"
-            this.homeButton.src = "images/icons/iconlight.png"
-            this.darkModeAnimation()
-        }
-    }
-
-    darkModeAnimation()
-    {
-        // Reset
-        gsap.killTweensOf(this.background.material.uniforms.uMaskRadius)
-        this.background.material.uniforms.uMaskRadius.value = 0
-
-        // Expand circle radius
-        gsap.to(this.background.material.uniforms.uMaskRadius, {
-            duration: 1,
-            ease: "power3.in",
-            value: 2,
-            callbackScope: this,
-            onComplete: function(){ 
-                this.darkModeEnabled ? this.darkModeEnabled = false : this.darkModeEnabled = true
-                this.darkModeEnabled ? document.body.style.background = this.colors.uBgLight :
-                    document.body.style.background = this.colors.uBgDark
-            }
-        })
-
-        if(this.darkModeEnabled)
-        {
-            gsap.to(document.body, {
-                color: "#333333",
-                duration: 0.7,
-                ease: "power3.in"
-            })
-        }
-        else
-        {
-            gsap.to(document.body, {
-                color: "#ffffff",
-                duration: 0.7,
-                ease: "power3.in"
-            })
         }
     }
 

@@ -1,4 +1,6 @@
 import * as THREE from 'three'
+import Sources from './Utils/Sources.js'
+import Resources from './Utils/Resources.js'
 import Debug from './Utils/Debug.js'
 import Sizes from './Utils/Sizes.js'
 import Loading from './Utils/Loading.js'
@@ -11,8 +13,7 @@ import Objects from './World/Objects.js'
 import Text from './World/Text.js'
 import Scroll from './World/Scroll.js'
 import Arrows from './Utils/Arrows.js'
-import Resources from './Utils/Resources.js'
-import Sources from './Utils/Sources.js'
+import DarkMode from './World/DarkMode.js'
 // import Stats from 'stats.js'
 
 let instance = null
@@ -55,6 +56,7 @@ export default class Experience
             this.environment = new Environment()
             this.objects = new Objects()
             this.scroll = new Scroll()
+            this.darkMode = new DarkMode()
         })
 
         // Stats

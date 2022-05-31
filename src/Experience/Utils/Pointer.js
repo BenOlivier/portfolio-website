@@ -12,6 +12,7 @@ export default class Pointer extends EventEmitter
         this.pointerPos = new THREE.Vector2()
         this.experience = new Experience()
         this.sizes = this.experience.sizes
+        this.leftArrow = document.getElementById("left-arrow")
 
         // Pointer down event
         window.addEventListener('mousedown', (event) =>

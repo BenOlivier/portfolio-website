@@ -10,6 +10,7 @@ import Environment from './World/Environment.js'
 import Objects from './World/Objects.js'
 import Text from './World/Text.js'
 import Scroll from './World/Scroll.js'
+import Arrows from './Utils/Arrows.js'
 import Resources from './Utils/Resources.js'
 import Sources from './Utils/Sources.js'
 // import Stats from 'stats.js'
@@ -42,6 +43,7 @@ export default class Experience
         this.resources = new Resources(Sources)
         this.text = new Text()
         this.pointer = new Pointer()
+        this.arrows = new Arrows()
         this.camera = new Camera()
         this.renderer = new Renderer()
         // this.stats = new Stats()

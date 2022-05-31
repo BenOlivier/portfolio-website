@@ -128,14 +128,17 @@ nav img:active
     transform: rotate(180deg);
 }
 
-#left-arrow.visible
+@media (min-width: 1000px)
 {
-    transform: rotate(180deg) translate(-20px);
-    opacity: 1;
-}
+    #left-arrow.visible
+    {
+        transform: rotate(180deg) translate(-20px);
+        opacity: 1;
+    }
 
-#right-arrow.visible
-{
-    transform: translate(-20px);
-    opacity: 1;
+    #right-arrow.visible
+    {
+        transform: translate(-20px);
+        opacity: 1;
+    }
 }

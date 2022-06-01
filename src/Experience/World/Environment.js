@@ -28,9 +28,9 @@ export default class Environment
     {
         this.colors = {
             uBgLight: "#e5e5e5",
-            uBgDark: "#1d2125",
+            uBgDark: "#1e1e20",
             uFlLight: "#fafafa",
-            uFlDark: "#2e3033"
+            uFlDark: "#2c2c2c"
         }
         
         this.backgroundGeometry = new THREE.PlaneGeometry(20, 20, 1, 1)

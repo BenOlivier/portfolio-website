@@ -111,7 +111,7 @@ export default class Objects
 
     resize()
     {
-        this.setObjectScale(this.hello) //TODO: Scale whole scene / only when necessary, not every frame
-        this.setObjectScale(this.litho)
+        this.setObjectScale(this.hello, 0.5) //TODO: Scale once when < 800
+        this.setObjectScale(this.litho, 0.7)
     }
 }

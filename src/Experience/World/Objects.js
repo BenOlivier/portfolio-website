@@ -12,10 +12,10 @@ export default class Objects
         this.pointer = this.experience.pointer
         this.time = this.experience.time
         this.debug = this.experience.debug
+        this.currentObject = 0
 
         // Parameters
         this.params = {
-            objectScale: 0.5,
             rotationSmoothing: 0.2,
             rotationExtent: 0.2
         }
@@ -46,16 +46,15 @@ export default class Objects
         
         // Hello
         this.hello = this.helloResource.scene
-        this.setObjectScale(this.hello)
+        this.setObjectScale(this.hello, 0.5)
         this.hello.position.set(0, 0, -1)
         this.group.add(this.hello)
 
         // Litho
         this.litho = this.lithoResource.scene
-        this.setObjectScale(this.litho)
+        this.setObjectScale(this.litho, 0.7)
         this.litho.position.set(4, 0, -1)
-        this.lithoRot = new THREE.Euler(Math.PI * 0.1, Math.PI * -0.15, 0)
-        this.litho.rotation.set(this.lithoRot.x, this.lithoRot.y, this.lithoRot.z)
+        this.litho.children[0].rotation.set(Math.PI * 0.1, Math.PI * -0.15, 0)
         this.group.add(this.litho)
 
         this.scene.add(this.group)
@@ -81,17 +80,10 @@ export default class Objects
         }
     }
 
-    setObjectScale(object) //TODO: only scale when necessary
+    setObjectScale(object, scale)
     {
-        if(this.sizes.width < 800)
-        {
-            object.scale.set(this.params.objectScale / 2, this.params.objectScale / 2,
-                this.params.objectScale / 2)
-        }
-        else
-        {
-            object.scale.set(this.params.objectScale, this.params.objectScale, this.params.objectScale)
-        }
+        if(this.sizes.width < 800) { object.scale.set(scale / 2, scale / 2, scale / 2) }
+        else { object.scale.set(scale, scale, scale) }
     }
 
     update()
@@ -112,13 +104,14 @@ export default class Objects
         }
 
         // Rotate with mouse position
-        this.hello.quaternion.slerp
+        this.group.children[this.currentObject].quaternion.slerp
             (this.targetQuaternion, this.params.rotationSmoothing)
+        
     }
 
     resize()
     {
-        this.setObjectScale(this.hello) //TODO: Scale whole scene
+        this.setObjectScale(this.hello) //TODO: Scale whole scene / only when necessary, not every frame
         this.setObjectScale(this.litho)
     }
 }

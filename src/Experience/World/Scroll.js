@@ -58,6 +58,7 @@ export default class Scroll
     {
         this.isAnimating = true
         this.currentSection += int
+        this.objects.currentObject = this.currentSection
         gsap.to(this.objects.group.position, {
             x: -4 * this.currentSection,
             duration: 1.5,

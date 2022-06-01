@@ -14,6 +14,8 @@ export default class Scroll
         this.rightArea = document.getElementById("right-area")
         this.leftArrow = document.getElementById("left-arrow")
         this.rightArrow = document.getElementById("right-arrow")
+
+        this.text = document.getElementById("text")
         
         this.currentSection = 0
         this.totalSections = 1
@@ -69,6 +71,7 @@ export default class Scroll
                 this.isAnimating = false
             }
         })
+        this.text.classList.add('visible')
     }
 
     EndSection(int)
@@ -86,5 +89,6 @@ export default class Scroll
                 this.isAnimating = false
             }
         })
+        this.text.classList.remove('visible')
     }
 }

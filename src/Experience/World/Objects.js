@@ -48,13 +48,13 @@ export default class Objects
         // Hello
         this.hello = this.helloResource.scene
         this.hello.scale.set(0.5, 0.5, 0.5)
-        this.hello.position.set(0, 0, -1)
+        this.hello.position.set(0, 0, 0)
         this.group.add(this.hello)
 
         // Litho
         this.litho = this.lithoResource.scene
-        this.litho.scale.set(0.7, 0.7, 0.7)
-        this.litho.position.set(4.8, 0, -1)
+        this.litho.scale.set(0.5, 0.5, 0.5)
+        this.litho.position.set(4.8, 0, 0)
         this.litho.children[0].rotation.set(Math.PI * 0.1, Math.PI * -0.15, 0)
         this.group.add(this.litho)
 
@@ -107,12 +107,14 @@ export default class Objects
     resizeDesktop()
     {
         this.hello.scale.set(0.5, 0.5, 0.5)
-        this.litho.scale.set(0.7, 0.7, 0.7)
+        this.litho.scale.set(0.5, 0.5, 0.5)
     }
 
     resizeMobile()
     {
         this.hello.scale.set(0.25, 0.25, 0.25)
-        this.litho.scale.set(0.35, 0.35, 0.35)
+        this.litho.scale.set(0.25, 0.25, 0.25)
+
+        this.litho.position.set(4, 0.2, 0)
     }
 }

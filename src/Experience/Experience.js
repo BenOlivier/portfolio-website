@@ -12,7 +12,6 @@ import Environment from './World/Environment.js'
 import Objects from './World/Objects.js'
 import Text from './World/Text.js'
 import Scroll from './World/Scroll.js'
-import Arrows from './Utils/Arrows.js'
 import DarkMode from './World/DarkMode.js'
 // import Stats from 'stats.js'
 
@@ -43,7 +42,6 @@ export default class Experience
         this.loading = new Loading()
         this.resources = new Resources(Sources)
         this.pointer = new Pointer()
-        this.arrows = new Arrows()
         this.camera = new Camera()
         this.renderer = new Renderer()
         // this.stats = new Stats()
@@ -66,7 +64,8 @@ export default class Experience
         // Resize event
         this.sizes.on('resize', () =>
         {
-            this.resize()
+            this.camera.resize()
+            this.renderer.resize()
         })
 
         // Time tick event
@@ -76,12 +75,6 @@ export default class Experience
             this.update()
             // this.stats.end()
         })
-    }
-
-    resize()
-    {
-        this.camera.resize()
-        this.renderer.resize()
     }
 
     update()

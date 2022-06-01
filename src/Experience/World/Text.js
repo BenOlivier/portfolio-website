@@ -11,7 +11,7 @@ export default class Text
         this.sizes = this.experience.sizes
         this.objects = this.experience.objects
 
-        this.setText()
+        // this.setText()
     }
 
     setText()

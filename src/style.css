@@ -129,7 +129,7 @@ nav img:active
     transform: rotate(180deg);
 }
 
-@media (min-width: 1000px)
+@media (min-width: 800px)
 {
     #left-arrow.visible
     {
@@ -141,5 +141,44 @@ nav img:active
     {
         transform: translate(-20px);
         opacity: 1;
+    }
+}
+
+#text-container
+{
+    position: fixed;
+    display: flex;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    /* z-index: 200; */
+    align-items: center;
+
+}
+
+#text-container p
+{
+    padding: 4rem;
+    line-height: 1.5;
+    font-size: 1.4rem;
+    text-align: center;
+    transition: 0.5s;
+    opacity: 0;
+}
+
+#text-container #text.visible
+{
+    transform: translate(-20px);
+    opacity: 1;
+}
+
+@media (max-width: 800px)
+{
+    #text-container
+    {
+        width: 100%;
+        height: 50%;
+        top: 50%;
     }
 }

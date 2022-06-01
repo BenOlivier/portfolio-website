@@ -28,10 +28,11 @@ export default class Objects
 
         // Reset timer on mouse move
         this.timer = 0
-        this.pointer.on('mousemove', () =>
-        {
-            this.timer = 0
-        })
+        this.pointer.on('mousemove', () => { this.timer = 0 })
+
+        // Resize event
+        this.sizes.on('desktop', () => { this.resizeDesktop() })
+        this.sizes.on('mobile', () => { this.resizeMobile() })
         
         // Resources
         this.helloResource = this.resources.items.hello
@@ -46,13 +47,13 @@ export default class Objects
         
         // Hello
         this.hello = this.helloResource.scene
-        this.setObjectScale(this.hello, 0.5)
+        this.hello.scale.set(0.5, 0.5, 0.5)
         this.hello.position.set(0, 0, -1)
         this.group.add(this.hello)
 
         // Litho
         this.litho = this.lithoResource.scene
-        this.setObjectScale(this.litho, 0.7)
+        this.litho.scale.set(0.7, 0.7, 0.7)
         this.litho.position.set(4.8, 0, -1)
         this.litho.children[0].rotation.set(Math.PI * 0.1, Math.PI * -0.15, 0)
         this.group.add(this.litho)
@@ -80,12 +81,6 @@ export default class Objects
         }
     }
 
-    setObjectScale(object, scale)
-    {
-        if(this.sizes.width < 800) { object.scale.set(scale / 2, scale / 2, scale / 2) }
-        else { object.scale.set(scale, scale, scale) }
-    }
-
     update()
     {
         this.timer += this.time.delta / 1000
@@ -109,9 +104,15 @@ export default class Objects
         
     }
 
-    resize()
+    resizeDesktop()
     {
-        this.setObjectScale(this.hello, 0.5) //TODO: Scale once when < 800
-        this.setObjectScale(this.litho, 0.7)
+        this.hello.scale.set(0.5, 0.5, 0.5)
+        this.litho.scale.set(0.7, 0.7, 0.7)
+    }
+
+    resizeMobile()
+    {
+        this.hello.scale.set(0.25, 0.25, 0.25)
+        this.litho.scale.set(0.35, 0.35, 0.35)
     }
 }

@@ -80,7 +80,6 @@ export default class Experience
 
     resize()
     {
-        this.objects.resize()
         this.camera.resize()
         this.renderer.resize()
     }

@@ -41,7 +41,8 @@ export default class Renderer
         this.cssRenderer.setSize(this.sizes.width, this.sizes.height)
         this.cssRenderer.domElement.style.position = 'fixed'
         this.cssRenderer.domElement.style.top = 0
-        // document.querySelector('#css').appendChild( this.cssRenderer.domElement )
+        this.cssRenderer.domElement.style.zIndex = 0
+        document.body.appendChild( this.cssRenderer.domElement )
 
         if(this.debug.active)
         {

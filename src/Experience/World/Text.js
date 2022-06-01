@@ -9,6 +9,7 @@ export default class Text
         this.experience = new Experience()
         this.scene = this.experience.scene
         this.sizes = this.experience.sizes
+        this.objects = this.experience.objects
 
         this.setText()
     }
@@ -16,16 +17,21 @@ export default class Text
     setText()
     {
         this.element = document.createElement( 'div' )
-        this.element.style.width = '100px'
-        this.element.style.height = '100px'
-        this.element.style.opacity = 1
-        this.element.style.background = new THREE.Color('#ffff00').getStyle()
-        this.element.textContent = "Yo yo yo yo!"
+        this.element.style.width = '250px'
+        this.element.style.height = '200px'
+        // this.element.style.background = new THREE.Color('#ffff00').getStyle()
+        // this.element.style.margin = 'auto'
+        this.element.style.lineHeight = 1.5
+        this.element.style.textAlign = 'center'
+        this.element.style.display = 'inline-block'
+        this.element.style.verticalAlign = 'middle'
+        this.element.textContent = "For the last few years I've been at Litho, a London-based startup"
         this.element.setAttribute('contenteditable', '')
 
         this.domObject = new CSS3DObject( this.element )
-        this.domObject.position.set(0, 0, 0)
-        this.domObject.scale.set(0.001, 0.001,0.001)
-        this.scene.add( this.domObject )
+        this.domObject.position.set(3.6, 0, 0)
+        this.domObject.scale.set(0.003, 0.003, 0.003)
+        this.domObject.rotation.set(0, Math.PI * 0.1, 0)
+        this.objects.group.add( this.domObject )
     }
 }

@@ -53,7 +53,7 @@ export default class Objects
         // Litho
         this.litho = this.lithoResource.scene
         this.setObjectScale(this.litho, 0.7)
-        this.litho.position.set(4, 0, -1)
+        this.litho.position.set(4.8, 0, -1)
         this.litho.children[0].rotation.set(Math.PI * 0.1, Math.PI * -0.15, 0)
         this.group.add(this.litho)
 

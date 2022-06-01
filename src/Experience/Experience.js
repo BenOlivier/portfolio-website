@@ -42,7 +42,6 @@ export default class Experience
         this.scene = new THREE.Scene()
         this.loading = new Loading()
         this.resources = new Resources(Sources)
-        this.text = new Text()
         this.pointer = new Pointer()
         this.arrows = new Arrows()
         this.camera = new Camera()
@@ -55,6 +54,7 @@ export default class Experience
             // Setup
             this.environment = new Environment()
             this.objects = new Objects()
+            this.text = new Text()
             this.scroll = new Scroll()
             this.darkMode = new DarkMode()
         })

@@ -23,8 +23,7 @@ export default class Text
         // this.element.style.margin = 'auto'
         this.element.style.lineHeight = 1.5
         this.element.style.textAlign = 'center'
-        this.element.style.display = 'inline-block'
-        this.element.style.verticalAlign = 'middle'
+        this.element.style.display = 'flex'
         this.element.textContent = "For the last few years I've been at Litho, a London-based startup"
         this.element.setAttribute('contenteditable', '')
 

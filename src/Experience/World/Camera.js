@@ -63,7 +63,7 @@ export default class Camera
         }
 
         // Lerp camera to position
-        this.camera.position.lerp(this.targetPos, this.params.moveSmoothing)
+        // this.camera.position.lerp(this.targetPos, this.params.moveSmoothing)
     }
 
     resize()

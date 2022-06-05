@@ -12,6 +12,8 @@ export default class Environment
         this.scene = this.experience.scene
         this.resources = this.experience.resources
         this.debug = this.experience.debug
+
+        this.scene.fog = new THREE.Fog("#e5e5e5", 2, 3)
         
         // Debug
         if(this.debug.active)
@@ -51,7 +53,7 @@ export default class Environment
         })
 
         this.background = new THREE.Mesh(this.backgroundGeometry, this.backgroundMaterial)
-        this.background.position.set(0, 0, -3.5)
+        this.background.position.set(0, 0, -2)
         this.scene.add(this.background)
 
         // Debug

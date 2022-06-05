@@ -74,7 +74,6 @@ nav img:active
     top: 0;
     left: 0;
     right: 0;
-    height: 600px;
     display: flex;
     justify-content: space-between;
     z-index: 100;
@@ -97,6 +96,7 @@ nav img:active
 {
     height: 100vh;
     width: 20vw;
+    /* TODO: does not work on ultrawide */
 }
 
 .arrow-area:hover
@@ -150,14 +150,15 @@ nav img:active
     display: flex;
     top: 0;
     left: 0;
-    width: 50%;
+    right: 0;
     height: 100%;
-    /* z-index: 200; */
+    max-width: 1400px;
     align-items: center;
+    margin: auto;
 
 }
 
-#text-container p
+#text-container #text
 {
     padding: 4rem;
     line-height: 1.5;
@@ -165,6 +166,14 @@ nav img:active
     text-align: center;
     transition: 0.5s;
     opacity: 0;
+    flex-grow: 1;
+    width: 50%;
+}
+
+#text-container #spacer
+{
+    flex-grow: 1;
+    width: 50%;
 }
 
 #text-container #text.visible
@@ -173,7 +182,7 @@ nav img:active
     opacity: 1;
 }
 
-@media (max-width: 800px)
+/* @media (max-width: 1000px)
 {
     #text-container
     {
@@ -181,4 +190,4 @@ nav img:active
         height: 50%;
         top: 50%;
     }
-}
+} */

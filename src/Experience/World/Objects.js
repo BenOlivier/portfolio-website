@@ -54,7 +54,7 @@ export default class Objects
         // Litho
         this.litho = this.lithoResource.scene
         this.litho.scale.set(0.5, 0.5, 0.5)
-        this.litho.position.set(4.8, 0, 0)
+        this.litho.position.set(3, 0, -2.5)
         this.litho.children[0].rotation.set(Math.PI * 0.1, Math.PI * -0.15, 0)
         this.group.add(this.litho)
 
@@ -115,6 +115,6 @@ export default class Objects
         this.hello.scale.set(0.25, 0.25, 0.25)
         this.litho.scale.set(0.25, 0.25, 0.25)
 
-        this.litho.position.set(4, 0.2, 0)
+        // this.litho.position.set(4, 0.2, 0) //TODO: put at top of mobile screen
     }
 }

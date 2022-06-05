@@ -10,7 +10,6 @@ import Pointer from './Utils/Pointer.js'
 import Renderer from './Renderer.js'
 import Environment from './World/Environment.js'
 import Objects from './World/Objects.js'
-import Text from './World/Text.js'
 import Scroll from './World/Scroll.js'
 import DarkMode from './World/DarkMode.js'
 // import Stats from 'stats.js'
@@ -52,7 +51,6 @@ export default class Experience
             // Setup
             this.environment = new Environment()
             this.objects = new Objects()
-            this.text = new Text()
             this.scroll = new Scroll()
             this.darkMode = new DarkMode()
         })

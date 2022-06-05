@@ -37,12 +37,13 @@ export default class Renderer
         this.renderer.setSize(this.sizes.width, this.sizes.height)
         this.renderer.setPixelRatio(Math.min(this.sizes.pixelRatio, 2))
 
-        this.cssRenderer = new CSS3DRenderer()
-        this.cssRenderer.setSize(this.sizes.width, this.sizes.height)
-        this.cssRenderer.domElement.style.position = 'fixed'
-        this.cssRenderer.domElement.style.top = 0
-        this.cssRenderer.domElement.style.zIndex = 0
-        document.body.appendChild( this.cssRenderer.domElement )
+        // CSS3D renderer
+        // this.cssRenderer = new CSS3DRenderer()
+        // this.cssRenderer.setSize(this.sizes.width, this.sizes.height)
+        // this.cssRenderer.domElement.style.position = 'fixed'
+        // this.cssRenderer.domElement.style.top = 0
+        // this.cssRenderer.domElement.style.zIndex = 0
+        // document.body.appendChild( this.cssRenderer.domElement )
 
         if(this.debug.active)
         {
@@ -66,6 +67,6 @@ export default class Renderer
     update()
     {
         this.renderer.render(this.scene, this.camera.camera)
-        this.cssRenderer.render(this.scene, this.camera.camera)
+        // this.cssRenderer.render(this.scene, this.camera.camera)
     }
 }

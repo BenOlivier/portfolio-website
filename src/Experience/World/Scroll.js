@@ -43,15 +43,15 @@ export default class Scroll
         // Arrow key down event
         window.addEventListener('keydown', (event) =>
         {
-            if(event.keyCode == '39')
-            {
-                if(this.currentSection < this.totalSections) this.ChangeSection(1)
-                else if(!this.isAnimating) this.EndSection(-4 * this.totalSections - 0.1)
-            }
-            else if(event.keyCode == '37')
+            if(event.keyCode == '37')
             {
                 if(this.currentSection > 0) this.ChangeSection(-1)
                 else if(!this.isAnimating) this.EndSection(0.1)
+            }
+            else if(event.keyCode == '39')
+            {
+                if(this.currentSection < this.totalSections) this.ChangeSection(1)
+                else if(!this.isAnimating) this.EndSection(-4 * this.totalSections - 0.1)
             }
         })
     }
@@ -61,6 +61,7 @@ export default class Scroll
         this.isAnimating = true
         this.currentSection += int
         this.objects.currentObject = this.currentSection
+        gsap.killTweensOf(this.objects.group.position)
         gsap.to(this.objects.group.position, {
             x: -4 * this.currentSection,
             duration: 1.5,
@@ -77,6 +78,7 @@ export default class Scroll
     EndSection(int)
     {
         this.isAnimating = true
+        gsap.killTweensOf(this.objects.group.position)
         gsap.to(this.objects.group.position, {
             x: int,
             duration: 0.2,

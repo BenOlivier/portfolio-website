@@ -80,6 +80,7 @@ export default class DarkMode
 
         if(this.darkModeEnabled)
         {
+            this.scene.fog.color.set('#e5e5e5')
             this.leftArrow.style.backgroundColor = '#ffffff50'
             this.rightArrow.style.backgroundColor = '#ffffff50'
 
@@ -94,6 +95,7 @@ export default class DarkMode
         }
         else
         {
+            this.scene.fog.color.set('#1e1e20')
             this.leftArrow.style.backgroundColor = '#44444450'
             this.rightArrow.style.backgroundColor = '#44444450'
 

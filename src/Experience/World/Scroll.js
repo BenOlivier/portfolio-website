@@ -21,7 +21,6 @@ export default class Scroll
         
         this.currentSection = 0
         this.totalSections = 1
-
         this.isAnimating = false
 
         this.startPos = new THREE.Vector3(3, 0, -2.5)
@@ -52,19 +51,19 @@ export default class Scroll
         })
 
         // Arrow key down event
-        // window.addEventListener('keydown', (event) =>
-        // {
-        //     if(event.keyCode == '37')
-        //     {
-        //         if(this.currentSection > 0) this.ChangeSection(-1)
-        //         else if(!this.isAnimating) this.EndSection(0.1)
-        //     }
-        //     else if(event.keyCode == '39')
-        //     {
-        //         if(this.currentSection < this.totalSections) this.ChangeSection(1)
-        //         else if(!this.isAnimating) this.EndSection(-4 * this.totalSections - 0.1)
-        //     }
-        // })
+        window.addEventListener('keydown', (event) =>
+        {
+            if(event.keyCode == '37')
+            {
+                if(this.currentSection > 0) this.PrevSection()
+                // else if(!this.isAnimating) this.EndSection(0.1)
+            }
+            else if(event.keyCode == '39')
+            {
+                if(this.currentSection < this.totalSections) this.NextSection()
+                // else if(!this.isAnimating) this.EndSection(-4 * this.totalSections - 0.1)
+            }
+        })
     }
 
     SetObjectPos()
@@ -83,15 +82,9 @@ export default class Scroll
     {
         this.currentSection -= 1
         this.objects.currentObject = this.currentSection
-        if(this.currentSection == 0) // If hello
-        {
-            this.AnimateObject(this.objects.group.children[this.currentSection], new THREE.Vector3(0, 0, 0))
-        }
-        else
-        {
-            this.AnimateObject(this.objects.group.children[this.currentSection], this.objectPos)
-        }
+        this.AnimateObject(this.objects.group.children[this.currentSection], this.objectPos)
         this.AnimateObject(this.objects.group.children[this.currentSection + 1], this.startPos)
+        this.Timeline()
     }
 
     NextSection()
@@ -100,6 +93,28 @@ export default class Scroll
         this.objects.currentObject = this.currentSection
         this.AnimateObject(this.objects.group.children[this.currentSection], this.objectPos)
         this.AnimateObject(this.objects.group.children[this.currentSection - 1], this.endPos)
+        this.Timeline()
+    }
+
+    Timeline()
+    {
+        switch(this.currentSection)
+        {
+            case 0:
+                clearTimeout(this.timeout)
+                this.AnimateObject(this.objects.group.children[0], new THREE.Vector3(0, 0, 0))
+                this.text.classList.remove('visible')
+                console.log(0)
+            break
+            case 1:
+                clearTimeout(this.timeout)
+                this.timeout = setTimeout(() => { this.text.classList.add('visible') }, 600)
+                console.log(1)
+            break
+            case 2:
+                
+            break
+        }
     }
 
     AnimateObject(object, position)

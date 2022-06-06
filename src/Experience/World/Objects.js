@@ -35,6 +35,7 @@ export default class Objects
         // Resources
         this.helloResource = this.resources.items.hello
         this.lithoResource = this.resources.items.litho
+        this.profilePic = this.resources.items.profile
 
         this.setModels()
     }
@@ -48,6 +49,15 @@ export default class Objects
         this.hello.scale.set(0.5, 0.5, 0.5)
         this.hello.position.set(0, 0, 0)
         this.group.add(this.hello)
+
+        // Profile
+        this.profileGeometry = new THREE.PlaneBufferGeometry(0.5, 0.653, 1, 1)
+        this.profileMaterial = new THREE.MeshBasicMaterial({
+            map: this.profilePic,
+            transparent: true
+        })
+        this.profile = new THREE.Mesh(this.profileGeometry, this.profileMaterial)
+        this.group.add(this.profile)
 
         // Litho
         this.litho = this.lithoResource.scene
@@ -104,6 +114,15 @@ export default class Objects
 
     resize()
     {
-        this.group.children[this.currentObject]
+        // if(this.sizes.width > 800) //TODO: Scale dynamically
+        // {
+        //     this.hello.scale.set(0.5, 0.5, 0.5)
+        //     this.litho.scale.set(0.5, 0.5, 0.5)
+        // }
+        // else
+        // {
+        //     this.hello.scale.set(0.25, 0.25, 0.25)
+        //     this.litho.scale.set(0.25, 0.25, 0.25)
+        // }
     }
 }

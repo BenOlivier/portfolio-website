@@ -5,6 +5,11 @@ export default [
         path: 'models/Hello.glb'
     },
     {
+        name: 'profile',
+        type: 'texture',
+        path: 'images/other/profile.png'
+    },
+    {
         name: 'litho',
         type: 'gltfModel',
         path: 'models/Litho.glb'

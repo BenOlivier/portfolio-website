@@ -12,7 +12,6 @@ export default class Objects
         this.pointer = this.experience.pointer
         this.time = this.experience.time
         this.debug = this.experience.debug
-        this.currentObject = 0
 
         // Parameters
         this.params = {
@@ -31,8 +30,7 @@ export default class Objects
         this.pointer.on('mousemove', () => { this.timer = 0 })
 
         // Resize event
-        this.sizes.on('desktop', () => { this.resizeDesktop() })
-        this.sizes.on('mobile', () => { this.resizeMobile() })
+        this.sizes.on('resize', () => { this.resize() })
         
         // Resources
         this.helloResource = this.resources.items.hello
@@ -59,7 +57,7 @@ export default class Objects
         this.group.add(this.litho)
 
         this.scene.add(this.group)
-
+        this.currentObject = 0
         this.targetQuaternion = new THREE.Quaternion()
 
         // Debug
@@ -104,17 +102,8 @@ export default class Objects
         
     }
 
-    resizeDesktop()
+    resize()
     {
-        this.hello.scale.set(0.5, 0.5, 0.5)
-        this.litho.scale.set(0.5, 0.5, 0.5)
-    }
-
-    resizeMobile()
-    {
-        this.hello.scale.set(0.25, 0.25, 0.25)
-        this.litho.scale.set(0.25, 0.25, 0.25)
-
-        // this.litho.position.set(4, 0.2, 0) //TODO: put at top of mobile screen
+        this.group.children[this.currentObject]
     }
 }

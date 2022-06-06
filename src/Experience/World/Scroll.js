@@ -32,6 +32,7 @@ export default class Scroll
         this.sizes.on('resize', () =>
         {
             this.SetObjectPos()
+            this.AnimateObject(this.objects.group.children[this.currentSection], this.objectPos)
         })
 
         // Arrow area enter + exit events
@@ -68,14 +69,25 @@ export default class Scroll
 
     SetObjectPos()
     {
-        // Right side screen pos (0-1)
-        this.screenX = this.sizes.width > 1400?
+        if(this.sizes.width > 800)
+        {
+            // Right side screen pos (0-1)
+            this.screenX = this.sizes.width > 1400?
             350 / ((this.sizes.width - 1400) / 2 + 700) : 0.5
-        // Vector projected from screen pos
-        this.screenVec.set(this.screenX, 0, 0)
-            .unproject(this.camera.camera).sub(this.camera.camera.position).normalize()
-        // Object position projected along vector
-        this.objectPos.copy(this.camera.camera.position).add(this.screenVec.multiplyScalar(2))
+            // Vector projected from screen pos
+            this.screenVec.set(this.screenX, 0, 0)
+                .unproject(this.camera.camera).sub(this.camera.camera.position).normalize()
+            // Object position projected along vector
+            this.objectPos.copy(this.camera.camera.position).add(this.screenVec.multiplyScalar(2))
+        }
+        else
+        {
+            // Vector projected from screen pos
+            this.screenVec.set(0, 0.3, 0)
+                .unproject(this.camera.camera).sub(this.camera.camera.position).normalize()
+            // Object position projected along vector
+            this.objectPos.copy(this.camera.camera.position).add(this.screenVec.multiplyScalar(2))
+        }
     }
 
     PrevSection()
@@ -104,12 +116,10 @@ export default class Scroll
                 clearTimeout(this.timeout)
                 this.AnimateObject(this.objects.group.children[0], new THREE.Vector3(0, 0, 0))
                 this.text.classList.remove('visible')
-                console.log(0)
             break
             case 1:
                 clearTimeout(this.timeout)
-                this.timeout = setTimeout(() => { this.text.classList.add('visible') }, 600)
-                console.log(1)
+                this.timeout = setTimeout(() => { this.text.classList.add('visible') }, 500)
             break
             case 2:
                 

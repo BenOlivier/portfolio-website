@@ -52,10 +52,12 @@ export default class Objects
         this.hello = this.helloResource.scene
         this.helloMat = new THREE.MeshBasicMaterial({
             map: this.hello_albedo,
+            side: THREE.DoubleSide,
             toneMapped: false,
             transparent: true,
-            side: THREE.DoubleSide
+            depthTest: false
         })
+        this.helloMat.map.offset.x = 0.35
         this.hello.traverse((o) => { if (o.isMesh) o.material = this.helloMat })
         this.hello.scale.set(1, 1, 1)
         this.hello.position.set(0, 0, 0)

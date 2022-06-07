@@ -5,6 +5,11 @@ export default [
         path: 'models/Hello.glb'
     },
     {
+        name: 'hello_albedo',
+        type: 'texture',
+        path: 'images/other/hello_albedo_alpha.png'
+    },
+    {
         name: 'profile',
         type: 'texture',
         path: 'images/other/profile.png'

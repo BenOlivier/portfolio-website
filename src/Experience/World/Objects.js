@@ -34,6 +34,10 @@ export default class Objects
         
         // Resources
         this.helloResource = this.resources.items.hello
+        this.hello_albedo = this.resources.items.hello_albedo
+        this.hello_albedo.wrapS = THREE.RepeatWrapping
+        this.hello_albedo.wrapT = THREE.RepeatWrapping
+        this.hello_albedo.repeat.set(0.125, 0.125)
         this.lithoResource = this.resources.items.litho
         this.profilePic = this.resources.items.profile
 
@@ -46,17 +50,26 @@ export default class Objects
         
         // Hello
         this.hello = this.helloResource.scene
+        this.helloMat = new THREE.MeshBasicMaterial({
+            map: this.hello_albedo,
+            toneMapped: false,
+            transparent: true,
+            side: THREE.DoubleSide
+        })
+        this.hello.traverse((o) => { if (o.isMesh) o.material = this.helloMat })
         this.hello.scale.set(0.5, 0.5, 0.5)
-        this.hello.position.set(0, 0, 0)
+        this.hello.position.set(0, 0, -1)
         this.group.add(this.hello)
 
         // Profile
         this.profileGeometry = new THREE.PlaneBufferGeometry(0.5, 0.653, 1, 1)
         this.profileMaterial = new THREE.MeshBasicMaterial({
             map: this.profilePic,
-            transparent: true
+            transparent: true,
+            toneMapped: false
         })
         this.profile = new THREE.Mesh(this.profileGeometry, this.profileMaterial)
+        this.profile.position.set(3, 0, -2.5)
         this.group.add(this.profile)
 
         // Litho
@@ -109,7 +122,10 @@ export default class Objects
         // Rotate with mouse position
         this.group.children[this.currentObject].quaternion.slerp
             (this.targetQuaternion, this.params.rotationSmoothing)
-        
+
+        // Offset hello colors
+        this.helloMat.map.offset.x -= this.time.delta / 20000
+        // this.helloMat.map.offset.x = -this.pointer.pointerPos.x / 4
     }
 
     resize()

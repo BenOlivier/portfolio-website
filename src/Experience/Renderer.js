@@ -1,5 +1,4 @@
 import * as THREE from 'three'
-import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer.js'
 import Experience from './Experience.js'
 
 export default class Renderer
@@ -29,21 +28,13 @@ export default class Renderer
             alpha: true
         })
         this.renderer.physicallyCorrectLights = true
-        this.renderer.outputEncoding = THREE.sRGBEncoding
+        this.renderer.outputEncoding = THREE.LinearEncoding
         this.renderer.toneMapping = THREE.CineonToneMapping
         this.renderer.toneMappingExposure = 1
         this.renderer.shadowMap.enabled = true
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
         this.renderer.setSize(this.sizes.width, this.sizes.height)
         this.renderer.setPixelRatio(Math.min(this.sizes.pixelRatio, 2))
-
-        // CSS3D renderer
-        // this.cssRenderer = new CSS3DRenderer()
-        // this.cssRenderer.setSize(this.sizes.width, this.sizes.height)
-        // this.cssRenderer.domElement.style.position = 'fixed'
-        // this.cssRenderer.domElement.style.top = 0
-        // this.cssRenderer.domElement.style.zIndex = 0
-        // document.body.appendChild( this.cssRenderer.domElement )
 
         if(this.debug.active)
         {

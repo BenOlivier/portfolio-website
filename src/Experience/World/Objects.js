@@ -37,7 +37,7 @@ export default class Objects
         this.hello_albedo = this.resources.items.hello_albedo
         this.hello_albedo.wrapS = THREE.RepeatWrapping
         this.hello_albedo.wrapT = THREE.RepeatWrapping
-        this.hello_albedo.repeat.set(0.125, 0.125)
+        this.hello_albedo.repeat.set(0.15, 0.15)
         this.lithoResource = this.resources.items.litho
         this.profilePic = this.resources.items.profile
 
@@ -47,6 +47,7 @@ export default class Objects
     setModels()
     {
         this.group = new THREE.Group()
+        this.scale = this.sizes.width < 1400? this.sizes.width / 1400 : 1
         
         // Hello
         this.hello = this.helloResource.scene
@@ -59,7 +60,7 @@ export default class Objects
         })
         this.helloMat.map.offset.x = 0.35
         this.hello.traverse((o) => { if (o.isMesh) o.material = this.helloMat })
-        this.hello.scale.set(1, 1, 1)
+        this.hello.scale.set(this.scale, this.scale, this.scale)
         this.hello.position.set(0, 0, 0)
         this.group.add(this.hello)
 
@@ -76,7 +77,7 @@ export default class Objects
 
         // Litho
         this.litho = this.lithoResource.scene
-        this.litho.scale.set(0.5, 0.5, 0.5)
+        this.litho.scale.set(this.scale, this.scale, this.scale)
         this.litho.position.set(3, 0, -2.5)
         this.litho.children[0].rotation.set(Math.PI * 0.1, Math.PI * -0.15, 0)
         this.group.add(this.litho)
@@ -129,22 +130,15 @@ export default class Objects
             (this.targetQuaternion, this.params.rotationSmoothing)
 
         // Offset hello colors
-        this.helloMat.map.offset.x -= this.time.delta / 25000
+        this.helloMat.map.offset.x -= this.time.delta / 18000
         // this.helloMat.map.offset.x = -this.pointer.pointerPos.x / 4
         // this.hello.scale.set(this.pointer.pointerPos.x * 10, this.pointer.pointerPos.y * 10, 0.5)
     }
 
     resize()
     {
-        // if(this.sizes.width > 800) //TODO: Scale dynamically
-        // {
-        //     this.hello.scale.set(0.5, 0.5, 0.5)
-        //     this.litho.scale.set(0.5, 0.5, 0.5)
-        // }
-        // else
-        // {
-        //     this.hello.scale.set(0.25, 0.25, 0.25)
-        //     this.litho.scale.set(0.25, 0.25, 0.25)
-        // }
+        this.scale = this.sizes.width < 1400? this.sizes.width / 1400 : 1
+        this.hello.scale.set(this.scale, this.scale, this.scale)
+        this.litho.scale.set(this.scale, this.scale, this.scale)
     }
 }

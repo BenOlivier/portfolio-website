@@ -32,7 +32,10 @@ export default class Scroll
         this.sizes.on('resize', () =>
         {
             this.SetObjectPos()
-            this.AnimateObject(this.objects.group.children[this.currentSection], this.objectPos)
+            if(this.currentSection > 0)
+            {
+                this.AnimateObject(this.objects.group.children[this.currentSection], this.objectPos)
+            }
         })
 
         // Arrow area enter + exit events

@@ -15,6 +15,11 @@ export default [
         path: 'images/other/profile.png'
     },
     {
+        name: 'london',
+        type: 'gltfModel',
+        path: 'models/London.glb'
+    },
+    {
         name: 'litho',
         type: 'gltfModel',
         path: 'models/Litho.glb'

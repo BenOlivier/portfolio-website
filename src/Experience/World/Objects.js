@@ -40,6 +40,7 @@ export default class Objects
         this.hello_albedo.repeat.set(0.15, 0.15)
         this.lithoResource = this.resources.items.litho
         this.profilePic = this.resources.items.profile
+        this.londonResource = this.resources.items.london
 
         this.setModels()
     }
@@ -74,6 +75,12 @@ export default class Objects
         this.profile = new THREE.Mesh(this.profileGeometry, this.profileMaterial)
         this.profile.position.set(3, 0, -2.5)
         this.group.add(this.profile)
+
+        // London
+        this.london = this.londonResource.scene
+        this.london.scale.set(0.04, 0.04, 0.04)
+        this.london.position.set(0, -0.1, -0.2)
+        this.profile.add(this.london)
 
         // Litho
         this.litho = this.lithoResource.scene

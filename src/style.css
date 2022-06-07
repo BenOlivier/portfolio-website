@@ -166,13 +166,20 @@ nav img:active
     flex-grow: 1;
     width: 50%;
     display: flex;
+    justify-content: space-around;
+}
+
+#text h2
+{
+    margin-bottom: 40px;
+    font-size: 3rem;
 }
 
 #text p
 {
     line-height: 1.5;
     font-size: 1.4rem;
-    text-align: center;
+    text-align: left;
     align-items: center;
     box-sizing: border-box;
 }

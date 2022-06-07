@@ -37,13 +37,13 @@ export default class Loading
             this.fadeOverlay()
         }, 400)
         // Animate hello
-        setTimeout(() => {
-            gsap.to(this.hello.position, {
-                duration: 0.7,
-                z: 0,
-                ease: "power3.out"
-            })
-        }, 400)
+        // setTimeout(() => {
+        //     gsap.to(this.hello.position, {
+        //         duration: 0.7,
+        //         z: 0,
+        //         ease: "power3.out"
+        //     })
+        // }, 400)
         // Destroy loading bar and overlay
         setTimeout(() => {
             this.destroy()

@@ -57,8 +57,8 @@ export default class Objects
             side: THREE.DoubleSide
         })
         this.hello.traverse((o) => { if (o.isMesh) o.material = this.helloMat })
-        this.hello.scale.set(0.5, 0.5, 0.5)
-        this.hello.position.set(0, 0, -1)
+        this.hello.scale.set(1, 1, 1)
+        this.hello.position.set(0, 0, 0)
         this.group.add(this.hello)
 
         // Profile
@@ -112,9 +112,12 @@ export default class Objects
         }
         else
         {
+            // this.targetQuaternion.setFromEuler(new THREE.Euler
+            //     (0 + (-this.pointer.pointerPos.y * this.params.rotationExtent),
+            //     0 + (this.pointer.pointerPos.x * this.params.rotationExtent), 0))
+            
             this.targetQuaternion.setFromEuler(new THREE.Euler
-                (0 + (-this.pointer.pointerPos.y * this.params.rotationExtent),
-                0 + (this.pointer.pointerPos.x * this.params.rotationExtent), 0))
+                (0, 0 + (this.pointer.pointerPos.x * this.params.rotationExtent), 0))
 
             this.params.rotationSmoothing = 0.2
         }
@@ -124,8 +127,9 @@ export default class Objects
             (this.targetQuaternion, this.params.rotationSmoothing)
 
         // Offset hello colors
-        this.helloMat.map.offset.x -= this.time.delta / 20000
+        this.helloMat.map.offset.x -= this.time.delta / 25000
         // this.helloMat.map.offset.x = -this.pointer.pointerPos.x / 4
+        // this.hello.scale.set(this.pointer.pointerPos.x * 10, this.pointer.pointerPos.y * 10, 0.5)
     }
 
     resize()

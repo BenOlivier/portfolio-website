@@ -46,7 +46,7 @@ export default class Environment
                 uMaskRadius: { value: 0 },
                 uFloorRadius: { value: 0.25 },
                 uFloorFalloff: { value: 2 },
-                uFloorHeight: { value: 1.5 }
+                uFloorHeight: { value: 1.6 }
             },
             vertexShader: backgroundVertexShader,
             fragmentShader: backgroundFragmentShader

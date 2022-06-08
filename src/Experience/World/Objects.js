@@ -1,5 +1,7 @@
 import * as THREE from 'three'
 import Experience from '../Experience.js'
+import wavyVertexShader from '../Shaders/Wavy/vertex.glsl'
+import wavyFragmentShader from '../Shaders/Wavy/fragment.glsl'
 
 export default class Objects
 {
@@ -73,14 +75,31 @@ export default class Objects
             toneMapped: false
         })
         this.profile = new THREE.Mesh(this.profileGeometry, this.profileMaterial)
+
+        this.wavy = new THREE.PlaneGeometry(0.8, 0.8, 16, 16);
+        this.wavyMat = new THREE.ShaderMaterial({
+            uniforms: {
+                uTime: { value: 0.0 },
+                uWaveElevation: { value: 0.2 },
+                uWaveFrequency: { value: new THREE.Vector2(8, 8) },
+                uWaveSpeed: { value: 0.002 }
+            },
+            vertexShader: wavyVertexShader,
+            fragmentShader: wavyFragmentShader,
+            transparent: true
+        })
+        this.wavyMesh = new THREE.Mesh(this.wavy, this.wavyMat);
+        this.wavyMesh.position.set(0, 0, -0.5)
+        this.profile.add(this.wavyMesh)
+
         this.profile.position.set(3, 0, -2.5)
         this.group.add(this.profile)
 
         // London
-        this.london = this.londonResource.scene
-        this.london.scale.set(0.04, 0.04, 0.04)
-        this.london.position.set(0, -0.1, -0.2)
-        this.profile.add(this.london)
+        // this.london = this.londonResource.scene
+        // this.london.scale.set(0.04, 0.04, 0.04)
+        // this.london.position.set(0, -0.1, -0.2)
+        // this.profile.add(this.london)
 
         // Litho
         this.litho = this.lithoResource.scene
@@ -140,6 +159,8 @@ export default class Objects
         this.helloMat.map.offset.x -= this.time.delta / 18000
         // this.helloMat.map.offset.x = -this.pointer.pointerPos.x / 4
         // this.hello.scale.set(this.pointer.pointerPos.x * 10, this.pointer.pointerPos.y * 10, 0.5)
+
+        this.wavyMat.uniforms.uTime.value += this.time.delta
     }
 
     resize()

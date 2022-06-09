@@ -65,41 +65,37 @@ export default class Objects
         this.hello.traverse((o) => { if (o.isMesh) o.material = this.helloMat })
         this.hello.scale.set(this.scale, this.scale, this.scale)
         this.hello.position.set(0, 0, 0)
-        this.group.add(this.hello)
+        // this.group.add(this.hello)
 
         // Profile
-        this.profileGeometry = new THREE.PlaneBufferGeometry(0.5, 0.653, 1, 1)
-        this.profileMaterial = new THREE.MeshBasicMaterial({
-            map: this.profilePic,
-            transparent: true,
-            toneMapped: false
-        })
-        this.profile = new THREE.Mesh(this.profileGeometry, this.profileMaterial)
-
-        this.wavy = new THREE.PlaneGeometry(0.8, 0.8, 16, 16);
-        this.wavyMat = new THREE.ShaderMaterial({
+        this.profileGeometry = new THREE.PlaneBufferGeometry(0.7, 0.9, 16, 16);
+        this.profileColor = { circleColor: '#ff0000' }
+        this.profileMat = new THREE.ShaderMaterial({
             uniforms: {
                 uTime: { value: 0.0 },
-                uWaveElevation: { value: 0.2 },
-                uWaveFrequency: { value: new THREE.Vector2(8, 8) },
-                uWaveSpeed: { value: 0.002 }
+                uWaveElevation: { value: 0.1 },
+                uWaveFrequency: { value: new THREE.Vector2(8, 4) },
+                uWaveSpeed: { value: 0.002 },
+                uColorMap: { value: this.profilePic },
+                uCirleColor: { value: new THREE.Color(this.profileColor.circleColor) }
             },
             vertexShader: wavyVertexShader,
             fragmentShader: wavyFragmentShader,
-            transparent: true
+            transparent: true,
+            toneMapped: false
         })
-        this.wavyMesh = new THREE.Mesh(this.wavy, this.wavyMat);
-        this.wavyMesh.position.set(0, 0, -0.5)
-        this.profile.add(this.wavyMesh)
-
-        this.profile.position.set(3, 0, -2.5)
+        this.profile = new THREE.Mesh(this.profileGeometry, this.profileMat);
+        this.profile.position.set(0, 0, -0.01)
+        // this.profile.position.set(3, 0, -2.5)
         this.group.add(this.profile)
 
-        // London
-        // this.london = this.londonResource.scene
-        // this.london.scale.set(0.04, 0.04, 0.04)
-        // this.london.position.set(0, -0.1, -0.2)
-        // this.profile.add(this.london)
+        // if(this.debug.active)
+        // {
+        //     this.debugFolder
+        //         .addColor(this.profileColor, 'circleColor')
+        //         .name('profileColor')
+        //         .onChange(val => { this.profileMat.uniforms.uCirleColor.value.set(val) })
+        // }
 
         // Litho
         this.litho = this.lithoResource.scene
@@ -152,15 +148,15 @@ export default class Objects
         }
 
         // Rotate with mouse position
-        this.group.children[this.currentObject].quaternion.slerp
-            (this.targetQuaternion, this.params.rotationSmoothing)
+        // this.group.children[this.currentObject].quaternion.slerp
+        //     (this.targetQuaternion, this.params.rotationSmoothing)
 
         // Offset hello colors
         this.helloMat.map.offset.x -= this.time.delta / 18000
         // this.helloMat.map.offset.x = -this.pointer.pointerPos.x / 4
         // this.hello.scale.set(this.pointer.pointerPos.x * 10, this.pointer.pointerPos.y * 10, 0.5)
 
-        this.wavyMat.uniforms.uTime.value += this.time.delta
+        this.profileMat.uniforms.uTime.value += this.time.delta
     }
 
     resize()

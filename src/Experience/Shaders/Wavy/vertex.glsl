@@ -14,7 +14,7 @@ void main()
     float elevation = sin(modelPosition.x * uWaveFrequency.x + uTime * uWaveSpeed) *
     sin(modelPosition.y * uWaveFrequency.y + uTime * uWaveSpeed) * uWaveElevation;
     
-    modelPosition.z += elevation;
+    // modelPosition.z += elevation;
 
     vec4 viewPosition = viewMatrix * modelPosition;
     vec4 projectedPosition = projectionMatrix * viewPosition;

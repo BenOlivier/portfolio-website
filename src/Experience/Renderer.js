@@ -35,6 +35,7 @@ export default class Renderer
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
         this.renderer.setSize(this.sizes.width, this.sizes.height)
         this.renderer.setPixelRatio(Math.min(this.sizes.pixelRatio, 2))
+        // this.renderer.sortObjects = false
 
         if(this.debug.active)
         {

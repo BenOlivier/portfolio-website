@@ -65,7 +65,7 @@ export default class Objects
         this.hello.traverse((o) => { if (o.isMesh) o.material = this.helloMat })
         this.hello.scale.set(this.scale, this.scale, this.scale)
         this.hello.position.set(0, 0, 0)
-        // this.group.add(this.hello)
+        this.group.add(this.hello)
 
         // Profile
         this.profileGeometry = new THREE.PlaneBufferGeometry(0.7, 0.9, 16, 16);
@@ -77,7 +77,8 @@ export default class Objects
                 uWaveFrequency: { value: new THREE.Vector2(10, 0.2) },
                 uWaveSpeed: { value: 0.001 },
                 uColorMap: { value: this.profilePic },
-                uCirleColor: { value: new THREE.Color('#0000ff') }
+                uCirleColor: { value: new THREE.Color('#0000ff') },
+                uCircleOffset: {value: 0.0}
             },
             vertexShader: wavyVertexShader,
             fragmentShader: wavyFragmentShader,
@@ -86,7 +87,7 @@ export default class Objects
         })
         this.profile = new THREE.Mesh(this.profileGeometry, this.profileMat);
         this.profile.position.set(0, 0, -0.01)
-        // this.profile.position.set(3, 0, -2.5)
+        this.profile.position.set(3, 0, -2.5)
         this.group.add(this.profile)
 
         // if(this.debug.active)
@@ -148,8 +149,8 @@ export default class Objects
         }
 
         // Rotate with mouse position
-        // this.group.children[this.currentObject].quaternion.slerp
-        //     (this.targetQuaternion, this.params.rotationSmoothing)
+        this.group.children[this.currentObject].quaternion.slerp
+            (this.targetQuaternion, this.params.rotationSmoothing)
 
         // Offset hello colors
         this.helloMat.map.offset.x -= this.time.delta / 18000
@@ -157,6 +158,7 @@ export default class Objects
         // this.hello.scale.set(this.pointer.pointerPos.x * 10, this.pointer.pointerPos.y * 10, 0.5)
 
         this.profileMat.uniforms.uTime.value += this.time.delta
+        // this.profileMat.uniforms.uCircleOffset.value = this.pointer.pointerPos.x
     }
 
     resize()

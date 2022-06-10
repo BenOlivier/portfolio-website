@@ -74,8 +74,8 @@ export default class Objects
             uniforms: {
                 uTime: { value: 0.0 },
                 uWaveMagnitude: { value: 0.04 },
-                uWaveFrequency: { value: new THREE.Vector2(1, 0.2) },
-                uWaveSpeed: { value: 0.005 },
+                uWaveFrequency: { value: new THREE.Vector2(10, 0.2) },
+                uWaveSpeed: { value: 0.001 },
                 uColorMap: { value: this.profilePic },
                 uCirleColor: { value: new THREE.Color('#0000ff') }
             },

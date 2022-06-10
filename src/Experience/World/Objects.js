@@ -69,15 +69,15 @@ export default class Objects
 
         // Profile
         this.profileGeometry = new THREE.PlaneBufferGeometry(0.7, 0.9, 16, 16);
-        this.profileColor = { circleColor: '#ff0000' }
+        // this.profileColors = { circleColor: '#ff0000' }
         this.profileMat = new THREE.ShaderMaterial({
             uniforms: {
                 uTime: { value: 0.0 },
-                uWaveElevation: { value: 0.1 },
-                uWaveFrequency: { value: new THREE.Vector2(8, 4) },
-                uWaveSpeed: { value: 0.002 },
+                uWaveMagnitude: { value: 0.04 },
+                uWaveFrequency: { value: new THREE.Vector2(1, 0.2) },
+                uWaveSpeed: { value: 0.005 },
                 uColorMap: { value: this.profilePic },
-                uCirleColor: { value: new THREE.Color(this.profileColor.circleColor) }
+                uCirleColor: { value: new THREE.Color('#0000ff') }
             },
             vertexShader: wavyVertexShader,
             fragmentShader: wavyFragmentShader,
@@ -92,7 +92,7 @@ export default class Objects
         // if(this.debug.active)
         // {
         //     this.debugFolder
-        //         .addColor(this.profileColor, 'circleColor')
+        //         .addColor(this.profileColors, 'circleColor')
         //         .name('profileColor')
         //         .onChange(val => { this.profileMat.uniforms.uCirleColor.value.set(val) })
         // }

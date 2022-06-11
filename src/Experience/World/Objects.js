@@ -42,6 +42,8 @@ export default class Objects
         this.hello_albedo.repeat.set(0.15, 0.15)
         this.lithoResource = this.resources.items.litho
         this.profilePic = this.resources.items.profile
+        this.squashPic = this.resources.items.squash
+        this.carrotsPic = this.resources.items.carrots
         this.londonResource = this.resources.items.london
 
         this.setModels()
@@ -78,7 +80,8 @@ export default class Objects
                 uWaveSpeed: { value: 0.001 },
                 uColorMap: { value: this.profilePic },
                 uCirleColor: { value: new THREE.Color('#0000ff') },
-                uCircleOffset: {value: 0.0}
+                uCircleOffset: { value: 0.0 },
+                uCircleScale: { value: new THREE.Vector2(1, 1.35) }
             },
             vertexShader: wavyVertexShader,
             fragmentShader: wavyFragmentShader,
@@ -89,6 +92,54 @@ export default class Objects
         this.profile.position.set(0, 0, -0.01)
         this.profile.position.set(3, 0, -2.5)
         this.group.add(this.profile)
+
+        // Squash
+        this.squashGeometry = new THREE.PlaneBufferGeometry(0.8, 0.8, 16, 16);
+        // this.profileColors = { circleColor: '#ff0000' }
+        this.squashMat = new THREE.ShaderMaterial({
+            uniforms: {
+                uTime: { value: 0.0 },
+                uWaveMagnitude: { value: 0.04 },
+                uWaveFrequency: { value: new THREE.Vector2(10, 0.2) },
+                uWaveSpeed: { value: 0.001 },
+                uColorMap: { value: this.squashPic },
+                uCirleColor: { value: new THREE.Color('#0000ff') },
+                uCircleOffset: { value: 0.0 },
+                uCircleScale: { value: new THREE.Vector2(1.3, 1.3) }
+            },
+            vertexShader: wavyVertexShader,
+            fragmentShader: wavyFragmentShader,
+            transparent: true,
+            toneMapped: false
+        })
+        this.squash = new THREE.Mesh(this.squashGeometry, this.squashMat);
+        this.squash.position.set(0, 0, -0.01)
+        this.squash.position.set(3, 0, -2.5)
+        this.group.add(this.squash)
+        
+        // Food
+        this.foodGeometry = new THREE.PlaneBufferGeometry(0.8, 0.8, 16, 16);
+        // this.profileColors = { circleColor: '#ff0000' }
+        this.foodMat = new THREE.ShaderMaterial({
+            uniforms: {
+                uTime: { value: 0.0 },
+                uWaveMagnitude: { value: 0.04 },
+                uWaveFrequency: { value: new THREE.Vector2(10, 0.2) },
+                uWaveSpeed: { value: 0.001 },
+                uColorMap: { value: this.carrotsPic },
+                uCirleColor: { value: new THREE.Color('#0000ff') },
+                uCircleOffset: { value: 0.0 },
+                uCircleScale: { value: new THREE.Vector2(1.3, 1.3) }
+            },
+            vertexShader: wavyVertexShader,
+            fragmentShader: wavyFragmentShader,
+            transparent: true,
+            toneMapped: false
+        })
+        this.food = new THREE.Mesh(this.foodGeometry, this.foodMat);
+        this.food.position.set(0, 0, -0.01)
+        this.food.position.set(3, 0, -2.5)
+        this.group.add(this.food)
 
         // if(this.debug.active)
         // {
@@ -158,6 +209,8 @@ export default class Objects
         // this.hello.scale.set(this.pointer.pointerPos.x * 10, this.pointer.pointerPos.y * 10, 0.5)
 
         this.profileMat.uniforms.uTime.value += this.time.delta
+        this.squashMat.uniforms.uTime.value += this.time.delta
+        this.foodMat.uniforms.uTime.value += this.time.delta
         // this.profileMat.uniforms.uCircleOffset.value = this.pointer.pointerPos.x
     }
 

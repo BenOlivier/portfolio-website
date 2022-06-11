@@ -20,7 +20,7 @@ export default class Scroll
         this.text = document.getElementById("text")
         
         this.currentSection = 0
-        this.totalSections = 2
+        this.totalSections = 4
         this.isAnimating = false
 
         this.startPos = new THREE.Vector3(3, 0, -2.5)

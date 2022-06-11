@@ -15,9 +15,14 @@ export default [
         path: 'images/other/profile.png'
     },
     {
-        name: 'london',
-        type: 'gltfModel',
-        path: 'models/London.glb'
+        name: 'squash',
+        type: 'texture',
+        path: 'images/other/squash.png'
+    },
+    {
+        name: 'carrots',
+        type: 'texture',
+        path: 'images/other/carrots.png'
     },
     {
         name: 'litho',

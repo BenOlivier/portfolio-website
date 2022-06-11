@@ -1,7 +1,7 @@
 uniform sampler2D uColorMap;
+uniform vec2 uMapOffset;
+uniform vec2 uMapScale;
 uniform vec3 uCircleColor;
-uniform float uCircleOffset;
-uniform vec2 uCircleScale;
 uniform float uWaveMagnitude;
 uniform vec2 uWaveFrequency;
 uniform float uWaveSpeed;
@@ -19,11 +19,11 @@ vec2 SineWave( vec2 p ){
 void main()
 {
     vec2 waveUv = SineWave(vUv);
-    float mask = (1.0 - step(0.4, length(vec2(waveUv.x * uCircleScale.x - 0.5, waveUv.y * uCircleScale.y - 0.5))));
+    float mask = (1.0 - step(0.4, length(vec2(waveUv.x * 1.3 - 0.5, waveUv.y * 1.3 - 0.5))));
 
-    vec4 photo = texture2D(uColorMap, vec2(vUv.x * 1.2 - 0.18, vUv.y * 1.2));
-    vec4 photoTop = photo * step(0.5, vUv.y);
-    vec4 photoBottom = photo * mask * (1.0 -step(0.5, vUv.y));
+    vec4 photo = texture2D(uColorMap, vec2(vUv.x * uMapScale.x + uMapOffset.x, vUv.y * uMapScale.y + uMapOffset.y));
+    vec4 photoTop = photo * (1.0 - mask) * (step(0.4, vUv.y));
+    vec4 photoBottom = photo * mask;
     
     vec4 circle = vec4(0.0, 0.0, 0.5, (1.0 - photo.a)) * mask;
     

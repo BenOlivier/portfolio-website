@@ -7,7 +7,7 @@ export default [
     {
         name: 'hello_albedo',
         type: 'texture',
-        path: 'images/other/hello_albedo_alpha.png'
+        path: 'images/other/hello.png'
     },
     {
         name: 'profile',
@@ -20,9 +20,9 @@ export default [
         path: 'images/other/squash.png'
     },
     {
-        name: 'carrots',
+        name: 'cooking',
         type: 'texture',
-        path: 'images/other/carrots.png'
+        path: 'images/other/cooking.png'
     },
     {
         name: 'litho',

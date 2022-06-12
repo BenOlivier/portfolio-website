@@ -125,8 +125,11 @@ export default class Scroll
                     duration: 0.2,
                     ease: "power2.out"
                 })
+                setTimeout(() => {
+                    this.objects.profileMat.uniforms.uShowTop.value = 0.0
+                }, 200)
                 gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, {
-                    y: 0.0,
+                    y: 0.1,
                     duration: 0.2,
                     ease: "power2.out"
                 })
@@ -142,11 +145,14 @@ export default class Scroll
                     delay: 1
                 })
                 // Pop up profile image
+                setTimeout(() => {
+                    this.objects.profileMat.uniforms.uShowTop.value = 1.0
+                }, 1200)
                 gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, {
                     y: -0.1,
-                    duration: 0.5,
+                    duration: 0.8,
                     ease: "power2.out",
-                    delay: 1
+                    delay: 1.2
                 })
             break
             case 2:
@@ -157,8 +163,11 @@ export default class Scroll
                     duration: 0.2,
                     ease: "power2.out"
                 })
+                setTimeout(() => {
+                    this.objects.profileMat.uniforms.uShowTop.value = 0.0
+                }, 200)
                 gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, {
-                    y: 0.0,
+                    y: 0.1,
                     duration: 0.2,
                     ease: "power2.out"
                 })

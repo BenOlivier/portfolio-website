@@ -7,6 +7,7 @@ uniform float uWaveMagnitude;
 uniform vec2 uWaveFrequency;
 uniform float uWaveSpeed;
 uniform float uTime;
+uniform float uShowTop;
 
 varying vec2 vUv;
 
@@ -24,7 +25,7 @@ void main()
 
     vec2 photoPos = vec2(vUv.x * uMapScale.x + uMapOffset.x, vUv.y * uMapScale.y + uMapOffset.y);
     vec4 photo = texture2D(uColorMap, vec2(photoPos));
-    vec4 photoTop = photo * (1.0 - mask) * (step(0.4, vUv.y));
+    vec4 photoTop = photo * (1.0 - mask) * (step(0.4, vUv.y)) * uShowTop;
     vec4 photoBottom = photo * mask;
     
     vec4 circle = vec4(0.12, 0.3, 0.65, (1.0 - photo.a)) * mask;

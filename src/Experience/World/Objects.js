@@ -86,7 +86,8 @@ export default class Objects
                 uColorMap: { value: this.profileMap },
                 uCirleColor: { value: new THREE.Vector3(0.0, 0.0, 0.5) },
                 uCircleScale: { value: 0.0 },
-                uMapOffset: { value: new THREE.Vector2(-0.35, 0.0) },
+                uShowTop: { value: 0.0 },
+                uMapOffset: { value: new THREE.Vector2(-0.35, 0.1) },
                 uMapScale: { value: new THREE.Vector2(1.6, 1.2) }
             },
             vertexShader: wavyCircleVertexShader,

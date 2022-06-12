@@ -20,7 +20,7 @@ export default class Scroll
         this.text = document.getElementById("text")
         
         this.currentSection = 0
-        this.totalSections = 4
+        this.totalSections = 3
         this.isAnimating = false
 
         this.startPos = new THREE.Vector3(3, 0, -2.5)
@@ -119,13 +119,49 @@ export default class Scroll
                 clearTimeout(this.timeout)
                 this.AnimateObject(this.objects.group.children[0], new THREE.Vector3(0, 0, 0))
                 this.text.classList.remove('visible')
+                // Reset profile
+                gsap.to(this.objects.profileMat.uniforms.uCircleScale, {
+                    value: 0.0,
+                    duration: 0.2,
+                    ease: "power2.out"
+                })
+                gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, {
+                    y: 0.0,
+                    duration: 0.2,
+                    ease: "power2.out"
+                })
             break
             case 1:
                 clearTimeout(this.timeout)
                 this.timeout = setTimeout(() => { this.text.classList.add('visible') }, 500)
+                // Expand profile circle
+                gsap.to(this.objects.profileMat.uniforms.uCircleScale, {
+                    value: 0.35,
+                    duration: 0.5,
+                    ease: "power2.out",
+                    delay: 1
+                })
+                // Pop up profile image
+                gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, {
+                    y: -0.1,
+                    duration: 0.5,
+                    ease: "power2.out",
+                    delay: 1
+                })
             break
             case 2:
-                
+                // Reset profile
+                clearTimeout(this.timeout)
+                gsap.to(this.objects.profileMat.uniforms.uCircleScale, {
+                    value: 0.0,
+                    duration: 0.2,
+                    ease: "power2.out"
+                })
+                gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, {
+                    y: 0.0,
+                    duration: 0.2,
+                    ease: "power2.out"
+                })
             break
         }
     }

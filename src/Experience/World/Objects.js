@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import Experience from '../Experience.js'
-import wavyVertexShader from '../Shaders/Wavy/vertex.glsl'
-import wavyFragmentShader from '../Shaders/Wavy/fragment.glsl'
+import wavyCircleVertexShader from '../Shaders/WavyCircle/vertex.glsl'
+import wavyCircleFragmentShader from '../Shaders/WavyCircle/fragment.glsl'
 
 export default class Objects
 {
@@ -85,79 +85,44 @@ export default class Objects
                 uWaveSpeed: { value: 0.001 },
                 uColorMap: { value: this.profileMap },
                 uCirleColor: { value: new THREE.Vector3(0.0, 0.0, 0.5) },
-                uMapOffset: { value: new THREE.Vector2(-0.2, 0) },
+                uCircleScale: { value: 0.0 },
+                uMapOffset: { value: new THREE.Vector2(-0.35, 0.0) },
                 uMapScale: { value: new THREE.Vector2(1.6, 1.2) }
             },
-            vertexShader: wavyVertexShader,
-            fragmentShader: wavyFragmentShader,
+            vertexShader: wavyCircleVertexShader,
+            fragmentShader: wavyCircleFragmentShader,
             transparent: true,
-            toneMapped: false
+            toneMapped: false,
         })
         this.profile = new THREE.Mesh(this.profileGeometry, this.profileMat)
         this.profile.position.set(0, 0, -0.01)
         this.profile.position.set(3, 0, -2.5)
         this.group.add(this.profile)
-        console.log(this.profileMat.uniforms.uCirleColor)
 
-        this.hobbies = new THREE.Group()
+        // Hobbies
+        // this.hobbiesGeometry = new THREE.PlaneBufferGeometry(0.8, 0.8, 16, 16)
+        // this.hobbiesMat = new THREE.ShaderMaterial({
+        //     uniforms: {
+        //         uTime: { value: 0.0 },
+        //         uWaveMagnitude: { value: 0.04 },
+        //         uWaveFrequency: { value: new THREE.Vector2(10, 0.2) },
+        //         uWaveSpeed: { value: 0.001 },
+        //         uColorMap: { value: this.squashMap },
+        //         uCirleColor: { value: this.colors.squashColor },
+        //         uMapOffset: { value: new THREE.Vector2(0, 0) },
+        //         uMapScale: { value: new THREE.Vector2(1.3, 1.3) }
+        //     },
+        //     vertexShader: wavyTriangleVertexShader,
+        //     fragmentShader: wavyTriangleFragmentShader,
+        //     transparent: true,
+        //     toneMapped: false
+        // })
+        // this.hobbies = new THREE.Mesh(this.hobbiesGeometry, this.hobbiesMat)
+        // this.hobbies.position.set(0, 0.4, 0)
+        // this.hobbies.scale.set(0.7, 0.7, 0.7)
 
-        // Squash
-        this.squashGeometry = new THREE.PlaneBufferGeometry(0.8, 0.8, 16, 16)
-        this.squashMat = new THREE.ShaderMaterial({
-            uniforms: {
-                uTime: { value: 0.0 },
-                uWaveMagnitude: { value: 0.04 },
-                uWaveFrequency: { value: new THREE.Vector2(10, 0.2) },
-                uWaveSpeed: { value: 0.001 },
-                uColorMap: { value: this.squashMap },
-                uCirleColor: { value: this.colors.squashColor },
-                uMapOffset: { value: new THREE.Vector2(0, 0) },
-                uMapScale: { value: new THREE.Vector2(1.3, 1.3) }
-            },
-            vertexShader: wavyVertexShader,
-            fragmentShader: wavyFragmentShader,
-            transparent: true,
-            toneMapped: false
-        })
-        this.squash = new THREE.Mesh(this.squashGeometry, this.squashMat)
-        this.squash.position.set(0, 0.4, 0)
-        this.squash.scale.set(0.7, 0.7, 0.7)
-        this.hobbies.add(this.squash)
-        
-        // Cooking
-        this.cookingGeometry = new THREE.PlaneBufferGeometry(0.8, 0.8, 16, 16)
-        // this.profileColors = { circleColor: '#ff0000' }
-        this.cookingMat = new THREE.ShaderMaterial({
-            uniforms: {
-                uTime: { value: 0.0 },
-                uWaveMagnitude: { value: 0.04 },
-                uWaveFrequency: { value: new THREE.Vector2(10, 0.2) },
-                uWaveSpeed: { value: 0.001 },
-                uColorMap: { value: this.cookingMap },
-                uCirleColor: { value: this.colors.cookingColor },
-                uMapOffset: { value: new THREE.Vector2(0, 0.15) },
-                uMapScale: { value: new THREE.Vector2(1.3, 1) }
-            },
-            vertexShader: wavyVertexShader,
-            fragmentShader: wavyFragmentShader,
-            transparent: true,
-            toneMapped: false
-        })
-        this.cooking = new THREE.Mesh(this.cookingGeometry, this.cookingMat)
-        this.cooking.position.set(0, 0, 0)
-        this.cooking.scale.set(0.7, 0.7, 0.7)
-        this.hobbies.add(this.cooking)
-
-        this.hobbies.position.set(3, 0, -2.5)
-        this.group.add(this.hobbies)
-
-        // if(this.debug.active)
-        // {
-        //     this.debugFolder
-        //         .addColor(this.profileColors, 'circleColor')
-        //         .name('profileColor')
-        //         .onChange(val => { this.profileMat.uniforms.uCirleColor.value.set(val) })
-        // }
+        // this.hobbies.position.set(3, 0, -2.5)
+        // this.group.add(this.hobbies)
 
         // Litho
         this.litho = this.lithoResource.scene
@@ -219,9 +184,6 @@ export default class Objects
         // this.hello.scale.set(this.pointer.pointerPos.x * 10, this.pointer.pointerPos.y * 10, 0.5)
 
         this.profileMat.uniforms.uTime.value += this.time.delta
-        this.squashMat.uniforms.uTime.value += this.time.delta
-        this.cookingMat.uniforms.uTime.value += this.time.delta
-        // this.profileMat.uniforms.uCircleOffset.value = this.pointer.pointerPos.x
     }
 
     resize()

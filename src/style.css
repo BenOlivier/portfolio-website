@@ -167,6 +167,7 @@ nav img:active
     width: 50%;
     display: flex;
     justify-content: space-around;
+    padding-left: 100px;
 }
 
 #text h2
@@ -198,7 +199,7 @@ nav img:active
     width: 50%;
 }
 
-@media (max-width: 800px)
+@media (max-width: 1000px)
 {
     #text-container
     {

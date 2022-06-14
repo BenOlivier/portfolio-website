@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import gsap from 'gsap'
 import Experience from '../Experience.js'
 import wavyCircleVertexShader from '../Shaders/WavyCircle/vertex.glsl'
 import wavyCircleFragmentShader from '../Shaders/WavyCircle/fragment.glsl'
@@ -12,6 +13,7 @@ export default class Objects
         this.sizes = this.experience.sizes
         this.resources = this.experience.resources
         this.pointer = this.experience.pointer
+        this.camera = this.experience.camera
         this.time = this.experience.time
         this.debug = this.experience.debug
 
@@ -22,16 +24,15 @@ export default class Objects
         }
 
         // Debug
-        if(this.debug.active)
-        {
-            this.debugFolder = this.debug.ui.addFolder('object')
-        }
+        if(this.debug.active){ this.debugFolder = this.debug.ui.addFolder('object') }
 
         // Reset timer on mouse move
         this.timer = 0
         this.pointer.on('mousemove', () => { this.timer = 0 })
 
         // Resize event
+        this.screenVec = new THREE.Vector3()
+        this.objectPos = new THREE.Vector3()
         this.sizes.on('resize', () => { this.resize() })
         
         // Resources
@@ -49,7 +50,6 @@ export default class Objects
     setModels()
     {
         this.group = new THREE.Group()
-        this.scale = this.sizes.width < 1400? this.sizes.width / 1400 : 1
         
         // Hello
         this.hello = this.helloResource.scene
@@ -61,8 +61,6 @@ export default class Objects
             depthTest: false
         })
         this.hello.traverse((o) => { if (o.isMesh) o.material = this.helloMat })
-        this.hello.scale.set(this.scale, this.scale, this.scale)
-        this.group.add(this.hello)
 
         // Profile
         this.profileGeometry = new THREE.PlaneBufferGeometry(0.7, 0.7, 16, 16)
@@ -87,20 +85,21 @@ export default class Objects
         })
         this.profile = new THREE.Mesh(this.profileGeometry, this.profileMat)
         // this.profile.position.set(3, 0, -2.5)
-        this.profile.scale.set(this.scale, this.scale, this.scale)
         this.profile.visible = false
-        this.group.add(this.profile)
 
         // Litho
         this.litho = this.lithoResource.scene
-        this.litho.scale.set(this.scale, this.scale, this.scale)
-        this.litho.position.set(3, 0, -2.5)
+        // this.litho.position.set(3, 0, -2.5)
         this.litho.children[0].rotation.set(Math.PI * 0.1, Math.PI * -0.15, 0)
-        this.group.add(this.litho)
+        this.litho.visible = false
 
+        this.group = new THREE.Group()
+        this.group.add(this.hello, this.profile, this.litho)
+        this.resize()
         this.scene.add(this.group)
         this.currentObject = 0
         this.targetQuaternion = new THREE.Quaternion()
+        this.setObjectPos()
 
         // Debug
         if(this.debug.active)
@@ -156,9 +155,59 @@ export default class Objects
 
     resize()
     {
-        this.scale = this.sizes.width < 1400? this.sizes.width / 1400 : 1
-        this.hello.scale.set(this.scale, this.scale, this.scale)
-        this.profile.scale.set(this.scale, this.scale, this.scale)
-        this.litho.scale.set(this.scale, this.scale, this.scale)
+        this.setObjectScale(this.hello, 1)
+        this.setObjectScale(this.profile, 0.2)
+        this.setObjectScale(this.litho, 1)
+
+        this.setObjectPos()
+        if(this.currentObject > 0)
+        {
+            this.animateObject(this.group.children[this.currentObject], this.objectPos)
+            console.log('yo')
+        }
+    }
+
+    setObjectScale(object, factor)
+    {
+        this.scale = this.sizes.width < 1400? Math.pow(this.sizes.width / 1400, factor) : 1
+        object.scale.set(this.scale, this.scale, this.scale)
+    }
+
+    setObjectPos()
+    {
+        if(this.sizes.width > 1000)
+        {
+            // Right side screen pos (0-1)
+            this.screenX = this.sizes.width > 1400?
+            350 / ((this.sizes.width - 1400) / 2 + 700) : 0.4
+            // Vector projected from screen pos
+            this.screenVec.set(this.screenX, 0, 0)
+                .unproject(this.camera.camera).sub(this.camera.camera.position).normalize()
+            // Object position projected along vector
+            this.objectPos.copy(this.camera.camera.position).add(this.screenVec.multiplyScalar(2))
+        }
+        else
+        {
+            // Vector projected from screen pos
+            this.screenVec.set(0, 0.3, 0)
+                .unproject(this.camera.camera).sub(this.camera.camera.position).normalize()
+            // Object position projected along vector
+            this.objectPos.copy(this.camera.camera.position).add(this.screenVec.multiplyScalar(2))
+        }
+    }
+
+    animateObject(object, position)
+    {
+        this.isAnimating = true
+        gsap.killTweensOf(object.position)
+        gsap.to(object.position, {
+            x: position.x,
+            y: position.y,
+            z: position.z,
+            duration: 1,
+            ease: "power2.out",
+            callbackScope: this,
+            onComplete: function() { this.isAnimating = false }
+        })
     }
 }

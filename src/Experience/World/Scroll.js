@@ -21,22 +21,9 @@ export default class Scroll
         
         this.currentSection = 0
         this.totalSections = 3
-        this.isAnimating = false
 
         this.startPos = new THREE.Vector3(3, 0, -2.5)
         this.endPos = new THREE.Vector3(-3, 0, -2.5)
-        this.screenVec = new THREE.Vector3()
-        this.objectPos = new THREE.Vector3()
-        this.SetObjectPos()
-
-        this.sizes.on('resize', () =>
-        {
-            this.SetObjectPos()
-            if(this.currentSection > 0)
-            {
-                this.AnimateObject(this.objects.group.children[this.currentSection], this.objectPos)
-            }
-        })
 
         // Arrow area enter + exit events
         this.leftArea.addEventListener('mouseenter', () => { this.leftArrow.classList.add('visible') })
@@ -70,29 +57,6 @@ export default class Scroll
         })
     }
 
-    SetObjectPos()
-    {
-        if(this.sizes.width > 800)
-        {
-            // Right side screen pos (0-1)
-            this.screenX = this.sizes.width > 1400?
-            350 / ((this.sizes.width - 1400) / 2 + 700) : 0.5
-            // Vector projected from screen pos
-            this.screenVec.set(this.screenX, 0, 0)
-                .unproject(this.camera.camera).sub(this.camera.camera.position).normalize()
-            // Object position projected along vector
-            this.objectPos.copy(this.camera.camera.position).add(this.screenVec.multiplyScalar(2))
-        }
-        else
-        {
-            // Vector projected from screen pos
-            this.screenVec.set(0, 0.3, 0)
-                .unproject(this.camera.camera).sub(this.camera.camera.position).normalize()
-            // Object position projected along vector
-            this.objectPos.copy(this.camera.camera.position).add(this.screenVec.multiplyScalar(2))
-        }
-    }
-
     ChangeSection(int)
     {
         this.currentSection += int
@@ -100,9 +64,6 @@ export default class Scroll
         clearTimeout(this.timeout)
         this.Timeline()
     }
-
-    // this.AnimateObject(this.objects.group.children[this.currentSection], this.objectPos)
-    // this.AnimateObject(this.objects.group.children[this.currentSection + 1], this.startPos)
 
     Timeline()
     {
@@ -134,7 +95,7 @@ export default class Scroll
             case 1: /////////////////////////////////////////////////////// PROFILE
                 // Profile
                 this.objects.group.children[1].visible = true
-                this.objects.group.children[1].position.set(this.objectPos.x, this.objectPos.y, this.objectPos.z)
+                this.objects.group.children[1].position.set(this.objects.objectPos.x, this.objects.objectPos.y, this.objects.objectPos.z)
                 gsap.to(this.objects.profileMat.uniforms.uCircleScale, {
                     value: 0.35,
                     duration: 0.5,
@@ -160,7 +121,7 @@ export default class Scroll
                     onComplete: function() { this.objects.group.children[0].visible = false }
                 })
                 // Text
-                this.timeout = setTimeout(() => { this.text.classList.add('visible') }, 500)
+                this.timeout = setTimeout(() => { this.text.classList.add('visible') }, 700)
             break
             case 2:
                 // Reset profile
@@ -183,38 +144,4 @@ export default class Scroll
             break
         }
     }
-
-    AnimateObject(object, position)
-    {
-        this.isAnimating = true
-        gsap.killTweensOf(object.position)
-        gsap.to(object.position, {
-            x: position.x,
-            y: position.y,
-            z: position.z,
-            duration: 1,
-            ease: "power2.out",
-            callbackScope: this,
-            onComplete: function() { this.isAnimating = false }
-        })
-    }
-
-    // EndSection(int)
-    // {
-    //     this.isAnimating = true
-    //     gsap.killTweensOf(this.objects.group.position)
-    //     gsap.to(this.objects.group.position, {
-    //         x: int,
-    //         duration: 0.2,
-    //         ease: "power1.out",
-    //         yoyo: true,
-    //         repeat: 1,
-    //         callbackScope: this,
-    //         onComplete: function()
-    //         {
-    //             this.isAnimating = false
-    //         }
-    //     })
-    //     this.text.classList.remove('visible')
-    // }
 }

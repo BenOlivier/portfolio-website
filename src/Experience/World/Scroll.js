@@ -95,7 +95,6 @@ export default class Scroll
             case 1: /////////////////////////////////////////////////////// PROFILE
                 // Profile
                 this.objects.group.children[1].visible = true
-                this.objects.group.children[1].position.set(this.objects.objectPos.x, this.objects.objectPos.y, this.objects.objectPos.z)
                 gsap.to(this.objects.profileMat.uniforms.uCircleScale, {
                     value: 0.35,
                     duration: 0.5,
@@ -124,7 +123,9 @@ export default class Scroll
                 this.timeout = setTimeout(() => { this.text.classList.add('visible') }, 700)
             break
             case 2:
-                // Reset profile
+                // Litho
+                this.objects.group.children[2].visible = true
+                // Profile
                 gsap.to(this.objects.profileMat.uniforms.uCircleScale, {
                     value: 0.0,
                     duration: 0.3,

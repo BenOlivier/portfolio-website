@@ -44,6 +44,7 @@ export default class Objects
         this.lithoResource = this.resources.items.litho
         this.profileMap = this.resources.items.profile
 
+        this.setObjectPos()
         this.setModels()
     }
 
@@ -84,13 +85,14 @@ export default class Objects
             depthTest: false
         })
         this.profile = new THREE.Mesh(this.profileGeometry, this.profileMat)
-        // this.profile.position.set(3, 0, -2.5)
+        this.profile.position.set(this.objectPos.x, this.objectPos.y, this.objectPos.z)
         this.profile.visible = false
 
         // Litho
         this.litho = this.lithoResource.scene
-        // this.litho.position.set(3, 0, -2.5)
+        this.litho.position.set(this.objectPos.x, this.objectPos.y, this.objectPos.z)
         this.litho.children[0].rotation.set(Math.PI * 0.1, Math.PI * -0.15, 0)
+        this.litho.children[0].scale.set(0.5, 0.5, 0.5)
         this.litho.visible = false
 
         this.group = new THREE.Group()
@@ -122,7 +124,7 @@ export default class Objects
 
     update()
     {
-        if(this.currentObject == 0)
+        if(this.currentObject != 1)
         {
             this.timer += this.time.delta / 1000
             if(this.timer > 1.2)
@@ -132,9 +134,17 @@ export default class Objects
             }
             else
             {
-                this.targetQuaternion.setFromEuler(new THREE.Euler
-                    (0, 0 + (this.pointer.pointerPos.x * this.params.rotationExtent), 0))
-
+                if(this.currentObject == 0)
+                {
+                    this.targetQuaternion.setFromEuler(new THREE.Euler
+                        (0, this.pointer.pointerPos.x * this.params.rotationExtent, 0))
+                }
+                else if(this.currentObject == 2)
+                {
+                    this.targetQuaternion.setFromEuler(new THREE.Euler
+                        (-this.pointer.pointerPos.y * 0.7,
+                        this.pointer.pointerPos.x * 0.7, 0))
+                }
                 this.params.rotationSmoothing = 0.2
             }
 
@@ -157,14 +167,11 @@ export default class Objects
     {
         this.setObjectScale(this.hello, 1)
         this.setObjectScale(this.profile, 0.2)
-        this.setObjectScale(this.litho, 1)
+        this.setObjectScale(this.litho, 0.2)
 
         this.setObjectPos()
-        if(this.currentObject > 0)
-        {
-            this.animateObject(this.group.children[this.currentObject], this.objectPos)
-            console.log('yo')
-        }
+        this.animateObject(this.profile, this.objectPos)
+        this.animateObject(this.litho, this.objectPos)
     }
 
     setObjectScale(object, factor)

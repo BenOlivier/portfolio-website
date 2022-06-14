@@ -91,7 +91,7 @@ export default class Environment
     setDirectionalLight()
     {
         this.directionalLight = new THREE.DirectionalLight('#fff9f5', 2)
-        this.directionalLight.position.set(-2, -4, 6)
+        this.directionalLight.position.set(-4, -4, 4)
         this.scene.add(this.directionalLight)
 
         // Debug
@@ -113,7 +113,7 @@ export default class Environment
     setEnvironmentMap()
     {
         this.environmentMap = {}
-        this.environmentMap.intensity = 0.4
+        this.environmentMap.intensity = 20 //TODO: Doesn't work
         this.environmentMap.texture = this.resources.items.environmentMapTexture
         this.environmentMap.texture.encoding = THREE.sRGBEncoding
         
@@ -140,8 +140,8 @@ export default class Environment
                 .add(this.environmentMap, 'intensity')
                 .name('envMapIntensity')
                 .min(0)
-                .max(4)
-                .step(0.001)
+                .max(20)
+                .step(0.1)
                 .onChange(this.environmentMap.updateMaterials)
         }
     }

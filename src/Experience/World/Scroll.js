@@ -97,6 +97,7 @@ export default class Scroll
     {
         this.currentSection += int
         this.objects.currentObject = this.currentSection
+        clearTimeout(this.timeout)
         this.Timeline()
     }
 
@@ -107,13 +108,13 @@ export default class Scroll
     {
         switch(this.currentSection)
         {
-            case 0: // HELLO
-                clearTimeout(this.timeout)
-                this.text.classList.remove('visible')
-                // Reset profile
+            case 0: /////////////////////////////////////////////////////// HELLO
+                // Hello
+                this.objects.group.children[0].visible = true
+                // Profile
                 gsap.to(this.objects.profileMat.uniforms.uCircleScale, {
                     value: 0.0,
-                    duration: 0.2,
+                    duration: 0.3,
                     ease: "power2.out",
                     delay: 0.15
                 })
@@ -123,43 +124,49 @@ export default class Scroll
                 gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, {
                     y: 0.0,
                     duration: 0.4,
-                    ease: "power2.out"
+                    ease: "power2.out",
+                    callbackScope: this,
+                    onComplete: function() { this.objects.group.children[1].visible = false }
                 })
+                // Text
+                this.text.classList.remove('visible')
             break
-            case 1: // PROFILE
-                clearTimeout(this.timeout)
-                // Close hello
-                gsap.to(this.objects.helloMat.map.offset, {
-                    x: this.objects.helloMat.map.offset.x > 0.35 ?
-                        (this.objects.helloMat.map.offset.x > 0.67 ? 1 : 0.67) : 0.35,
-                    duration: 0.8,
-                    ease: "power2.out"
-                })
+            case 1: /////////////////////////////////////////////////////// PROFILE
+                // Profile
+                this.objects.group.children[1].visible = true
                 this.objects.group.children[1].position.set(this.objectPos.x, this.objectPos.y, this.objectPos.z)
-                this.timeout = setTimeout(() => { this.text.classList.add('visible') }, 500)
-                // Expand profile circle
                 gsap.to(this.objects.profileMat.uniforms.uCircleScale, {
                     value: 0.35,
                     duration: 0.5,
                     ease: "power2.out",
-                    delay: 0.8
+                    delay: 0.6
                 })
-                // Pop up profile image
                 setTimeout(() => {
                     this.objects.profileMat.uniforms.uShowTop.value = 1.0
-                }, 1100)
+                }, 900)
                 gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, {
                     y: -0.1,
                     duration: 1.8,
                     ease: "power3.out",
-                    delay: 1.1
+                    delay: 0.9
                 })
+                // Hello
+                gsap.to(this.objects.helloMat.map.offset, {
+                    x: this.objects.helloMat.map.offset.x > 0.34 ?
+                        (this.objects.helloMat.map.offset.x > 0.67 ? 1 : 0.67) : 0.34,
+                    duration: 0.8,
+                    ease: "power2.out",
+                    callbackScope: this,
+                    onComplete: function() { this.objects.group.children[0].visible = false }
+                })
+                // Text
+                this.timeout = setTimeout(() => { this.text.classList.add('visible') }, 500)
             break
             case 2:
                 // Reset profile
                 gsap.to(this.objects.profileMat.uniforms.uCircleScale, {
                     value: 0.0,
-                    duration: 0.2,
+                    duration: 0.3,
                     ease: "power2.out",
                     delay: 0.15
                 })
@@ -169,7 +176,9 @@ export default class Scroll
                 gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, {
                     y: 0.0,
                     duration: 0.4,
-                    ease: "power2.out"
+                    ease: "power2.out",
+                    callbackScope: this,
+                    onComplete: function() { this.objects.group.children[0].visible = false }
                 })
             break
         }

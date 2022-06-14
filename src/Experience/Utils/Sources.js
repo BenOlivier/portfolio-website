@@ -7,22 +7,12 @@ export default [
     {
         name: 'hello_albedo',
         type: 'texture',
-        path: 'images/other/hello.png'
+        path: 'images/models/hello.png'
     },
     {
         name: 'profile',
         type: 'texture',
-        path: 'images/other/profile.png'
-    },
-    {
-        name: 'squash',
-        type: 'texture',
-        path: 'images/other/squash.png'
-    },
-    {
-        name: 'cooking',
-        type: 'texture',
-        path: 'images/other/cooking.png'
+        path: 'images/models/profile.png'
     },
     {
         name: 'litho',

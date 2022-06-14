@@ -18,7 +18,7 @@ export default class Objects
         // Parameters
         this.params = {
             rotationSmoothing: 0.2,
-            rotationExtent: 0.2
+            rotationExtent: 0.4
         }
 
         // Debug
@@ -55,9 +55,10 @@ export default class Objects
         this.hello = this.helloResource.scene
         this.helloMat = new THREE.MeshBasicMaterial({
             map: this.hello_albedo,
+            side: THREE.DoubleSide,
             toneMapped: false,
             transparent: true,
-            depthTest: false // TODO: Messes with O normal issue
+            depthTest: false
         })
         this.hello.traverse((o) => { if (o.isMesh) o.material = this.helloMat })
         this.hello.scale.set(this.scale, this.scale, this.scale)
@@ -82,10 +83,12 @@ export default class Objects
             fragmentShader: wavyCircleFragmentShader,
             transparent: true,
             toneMapped: false,
+            depthTest: false
         })
         this.profile = new THREE.Mesh(this.profileGeometry, this.profileMat)
         // this.profile.position.set(3, 0, -2.5)
         this.profile.scale.set(this.scale, this.scale, this.scale)
+        this.profile.visible = false
         this.group.add(this.profile)
 
         // Litho

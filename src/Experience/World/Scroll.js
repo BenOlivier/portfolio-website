@@ -47,11 +47,11 @@ export default class Scroll
         // Area click events
         this.leftArea.addEventListener('click', () =>
         {
-            if(this.currentSection > 0) this.PrevSection()
+            if(this.currentSection > 0) this.ChangeSection(-1)
         })
         this.rightArea.addEventListener('click', () =>
         {
-            if(this.currentSection < this.totalSections) this.NextSection()
+            if(this.currentSection < this.totalSections) this.ChangeSection(1)
         })
 
         // Arrow key down event
@@ -59,12 +59,12 @@ export default class Scroll
         {
             if(event.keyCode == '37')
             {
-                if(this.currentSection > 0) this.PrevSection()
+                if(this.currentSection > 0) this.ChangeSection(-1)
                 // else if(!this.isAnimating) this.EndSection(0.1)
             }
             else if(event.keyCode == '39')
             {
-                if(this.currentSection < this.totalSections) this.NextSection()
+                if(this.currentSection < this.totalSections) this.ChangeSection(1)
                 // else if(!this.isAnimating) this.EndSection(-4 * this.totalSections - 0.1)
             }
         })
@@ -93,82 +93,82 @@ export default class Scroll
         }
     }
 
-    PrevSection()
+    ChangeSection(int)
     {
-        this.currentSection -= 1
+        this.currentSection += int
         this.objects.currentObject = this.currentSection
-        this.AnimateObject(this.objects.group.children[this.currentSection], this.objectPos)
-        this.AnimateObject(this.objects.group.children[this.currentSection + 1], this.startPos)
         this.Timeline()
     }
 
-    NextSection()
-    {
-        this.currentSection += 1
-        this.objects.currentObject = this.currentSection
-        this.AnimateObject(this.objects.group.children[this.currentSection], this.objectPos)
-        this.AnimateObject(this.objects.group.children[this.currentSection - 1], this.endPos)
-        this.Timeline()
-    }
+    // this.AnimateObject(this.objects.group.children[this.currentSection], this.objectPos)
+    // this.AnimateObject(this.objects.group.children[this.currentSection + 1], this.startPos)
 
     Timeline()
     {
         switch(this.currentSection)
         {
-            case 0:
+            case 0: // HELLO
                 clearTimeout(this.timeout)
-                this.AnimateObject(this.objects.group.children[0], new THREE.Vector3(0, 0, 0))
                 this.text.classList.remove('visible')
                 // Reset profile
                 gsap.to(this.objects.profileMat.uniforms.uCircleScale, {
                     value: 0.0,
                     duration: 0.2,
-                    ease: "power2.out"
+                    ease: "power2.out",
+                    delay: 0.15
                 })
                 setTimeout(() => {
                     this.objects.profileMat.uniforms.uShowTop.value = 0.0
-                }, 200)
+                }, 150)
                 gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, {
-                    y: 0.1,
-                    duration: 0.2,
+                    y: 0.0,
+                    duration: 0.4,
                     ease: "power2.out"
                 })
             break
-            case 1:
+            case 1: // PROFILE
                 clearTimeout(this.timeout)
+                // Close hello
+                gsap.to(this.objects.helloMat.map.offset, {
+                    x: this.objects.helloMat.map.offset.x > 0.35 ?
+                        (this.objects.helloMat.map.offset.x > 0.67 ? 1 : 0.67) : 0.35,
+                    duration: 0.8,
+                    ease: "power2.out"
+                })
+                this.objects.group.children[1].position.set(this.objectPos.x, this.objectPos.y, this.objectPos.z)
                 this.timeout = setTimeout(() => { this.text.classList.add('visible') }, 500)
                 // Expand profile circle
                 gsap.to(this.objects.profileMat.uniforms.uCircleScale, {
                     value: 0.35,
                     duration: 0.5,
                     ease: "power2.out",
-                    delay: 1
+                    delay: 0.8
                 })
                 // Pop up profile image
                 setTimeout(() => {
                     this.objects.profileMat.uniforms.uShowTop.value = 1.0
-                }, 1200)
+                }, 1100)
                 gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, {
                     y: -0.1,
-                    duration: 0.8,
-                    ease: "power2.out",
-                    delay: 1.2
+                    duration: 1.8,
+                    ease: "power3.out",
+                    delay: 1.1
                 })
             break
             case 2:
                 // Reset profile
-                clearTimeout(this.timeout)
                 gsap.to(this.objects.profileMat.uniforms.uCircleScale, {
                     value: 0.0,
                     duration: 0.2,
-                    ease: "power2.out"
+                    ease: "power2.out",
+                    delay: 0.15
                 })
                 setTimeout(() => {
                     this.objects.profileMat.uniforms.uShowTop.value = 0.0
-                }, 200)
+                }, 150)
                 gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, {
-                    y: 0.1,
-                    duration: 0.2,
+                    y: 0.0,
+                    duration: 0.4,
                     ease: "power2.out"
                 })
             break

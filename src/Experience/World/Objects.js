@@ -75,14 +75,15 @@ export default class Objects
                 uCirleColor: { value: new THREE.Vector3(0.0, 0.0, 0.5) },
                 uCircleScale: { value: 0.0 },
                 uShowTop: { value: 0.0 },
-                uMapOffset: { value: new THREE.Vector2(-0.35, 0.0) },
-                uMapScale: { value: new THREE.Vector2(1.6, 1.2) }
+                uMapOffset: { value: new THREE.Vector2(-0.22, 0.05) },
+                uMapScale: { value: new THREE.Vector2(1.5, 1.125) }
             },
             vertexShader: wavyCircleVertexShader,
             fragmentShader: wavyCircleFragmentShader,
             transparent: true,
             toneMapped: false,
-            depthTest: false
+            depthTest: false,
+            // premultipliedAlpha: true,
         })
         this.profile = new THREE.Mesh(this.profileGeometry, this.profileMat)
         this.profile.position.set(this.objectPos.x, this.objectPos.y, this.objectPos.z)
@@ -92,7 +93,7 @@ export default class Objects
         this.litho = this.lithoResource.scene
         this.litho.position.set(this.objectPos.x, this.objectPos.y, this.objectPos.z)
         this.litho.children[0].rotation.set(Math.PI * 0.1, Math.PI * -0.15, 0)
-        this.litho.children[0].scale.set(0.5, 0.5, 0.5)
+        this.litho.children[0].scale.set(0, 0, 0)
         this.litho.visible = false
 
         this.group = new THREE.Group()

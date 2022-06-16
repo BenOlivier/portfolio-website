@@ -185,7 +185,7 @@ nav img:active
     margin-bottom: 30px;
     box-sizing: border-box;
     opacity: 0;
-    transition: 0.3s;
+    transition: opacity 0.3s, transform 0.3s;
 }
 
 #text.visible p:nth-of-type(1)
@@ -203,13 +203,13 @@ nav img:active
 
 #text.visible h2
 {
-    transition: 0.8s;
+    transition: opacity 0.8s, transform 0.8s;
     opacity: 1;
     transform: translateX(-10px);
 }
 #text.visible p
 {
-    transition: 0.8s;
+    transition: opacity 0.8s, transform 0.8s;
     opacity: 1;
     transform: translateX(-10px);
 }

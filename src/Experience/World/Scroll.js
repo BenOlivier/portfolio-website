@@ -69,79 +69,55 @@ export default class Scroll
     {
         switch(this.currentSection)
         {
-            case 0: /////////////////////////////////////////////////////// HELLO
+            case 0: //HELLO
                 // Hello
                 this.objects.group.children[0].visible = true
                 // Profile
-                gsap.to(this.objects.profileMat.uniforms.uCircleScale, {
-                    value: 0.0,
-                    duration: 0.3,
-                    ease: "power2.out",
-                    delay: 0.15
-                })
-                setTimeout(() => {
-                    this.objects.profileMat.uniforms.uShowTop.value = 0.0
-                }, 150)
-                gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, {
-                    y: 0.0,
-                    duration: 0.4,
-                    ease: "power2.out",
-                    callbackScope: this,
-                    onComplete: function() { this.objects.group.children[1].visible = false }
+                gsap.to(this.objects.profileMat.uniforms.uCircleScale, { value: 0.0, duration: 0.3, ease: "power2.out", delay: 0.15 })
+                setTimeout(() => { this.objects.profileMat.uniforms.uShowTop.value = 0.0 }, 150)
+                gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, { y: 0.05, duration: 0.4, ease: "power2.out",
+                callbackScope: this, onComplete: function() { this.objects.group.children[1].visible = false }
                 })
                 // Text
                 this.text.classList.remove('visible')
             break
-            case 1: /////////////////////////////////////////////////////// PROFILE
+            case 1: //PROFILE
+                // Hello
+                gsap.to(this.objects.helloMat.map.offset, { x: this.objects.helloMat.map.offset.x > 0.34 ?
+                        (this.objects.helloMat.map.offset.x > 0.67 ? 1 : 0.67) : 0.34, duration: 0.8, ease: "power2.out",
+                    callbackScope: this,onComplete: function() { this.objects.group.children[0].visible = false } })
                 // Profile
                 this.objects.group.children[1].visible = true
-                gsap.to(this.objects.profileMat.uniforms.uCircleScale, {
-                    value: 0.35,
-                    duration: 0.5,
-                    ease: "power2.out",
-                    delay: 0.6
-                })
-                setTimeout(() => {
-                    this.objects.profileMat.uniforms.uShowTop.value = 1.0
-                }, 900)
-                gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, {
-                    y: -0.1,
-                    duration: 1.8,
-                    ease: "power3.out",
-                    delay: 0.9
-                })
-                // Hello
-                gsap.to(this.objects.helloMat.map.offset, {
-                    x: this.objects.helloMat.map.offset.x > 0.34 ?
-                        (this.objects.helloMat.map.offset.x > 0.67 ? 1 : 0.67) : 0.34,
-                    duration: 0.8,
-                    ease: "power2.out",
-                    callbackScope: this,
-                    onComplete: function() { this.objects.group.children[0].visible = false }
-                })
+                gsap.to(this.objects.profileMat.uniforms.uCircleScale, { value: 0.35, duration: 0.8, ease: "power2.out", delay: 0.6 })
+                setTimeout(() => { this.objects.profileMat.uniforms.uShowTop.value = 1.0 }, 1100)
+                gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, { y: -0.05, duration: 1.5, ease: "power1.inOut", delay: 1 })
+                // Litho
+                gsap.to(this.objects.group.children[2].children[0].scale, { x: 0.0, y: 0.0, z: 0.0, duration: 0.3, ease: "power2.out", delay: 0 })
                 // Text
-                this.timeout = setTimeout(() => { this.text.classList.add('visible') }, 700)
+                this.text.classList.remove('visible')
+                setTimeout(() => {
+                    this.text.children[0].children[0].innerHTML = "Hi, I'm Ben"
+                    this.text.children[0].children[1].innerHTML = "I'm a Product Designer living in London"
+                    this.text.children[0].children[2].innerHTML = "I love crafting beautiful products and interfaces with code"
+                    this.text.classList.add('visible') }, 1100)
             break
-            case 2:
+            case 2: // LITHO
+                // Profile
+                gsap.to(this.objects.profileMat.uniforms.uCircleScale, { value: 0.0, duration: 0.3, ease: "power2.out", delay: 0.15 })
                 // Litho
                 this.objects.group.children[2].visible = true
-                // Profile
-                gsap.to(this.objects.profileMat.uniforms.uCircleScale, {
-                    value: 0.0,
-                    duration: 0.3,
-                    ease: "power2.out",
-                    delay: 0.15
-                })
+                gsap.to(this.objects.group.children[2].children[0].scale, { x: 0.5, y: 0.5, z: 0.5, duration: 1, ease: "power2.out", delay: 0.5 })
+                setTimeout(() => { this.objects.profileMat.uniforms.uShowTop.value = 0.0 }, 150)
+                gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, { y: 0.05, duration: 0.4, ease: "power2.out",
+                    callbackScope: this, onComplete: function() { this.objects.group.children[0].visible = false } })
+                // Text
+                this.text.classList.remove('visible')
                 setTimeout(() => {
-                    this.objects.profileMat.uniforms.uShowTop.value = 0.0
-                }, 150)
-                gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, {
-                    y: 0.0,
-                    duration: 0.4,
-                    ease: "power2.out",
-                    callbackScope: this,
-                    onComplete: function() { this.objects.group.children[0].visible = false }
-                })
+                    this.text.children[0].children[0].innerHTML = "Litho"
+                    this.text.children[0].children[1].innerHTML = "I've been working for Litho, an AR startup"
+                    this.text.children[0].children[2].innerHTML = "We built a wearable controller for the real world"
+                    this.text.classList.add('visible')
+                }, 1100)
             break
         }
     }

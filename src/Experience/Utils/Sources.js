@@ -24,12 +24,12 @@ export default [
         type: 'cubeTexture',
         path:
         [
-            'images/environmentMaps/3/px.jpg',
-            'images/environmentMaps/3/nx.jpg',
-            'images/environmentMaps/3/py.jpg',
-            'images/environmentMaps/3/ny.jpg',
-            'images/environmentMaps/3/pz.jpg',
-            'images/environmentMaps/3/nz.jpg'
+            'images/environmentMap/px.jpg',
+            'images/environmentMap/nx.jpg',
+            'images/environmentMap/py.jpg',
+            'images/environmentMap/ny.jpg',
+            'images/environmentMap/pz.jpg',
+            'images/environmentMap/nz.jpg'
         ]
     }
 ]

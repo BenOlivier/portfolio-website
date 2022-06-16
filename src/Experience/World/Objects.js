@@ -37,6 +37,7 @@ export default class Objects
         
         // Resources
         this.helloResource = this.resources.items.hello
+        this.lightResource = this.resources.items.light
         this.hello_albedo = this.resources.items.hello_albedo
         this.hello_albedo.wrapS = THREE.RepeatWrapping
         this.hello_albedo.wrapT = THREE.RepeatWrapping
@@ -63,6 +64,12 @@ export default class Objects
         })
         this.hello.traverse((o) => { if (o.isMesh) o.material = this.helloMat })
 
+        // Light
+        // this.light = this.lightResource.scene
+        // this.light.position.set(-1, -1, -3)
+        // this.light.scale.set(0.2, 0.2, 0.2)
+        // this.light.rotation.set(0, Math.PI * -0.35, 0)
+
         // Profile
         this.profileGeometry = new THREE.PlaneBufferGeometry(0.7, 0.7, 16, 16)
         this.profileMat = new THREE.ShaderMaterial({
@@ -75,8 +82,8 @@ export default class Objects
                 uCirleColor: { value: new THREE.Vector3(0.0, 0.0, 0.5) },
                 uCircleScale: { value: 0.0 },
                 uShowTop: { value: 0.0 },
-                uMapOffset: { value: new THREE.Vector2(-0.15, 0.08) },
-                uMapScale: { value: new THREE.Vector2(1.3333, 1) }
+                uMapOffset: { value: new THREE.Vector2(-0.08, 0.15) },
+                uMapScale: { value: new THREE.Vector2(1.2, 0.9) }
             },
             vertexShader: wavyCircleVertexShader,
             fragmentShader: wavyCircleFragmentShader,

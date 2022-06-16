@@ -25,7 +25,7 @@ void main()
 
     vec2 photoPos = vec2(vUv.x * uMapScale.x + uMapOffset.x, vUv.y * uMapScale.y + uMapOffset.y);
     vec4 photo = texture2D(uColorMap, vec2(photoPos));
-    vec4 photoTop = photo * (1.0 - mask) * (step(0.56, vUv.y)) * uShowTop;
+    vec4 photoTop = photo * (1.0 - mask) * (step(0.5, vUv.y)) * uShowTop;
     vec4 photoBottom = photo * mask;
     
     vec4 circle = vec4(0.12, 0.3, 0.65, (1.0 - photo.a)) * mask;

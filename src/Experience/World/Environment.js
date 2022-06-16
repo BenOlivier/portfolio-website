@@ -51,7 +51,7 @@ export default class Environment
         })
 
         this.background = new THREE.Mesh(this.backgroundGeometry, this.backgroundMaterial)
-        this.background.position.set(0, 0, -2)
+        this.background.position.set(0, 0, -3)
         this.scene.add(this.background)
 
         // Debug

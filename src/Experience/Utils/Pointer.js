@@ -14,13 +14,6 @@ export default class Pointer extends EventEmitter
         this.sizes = this.experience.sizes
         this.leftArrow = document.getElementById("left-arrow")
 
-        // Pointer down event
-        window.addEventListener('mousedown', (event) =>
-        {
-            this.pointerPos.x = event.clientX / this.sizes.width * 2 - 1
-            this.pointerPos.y = -(event.clientY / this.sizes.height) * 2 + 1
-        })
-
         // Pointer move event
         window.addEventListener('mousemove', (event) =>
         {
@@ -28,6 +21,21 @@ export default class Pointer extends EventEmitter
             this.pointerPos.y = -(event.clientY / this.sizes.height) * 2 + 1
 
             this.trigger('mousemove')
+        })
+
+        // Pointer down event
+        window.addEventListener('mousedown', (event) =>
+        {
+            this.pointerPos.x = event.clientX / this.sizes.width * 2 - 1
+            this.pointerPos.y = -(event.clientY / this.sizes.height) * 2 + 1
+
+            this.trigger('mousedown')
+        })
+
+        // Pointer up event
+        window.addEventListener('mouseup', (event) =>
+        {
+            this.trigger('mouseup')
         })
     }
 }

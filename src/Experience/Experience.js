@@ -7,6 +7,7 @@ import Loading from './Utils/Loading.js'
 import Time from './Utils/Time.js'
 import Camera from './World/Camera.js'
 import Pointer from './Utils/Pointer.js'
+import Raycaster from './Utils/Raycaster.js'
 import Renderer from './Renderer.js'
 import Environment from './World/Environment.js'
 import Objects from './World/Objects.js'
@@ -52,6 +53,7 @@ export default class Experience
             this.environment = new Environment()
             this.objects = new Objects()
             this.scroll = new Scroll()
+            // this.raycaster = new Raycaster()
             this.darkMode = new DarkMode()
         })
 

@@ -20,7 +20,7 @@ export default class Scroll
         this.text = document.getElementById("text")
         
         this.currentSection = 0
-        this.totalSections = 3
+        this.totalSections = 2
 
         this.startPos = new THREE.Vector3(3, 0, -2.5)
         this.endPos = new THREE.Vector3(-3, 0, -2.5)
@@ -93,6 +93,7 @@ export default class Scroll
                 gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, { y: 0.08, duration: 1.5, ease: "power1.inOut", delay: 1 })
                 // Litho
                 gsap.to(this.objects.group.children[2].children[0].scale, { x: 0.0, y: 0.0, z: 0.0, duration: 0.3, ease: "power2.out", delay: 0 })
+                this.objects.group.children[2].children[0].rotation.set(0, 0, 0)
                 // Text
                 this.text.classList.remove('visible')
                 setTimeout(() => {
@@ -104,12 +105,13 @@ export default class Scroll
             case 2: // LITHO
                 // Profile
                 gsap.to(this.objects.profileMat.uniforms.uCircleScale, { value: 0.0, duration: 0.3, ease: "power2.out", delay: 0.15 })
-                // Litho
-                this.objects.group.children[2].visible = true
-                gsap.to(this.objects.group.children[2].children[0].scale, { x: 0.5, y: 0.5, z: 0.5, duration: 1, ease: "power2.out", delay: 0.5 })
                 setTimeout(() => { this.objects.profileMat.uniforms.uShowTop.value = 0.0 }, 150)
                 gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, { y: 0.15, duration: 0.4, ease: "power2.out",
                     callbackScope: this, onComplete: function() { this.objects.group.children[0].visible = false } })
+                // Litho
+                this.objects.group.children[2].visible = true
+                gsap.to(this.objects.group.children[2].children[0].scale, { x: 0.5, y: 0.5, z: 0.5, duration: 1, ease: "power2.out", delay: 0.5 })
+                gsap.to(this.objects.group.children[2].children[0].rotation, { y: Math.PI * 6, duration: 1, ease: "power2.out", delay: 0.5 })
                 // Text
                 this.text.classList.remove('visible')
                 setTimeout(() => {

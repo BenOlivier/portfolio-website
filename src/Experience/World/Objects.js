@@ -99,9 +99,16 @@ export default class Objects
         // Litho
         this.litho = this.lithoResource.scene
         this.litho.position.set(this.objectPos.x, this.objectPos.y, this.objectPos.z)
-        this.litho.children[0].rotation.set(Math.PI * 0.1, Math.PI * -0.15, 0)
+        // this.litho.children[0].rotation.set(Math.PI * 0.1, Math.PI * -0.15, 0)
         this.litho.children[0].scale.set(0, 0, 0)
+        this.litho.children[0].children[3].visible = false
         this.litho.visible = false
+        this.pointer.on('mousedown', () => {
+            if(this.currentObject == 2) this.litho.children[0].children[3].visible = true
+        })
+        this.pointer.on('mouseup', () => {
+            if(this.currentObject == 2) this.litho.children[0].children[3].visible = false
+        })
 
         this.group = new THREE.Group()
         this.group.add(this.hello, this.profile, this.litho)

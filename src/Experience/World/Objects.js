@@ -1,8 +1,10 @@
 import * as THREE from 'three'
 import gsap from 'gsap'
 import Experience from '../Experience.js'
-import wavyCircleVertexShader from '../Shaders/WavyCircle/vertex.glsl'
-import wavyCircleFragmentShader from '../Shaders/WavyCircle/fragment.glsl'
+import profileVertexShader from '../Shaders/Profile/vertex.glsl'
+import profileFragmentShader from '../Shaders/Profile/fragment.glsl'
+import contactVertexShader from '../Shaders/Contact/vertex.glsl'
+import contactFragmentShader from '../Shaders/Contact/fragment.glsl'
 
 export default class Objects
 {
@@ -85,12 +87,11 @@ export default class Objects
                 uMapOffset: { value: new THREE.Vector2(-0.08, 0.15) },
                 uMapScale: { value: new THREE.Vector2(1.2, 0.9) }
             },
-            vertexShader: wavyCircleVertexShader,
-            fragmentShader: wavyCircleFragmentShader,
+            vertexShader: profileVertexShader,
+            fragmentShader: profileFragmentShader,
             transparent: true,
             toneMapped: false,
-            depthTest: false,
-            // premultipliedAlpha: true,
+            depthTest: false
         })
         this.profile = new THREE.Mesh(this.profileGeometry, this.profileMat)
         this.profile.position.set(this.objectPos.x, this.objectPos.y, this.objectPos.z)
@@ -110,8 +111,28 @@ export default class Objects
             if(this.currentObject == 2) this.litho.children[0].children[3].visible = false
         })
 
+        // Contact
+        this.contactGeometry = new THREE.PlaneBufferGeometry(1, 1, 16, 16)
+        this.contactMat = new THREE.ShaderMaterial({
+            uniforms: {
+                uTime: { value: 0.0 },
+                uWaveMagnitude: { value: 0.05 },
+                uWaveFrequency: { value: new THREE.Vector2(12.0, 0.2) },
+                uWaveSpeed: { value: 0.001 },
+                uCirleColor: { value: new THREE.Vector3(0.0, 0.0, 0.5) },
+                uCircleScale: { value: 0.0 }
+            },
+            vertexShader: contactVertexShader,
+            fragmentShader: contactFragmentShader,
+            transparent: true,
+            toneMapped: false,
+            depthTest: false
+        })
+        this.contact = new THREE.Mesh(this.contactGeometry, this.contactMat)
+        this.profile.visible = false
+
         this.group = new THREE.Group()
-        this.group.add(this.hello, this.profile, this.litho)
+        this.group.add(this.hello, this.profile, this.litho, this.contact)
         this.resize()
         this.scene.add(this.group)
         this.currentObject = 0
@@ -176,6 +197,7 @@ export default class Objects
         }
 
         this.profileMat.uniforms.uTime.value += this.time.delta
+        this.contactMat.uniforms.uTime.value += this.time.delta
     }
 
     resize()

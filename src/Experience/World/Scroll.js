@@ -38,25 +38,25 @@ export default class Scroll
         // Page dot click events
         this.aboutDot.addEventListener('click', () =>
         {
-            if(this.currentSection != 1) this.ChangeSection(1)
+            if(this.currentSection != 1) this.changeSection(1)
         })
         this.workDot.addEventListener('click', () =>
         {
-            if(this.currentSection != 2) this.ChangeSection(2)
+            if(this.currentSection != 2) this.changeSection(2)
         })
         this.contactDot.addEventListener('click', () =>
         {
-            if(this.currentSection != 3) this.ChangeSection(3)
+            if(this.currentSection != 3) this.changeSection(3)
         })
 
         // Area click events
         this.leftArea.addEventListener('click', () =>
         {
-            if(this.currentSection > 0) this.ChangeSection(this.currentSection -1)
+            if(this.currentSection > 0) this.changeSection(this.currentSection -1)
         })
         this.rightArea.addEventListener('click', () =>
         {
-            if(this.currentSection < this.totalSections) this.ChangeSection(this.currentSection + 1)
+            if(this.currentSection < this.totalSections) this.changeSection(this.currentSection + 1)
         })
 
         // Arrow key down event
@@ -64,56 +64,61 @@ export default class Scroll
         {
             if(event.keyCode == '37')
             {
-                if(this.currentSection > 0) this.ChangeSection(this.currentSection -1)
+                if(this.currentSection > 0) this.changeSection(this.currentSection -1)
                 // else if(!this.isAnimating) this.EndSection(0.1)
             }
             else if(event.keyCode == '39')
             {
-                if(this.currentSection < this.totalSections) this.ChangeSection(this.currentSection + 1)
+                if(this.currentSection < this.totalSections) this.changeSection(this.currentSection + 1)
                 // else if(!this.isAnimating) this.EndSection(-4 * this.totalSections - 0.1)
             }
         })
     }
 
-    ChangeSection(int)
+    changeSection(int)
     {
+        this.closeCurrentSection()
         this.currentSection = int
-        console.log(this.currentSection)
         this.objects.currentObject = this.currentSection
         clearTimeout(this.timeout)
-        this.Timeline()
+        this.openCurrentSection()
     }
 
-    Timeline()
+    closeCurrentSection()
     {
         switch(this.currentSection)
         {
             case 0: //HELLO
-                // Hello
-                this.objects.group.children[0].visible = true
-                // Profile
-                gsap.to(this.objects.profileMat.uniforms.uCircleScale, { value: 0.0, duration: 0.3, ease: "power2.out", delay: 0.15 })
-                setTimeout(() => { this.objects.profileMat.uniforms.uShowTop.value = 0.0 }, 150)
-                gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, { y: 0.15, duration: 0.4, ease: "power2.out",
-                callbackScope: this, onComplete: function() { if(this.currentSection == 0) this.objects.group.children[1].visible = false }})
-                // Text
-                this.text.classList.remove('visible')
+            gsap.to(this.objects.helloMat.map.offset, { x: this.objects.helloMat.map.offset.x > 0.34 ?
+                (this.objects.helloMat.map.offset.x > 0.67 ? 1 : 0.67) : 0.34, duration: 0.8, ease: "power2.out",
+                callbackScope: this,onComplete: function() { if(this.currentSection == 1) this.objects.group.children[0].visible = false } })
             break
             case 1: //PROFILE
-                // Hello
-                gsap.to(this.objects.helloMat.map.offset, { x: this.objects.helloMat.map.offset.x > 0.34 ?
-                    (this.objects.helloMat.map.offset.x > 0.67 ? 1 : 0.67) : 0.34, duration: 0.8, ease: "power2.out",
-                    callbackScope: this,onComplete: function() { if(this.currentSection == 1) this.objects.group.children[0].visible = false } })
-                // Profile
+                gsap.to(this.objects.profileMat.uniforms.uCircleScale, { value: 0.0, duration: 0.3, ease: "power2.out", delay: 0.15 })
+                setTimeout(() => { this.objects.profileMat.uniforms.uShowTop.value = 0.0 }, 150)
+                gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, { y: 0.15, duration: 0.4, ease: "power2.out" })
+                this.text.classList.remove('visible')
+            break
+            case 2: // LITHO
+                gsap.to(this.objects.group.children[2].children[0].scale, { x: 0.0, y: 0.0, z: 0.0, duration: 0.3, ease: "power2.out", delay: 0 })
+                this.objects.group.children[2].children[0].rotation.set(0, 0, 0)
+                this.text.classList.remove('visible')
+            break
+        }
+    }
+
+    openCurrentSection()
+    {
+        switch(this.currentSection)
+        {
+            case 0: //HELLO
+                this.objects.group.children[0].visible = true
+            break
+            case 1: //PROFILE
                 this.objects.group.children[1].visible = true
                 gsap.to(this.objects.profileMat.uniforms.uCircleScale, { value: 0.35, duration: 0.8, ease: "power2.out", delay: 0.6 })
                 setTimeout(() => { this.objects.profileMat.uniforms.uShowTop.value = 1.0 }, 1100)
                 gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, { y: 0.08, duration: 1.5, ease: "power1.inOut", delay: 1 })
-                // Litho
-                gsap.to(this.objects.group.children[2].children[0].scale, { x: 0.0, y: 0.0, z: 0.0, duration: 0.3, ease: "power2.out", delay: 0 })
-                this.objects.group.children[2].children[0].rotation.set(0, 0, 0)
-                // Text
-                this.text.classList.remove('visible')
                 this.timeout = setTimeout(() => {
                     this.text.children[0].children[0].innerHTML = "Hi, I'm Ben"
                     this.text.children[0].children[1].innerHTML = "I'm a Product Designer living in London"
@@ -121,20 +126,9 @@ export default class Scroll
                     this.text.classList.add('visible') }, 1100)
             break
             case 2: // LITHO
-                // Profile
-                gsap.to(this.objects.profileMat.uniforms.uCircleScale, { value: 0.0, duration: 0.3, ease: "power2.out", delay: 0.15 })
-                setTimeout(() => { this.objects.profileMat.uniforms.uShowTop.value = 0.0 }, 150)
-                gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, { y: 0.15, duration: 0.4, ease: "power2.out",
-                    callbackScope: this, onComplete: function() { this.objects.group.children[0].visible = false } })
-                // Litho
                 this.objects.group.children[2].visible = true
                 gsap.to(this.objects.group.children[2].children[0].scale, { x: 0.5, y: 0.5, z: 0.5, duration: 1, ease: "power2.out", delay: 0.5 })
                 gsap.to(this.objects.group.children[2].children[0].rotation, { y: Math.PI * 6, duration: 1, ease: "power2.out", delay: 0.5 })
-                // CONTACT
-                gsap.to(this.objects.contactMat.uniforms.uCircleScale, { value: 0.0, duration: 0.3, ease: "power2.out", delay: 0.15,
-                    callbackScope: this, onComplete: function() { this.objects.group.children[3].visible = false }})
-                // Text
-                this.text.classList.remove('visible')
                 this.timeout = setTimeout(() => {
                     this.text.children[0].children[0].innerHTML = "Litho"
                     this.text.children[0].children[1].innerHTML = "I've been working for Litho, an AR startup"
@@ -143,13 +137,8 @@ export default class Scroll
                 }, 1100)
             break
             case 3: //CONTACT
-                // Litho
-                gsap.to(this.objects.group.children[2].children[0].scale, { x: 0.0, y: 0.0, z: 0.0, duration: 0.3, ease: "power2.out", delay: 0 })
-                this.objects.group.children[2].children[0].rotation.set(0, 0, 0)
-                // Contact
                 this.objects.group.children[3].visible = true
                 gsap.to(this.objects.contactMat.uniforms.uCircleScale, { value: 0.35, duration: 0.8, ease: "power2.out", delay: 0.6 })
-                // Text
                 this.text.classList.remove('visible')
         }
     }

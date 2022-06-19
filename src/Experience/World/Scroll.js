@@ -12,6 +12,10 @@ export default class Scroll
         this.sizes = this.experience.sizes
         this.camera = this.experience.camera
 
+        this.aboutDot = document.getElementById("about-dot")
+        this.workDot = document.getElementById("work-dot")
+        this.contactDot = document.getElementById("contact-dot")
+
         this.leftArea = document.getElementById("left-area")
         this.rightArea = document.getElementById("right-area")
         this.leftArrow = document.getElementById("left-arrow")
@@ -31,14 +35,28 @@ export default class Scroll
         this.leftArea.addEventListener('mouseleave', () => { this.leftArrow.classList.remove('visible') })
         this.rightArea.addEventListener('mouseleave', () => { this.rightArrow.classList.remove('visible') })
 
+        // Page dot click events
+        this.aboutDot.addEventListener('click', () =>
+        {
+            if(this.currentSection != 1) this.ChangeSection(1)
+        })
+        this.workDot.addEventListener('click', () =>
+        {
+            if(this.currentSection != 2) this.ChangeSection(2)
+        })
+        this.contactDot.addEventListener('click', () =>
+        {
+            if(this.currentSection != 3) this.ChangeSection(3)
+        })
+
         // Area click events
         this.leftArea.addEventListener('click', () =>
         {
-            if(this.currentSection > 0) this.ChangeSection(-1)
+            if(this.currentSection > 0) this.ChangeSection(this.currentSection -1)
         })
         this.rightArea.addEventListener('click', () =>
         {
-            if(this.currentSection < this.totalSections) this.ChangeSection(1)
+            if(this.currentSection < this.totalSections) this.ChangeSection(this.currentSection + 1)
         })
 
         // Arrow key down event
@@ -46,12 +64,12 @@ export default class Scroll
         {
             if(event.keyCode == '37')
             {
-                if(this.currentSection > 0) this.ChangeSection(-1)
+                if(this.currentSection > 0) this.ChangeSection(this.currentSection -1)
                 // else if(!this.isAnimating) this.EndSection(0.1)
             }
             else if(event.keyCode == '39')
             {
-                if(this.currentSection < this.totalSections) this.ChangeSection(1)
+                if(this.currentSection < this.totalSections) this.ChangeSection(this.currentSection + 1)
                 // else if(!this.isAnimating) this.EndSection(-4 * this.totalSections - 0.1)
             }
         })
@@ -59,7 +77,7 @@ export default class Scroll
 
     ChangeSection(int)
     {
-        this.currentSection += int
+        this.currentSection = int
         console.log(this.currentSection)
         this.objects.currentObject = this.currentSection
         clearTimeout(this.timeout)

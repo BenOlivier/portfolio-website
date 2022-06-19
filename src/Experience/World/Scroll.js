@@ -69,6 +69,12 @@ export default class Scroll
         this.objects.currentObject = this.currentSection
         clearTimeout(this.timeout)
         this.openCurrentSection()
+        this.moveObjects()
+    }
+
+    moveObjects()
+    {
+        // gsap.to(this.objects.group.position, { x: -this.currentSection * 2, duration: 1, ease: "power2.out"})
     }
 
     closeCurrentSection()

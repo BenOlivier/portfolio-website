@@ -94,22 +94,22 @@ export default class Objects
             depthTest: false
         })
         this.profile = new THREE.Mesh(this.profileGeometry, this.profileMat)
-        this.profile.position.set(this.objectPos.x, this.objectPos.y, this.objectPos.z)
+        // this.profile.position.set(this.objectPos.x, this.objectPos.y, this.objectPos.z)
         this.profile.visible = false
 
         // Litho
         this.litho = this.lithoResource.scene
-        this.litho.position.set(this.objectPos.x, this.objectPos.y, this.objectPos.z)
+        // this.litho.position.set(this.objectPos.x, this.objectPos.y, this.objectPos.z)
         // this.litho.children[0].rotation.set(Math.PI * 0.1, Math.PI * -0.15, 0)
         this.litho.children[0].scale.set(0, 0, 0)
         this.litho.children[0].children[3].visible = false
         this.litho.visible = false
-        this.pointer.on('mousedown', () => {
-            if(this.currentObject == 2) this.litho.children[0].children[3].visible = true
-        })
-        this.pointer.on('mouseup', () => {
-            if(this.currentObject == 2) this.litho.children[0].children[3].visible = false
-        })
+        // this.pointer.on('mousedown', () => {
+        //     if(this.currentObject == 2) this.litho.children[0].children[3].visible = true
+        // })
+        // this.pointer.on('mouseup', () => {
+        //     if(this.currentObject == 2) this.litho.children[0].children[3].visible = false
+        // })
 
         // Contact
         this.contactGeometry = new THREE.PlaneBufferGeometry(1, 1, 16, 16)

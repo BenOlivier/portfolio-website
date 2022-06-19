@@ -91,11 +91,16 @@ export default class Scroll
                 setTimeout(() => { this.objects.profileMat.uniforms.uShowTop.value = 0.0 }, 150)
                 gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, { y: 0.15, duration: 0.4, ease: "power2.out" })
                 this.text.classList.remove('visible')
+                this.aboutDot.children[0].style.opacity = 0.5
             break
             case 2: // LITHO
                 gsap.to(this.objects.group.children[2].children[0].scale, { x: 0.0, y: 0.0, z: 0.0, duration: 0.3, ease: "power2.out", delay: 0 })
                 this.objects.group.children[2].children[0].rotation.set(0, 0, 0)
                 this.text.classList.remove('visible')
+                this.workDot.children[0].style.opacity = 0.5
+            break
+            case 3: // CONTACT
+                this.contactDot.children[0].style.opacity = 0.5
             break
         }
     }
@@ -112,6 +117,7 @@ export default class Scroll
                 gsap.to(this.objects.profileMat.uniforms.uCircleScale, { value: 0.35, duration: 0.8, ease: "power2.out", delay: 0.6 })
                 setTimeout(() => { this.objects.profileMat.uniforms.uShowTop.value = 1.0 }, 1100)
                 gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, { y: 0.08, duration: 1.5, ease: "power1.inOut", delay: 1 })
+                this.aboutDot.children[0].style.opacity = 1
                 this.timeout = setTimeout(() => {
                     this.text.children[0].children[0].innerHTML = "Hi, I'm Ben"
                     this.text.children[0].children[1].innerHTML = "I'm a Product Designer living in London"
@@ -122,6 +128,7 @@ export default class Scroll
                 this.objects.group.children[2].visible = true
                 gsap.to(this.objects.group.children[2].children[0].scale, { x: 0.5, y: 0.5, z: 0.5, duration: 1, ease: "power2.out", delay: 0.5 })
                 gsap.to(this.objects.group.children[2].children[0].rotation, { y: Math.PI * 6, duration: 1, ease: "power2.out", delay: 0.5 })
+                this.workDot.children[0].style.opacity = 1
                 this.timeout = setTimeout(() => {
                     this.text.children[0].children[0].innerHTML = "Litho"
                     this.text.children[0].children[1].innerHTML = "I've been working for Litho, an AR startup"
@@ -130,8 +137,9 @@ export default class Scroll
                 }, 1100)
             break
             case 3: //CONTACT
-                this.objects.group.children[3].visible = true
-                gsap.to(this.objects.contactMat.uniforms.uCircleScale, { value: 0.35, duration: 0.8, ease: "power2.out", delay: 0.6 })
+                // this.objects.group.children[3].visible = true
+                // gsap.to(this.objects.contactMat.uniforms.uCircleScale, { value: 0.35, duration: 0.8, ease: "power2.out", delay: 0.6 })
+                this.contactDot.children[0].style.opacity = 1
                 this.text.classList.remove('visible')
         }
     }

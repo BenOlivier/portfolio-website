@@ -75,6 +75,11 @@ nav img:active
     display: flex;
     /* justify-content: space-around; */
     align-items: center;
+    transition: 0.2s;
+}
+.page-dot:hover div
+{
+    opacity: 1;
 }
 .page-dot:hover h2
 {
@@ -82,14 +87,16 @@ nav img:active
 }
 .page-dot div
 {
-    background-color: #c8c8c8;
+    background-color: #959595;
     width: 10px;
     height: 10px;
     border-radius: 50%;
+    transition: 0.2s;
+    opacity: 0.5;
 }
 .page-dot h2
 {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 400;
     padding: 0 0 0 16px;
     transition: 0.2s;

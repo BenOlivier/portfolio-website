@@ -44,7 +44,7 @@ export default class DarkMode
             this.environment.background.material.uniforms.uCurrentFlColor.value.set(this.environment.colors.uFlDark)
             this.environment.background.material.uniforms.uNewFlColor.value.set(this.environment.colors.uFlLight)
             this.darkModeButton.src = "images/icons/darkmode.png"
-            this.homeButton.src = "images/icons/icondark.png"
+            this.homeButton.src = "images/icons/homedark.png"
             this.darkModeAnimation()
         }
         else
@@ -54,7 +54,7 @@ export default class DarkMode
             this.environment.background.material.uniforms.uCurrentFlColor.value.set(this.environment.colors.uFlLight)
             this.environment.background.material.uniforms.uNewFlColor.value.set(this.environment.colors.uFlDark)
             this.darkModeButton.src = "images/icons/lightmode.png"
-            this.homeButton.src = "images/icons/iconlight.png"
+            this.homeButton.src = "images/icons/homelight.png"
             this.darkModeAnimation()
         }
     }

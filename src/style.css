@@ -44,7 +44,7 @@ html, body
 {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     max-width: 1400px;
     margin: auto;
 }
@@ -66,6 +66,21 @@ nav img:hover
 nav img:active
 {
     transform: scale(1);
+}
+
+.page-dot
+{
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-around;
+}
+.page-dot div
+{
+    background-color: #c8c8c8;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
 }
 
 #area-container

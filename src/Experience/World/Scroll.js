@@ -12,6 +12,7 @@ export default class Scroll
         this.sizes = this.experience.sizes
         this.camera = this.experience.camera
 
+        this.homeButton = document.getElementById("home-button")
         this.aboutDot = document.getElementById("about-dot")
         this.workDot = document.getElementById("work-dot")
         this.contactDot = document.getElementById("contact-dot")
@@ -36,28 +37,14 @@ export default class Scroll
         this.rightArea.addEventListener('mouseleave', () => { this.rightArrow.classList.remove('visible') })
 
         // Page dot click events
-        this.aboutDot.addEventListener('click', () =>
-        {
-            if(this.currentSection != 1) this.changeSection(1)
-        })
-        this.workDot.addEventListener('click', () =>
-        {
-            if(this.currentSection != 2) this.changeSection(2)
-        })
-        this.contactDot.addEventListener('click', () =>
-        {
-            if(this.currentSection != 3) this.changeSection(3)
-        })
+        this.homeButton.addEventListener('click', () => { if(this.currentSection != 0) this.changeSection(0) })
+        this.aboutDot.addEventListener('click', () => { if(this.currentSection != 1) this.changeSection(1) })
+        this.workDot.addEventListener('click', () => { if(this.currentSection != 2) this.changeSection(2) })
+        this.contactDot.addEventListener('click', () => { if(this.currentSection != 3) this.changeSection(3) })
 
         // Area click events
-        this.leftArea.addEventListener('click', () =>
-        {
-            if(this.currentSection > 0) this.changeSection(this.currentSection -1)
-        })
-        this.rightArea.addEventListener('click', () =>
-        {
-            if(this.currentSection < this.totalSections) this.changeSection(this.currentSection + 1)
-        })
+        this.leftArea.addEventListener('click', () => { if(this.currentSection > 0) this.changeSection(this.currentSection -1) })
+        this.rightArea.addEventListener('click', () => { if(this.currentSection < this.totalSections) this.changeSection(this.currentSection + 1) })
 
         // Arrow key down event
         window.addEventListener('keydown', (event) =>
@@ -91,7 +78,7 @@ export default class Scroll
             case 0: //HELLO
             gsap.to(this.objects.helloMat.map.offset, { x: this.objects.helloMat.map.offset.x > 0.34 ?
                 (this.objects.helloMat.map.offset.x > 0.67 ? 1 : 0.67) : 0.34, duration: 0.8, ease: "power2.out",
-                callbackScope: this,onComplete: function() { if(this.currentSection == 1) this.objects.group.children[0].visible = false } })
+                callbackScope: this, onComplete: function() { this.objects.group.children[0].visible = false } })
             break
             case 1: //PROFILE
                 gsap.to(this.objects.profileMat.uniforms.uCircleScale, { value: 0.0, duration: 0.3, ease: "power2.out", delay: 0.15 })

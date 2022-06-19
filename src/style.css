@@ -56,26 +56,28 @@ nav img
     opacity: 0.8;
     transition: 0.1s ease-in-out;
 }
-
 nav img:hover
 {
     opacity: 1.0;
     transform: scale(1.05);
 }
-
 nav img:active
 {
     transform: scale(1);
 }
+/* #home-button:hover + .page-dot
+{
+    display: block;
+} */
 
 .page-dot
 {
     padding: 10px 10px 10px 30px;
     cursor: pointer;
     display: flex;
-    /* justify-content: space-around; */
     align-items: center;
     transition: 0.2s;
+    /* display: none; */
 }
 .page-dot:hover div
 {
@@ -102,6 +104,19 @@ nav img:active
     transition: 0.2s;
     opacity: 0;
 }
+
+@media (max-width: 800px)
+{
+    .page-dot
+    {
+        display: none;
+    }
+}
+
+/* .page-dot:nth-of-type(1)
+{
+    transition-delay: 0.15s;
+} */
 
 
 #area-container

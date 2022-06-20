@@ -112,6 +112,17 @@ export default class Objects
         // })
 
         // Contact
+        // this.githubGeometry = new THREE.SphereGeometry(0.1, 16, 16)
+        // this.githubMat = new THREE.MeshBasicMaterial({ color: '#6E5494' })
+        // this.github = new THREE.Mesh(this.githubGeometry, this.githubMat)
+        // this.githubPlaneGeo = new THREE.PlaneGeometry(0.2, 0.2, 1, 1)
+        // this.githubPlaneMat = new THREE.MeshBasicMaterial({ color: '#ff0000' })
+        // this.githubPlane = new THREE.Mesh(this.githubPlaneGeo, this.githubPlaneMat)
+        // this.github.add(this.githubPlane)
+
+
+
+
         this.contactGeometry = new THREE.PlaneBufferGeometry(1, 1, 16, 16)
         this.contactMat = new THREE.ShaderMaterial({
             uniforms: {
@@ -132,7 +143,7 @@ export default class Objects
         this.profile.visible = false
 
         this.group = new THREE.Group()
-        this.group.add(this.hello, this.profile, this.litho, this.contact)
+        this.group.add(this.hello, this.profile, this.litho)
         this.resize()
         this.scene.add(this.group)
         this.currentObject = 0
@@ -184,9 +195,12 @@ export default class Objects
                 this.params.rotationSmoothing = 0.2
             }
 
-            // Rotate with mouse position
-            this.group.children[this.currentObject].quaternion.slerp
-                (this.targetQuaternion, this.params.rotationSmoothing)
+            if(this.group.children[this.currentObject] != null)
+            {
+                // Rotate with mouse position
+                this.group.children[this.currentObject].quaternion.slerp
+                    (this.targetQuaternion, this.params.rotationSmoothing)
+            }
         }
 
         // Offset hello colors

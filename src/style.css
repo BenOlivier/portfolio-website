@@ -62,10 +62,6 @@ nav img:active
 {
     transform: scale(1);
 }
-/* #home-button:hover + .page-dot
-{
-    display: block;
-} */
 
 .page-dot
 {
@@ -74,7 +70,11 @@ nav img:active
     display: flex;
     align-items: center;
     transition: 0.2s;
-    /* display: none; */
+    display: none;
+}
+.page-dot.visible
+{
+    display: flex;
 }
 .page-dot:hover div
 {

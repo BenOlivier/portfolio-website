@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import Experience from '../Experience.js'
 import gsap from 'gsap'
 
-export default class Scroll
+export default class Pages
 {
     constructor()
     {
@@ -12,6 +12,7 @@ export default class Scroll
         this.sizes = this.experience.sizes
         this.camera = this.experience.camera
 
+        this.navBar = document.getElementById("nav-bar")
         this.homeButton = document.getElementById("home-button")
         this.aboutDot = document.getElementById("about-dot")
         this.lithoDot = document.getElementById("litho-dot")
@@ -29,6 +30,18 @@ export default class Scroll
 
         this.startPos = new THREE.Vector3(3, 0, -2.5)
         this.endPos = new THREE.Vector3(-3, 0, -2.5)
+
+        // Home button hover event
+        this.homeButton.addEventListener('mouseenter', () => {
+            this.aboutDot.classList.add('visible')
+            this.lithoDot.classList.add('visible')
+            this.dioramaDot.classList.add('visible')
+        })
+        this.navBar.addEventListener('mouseleave', () => {
+            this.aboutDot.classList.remove('visible')
+            this.lithoDot.classList.remove('visible')
+            this.dioramaDot.classList.remove('visible')
+        })
 
         // Arrow area enter + exit events
         this.leftArea.addEventListener('mouseenter', () => { this.leftArrow.classList.add('visible') })

@@ -3,7 +3,7 @@ import Sources from './Utils/Sources.js'
 import Resources from './Utils/Resources.js'
 import Debug from './Utils/Debug.js'
 import Sizes from './Utils/Sizes.js'
-import Loading from './Utils/Loading.js'
+import Loading from './UI/Loading.js'
 import Time from './Utils/Time.js'
 import Camera from './World/Camera.js'
 import Pointer from './Utils/Pointer.js'
@@ -11,8 +11,8 @@ import Raycaster from './Utils/Raycaster.js'
 import Renderer from './Renderer.js'
 import Environment from './World/Environment.js'
 import Objects from './World/Objects.js'
-import Scroll from './World/Scroll.js'
-import DarkMode from './World/DarkMode.js'
+import Pages from './World/Pages.js'
+import DarkMode from './UI/DarkMode.js'
 // import Stats from 'stats.js'
 
 let instance = null
@@ -52,7 +52,7 @@ export default class Experience
             // Setup
             this.environment = new Environment()
             this.objects = new Objects()
-            this.scroll = new Scroll()
+            this.pages = new Pages()
             // this.raycaster = new Raycaster()
             this.darkMode = new DarkMode()
         })

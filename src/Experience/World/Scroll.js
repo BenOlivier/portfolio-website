@@ -14,8 +14,8 @@ export default class Scroll
 
         this.homeButton = document.getElementById("home-button")
         this.aboutDot = document.getElementById("about-dot")
-        this.workDot = document.getElementById("work-dot")
-        this.contactDot = document.getElementById("contact-dot")
+        this.lithoDot = document.getElementById("litho-dot")
+        this.dioramaDot = document.getElementById("diorama-dot")
 
         this.leftArea = document.getElementById("left-area")
         this.rightArea = document.getElementById("right-area")
@@ -39,8 +39,8 @@ export default class Scroll
         // Page dot click events
         this.homeButton.addEventListener('click', () => { if(this.currentSection != 0) this.changeSection(0) })
         this.aboutDot.addEventListener('click', () => { if(this.currentSection != 1) this.changeSection(1) })
-        this.workDot.addEventListener('click', () => { if(this.currentSection != 2) this.changeSection(2) })
-        this.contactDot.addEventListener('click', () => { if(this.currentSection != 3) this.changeSection(3) })
+        this.lithoDot.addEventListener('click', () => { if(this.currentSection != 2) this.changeSection(2) })
+        this.dioramaDot.addEventListener('click', () => { if(this.currentSection != 3) this.changeSection(3) })
 
         // Area click events
         this.leftArea.addEventListener('click', () => { if(this.currentSection > 0) this.changeSection(this.currentSection -1) })
@@ -97,10 +97,10 @@ export default class Scroll
                 gsap.to(this.objects.group.children[2].children[0].scale, { x: 0.0, y: 0.0, z: 0.0, duration: 0.3, ease: "power2.out", delay: 0 })
                 this.objects.group.children[2].children[0].rotation.set(0, 0, 0)
                 this.text.classList.remove('visible')
-                this.workDot.children[0].style.opacity = 0.2
+                this.lithoDot.children[0].style.opacity = 0.2
             break
             case 3: // CONTACT
-                this.contactDot.children[0].style.opacity = 0.2
+                this.dioramaDot.children[0].style.opacity = 0.2
                 this.text.classList.remove('visible')
             break
         }
@@ -129,7 +129,7 @@ export default class Scroll
                 this.objects.group.children[2].visible = true
                 gsap.to(this.objects.group.children[2].children[0].scale, { x: 0.5, y: 0.5, z: 0.5, duration: 1, ease: "power2.out", delay: 0.5 })
                 gsap.to(this.objects.group.children[2].children[0].rotation, { y: Math.PI * 6, duration: 1, ease: "power2.out", delay: 0.5 })
-                this.workDot.children[0].style.opacity = 1
+                this.lithoDot.children[0].style.opacity = 1
                 this.timeout = setTimeout(() => {
                     this.text.children[0].children[0].innerHTML = "Litho"
                     this.text.children[0].children[1].innerHTML = "I've been working for Litho, an AR startup"
@@ -140,7 +140,7 @@ export default class Scroll
             case 3: //CONTACT
                 // this.objects.group.children[3].visible = true
                 // gsap.to(this.objects.contactMat.uniforms.uCircleScale, { value: 0.35, duration: 0.8, ease: "power2.out", delay: 0.6 })
-                this.contactDot.children[0].style.opacity = 1
+                this.dioramaDot.children[0].style.opacity = 1
         }
     }
 }

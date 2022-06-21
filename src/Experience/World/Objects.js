@@ -223,6 +223,7 @@ export default class Objects
         this.setObjectPos()
         this.animateObject(this.profile, this.objectPos)
         this.animateObject(this.litho, this.objectPos)
+        console.log("Resized")
     }
 
     setObjectScale(object, factor)
@@ -247,7 +248,7 @@ export default class Objects
         else
         {
             // Vector projected from screen pos
-            this.screenVec.set(0, 0.3, 0)
+            this.screenVec.set(0, 0.4, 0)
                 .unproject(this.camera.camera).sub(this.camera.camera.position).normalize()
             // Object position projected along vector
             this.objectPos.copy(this.camera.camera.position).add(this.screenVec.multiplyScalar(2))

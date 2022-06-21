@@ -122,7 +122,7 @@ export default class Scroll
                 this.timeout = setTimeout(() => {
                     this.text.children[0].children[0].innerHTML = "Hi, I'm Ben"
                     this.text.children[0].children[1].innerHTML = "I'm a Product Designer living in London"
-                    this.text.children[0].children[2].innerHTML = "I love crafting beautiful products and interfaces with code"
+                    this.text.children[0].children[2].innerHTML = "I love crafting beautiful products and interactive experiences with code"
                     this.text.classList.add('visible') }, 1100)
             break
             case 2: // LITHO

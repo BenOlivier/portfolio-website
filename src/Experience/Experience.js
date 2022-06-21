@@ -12,6 +12,7 @@ import Renderer from './Renderer.js'
 import Environment from './World/Environment.js'
 import Objects from './World/Objects.js'
 import Pages from './World/Pages.js'
+import UI from './UI/UI.js'
 import DarkMode from './UI/DarkMode.js'
 // import Stats from 'stats.js'
 
@@ -52,6 +53,7 @@ export default class Experience
             // Setup
             this.environment = new Environment()
             this.objects = new Objects()
+            this.UI = new UI()
             this.pages = new Pages()
             // this.raycaster = new Raycaster()
             this.darkMode = new DarkMode()

@@ -80,8 +80,8 @@ export default class DarkMode
 
         if(this.darkModeEnabled)
         {
-            this.leftArrow.style.backgroundColor = '#ffffff50'
-            this.rightArrow.style.backgroundColor = '#ffffff50'
+            this.leftArrow.style.backgroundColor = '#ffffff30'
+            this.rightArrow.style.backgroundColor = '#ffffff30'
 
             this.leftArrow.children[0].src = "images/icons/arrowdark.png"
             this.rightArrow.children[0].src = "images/icons/arrowdark.png"
@@ -94,8 +94,8 @@ export default class DarkMode
         }
         else
         {
-            this.leftArrow.style.backgroundColor = '#44444450'
-            this.rightArrow.style.backgroundColor = '#44444450'
+            this.leftArrow.style.backgroundColor = '#44444430'
+            this.rightArrow.style.backgroundColor = '#44444430'
 
             this.leftArrow.children[0].src = "images/icons/arrowlight.png"
             this.rightArrow.children[0].src = "images/icons/arrowlight.png"

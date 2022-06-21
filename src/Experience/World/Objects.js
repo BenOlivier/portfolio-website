@@ -223,7 +223,6 @@ export default class Objects
         this.setObjectPos()
         this.animateObject(this.profile, this.objectPos)
         this.animateObject(this.litho, this.objectPos)
-        console.log("Resized")
     }
 
     setObjectScale(object, factor)

@@ -62,6 +62,7 @@ export default class Pages
             case 2: // LITHO
                 gsap.to(this.objects.group.children[2].children[0].scale, { x: 0.0, y: 0.0, z: 0.0, duration: 0.3, ease: "power2.out", delay: 0 })
                 this.objects.group.children[2].children[0].rotation.set(0, 0, 0)
+                this.UI.pointsVisible = false
                 this.toggleText(this.UI.lithoText)
             break
             case 3: // DIORAMA
@@ -88,6 +89,7 @@ export default class Pages
                 this.objects.group.children[2].visible = true
                 gsap.to(this.objects.group.children[2].children[0].scale, { x: 0.5, y: 0.5, z: 0.5, duration: 1, ease: "power2.out", delay: 0.5 })
                 gsap.to(this.objects.group.children[2].children[0].rotation, { y: Math.PI * 4, duration: 1, ease: "power2.out", delay: 0.5 })
+                setTimeout(() => { this.UI.pointsVisible = true }, 1500)
                 this.toggleText(this.UI.lithoText)
             break
             case 3: //CONTACT

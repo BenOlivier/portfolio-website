@@ -10,7 +10,6 @@ export default class UI
         this.objects = this.experience.objects
         this.camera = this.experience.camera
         this.sizes = this.experience.sizes
-        this.scene = this.experience.scene
 
         // this.navBar = document.getElementById("nav-bar")
         // this.aboutDot = document.getElementById("about-dot")
@@ -63,6 +62,7 @@ export default class UI
                 element: document.getElementById('point-2')
             }
         ]
+        this.pointsVisible = false
         this.raycaster = new Raycaster()
     }
 
@@ -72,28 +72,32 @@ export default class UI
         {
             for(const point of this.points)
             {
-                const worldPosition = this.objects.litho.children[0].localToWorld(point.position.clone())
-                const screenPosition = worldPosition.clone().project(this.camera.camera)
-
-                this.raycaster.setFromCamera(screenPosition, this.camera.camera)
-                const intersects = this.raycaster.intersectObjects([this.objects.group.children[2]])
-                if(intersects.length == 0) { point.element.classList.add('visible') }
-                else
+                if(this.pointsVisible)
                 {
-                    const intersectionDistance = intersects[0].distance
-                    const pointDistance = worldPosition.distanceTo(this.camera.camera.position)
-                    if(intersectionDistance < pointDistance)
-                    {
-                        point.element.classList.remove('visible')
-                    }
-                    else {
-                        point.element.classList.add('visible')
-                    }
-                }
+                    const worldPosition = this.objects.litho.children[0].localToWorld(point.position.clone())
+                    const screenPosition = worldPosition.clone().project(this.camera.camera)
 
-                const translateX = screenPosition.x * this.sizes.width * 0.5 - 20
-                const translateY = -screenPosition.y * this.sizes.height * 0.5 - 20
-                point.element.style.transform = `translate(${translateX}px, ${translateY}px)`
+                    this.raycaster.setFromCamera(screenPosition, this.camera.camera)
+                    const intersects = this.raycaster.intersectObjects([this.objects.group.children[2]])
+                    if(intersects.length == 0) { point.element.classList.add('visible') }
+                    else
+                    {
+                        const intersectionDistance = intersects[0].distance
+                        const pointDistance = worldPosition.distanceTo(this.camera.camera.position)
+                        if(intersectionDistance < pointDistance)
+                        {
+                            point.element.classList.remove('visible')
+                        }
+                        else {
+                            point.element.classList.add('visible')
+                        }
+                    }
+
+                    const translateX = screenPosition.x * this.sizes.width * 0.5 - 20
+                    const translateY = -screenPosition.y * this.sizes.height * 0.5 - 20
+                    point.element.style.transform = `translate(${translateX}px, ${translateY}px)`
+                }
+                else point.element.classList.remove('visible')
             }
         }
     }

@@ -86,7 +86,7 @@ export default class Pages
             case 2: // LITHO
                 this.objects.group.children[2].visible = true
                 gsap.to(this.objects.group.children[2].children[0].scale, { x: 0.5, y: 0.5, z: 0.5, duration: 1, ease: "power2.out", delay: 0.5 })
-                gsap.to(this.objects.group.children[2].children[0].rotation, { y: Math.PI * 6, duration: 1, ease: "power2.out", delay: 0.5 })
+                gsap.to(this.objects.group.children[2].children[0].rotation, { y: Math.PI * 4, duration: 1, ease: "power2.out", delay: 0.5 })
                 this.toggleText(this.UI.lithoText)
             break
             case 3: //CONTACT

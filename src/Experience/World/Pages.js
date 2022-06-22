@@ -16,7 +16,8 @@ export default class Pages
         this.currentSection = 0
         this.totalSections = 3
 
-        // Area click events
+        // Area and home button click events
+        this.UI.homeButton.addEventListener('click', () => { if(this.currentSection != 0) this.changeSection(0) })
         this.UI.leftArea.addEventListener('click', () => { if(this.currentSection > 0) this.changeSection(this.currentSection -1) })
         this.UI.rightArea.addEventListener('click', () => { if(this.currentSection < this.totalSections) this.changeSection(this.currentSection + 1) })
 

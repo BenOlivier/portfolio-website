@@ -132,12 +132,6 @@ export default class Objects
     update()
     {
         this.timer += this.time.delta / 1000
-        if(this.timer > 1.2)
-        {
-            this.targetQuaternion.setFromEuler(new THREE.Euler(0, 0, 0))
-            this.params.rotationSmoothing = 0.04
-        }
-        else { this.params.rotationSmoothing = 0.2 }
         
         switch(this.currentObject)
         {
@@ -146,6 +140,12 @@ export default class Objects
                 {
                     this.targetQuaternion.setFromEuler(new THREE.Euler
                         (0, this.pointer.pointerPos.x * this.params.rotationExtent, 0))
+                    this.params.rotationSmoothing = 0.2
+                }
+                else
+                {
+                    this.targetQuaternion.setFromEuler(new THREE.Euler(0, 0, 0))
+                    this.params.rotationSmoothing = 0.04
                 }
                 this.hello.quaternion.slerp(this.targetQuaternion, this.params.rotationSmoothing)
                 this.helloMat.map.offset.x += this.time.delta / 18000
@@ -155,9 +155,17 @@ export default class Objects
                 this.profileMat.uniforms.uTime.value += this.time.delta
             break
             case 2:
-                this.targetQuaternion.setFromEuler(new THREE.Euler
-                    (this.pointer.pointerPos.y * 1, -this.pointer.pointerPos.x * 1, 0))
-                this.litho.quaternion.slerp(this.targetQuaternion, this.params.rotationSmoothing)
+                if(this.timer < 1.2) //TODO: When grabbed
+                {
+                    this.targetQuaternion.setFromEuler(new THREE.Euler
+                        (this.pointer.pointerPos.y * 2, -this.pointer.pointerPos.x * 2, 0))
+                    this.litho.quaternion.slerp(this.targetQuaternion, this.params.rotationSmoothing)
+                }
+                else //TODO: From last position
+                {
+                    // this.litho.quaternion.setFromEuler(new THREE.Euler
+                    //     (Math.sin(this.timer / 6) / 4, this.timer / 4, 0))
+                }
             break
         }
     }

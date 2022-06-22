@@ -111,18 +111,6 @@ export default class Objects
         //     if(this.currentObject == 2) this.litho.children[0].children[3].visible = false
         // })
 
-        // Contact
-        // this.githubGeometry = new THREE.SphereGeometry(0.1, 16, 16)
-        // this.githubMat = new THREE.MeshBasicMaterial({ color: '#6E5494' })
-        // this.github = new THREE.Mesh(this.githubGeometry, this.githubMat)
-        // this.githubPlaneGeo = new THREE.PlaneGeometry(0.2, 0.2, 1, 1)
-        // this.githubPlaneMat = new THREE.MeshBasicMaterial({ color: '#ff0000' })
-        // this.githubPlane = new THREE.Mesh(this.githubPlaneGeo, this.githubPlaneMat)
-        // this.github.add(this.githubPlane)
-
-
-
-
         this.contactGeometry = new THREE.PlaneBufferGeometry(1, 1, 16, 16)
         this.contactMat = new THREE.ShaderMaterial({
             uniforms: {
@@ -189,8 +177,8 @@ export default class Objects
                 else if(this.currentObject == 2)
                 {
                     this.targetQuaternion.setFromEuler(new THREE.Euler
-                        (-this.pointer.pointerPos.y * 0.7,
-                        this.pointer.pointerPos.x * 0.7, 0))
+                        (this.pointer.pointerPos.y * 1,
+                        -this.pointer.pointerPos.x * 1, 0))
                 }
                 this.params.rotationSmoothing = 0.2
             }
@@ -223,8 +211,6 @@ export default class Objects
         this.setObjectPos()
         this.animateObject(this.profile, this.objectPos)
         this.animateObject(this.litho, this.objectPos)
-
-        console.log('resized')
     }
 
     setObjectScale(object, factor)
@@ -245,6 +231,11 @@ export default class Objects
                 .unproject(this.camera.camera).sub(this.camera.camera.position).normalize()
             // Object position projected along vector
             this.objectPos.copy(this.camera.camera.position).add(this.screenVec.multiplyScalar(2))
+
+
+            console.log(this.screenX)
+            console.log(this.screenVec)
+            console.log(this.objectPos)
         }
         else
         {

@@ -84,6 +84,7 @@ export default class Experience
         if(this.objects) this.objects.update()
         this.renderer.update()
         this.camera.update()
+        if(this.UI) this.UI.update()
     }
 
     destroy()

@@ -309,6 +309,60 @@ nav img:active
     }
 }
 
+/* _______________________________________________ POINTS */
+
+.point
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 200;
+}
+
+.point .point-number
+{
+    position: absolute;
+    top: -20;
+    left: -20;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #aeaeae50;
+    text-align: center;
+    line-height: 40px;
+    cursor: help;
+    transform: scale(0, 0);
+    transition: transform 0.3s;
+}
+
+.point.visible .point-number
+{
+    transform: scale(1, 1);
+}
+
+.point:hover .point-text
+{
+    opacity: 1;
+}
+
+.point .point-text
+{
+    position: absolute;
+    top: 50px;
+    left: -100px;
+    width: 200px;
+    padding: 20px;
+    background: #aeaeae50;
+    text-align: center;
+    line-height: 1.5em;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+
+
 /* _______________________________________________ CONTACT */
 
 #contact-container

@@ -94,41 +94,13 @@ export default class Objects
             depthTest: false
         })
         this.profile = new THREE.Mesh(this.profileGeometry, this.profileMat)
-        // this.profile.position.set(this.objectPos.x, this.objectPos.y, this.objectPos.z)
         this.profile.visible = false
 
         // Litho
         this.litho = this.lithoResource.scene
-        // this.litho.position.set(this.objectPos.x, this.objectPos.y, this.objectPos.z)
-        // this.litho.children[0].rotation.set(Math.PI * 0.1, Math.PI * -0.15, 0)
         this.litho.children[0].scale.set(0, 0, 0)
         this.litho.children[0].children[3].visible = false
         this.litho.visible = false
-        // this.pointer.on('mousedown', () => {
-        //     if(this.currentObject == 2) this.litho.children[0].children[3].visible = true
-        // })
-        // this.pointer.on('mouseup', () => {
-        //     if(this.currentObject == 2) this.litho.children[0].children[3].visible = false
-        // })
-
-        this.contactGeometry = new THREE.PlaneBufferGeometry(1, 1, 16, 16)
-        this.contactMat = new THREE.ShaderMaterial({
-            uniforms: {
-                uTime: { value: 0.0 },
-                uWaveMagnitude: { value: 0.05 },
-                uWaveFrequency: { value: new THREE.Vector2(12.0, 0.2) },
-                uWaveSpeed: { value: 0.001 },
-                uCirleColor: { value: new THREE.Vector3(0.0, 0.0, 0.5) },
-                uCircleScale: { value: 0.0 }
-            },
-            vertexShader: contactVertexShader,
-            fragmentShader: contactFragmentShader,
-            transparent: true,
-            toneMapped: false,
-            depthTest: false
-        })
-        this.contact = new THREE.Mesh(this.contactGeometry, this.contactMat)
-        this.profile.visible = false
 
         this.group = new THREE.Group()
         this.group.add(this.hello, this.profile, this.litho)
@@ -159,47 +131,35 @@ export default class Objects
 
     update()
     {
-        if(this.currentObject != 1)
+        this.timer += this.time.delta / 1000
+        if(this.timer > 1.2)
         {
-            this.timer += this.time.delta / 1000
-            if(this.timer > 1.2)
-            {
-                this.targetQuaternion.setFromEuler(new THREE.Euler(0, 0, 0))
-                this.params.rotationSmoothing = 0.04
-            }
-            else
-            {
-                if(this.currentObject == 0)
+            this.targetQuaternion.setFromEuler(new THREE.Euler(0, 0, 0))
+            this.params.rotationSmoothing = 0.04
+        }
+        else { this.params.rotationSmoothing = 0.2 }
+        
+        switch(this.currentObject)
+        {
+            case 0: //HELLO
+                if(this.timer < 1.2)
                 {
                     this.targetQuaternion.setFromEuler(new THREE.Euler
                         (0, this.pointer.pointerPos.x * this.params.rotationExtent, 0))
                 }
-                else if(this.currentObject == 2)
-                {
-                    this.targetQuaternion.setFromEuler(new THREE.Euler
-                        (this.pointer.pointerPos.y * 1,
-                        -this.pointer.pointerPos.x * 1, 0))
-                }
-                this.params.rotationSmoothing = 0.2
-            }
-
-            if(this.group.children[this.currentObject] != null)
-            {
-                // Rotate with mouse position
-                this.group.children[this.currentObject].quaternion.slerp
-                    (this.targetQuaternion, this.params.rotationSmoothing)
-            }
+                this.hello.quaternion.slerp(this.targetQuaternion, this.params.rotationSmoothing)
+                this.helloMat.map.offset.x += this.time.delta / 18000
+                if (this.helloMat.map.offset.x > 1) this.helloMat.map.offset.x = 0
+            break
+            case 1:
+                this.profileMat.uniforms.uTime.value += this.time.delta
+            break
+            case 2:
+                this.targetQuaternion.setFromEuler(new THREE.Euler
+                    (this.pointer.pointerPos.y * 1, -this.pointer.pointerPos.x * 1, 0))
+                this.litho.quaternion.slerp(this.targetQuaternion, this.params.rotationSmoothing)
+            break
         }
-
-        // Offset hello colors
-        if(this.currentObject == 0)
-        {
-            this.helloMat.map.offset.x += this.time.delta / 18000
-            if (this.helloMat.map.offset.x > 1) this.helloMat.map.offset.x = 0
-        }
-
-        this.profileMat.uniforms.uTime.value += this.time.delta
-        this.contactMat.uniforms.uTime.value += this.time.delta
     }
 
     resize()
@@ -233,9 +193,9 @@ export default class Objects
             this.objectPos.copy(this.camera.camera.position).add(this.screenVec.multiplyScalar(2))
 
 
-            console.log(this.screenX)
-            console.log(this.screenVec)
-            console.log(this.objectPos)
+            // console.log(this.screenX)
+            // console.log(this.screenVec)
+            // console.log(this.objectPos)
         }
         else
         {

@@ -51,16 +51,19 @@ export default class UI
         // Points
         this.points = [
             {
-                position: new THREE.Vector3(0.4, 0.5, 0),
-                element: document.querySelector('.point-0')
+                position: new THREE.Vector3(0, 0.4, 0),
+                element: document.getElementById('point-0')
+            },
+            {
+                position: new THREE.Vector3(0.35, -0.2, 0),
+                element: document.getElementById('point-1')
+            },
+            {
+                position: new THREE.Vector3(-0.4, -0.4, 0),
+                element: document.getElementById('point-2')
             }
         ]
         this.raycaster = new Raycaster()
-
-        this.tempGeo = new THREE.BoxGeometry(0.02, 0.02, 0.02)
-        this.tempMat = new THREE.MeshStandardMaterial({color: '#ff0000'})
-        this.tempMesh = new THREE.Mesh(this.tempGeo, this.tempMat)
-        this.scene.add(this.tempMesh)
     }
 
     update()

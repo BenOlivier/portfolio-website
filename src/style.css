@@ -63,18 +63,24 @@ nav img:active
     transform: scale(1);
 }
 
+#nav-pages
+{
+    display: flex;
+}
+
 .page-dot
 {
-    padding: 10px 10px 10px 30px;
+    padding: 30px 0 0 0;
+    width: 60px;
     cursor: pointer;
     display: flex;
+    flex-direction: column;
     align-items: center;
     transition: 0.2s;
-    display: none;
 }
-.page-dot.visible
+.page-dot.current-page div
 {
-    display: flex;
+    opacity: 1;
 }
 .page-dot:hover div
 {
@@ -97,16 +103,9 @@ nav img:active
 {
     font-size: 14px;
     font-weight: 400;
-    padding: 0 0 0 16px;
+    padding: 10px 0 0 0;
     transition: 0.2s;
     opacity: 0;
-}
-@media (max-width: 800px)
-{
-    .page-dot
-    {
-        display: none;
-    }
 }
 
 /* _______________________________________________ ARROWS */

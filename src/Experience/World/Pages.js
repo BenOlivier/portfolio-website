@@ -16,10 +16,15 @@ export default class Pages
         this.currentSection = 0
         this.totalSections = 3
 
-        // Area and home button click events
-        this.UI.homeButton.addEventListener('click', () => { if(this.currentSection != 0) this.changeSection(0) })
+        // Area click events
+        // this.UI.homeButton.addEventListener('click', () => { if(this.currentSection != 0) this.changeSection(0) })
         this.UI.leftArea.addEventListener('click', () => { if(this.currentSection > 0) this.changeSection(this.currentSection -1) })
         this.UI.rightArea.addEventListener('click', () => { if(this.currentSection < this.totalSections) this.changeSection(this.currentSection + 1) })
+
+        // Page dot click events
+        this.UI.aboutDot.addEventListener('click', () => { if(this.currentSection != 1) this.changeSection(1) })
+        this.UI.lithoDot.addEventListener('click', () => { if(this.currentSection != 2) this.changeSection(2) })
+        this.UI.dioramaDot.addEventListener('click', () => { if(this.currentSection != 3) this.changeSection(3) })
 
         // Arrow key down event
         window.addEventListener('keydown', (event) =>
@@ -60,6 +65,7 @@ export default class Pages
                 gsap.to(this.objects.profileMat.uniforms.uCircleScale, { value: 0.0, duration: 0.3, ease: "power2.out", delay: 0.15,
                     callbackScope: this, onStart: function(){ this.objects.profileMat.uniforms.uShowTop.value = 0.0 }})
                 gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, { y: 0.15, duration: 0.4, ease: "power2.out" })
+                this.UI.aboutDot.classList.remove('current-page')
                 this.showText(this.UI.aboutText, false)
             break
             case 2: // LITHO
@@ -67,9 +73,11 @@ export default class Pages
                 gsap.to(this.objects.group.children[2].children[0].scale, { x: 0.0, y: 0.0, z: 0.0, duration: 0.3, ease: "power2.out", delay: 0 })
                 this.objects.group.children[2].children[0].rotation.set(0, 0, 0)
                 this.UI.pointsVisible = false
+                this.UI.lithoDot.classList.remove('current-page')
                 this.showText(this.UI.lithoText, false)
             break
             case 3: // DIORAMA
+                this.UI.dioramaDot.classList.remove('current-page')
                 this.showText(this.UI.dioramaText, false)
             break
         }
@@ -88,6 +96,7 @@ export default class Pages
                 gsap.to(this.objects.profileMat.uniforms.uCircleScale, { value: 0.35, duration: 0.8, ease: "expo.out", delay: 0.6, 
                     callbackScope: this, onStart: function(){ this.objects.profileMat.uniforms.uShowTop.value = 1.0 }})
                 gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, { y: 0.08, duration: 1, ease: "power1.inOut", delay: 0.8 })
+                this.UI.aboutDot.classList.add('current-page')
                 this.showText(this.UI.aboutText, true)
             break
             case 2: // LITHO
@@ -96,9 +105,11 @@ export default class Pages
                 gsap.to(this.objects.group.children[2].children[0].scale, { x: 0.5, y: 0.5, z: 0.5, duration: 1, ease: "power2.out", delay: 0.5,
                     callbackScope: this, onComplete: function() { this.UI.pointsVisible = true }})
                 gsap.to(this.objects.group.children[2].children[0].rotation, { y: Math.PI * 4, duration: 1, ease: "power2.out", delay: 0.5 })
+                this.UI.lithoDot.classList.add('current-page')
                 this.showText(this.UI.lithoText, true)
             break
             case 3: // DIORAMA
+                this.UI.dioramaDot.classList.add('current-page')    
                 this.showText(this.UI.dioramaText, true)
             break
         }

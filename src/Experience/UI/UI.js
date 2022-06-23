@@ -11,32 +11,18 @@ export default class UI
         this.camera = this.experience.camera
         this.sizes = this.experience.sizes
 
-        // this.navBar = document.getElementById("nav-bar")
-        // this.aboutDot = document.getElementById("about-dot")
-        // this.lithoDot = document.getElementById("litho-dot")
-        // this.dioramaDot = document.getElementById("diorama-dot")
-        // Home button hover event
-        // this.homeButton.addEventListener('mouseenter', () => {
-        //     this.aboutDot.classList.add('visible')
-        //     this.lithoDot.classList.add('visible')
-        //     this.dioramaDot.classList.add('visible')
-        // })
-        // this.navBar.addEventListener('mouseleave', () => {
-        //     this.aboutDot.classList.remove('visible')
-        //     this.lithoDot.classList.remove('visible')
-        //     this.dioramaDot.classList.remove('visible')
-        // })
-        // Page dot click events
-        // this.aboutDot.addEventListener('click', () => { if(this.currentSection != 1) this.changeSection(1) })
-        // this.lithoDot.addEventListener('click', () => { if(this.currentSection != 2) this.changeSection(2) })
-        // this.dioramaDot.addEventListener('click', () => { if(this.currentSection != 3) this.changeSection(3) })
+        // Page dots
+        this.aboutDot = document.getElementById("about-dot")
+        this.lithoDot = document.getElementById("litho-dot")
+        this.dioramaDot = document.getElementById("diorama-dot")
 
-        this.homeButton = document.getElementById("home-button")
+        // Arrows
         this.leftArea = document.getElementById("left-area")
         this.rightArea = document.getElementById("right-area")
         this.leftArrow = document.getElementById("left-arrow")
         this.rightArrow = document.getElementById("right-arrow")
 
+        // Text
         this.aboutText = document.getElementById("about-text")
         this.lithoText = document.getElementById("litho-text")
         this.dioramaText = document.getElementById("diorama-text")

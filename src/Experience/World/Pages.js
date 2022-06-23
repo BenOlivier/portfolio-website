@@ -38,7 +38,7 @@ export default class Pages
         this.openCurrentSection()
         this.moveObjects()
 
-        // console.log(this.currentSection)
+        console.log(this.currentSection)
     }
 
     moveObjects()
@@ -51,17 +51,19 @@ export default class Pages
         switch(this.currentSection)
         {
             case 0: // HELLO
-            gsap.to(this.objects.helloMat.map.offset, { x: this.objects.helloMat.map.offset.x > 0.34 ?
+                gsap.to(this.objects.helloMat.map.offset, { x: this.objects.helloMat.map.offset.x > 0.34 ?
                 (this.objects.helloMat.map.offset.x > 0.67 ? 1 : 0.67) : 0.34, duration: 0.8, ease: "power2.out",
                 callbackScope: this, onComplete: function() { this.objects.group.children[0].visible = false } })
             break
             case 1: // ABOUT
-                gsap.to(this.objects.profileMat.uniforms.uCircleScale, { value: 0.0, duration: 0.3, ease: "power2.out", delay: 0.15 })
-                setTimeout(() => { this.objects.profileMat.uniforms.uShowTop.value = 0.0 }, 150)
+                gsap.killTweensOf([this.objects.profileMat.uniforms.uCircleScale, this.objects.profileMat.uniforms.uMapOffset.value])
+                gsap.to(this.objects.profileMat.uniforms.uCircleScale, { value: 0.0, duration: 0.3, ease: "power2.out", delay: 0.15,
+                    callbackScope: this, onStart: function(){ this.objects.profileMat.uniforms.uShowTop.value = 0.0 }})
                 gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, { y: 0.15, duration: 0.4, ease: "power2.out" })
                 this.showText(this.UI.aboutText, false)
             break
             case 2: // LITHO
+                gsap.killTweensOf(this.objects.group.children[2].children[0].scale)
                 gsap.to(this.objects.group.children[2].children[0].scale, { x: 0.0, y: 0.0, z: 0.0, duration: 0.3, ease: "power2.out", delay: 0 })
                 this.objects.group.children[2].children[0].rotation.set(0, 0, 0)
                 this.UI.pointsVisible = false
@@ -78,20 +80,22 @@ export default class Pages
         switch(this.currentSection)
         {
             case 0: // HELLO
+                gsap.killTweensOf(this.objects.helloMat.map.offset)
                 this.objects.group.children[0].visible = true
             break
             case 1: // ABOUT
                 this.objects.group.children[1].visible = true
-                gsap.to(this.objects.profileMat.uniforms.uCircleScale, { value: 0.35, duration: 0.8, ease: "power2.out", delay: 0.6 })
-                setTimeout(() => { this.objects.profileMat.uniforms.uShowTop.value = 1.0 }, 1100)
-                gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, { y: 0.08, duration: 1.5, ease: "power1.inOut", delay: 1 })
+                gsap.to(this.objects.profileMat.uniforms.uCircleScale, { value: 0.35, duration: 0.8, ease: "expo.out", delay: 0.6, 
+                    callbackScope: this, onStart: function(){ this.objects.profileMat.uniforms.uShowTop.value = 1.0 }})
+                gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, { y: 0.08, duration: 1, ease: "power1.inOut", delay: 0.8 })
                 this.showText(this.UI.aboutText, true)
             break
             case 2: // LITHO
                 this.objects.group.children[2].visible = true
-                gsap.to(this.objects.group.children[2].children[0].scale, { x: 0.5, y: 0.5, z: 0.5, duration: 1, ease: "power2.out", delay: 0.5 })
+                gsap.killTweensOf(this.objects.group.children[2].children[0].scale)
+                gsap.to(this.objects.group.children[2].children[0].scale, { x: 0.5, y: 0.5, z: 0.5, duration: 1, ease: "power2.out", delay: 0.5,
+                    callbackScope: this, onComplete: function() { this.UI.pointsVisible = true }})
                 gsap.to(this.objects.group.children[2].children[0].rotation, { y: Math.PI * 4, duration: 1, ease: "power2.out", delay: 0.5 })
-                setTimeout(() => { this.UI.pointsVisible = true }, 1500)
                 this.showText(this.UI.lithoText, true)
             break
             case 3: // DIORAMA

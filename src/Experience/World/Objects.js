@@ -118,6 +118,8 @@ export default class Objects
         this.pointer.on('mouseup', () =>
         {
             this.grabbing = false
+            // this.nearestY = new THREE.Euler
+            // this.nearestY.setFromQuaternion(this.litho.quaternion)
             this.timer = 0
         })
     }
@@ -173,17 +175,18 @@ export default class Objects
                 this.profileMat.uniforms.uTime.value += this.time.delta
             break
             case 2:
-                if(this.grabbing)
+                if(this.grabbing) //TODO: reset matrix each release
                 {
                     const dragOffset = new THREE.Vector2(-(this.pointer.pointerPos.y - this.touchDownPos.y) * 4,
                         (this.pointer.pointerPos.x - this.touchDownPos.x) * 4)
                     this.targetQuaternion.setFromEuler(new THREE.Euler(dragOffset.x, dragOffset.y, 0))
                     this.litho.quaternion.slerp(this.startingQuaternion.clone().multiply(this.targetQuaternion), 0.4)
                 }
-                else if(this.timer > 1.2)//TODO: From last position
+                else if(this.timer > 1.2)//TODO: Closest to last Y rotation
                 {
-                    // this.litho.quaternion.setFromEuler(new THREE.Euler
-                    //     (Math.sin(this.timer / 6) / 4, this.timer / 4, 0))
+                    this.targetQuaternion.setFromEuler(new THREE.Euler
+                        (Math.sin(this.timer * 0.1) * 0.4, this.timer * 0.2, 0))
+                    this.litho.quaternion.slerp(this.targetQuaternion, 0.01)
                 }
             break
         }

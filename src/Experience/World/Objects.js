@@ -19,18 +19,8 @@ export default class Objects
         this.time = this.experience.time
         this.debug = this.experience.debug
 
-        // Parameters
-        this.params = {
-            rotationSmoothing: 0.2,
-            rotationExtent: 0.4
-        }
-
         // Debug
         if(this.debug.active){ this.debugFolder = this.debug.ui.addFolder('object') }
-
-        // Reset timer on mouse move
-        this.timer = 0
-        this.pointer.on('mousemove', () => { this.timer = 0 })
 
         // Resize event
         this.screenVec = new THREE.Vector3()
@@ -47,8 +37,8 @@ export default class Objects
         this.lithoResource = this.resources.items.litho
         this.profileMap = this.resources.items.profile
 
-        this.setObjectPos()
         this.setModels()
+        this.setRaycaster()
     }
 
     setModels()
@@ -65,12 +55,6 @@ export default class Objects
             depthTest: false
         })
         this.hello.traverse((o) => { if (o.isMesh) o.material = this.helloMat })
-
-        // Light
-        // this.light = this.lightResource.scene
-        // this.light.position.set(-1, -1, -3)
-        // this.light.scale.set(0.2, 0.2, 0.2)
-        // this.light.rotation.set(0, Math.PI * -0.35, 0)
 
         // Profile
         this.profileGeometry = new THREE.PlaneBufferGeometry(0.7, 0.7, 16, 16)
@@ -109,23 +93,57 @@ export default class Objects
         this.currentObject = 0
         this.targetQuaternion = new THREE.Quaternion()
         this.setObjectPos()
+    }
 
-        // Debug
-        if(this.debug.active)
+    setRaycaster()
+    {
+        this.raycaster = new THREE.Raycaster()
+        this.timer = 0
+
+        this.pointer.on('mousemove', () => { if(this.currentObject == 2) this.castRay() })
+
+        this.pointer.on('mousedown', () =>
         {
-            this.debugFolder
-                .add(this.params, 'rotationSmoothing')
-                .name('rotationSmoothing')
-                .min(0)
-                .max(0.05)
-                .step(0.0005)
+            if(this.currentIntersect)
+            {
+                if(!this.grabbing)
+                {
+                    this.touchDownPos = this.pointer.pointerPos.clone()
+                    this.startingQuaternion = this.litho.quaternion.clone()
+                }
+                this.grabbing = true
+            }
+        })
 
-            this.debugFolder
-                .add(this.params, 'rotationExtent')
-                .name('rotationExtent')
-                .min(0)
-                .max(2000)
-                .step(10)
+        this.pointer.on('mouseup', () =>
+        {
+            this.grabbing = false
+            this.timer = 0
+        })
+    }
+
+    castRay()
+    {
+        this.raycaster.setFromCamera(this.pointer.pointerPos, this.camera.camera)
+        this.intersects = this.raycaster.intersectObjects([this.group.children[2]])
+
+        // Hover on Litho
+        if(this.intersects.length)
+        {
+            if(this.currentIntersect == null)
+            {
+                this.currentIntersect = this.intersects[0]
+                document.body.style.cursor = 'grab'
+            }
+        }
+        // Exit hover
+        else
+        {
+            if(this.currentIntersect)
+            {
+                this.currentIntersect = null
+                document.body.style.cursor = 'default'
+            }
         }
     }
 
@@ -139,15 +157,15 @@ export default class Objects
                 if(this.timer < 1.2)
                 {
                     this.targetQuaternion.setFromEuler(new THREE.Euler
-                        (0, this.pointer.pointerPos.x * this.params.rotationExtent, 0))
-                    this.params.rotationSmoothing = 0.2
+                        (0, this.pointer.pointerPos.x * 0.4, 0))
+                    this.hello.quaternion.slerp(this.targetQuaternion, 0.2)
                 }
                 else
                 {
                     this.targetQuaternion.setFromEuler(new THREE.Euler(0, 0, 0))
-                    this.params.rotationSmoothing = 0.04
+                    this.hello.quaternion.slerp(this.targetQuaternion, 0.04)
                 }
-                this.hello.quaternion.slerp(this.targetQuaternion, this.params.rotationSmoothing)
+                
                 this.helloMat.map.offset.x += this.time.delta / 18000
                 if (this.helloMat.map.offset.x > 1) this.helloMat.map.offset.x = 0
             break
@@ -155,13 +173,14 @@ export default class Objects
                 this.profileMat.uniforms.uTime.value += this.time.delta
             break
             case 2:
-                if(this.timer < 1.2) //TODO: When grabbed
+                if(this.grabbing)
                 {
-                    this.targetQuaternion.setFromEuler(new THREE.Euler
-                        (this.pointer.pointerPos.y * 2, -this.pointer.pointerPos.x * 2, 0))
-                    this.litho.quaternion.slerp(this.targetQuaternion, this.params.rotationSmoothing)
+                    const dragOffset = new THREE.Vector2(-(this.pointer.pointerPos.y - this.touchDownPos.y) * 4,
+                        (this.pointer.pointerPos.x - this.touchDownPos.x) * 4)
+                    this.targetQuaternion.setFromEuler(new THREE.Euler(dragOffset.x, dragOffset.y, 0))
+                    this.litho.quaternion.slerp(this.startingQuaternion.clone().multiply(this.targetQuaternion), 0.4)
                 }
-                else //TODO: From last position
+                else if(this.timer > 1.2)//TODO: From last position
                 {
                     // this.litho.quaternion.setFromEuler(new THREE.Euler
                     //     (Math.sin(this.timer / 6) / 4, this.timer / 4, 0))

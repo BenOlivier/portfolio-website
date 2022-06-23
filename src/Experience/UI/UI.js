@@ -63,42 +63,39 @@ export default class UI
             }
         ]
         this.pointsVisible = false
-        this.raycaster = new Raycaster()
+        this.raycaster = new THREE.Raycaster()
     }
 
     update()
     {
-        if(this.objects.currentObject == 2)
+        for(const point of this.points)
         {
-            for(const point of this.points)
+            if(this.objects.currentObject == 2 && this.pointsVisible)
             {
-                if(this.pointsVisible)
+                const worldPosition = this.objects.litho.children[0].localToWorld(point.position.clone())
+                const screenPosition = worldPosition.clone().project(this.camera.camera)
+
+                this.raycaster.setFromCamera(screenPosition, this.camera.camera)
+                const intersects = this.raycaster.intersectObjects([this.objects.group.children[2]])
+                if(intersects.length == 0) { point.element.classList.add('visible') }
+                else
                 {
-                    const worldPosition = this.objects.litho.children[0].localToWorld(point.position.clone())
-                    const screenPosition = worldPosition.clone().project(this.camera.camera)
-
-                    this.raycaster.setFromCamera(screenPosition, this.camera.camera)
-                    const intersects = this.raycaster.intersectObjects([this.objects.group.children[2]])
-                    if(intersects.length == 0) { point.element.classList.add('visible') }
-                    else
+                    const intersectionDistance = intersects[0].distance
+                    const pointDistance = worldPosition.distanceTo(this.camera.camera.position)
+                    if(intersectionDistance < pointDistance)
                     {
-                        const intersectionDistance = intersects[0].distance
-                        const pointDistance = worldPosition.distanceTo(this.camera.camera.position)
-                        if(intersectionDistance < pointDistance)
-                        {
-                            point.element.classList.remove('visible')
-                        }
-                        else {
-                            point.element.classList.add('visible')
-                        }
+                        point.element.classList.remove('visible')
                     }
-
-                    const translateX = screenPosition.x * this.sizes.width * 0.5 - 20
-                    const translateY = -screenPosition.y * this.sizes.height * 0.5 - 20
-                    point.element.style.transform = `translate(${translateX}px, ${translateY}px)`
+                    else {
+                        point.element.classList.add('visible')
+                    }
                 }
-                else point.element.classList.remove('visible')
+
+                const translateX = screenPosition.x * this.sizes.width * 0.5 - 20
+                const translateY = -screenPosition.y * this.sizes.height * 0.5 - 20
+                point.element.style.transform = `translate(${translateX}px, ${translateY}px)`
             }
+            else point.element.classList.remove('visible')
         }
     }
 }

@@ -100,7 +100,11 @@ export default class Objects
         this.raycaster = new THREE.Raycaster()
         this.timer = 0
 
-        this.pointer.on('mousemove', () => { if(this.currentObject == 2) this.castRay() })
+        this.pointer.on('mousemove', () =>
+        {
+            if(this.currentObject == 2) this.castRay()
+            // this.timer = 0
+        })
 
         this.pointer.on('mousedown', () =>
         {
@@ -156,7 +160,7 @@ export default class Objects
         switch(this.currentObject)
         {
             case 0: //HELLO
-                if(this.timer < 1.2)
+                if(this.timer < 1.2) //TODO: After mouse stop
                 {
                     this.targetQuaternion.setFromEuler(new THREE.Euler
                         (0, this.pointer.pointerPos.x * 0.4, 0))
@@ -165,7 +169,7 @@ export default class Objects
                 else
                 {
                     this.targetQuaternion.setFromEuler(new THREE.Euler(0, 0, 0))
-                    this.hello.quaternion.slerp(this.targetQuaternion, 0.04)
+                    this.hello.quaternion.slerp(this.targetQuaternion, 0.02)
                 }
                 
                 this.helloMat.map.offset.x += this.time.delta / 18000
@@ -196,7 +200,7 @@ export default class Objects
     {
         this.setObjectScale(this.hello, 1)
         this.setObjectScale(this.profile, 0.2)
-        this.setObjectScale(this.litho, 0.2)
+        this.setObjectScale(this.litho, 0.5)
 
         this.setObjectPos()
         this.animateObject(this.profile, this.objectPos)
@@ -230,7 +234,7 @@ export default class Objects
         else
         {
             // Vector projected from screen pos
-            this.screenVec.set(0, 0.4, 0)
+            this.screenVec.set(0, 0.45, 0)
                 .unproject(this.camera.camera).sub(this.camera.camera.position).normalize()
             // Object position projected along vector
             this.objectPos.copy(this.camera.camera.position).add(this.screenVec.multiplyScalar(2))

@@ -37,6 +37,8 @@ export default class Pages
         clearTimeout(this.timeout)
         this.openCurrentSection()
         this.moveObjects()
+
+        // console.log(this.currentSection)
     }
 
     moveObjects()
@@ -48,25 +50,25 @@ export default class Pages
     {
         switch(this.currentSection)
         {
-            case 0: //HELLO
+            case 0: // HELLO
             gsap.to(this.objects.helloMat.map.offset, { x: this.objects.helloMat.map.offset.x > 0.34 ?
                 (this.objects.helloMat.map.offset.x > 0.67 ? 1 : 0.67) : 0.34, duration: 0.8, ease: "power2.out",
                 callbackScope: this, onComplete: function() { this.objects.group.children[0].visible = false } })
             break
-            case 1: //ABOUT
+            case 1: // ABOUT
                 gsap.to(this.objects.profileMat.uniforms.uCircleScale, { value: 0.0, duration: 0.3, ease: "power2.out", delay: 0.15 })
                 setTimeout(() => { this.objects.profileMat.uniforms.uShowTop.value = 0.0 }, 150)
                 gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, { y: 0.15, duration: 0.4, ease: "power2.out" })
-                this.toggleText(this.UI.aboutText)
+                this.showText(this.UI.aboutText, false)
             break
             case 2: // LITHO
                 gsap.to(this.objects.group.children[2].children[0].scale, { x: 0.0, y: 0.0, z: 0.0, duration: 0.3, ease: "power2.out", delay: 0 })
                 this.objects.group.children[2].children[0].rotation.set(0, 0, 0)
                 this.UI.pointsVisible = false
-                this.toggleText(this.UI.lithoText)
+                this.showText(this.UI.lithoText, false)
             break
             case 3: // DIORAMA
-                this.toggleText(this.UI.dioramaText)
+                this.showText(this.UI.dioramaText, false)
             break
         }
     }
@@ -75,45 +77,40 @@ export default class Pages
     {
         switch(this.currentSection)
         {
-            case 0: //HELLO
+            case 0: // HELLO
                 this.objects.group.children[0].visible = true
             break
-            case 1: //PROFILE
+            case 1: // ABOUT
                 this.objects.group.children[1].visible = true
                 gsap.to(this.objects.profileMat.uniforms.uCircleScale, { value: 0.35, duration: 0.8, ease: "power2.out", delay: 0.6 })
                 setTimeout(() => { this.objects.profileMat.uniforms.uShowTop.value = 1.0 }, 1100)
                 gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, { y: 0.08, duration: 1.5, ease: "power1.inOut", delay: 1 })
-                this.toggleText(this.UI.aboutText)
+                this.showText(this.UI.aboutText, true)
             break
             case 2: // LITHO
                 this.objects.group.children[2].visible = true
                 gsap.to(this.objects.group.children[2].children[0].scale, { x: 0.5, y: 0.5, z: 0.5, duration: 1, ease: "power2.out", delay: 0.5 })
                 gsap.to(this.objects.group.children[2].children[0].rotation, { y: Math.PI * 4, duration: 1, ease: "power2.out", delay: 0.5 })
                 setTimeout(() => { this.UI.pointsVisible = true }, 1500)
-                this.toggleText(this.UI.lithoText)
+                this.showText(this.UI.lithoText, true)
             break
-            case 3: //CONTACT
-                this.toggleText(this.UI.dioramaText)
+            case 3: // DIORAMA
+                this.showText(this.UI.dioramaText, true)
             break
         }
     }
 
-    toggleText(text)
+    showText(text, bool)
     {
-        if(text.classList.contains('displayed'))
+        if(bool) // If should show
         {
-            text.classList.remove('visible')
-            setTimeout(() => { text.classList.remove('displayed') }, 300)
-
-            // text.addEventListener('transitioned', () => //TODO:
-            // {
-            //     text.classList.remove('displayed')
-            // })
+            setTimeout(() => { text.classList.add('displayed') }, 300) // Display after .3s
+            setTimeout(() => { text.classList.add('visible') }, 310) // Fade in after .3s
         }
         else
         {
-            setTimeout(() => { text.classList.add('displayed') }, 300)
-            setTimeout(() => { text.classList.add('visible') }, 800)
+            text.classList.remove('visible') // Fade out immeditately
+            setTimeout(() => { text.classList.remove('displayed') }, 300) // Hide after .3s
         }
     }
 }

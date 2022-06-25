@@ -48,6 +48,8 @@ html, body
 }
 nav img
 {
+    width: 32px;
+    height: 32px;
     padding: 20px;
     cursor: pointer;
     opacity: 0.8;

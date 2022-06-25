@@ -11,6 +11,9 @@ export default class UI
         this.camera = this.experience.camera
         this.sizes = this.experience.sizes
 
+        this.homeButton = document.getElementById("home-button")
+        this.homeButton.addEventListener('click', () => { if(this.currentSection != 0) this.changeSection(0) })
+
         // Page dots
         this.aboutDot = document.getElementById("about-dot")
         this.lithoDot = document.getElementById("litho-dot")
@@ -26,6 +29,15 @@ export default class UI
         this.aboutText = document.getElementById("about-text")
         this.lithoText = document.getElementById("litho-text")
         this.dioramaText = document.getElementById("diorama-text")
+
+        // Video links
+        this.lithoVideoLink = document.getElementById("litho-video-link")
+
+        // Videos
+        this.videosContainer = document.getElementById("videos-container")
+        this.lithoVideo = document.getElementById("litho-video")
+
+        this.lithoVideoLink.addEventListener('click', () => { this.videosContainer.style.display = 'flex' })
 
         // Arrow area enter + exit events
         this.leftArea.addEventListener('mouseenter', () => { this.leftArrow.classList.add('visible') })

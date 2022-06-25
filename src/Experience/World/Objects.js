@@ -186,7 +186,7 @@ export default class Objects
                     this.targetQuaternion.setFromEuler(new THREE.Euler(dragOffset.x, dragOffset.y, 0))
                     this.litho.quaternion.slerp(this.startingQuaternion.clone().multiply(this.targetQuaternion), 0.4)
                 }
-                else if(this.timer > 1.2)//TODO: Closest to last Y rotation
+                else if(this.timer > 1.2)//TODO: Closest to last Y rotation + pause on point hover
                 {
                     this.targetQuaternion.setFromEuler(new THREE.Euler
                         (Math.sin(this.timer * 0.1) * 0.4, this.timer * 0.2, 0))

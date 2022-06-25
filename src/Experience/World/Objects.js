@@ -24,16 +24,6 @@ export default class Objects
         this.screenVec = new THREE.Vector3()
         this.objectPos = new THREE.Vector3()
         this.sizes.on('resize', () => { this.resize() })
-        
-        // Resources
-        this.helloResource = this.resources.items.hello
-        this.hello_albedo = this.resources.items.hello_albedo
-        this.hello_albedo.wrapS = THREE.RepeatWrapping
-        this.hello_albedo.wrapT = THREE.RepeatWrapping
-        this.hello_albedo.repeat.set(0.15, 0.15)
-
-        this.about_albedo = this.resources.items.about
-        this.lithoResource = this.resources.items.litho
 
         this.setModels()
         this.setRaycaster()
@@ -41,9 +31,13 @@ export default class Objects
 
     setModels()
     {
-        this.group = new THREE.Group()
-        
         // Hello
+        this.helloResource = this.resources.items.hello
+        this.hello_albedo = this.resources.items.hello_albedo
+        this.hello_albedo.wrapS = THREE.RepeatWrapping
+        this.hello_albedo.wrapT = THREE.RepeatWrapping
+        this.hello_albedo.repeat.set(0.15, 0.15)
+
         this.hello = this.helloResource.scene
         this.helloMat = new THREE.MeshBasicMaterial({
             map: this.hello_albedo,
@@ -55,7 +49,8 @@ export default class Objects
         this.hello.traverse((o) => { if (o.isMesh) o.material = this.helloMat })
 
         // About
-        this.aboutGeometry = new THREE.PlaneBufferGeometry(0.7, 0.7, 16, 16)
+        this.about_albedo = this.resources.items.about
+        this.aboutGeo = new THREE.PlaneBufferGeometry(0.7, 0.7, 1, 1)
         this.aboutMat = new THREE.ShaderMaterial({
             uniforms: {
                 uTime: { value: 0.0 },
@@ -75,22 +70,36 @@ export default class Objects
             toneMapped: false,
             depthTest: false
         })
-        this.about = new THREE.Mesh(this.aboutGeometry, this.aboutMat)
+        this.about = new THREE.Mesh(this.aboutGeo, this.aboutMat)
         this.about.visible = false
 
         // Litho
+        this.lithoResource = this.resources.items.litho
         this.litho = this.lithoResource.scene
         this.litho.children[0].scale.set(0, 0, 0)
         this.litho.children[0].children[3].visible = false
         this.litho.visible = false
 
-        this.group = new THREE.Group()
-        this.group.add(this.hello, this.about, this.litho)
+        // Diorama
+        this.orb = this.resources.items.orb
+        this.dioramaGeo = new THREE.PlaneBufferGeometry(0.4, 0.4, 1, 1)
+        this.dioramaMat = new THREE.MeshBasicMaterial({
+            map: this.orb,
+            toneMapped: false
+        })
+        this.dioramaSquare1 = new THREE.Mesh(this.dioramaGeo, this.dioramaMat)
+
+        this.diorama = new THREE.Group()
+        this.diorama.add(this.dioramaSquare1)
+
+
         this.resize()
+        this.setObjectPos()
+        this.group = new THREE.Group()
+        this.group.add(this.hello, this.about, this.litho, this.diorama)
         this.scene.add(this.group)
         this.currentObject = 0
         this.targetQuaternion = new THREE.Quaternion()
-        this.setObjectPos()
     }
 
     setRaycaster()

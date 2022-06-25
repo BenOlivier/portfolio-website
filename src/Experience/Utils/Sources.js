@@ -20,6 +20,11 @@ export default [
         path: 'models/Litho.glb'
     },
     {
+        name: 'orb',
+        type: 'texture',
+        path: 'images/models/diorama/orb.jpg'
+    },
+    {
         name: 'environmentMapTexture',
         type: 'cubeTexture',
         path:

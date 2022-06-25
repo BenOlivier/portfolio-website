@@ -10,14 +10,9 @@ export default [
         path: 'images/models/hello.png'
     },
     {
-        name: 'light',
-        type: 'gltfModel',
-        path: 'models/Light.glb'
-    },
-    {
-        name: 'profile',
+        name: 'about',
         type: 'texture',
-        path: 'images/models/profile.png'
+        path: 'images/models/about.png'
     },
     {
         name: 'litho',

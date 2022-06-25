@@ -1,10 +1,8 @@
 import * as THREE from 'three'
 import gsap from 'gsap'
 import Experience from '../Experience.js'
-import profileVertexShader from '../Shaders/Profile/vertex.glsl'
-import profileFragmentShader from '../Shaders/Profile/fragment.glsl'
-import contactVertexShader from '../Shaders/Contact/vertex.glsl'
-import contactFragmentShader from '../Shaders/Contact/fragment.glsl'
+import aboutVertexShader from '../Shaders/About/vertex.glsl'
+import aboutFragmentShader from '../Shaders/About/fragment.glsl'
 
 export default class Objects
 {
@@ -29,13 +27,13 @@ export default class Objects
         
         // Resources
         this.helloResource = this.resources.items.hello
-        this.lightResource = this.resources.items.light
         this.hello_albedo = this.resources.items.hello_albedo
         this.hello_albedo.wrapS = THREE.RepeatWrapping
         this.hello_albedo.wrapT = THREE.RepeatWrapping
         this.hello_albedo.repeat.set(0.15, 0.15)
+
+        this.about_albedo = this.resources.items.about
         this.lithoResource = this.resources.items.litho
-        this.profileMap = this.resources.items.profile
 
         this.setModels()
         this.setRaycaster()
@@ -56,29 +54,29 @@ export default class Objects
         })
         this.hello.traverse((o) => { if (o.isMesh) o.material = this.helloMat })
 
-        // Profile
-        this.profileGeometry = new THREE.PlaneBufferGeometry(0.7, 0.7, 16, 16)
-        this.profileMat = new THREE.ShaderMaterial({
+        // About
+        this.aboutGeometry = new THREE.PlaneBufferGeometry(0.7, 0.7, 16, 16)
+        this.aboutMat = new THREE.ShaderMaterial({
             uniforms: {
                 uTime: { value: 0.0 },
                 uWaveMagnitude: { value: 0.04 },
                 uWaveFrequency: { value: new THREE.Vector2(10.0, 0.2) },
                 uWaveSpeed: { value: 0.001 },
-                uColorMap: { value: this.profileMap },
+                uColorMap: { value: this.about_albedo },
                 uCirleColor: { value: new THREE.Vector3(0.0, 0.0, 0.5) },
                 uCircleScale: { value: 0.0 },
                 uShowTop: { value: 0.0 },
                 uMapOffset: { value: new THREE.Vector2(-0.08, 0.15) },
                 uMapScale: { value: new THREE.Vector2(1.2, 0.9) }
             },
-            vertexShader: profileVertexShader,
-            fragmentShader: profileFragmentShader,
+            vertexShader: aboutVertexShader,
+            fragmentShader: aboutFragmentShader,
             transparent: true,
             toneMapped: false,
             depthTest: false
         })
-        this.profile = new THREE.Mesh(this.profileGeometry, this.profileMat)
-        this.profile.visible = false
+        this.about = new THREE.Mesh(this.aboutGeometry, this.aboutMat)
+        this.about.visible = false
 
         // Litho
         this.litho = this.lithoResource.scene
@@ -87,7 +85,7 @@ export default class Objects
         this.litho.visible = false
 
         this.group = new THREE.Group()
-        this.group.add(this.hello, this.profile, this.litho)
+        this.group.add(this.hello, this.about, this.litho)
         this.resize()
         this.scene.add(this.group)
         this.currentObject = 0
@@ -176,7 +174,7 @@ export default class Objects
                 if (this.helloMat.map.offset.x > 1) this.helloMat.map.offset.x = 0
             break
             case 1:
-                this.profileMat.uniforms.uTime.value += this.time.delta
+                this.aboutMat.uniforms.uTime.value += this.time.delta
             break
             case 2:
                 if(this.grabbing) //TODO: reset matrix each release
@@ -199,11 +197,11 @@ export default class Objects
     resize()
     {
         this.setObjectScale(this.hello, 1)
-        this.setObjectScale(this.profile, 0.2)
+        this.setObjectScale(this.about, 0.2)
         this.setObjectScale(this.litho, 0.5)
 
         this.setObjectPos()
-        this.animateObject(this.profile, this.objectPos)
+        this.animateObject(this.about, this.objectPos)
         this.animateObject(this.litho, this.objectPos)
     }
 

@@ -77,10 +77,10 @@ export default class Pages
                 callbackScope: this, onComplete: function() { this.objects.group.children[0].visible = false } })
             break
             case 1: // ABOUT
-                gsap.killTweensOf([this.objects.profileMat.uniforms.uCircleScale, this.objects.profileMat.uniforms.uMapOffset.value])
-                gsap.to(this.objects.profileMat.uniforms.uCircleScale, { value: 0.0, duration: 0.3, ease: "power2.out", delay: 0.15,
-                    callbackScope: this, onStart: function(){ this.objects.profileMat.uniforms.uShowTop.value = 0.0 }})
-                gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, { y: 0.15, duration: 0.4, ease: "power2.out" })
+                gsap.killTweensOf([this.objects.aboutMat.uniforms.uCircleScale, this.objects.aboutMat.uniforms.uMapOffset.value])
+                gsap.to(this.objects.aboutMat.uniforms.uCircleScale, { value: 0.0, duration: 0.3, ease: "power2.out", delay: 0.15,
+                    callbackScope: this, onStart: function(){ this.objects.aboutMat.uniforms.uShowTop.value = 0.0 }})
+                gsap.to(this.objects.aboutMat.uniforms.uMapOffset.value, { y: 0.15, duration: 0.4, ease: "power2.out" })
                 this.UI.aboutDot.classList.remove('current-page')
                 this.showText(this.UI.aboutText, false)
             break
@@ -109,9 +109,9 @@ export default class Pages
             break
             case 1: // ABOUT
                 this.objects.group.children[1].visible = true
-                gsap.to(this.objects.profileMat.uniforms.uCircleScale, { value: 0.35, duration: 0.8, ease: "expo.out", delay: 0.6, 
-                    callbackScope: this, onStart: function(){ this.objects.profileMat.uniforms.uShowTop.value = 1.0 }})
-                gsap.to(this.objects.profileMat.uniforms.uMapOffset.value, { y: 0.08, duration: 1, ease: "power1.inOut", delay: 0.8 })
+                gsap.to(this.objects.aboutMat.uniforms.uCircleScale, { value: 0.35, duration: 0.8, ease: "expo.out", delay: 0.6, 
+                    callbackScope: this, onStart: function(){ this.objects.aboutMat.uniforms.uShowTop.value = 1.0 }})
+                gsap.to(this.objects.aboutMat.uniforms.uMapOffset.value, { y: 0.08, duration: 1, ease: "power1.inOut", delay: 0.8 })
                 this.UI.aboutDot.classList.add('current-page')
                 this.showText(this.UI.aboutText, true)
             break

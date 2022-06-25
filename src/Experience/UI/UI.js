@@ -34,8 +34,6 @@ export default class UI
         this.videosContainer = document.getElementById("videos-container")
         this.lithoVideo = document.getElementById("litho-video")
 
-        this.lithoVideoLink.addEventListener('click', () => { this.videosContainer.style.display = 'flex' })
-
         // Arrow area enter + exit events
         this.leftArea.addEventListener('mouseenter', () => { this.leftArrow.classList.add('visible') })
         this.rightArea.addEventListener('mouseenter', () => { this.rightArrow.classList.add('visible') })

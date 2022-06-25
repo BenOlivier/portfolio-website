@@ -381,14 +381,22 @@ nav img:active
     display: none;
     align-items: center;
     justify-content: space-around;
+    z-index: 300;
 }
 
 #videos-container iframe
 {
-    width: 1000px;
-    height: 80%;
+    width: 1024px;
+    height: 513px;
     border-radius: 10px;
-    z-index: 300;
+    transform: scale(0.9);
+    opacity: 0;
+    transition: 0.5s;
+}
+#videos-container iframe.visible
+{
+    transform: scale(1);
+    opacity: 1;
 }
 
 .video-link:hover

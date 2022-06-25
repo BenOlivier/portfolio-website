@@ -31,6 +31,25 @@ export default class Pages
             if(event.keyCode == '37') { if(this.currentSection > 0) this.changeSection(this.currentSection -1) }
             else if(event.keyCode == '39') { if(this.currentSection < this.totalSections) this.changeSection(this.currentSection + 1) }
         })
+
+        // Video link clicks
+        this.UI.lithoVideoLink.addEventListener('click', () => { this.openVideo(this.UI.lithoVideo) })
+        this.UI.videosContainer.addEventListener('click', () => { this.closeVideo(this.UI.lithoVideo) })
+    }
+
+    openVideo(video)
+    {
+        this.closeCurrentSection()
+        this.UI.videosContainer.style.display = 'flex'
+        setTimeout(() => { video.classList.add('visible') }, 10)
+    }
+    closeVideo(video)
+    {
+        this.openCurrentSection()
+        const iframeSrc = video.src
+        video.src = iframeSrc
+        video.classList.remove('visible')
+        setTimeout(() => { this.UI.videosContainer.style.display = 'none' }, 500)
     }
 
     changeSection(int)

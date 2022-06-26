@@ -5,12 +5,12 @@ export default [
         path: 'models/Hello.glb'
     },
     {
-        name: 'hello_albedo',
+        name: 'hello_tex',
         type: 'texture',
         path: 'images/models/hello.png'
     },
     {
-        name: 'about',
+        name: 'about_tex',
         type: 'texture',
         path: 'images/models/about.png'
     },
@@ -20,12 +20,37 @@ export default [
         path: 'models/Litho.glb'
     },
     {
-        name: 'orb',
+        name: 'assetmenu_tex',
+        type: 'texture',
+        path: 'images/models/diorama/assetmenu.jpg'
+    },
+    {
+        name: 'daftpunk_tex',
+        type: 'texture',
+        path: 'images/models/diorama/daftpunk.jpg'
+    },
+    {
+        name: 'orb_tex',
         type: 'texture',
         path: 'images/models/diorama/orb.jpg'
     },
     {
-        name: 'environmentMapTexture',
+        name: 'pascal_tex',
+        type: 'texture',
+        path: 'images/models/diorama/pascal.jpg'
+    },
+    {
+        name: 'turtle_tex',
+        type: 'texture',
+        path: 'images/models/diorama/turtle.jpg'
+    },
+    {
+        name: 'whale_tex',
+        type: 'texture',
+        path: 'images/models/diorama/whale.jpg'
+    },
+    {
+        name: 'environmentMap_tex',
         type: 'cubeTexture',
         path:
         [

@@ -33,14 +33,14 @@ export default class Objects
     {
         // Hello
         this.helloResource = this.resources.items.hello
-        this.hello_albedo = this.resources.items.hello_albedo
-        this.hello_albedo.wrapS = THREE.RepeatWrapping
-        this.hello_albedo.wrapT = THREE.RepeatWrapping
-        this.hello_albedo.repeat.set(0.15, 0.15)
+        this.hello_tex = this.resources.items.hello_tex
+        this.hello_tex.wrapS = THREE.RepeatWrapping
+        this.hello_tex.wrapT = THREE.RepeatWrapping
+        this.hello_tex.repeat.set(0.15, 0.15)
 
         this.hello = this.helloResource.scene
         this.helloMat = new THREE.MeshBasicMaterial({
-            map: this.hello_albedo,
+            map: this.hello_tex,
             side: THREE.DoubleSide,
             toneMapped: false,
             transparent: true,
@@ -49,7 +49,7 @@ export default class Objects
         this.hello.traverse((o) => { if (o.isMesh) o.material = this.helloMat })
 
         // About
-        this.about_albedo = this.resources.items.about
+        this.about_tex = this.resources.items.about_tex
         this.aboutGeo = new THREE.PlaneBufferGeometry(0.7, 0.7, 1, 1)
         this.aboutMat = new THREE.ShaderMaterial({
             uniforms: {
@@ -57,7 +57,7 @@ export default class Objects
                 uWaveMagnitude: { value: 0.04 },
                 uWaveFrequency: { value: new THREE.Vector2(10.0, 0.2) },
                 uWaveSpeed: { value: 0.001 },
-                uColorMap: { value: this.about_albedo },
+                uColorMap: { value: this.about_tex },
                 uCirleColor: { value: new THREE.Vector3(0.0, 0.0, 0.5) },
                 uCircleScale: { value: 0.0 },
                 uShowTop: { value: 0.0 },
@@ -81,10 +81,10 @@ export default class Objects
         this.litho.visible = false
 
         // Diorama
-        this.orb = this.resources.items.orb
+        this.orb_tex = this.resources.items.orb_tex
         this.dioramaGeo = new THREE.PlaneBufferGeometry(0.4, 0.4, 1, 1)
         this.dioramaMat = new THREE.MeshBasicMaterial({
-            map: this.orb,
+            map: this.orb_tex,
             toneMapped: false
         })
         this.dioramaSquare1 = new THREE.Mesh(this.dioramaGeo, this.dioramaMat)
@@ -179,7 +179,7 @@ export default class Objects
                     this.hello.quaternion.slerp(this.targetQuaternion, 0.02)
                 }
                 
-                this.helloMat.map.offset.x += this.time.delta / 18000
+                // this.helloMat.map.offset.x += this.time.delta / 18000
                 if (this.helloMat.map.offset.x > 1) this.helloMat.map.offset.x = 0
             break
             case 1:

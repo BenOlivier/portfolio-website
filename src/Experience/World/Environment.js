@@ -114,7 +114,7 @@ export default class Environment
     {
         this.environmentMap = {}
         this.environmentMap.intensity = 20 //TODO: Doesn't work
-        this.environmentMap.texture = this.resources.items.environmentMapTexture
+        this.environmentMap.texture = this.resources.items.environmentMap_tex
         this.environmentMap.texture.encoding = THREE.sRGBEncoding
         
         this.scene.environment = this.environmentMap.texture

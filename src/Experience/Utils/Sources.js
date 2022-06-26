@@ -20,34 +20,9 @@ export default [
         path: 'models/Litho.glb'
     },
     {
-        name: 'assetmenu_tex',
+        name: 'diorama_tex',
         type: 'texture',
-        path: 'images/models/diorama/assetmenu.jpg'
-    },
-    {
-        name: 'daftpunk_tex',
-        type: 'texture',
-        path: 'images/models/diorama/daftpunk.jpg'
-    },
-    {
-        name: 'orb_tex',
-        type: 'texture',
-        path: 'images/models/diorama/orb.jpg'
-    },
-    {
-        name: 'pascal_tex',
-        type: 'texture',
-        path: 'images/models/diorama/pascal.jpg'
-    },
-    {
-        name: 'turtle_tex',
-        type: 'texture',
-        path: 'images/models/diorama/turtle.jpg'
-    },
-    {
-        name: 'whale_tex',
-        type: 'texture',
-        path: 'images/models/diorama/whale.jpg'
+        path: 'images/models/diorama.png'
     },
     {
         name: 'environmentMap_tex',

@@ -81,17 +81,27 @@ export default class Objects
         this.litho.visible = false
 
         // Diorama
-        this.orb_tex = this.resources.items.orb_tex
-        this.dioramaGeo = new THREE.PlaneBufferGeometry(0.4, 0.4, 1, 1)
+        this.diorama_tex = this.resources.items.diorama_tex
+        this.dioramaGeo = new THREE.PlaneBufferGeometry(0.2, 0.2, 1, 1)
         this.dioramaMat = new THREE.MeshBasicMaterial({
-            map: this.orb_tex,
-            toneMapped: false
+            map: this.diorama_tex,
+            transparent: true,
+            toneMapped: false,
+            depthTest: false
         })
-        this.dioramaSquare1 = new THREE.Mesh(this.dioramaGeo, this.dioramaMat)
+        this.dioramaMat.map.repeat.set(0.33333, 0.33333)
+        this.dioramaMat.map.offset.set(0.33333, 0.66666)
 
         this.diorama = new THREE.Group()
-        this.diorama.add(this.dioramaSquare1)
+        this.dioramaSquares = [] 
 
+        for(let i = 0; i < 9; i++)
+        {
+            this.dioramaSquares[i] = new THREE.Mesh(this.dioramaGeo, this.dioramaMat)
+            this.dioramaSquares[i].position.set(i < 3? i * 0.22 - 0.22: i < 6?
+                i * 0.22 - 0.88 : i * 0.22 - 1.54, i < 3? 0.22 : i < 6? 0 : -0.22, 0)
+            this.diorama.add(this.dioramaSquares[i])
+        }
 
         this.resize()
         this.setObjectPos()
@@ -109,8 +119,7 @@ export default class Objects
 
         this.pointer.on('mousemove', () =>
         {
-            if(this.currentObject == 2) this.castRay()
-            // this.timer = 0
+            if(this.currentObject == 3) this.castRay()
         })
 
         this.pointer.on('mousedown', () =>
@@ -138,7 +147,17 @@ export default class Objects
     castRay()
     {
         this.raycaster.setFromCamera(this.pointer.pointerPos, this.camera.camera)
-        this.intersects = this.raycaster.intersectObjects([this.group.children[2]])
+        this.intersects = this.raycaster.intersectObjects([
+            this.dioramaSquares[0],
+            this.dioramaSquares[1],
+            this.dioramaSquares[2],
+            this.dioramaSquares[3],
+            this.dioramaSquares[4],
+            this.dioramaSquares[5],
+            this.dioramaSquares[6],
+            this.dioramaSquares[7],
+            this.dioramaSquares[8]
+        ])
 
         // Hover on Litho
         if(this.intersects.length)
@@ -146,7 +165,9 @@ export default class Objects
             if(this.currentIntersect == null)
             {
                 this.currentIntersect = this.intersects[0]
-                document.body.style.cursor = 'grab'
+                document.body.style.cursor = 'pointer'
+                gsap.to(this.currentIntersect.object.position,
+                    { z: 0.1, duration: 0.2, ease: "power2.out" })
             }
         }
         // Exit hover
@@ -154,6 +175,8 @@ export default class Objects
         {
             if(this.currentIntersect)
             {
+                gsap.to(this.currentIntersect.object.position,
+                    { z: 0, duration: 0.2, ease: "power2.out" })
                 this.currentIntersect = null
                 document.body.style.cursor = 'default'
             }
@@ -200,6 +223,9 @@ export default class Objects
                     this.litho.quaternion.slerp(this.targetQuaternion, 0.01)
                 }
             break
+            case 3:
+                // console.log('yo')
+            break
         }
     }
 
@@ -208,10 +234,12 @@ export default class Objects
         this.setObjectScale(this.hello, 1)
         this.setObjectScale(this.about, 0.2)
         this.setObjectScale(this.litho, 0.5)
+        this.setObjectScale(this.diorama, 0.5)
 
         this.setObjectPos()
         this.animateObject(this.about, this.objectPos)
         this.animateObject(this.litho, this.objectPos)
+        this.animateObject(this.diorama, this.objectPos)
     }
 
     setObjectScale(object, factor)
@@ -259,6 +287,7 @@ export default class Objects
             duration: 1,
             ease: "power2.out",
             callbackScope: this,
+            onUpdate: object.lookAt(0, 0, 2),
             onComplete: function() { this.isAnimating = false }
         })
     }

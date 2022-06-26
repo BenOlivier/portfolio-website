@@ -11,24 +11,27 @@ export default class Raycaster
         this.camera = this.experience.camera
         this.objects = this.experience.objects
 
-        this.setRaycaster()
-    }
-
-    setRaycaster()
-    {
         this.raycaster = new THREE.Raycaster()
-        window.addEventListener('mousedown', (event) => { this.castRay() })
     }
 
     castRay()
     {
         this.raycaster.setFromCamera(this.pointer.pointerPos, this.camera.camera)
-        this.intersects = this.raycaster.intersectObjects([this.objects.group.litho])
+        this.intersects = this.raycaster.intersectObjects([
+            this.objects.dioramaSquares[0],
+            this.objects.dioramaSquares[1],
+            this.objects.dioramaSquares[2],
+            this.objects.dioramaSquares[3],
+            this.objects.dioramaSquares[4],
+            this.objects.dioramaSquares[5],
+            this.objects.dioramaSquares[6],
+            this.objects.dioramaSquares[7],
+            this.objects.dioramaSquares[8]
+        ])
 
-        // Hover on overlay
         if(this.intersects.length)
         {
-            console.log('hit litho')
+            console.log('hit ' + this.intersects[0])
         }
     }
 }

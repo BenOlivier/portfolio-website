@@ -93,6 +93,9 @@ export default class Pages
                 this.showText(this.UI.lithoText, false)
             break
             case 3: // DIORAMA
+                for(let i = 0; i < 9; i++){
+                    gsap.to(this.objects.group.children[3].children[i].position, { z: -1, duration: 0.5, ease: "power1.out", delay: i * 0.05 })}
+                // this.objects.group.children[3].visible = false //TODO: on complete
                 this.UI.dioramaDot.classList.remove('current-page')
                 this.showText(this.UI.dioramaText, false)
             break
@@ -125,6 +128,12 @@ export default class Pages
                 this.showText(this.UI.lithoText, true)
             break
             case 3: // DIORAMA
+                this.objects.group.children[3].visible = true
+                for(let i = 0; i < 9; i++){
+                    gsap.to(this.objects.group.children[3].children[i].position, { z: 0, duration: 0.5, ease: "power1.out", delay: i * 0.05 })
+                    // gsap.to(this.objects.group.children[3].children[i].material.opacity, { value: 1, duration: 0.4, ease: "power1.out", delay: i * 0.05 })
+                }
+            
                 this.UI.dioramaDot.classList.add('current-page')    
                 this.showText(this.UI.dioramaText, true)
             break

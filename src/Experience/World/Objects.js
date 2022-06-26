@@ -87,19 +87,21 @@ export default class Objects
             map: this.diorama_tex,
             transparent: true,
             toneMapped: false,
-            depthTest: false
+            depthTest: false,
+            // opacity: 0
         })
         this.dioramaMat.map.repeat.set(0.33333, 0.33333)
         this.dioramaMat.map.offset.set(0.33333, 0.66666)
 
         this.diorama = new THREE.Group()
+        this.diorama.visible = false
         this.dioramaSquares = [] 
 
         for(let i = 0; i < 9; i++)
         {
             this.dioramaSquares[i] = new THREE.Mesh(this.dioramaGeo, this.dioramaMat)
             this.dioramaSquares[i].position.set(i < 3? i * 0.22 - 0.22: i < 6?
-                i * 0.22 - 0.88 : i * 0.22 - 1.54, i < 3? 0.22 : i < 6? 0 : -0.22, 0)
+                i * 0.22 - 0.88 : i * 0.22 - 1.54, i < 3? 0.22 : i < 6? 0 : -0.22, -1)
             this.diorama.add(this.dioramaSquares[i])
         }
 
@@ -183,6 +185,8 @@ export default class Objects
         }
     }
 
+
+
     update()
     {
         this.timer += this.time.delta / 1000
@@ -202,7 +206,7 @@ export default class Objects
                     this.hello.quaternion.slerp(this.targetQuaternion, 0.02)
                 }
                 
-                // this.helloMat.map.offset.x += this.time.delta / 18000
+                this.helloMat.map.offset.x += this.time.delta / 18000
                 if (this.helloMat.map.offset.x > 1) this.helloMat.map.offset.x = 0
             break
             case 1:

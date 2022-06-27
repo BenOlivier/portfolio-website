@@ -49,7 +49,8 @@ export default class Objects
             side: THREE.DoubleSide,
             toneMapped: false,
             transparent: true,
-            depthTest: false
+            depthTest: false,
+            wireframe: true
         })
         this.hello.traverse((o) => { if (o.isMesh) o.material = this.helloMat })
         this.hello.children[0].scale.set(1.8, 1.8, 1.8)
@@ -61,7 +62,8 @@ export default class Objects
             side: THREE.DoubleSide,
             toneMapped: false,
             transparent: true,
-            depthTest: false
+            depthTest: false,
+            wireframe: true
         })
         this.hello2.traverse((o) => { if (o.isMesh) o.material = this.hello2Mat })
         this.hello2.children[0].scale.set(2.8, 2.8, 2.8)

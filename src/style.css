@@ -27,26 +27,23 @@ html, body
 
 /* _______________________________________________ NAV */
 
-#nav-container
+nav
 {
     position: fixed;
-    z-index: 300;
     top: 0;
     left: 0;
     right: 0;
-}
-#nav-bar
-{
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    height: 70px;
     max-width: 1400px;
+    display: flex;
     margin: auto;
+    justify-content: space-between;
+    align-items: center;
 }
 nav img
 {
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     padding: 20px;
     cursor: pointer;
     opacity: 0.8;
@@ -57,17 +54,6 @@ nav img:hover
     opacity: 1.0;
     transform: scale(1.05);
 }
-nav img:active
-{
-    transform: scale(1);
-}
-
-#nav-pages
-{
-    display: flex;
-}
-
-
 
 /* _______________________________________________ FOOTER */
 
@@ -84,7 +70,8 @@ nav img:active
     justify-content: space-between;
     align-items: center;
 }
-.footer a, p
+
+.footer a, .footer p
 {
     padding: 10px 12px;
     color: inherit;
@@ -93,6 +80,7 @@ nav img:active
     opacity: 0.5;
     transition: 0.2s;
 }
+
 .footer a:hover
 {
     opacity: 1;

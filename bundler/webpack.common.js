@@ -21,6 +21,12 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../src/index.html'),
+            filename: 'index.html',
+            minify: true
+        }),
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, '../src/litho.html'),
+            filename: 'litho.html',
             minify: true
         }),
         new MiniCSSExtractPlugin()

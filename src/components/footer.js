@@ -9,12 +9,12 @@ class Footer extends HTMLElement
     {
         this.innerHTML = `
             <footer class="footer">
-                <p>&copy;&nbsp;<script>document.write(new Date().getFullYear())</script>&nbsp;Ben Olivier</p>
+                <h3>&copy;&nbsp;2022&nbsp;BEN OLIVIER</h3>
                 <div>
-                    <a href="mailto:dbeolivier@gmail.com">Email</a>
-                    <a href="https://www.linkedin.com/in/ben-olivier-38b901145/" target="_blank">LinkedIn</a>
-                    <a href="https://github.com/BenOlivier" target="_blank">GitHub</a>
-                    <a href="https://twitter.com/benolivier_" target="_blank">Twitter</a>
+                    <img src="/images/icons/twitter.svg" onclick="mailto:dbeolivier@gmail.com">
+                    <img src="/images/icons/linkedin.svg" onclick="https://www.linkedin.com/in/ben-olivier-38b901145/" target="_blank">
+                    <img src="/images/icons/github.svg" onclick="https://github.com/BenOlivier" target="_blank">
+                    <img src="/images/icons/twitter.svg" onclick="https://twitter.com/benolivier_" target="_blank">
                 </div>
             </footer>
         `

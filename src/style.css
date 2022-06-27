@@ -17,6 +17,14 @@ html, body
     overflow: hidden; */
 }
 
+.container
+{
+    max-width: 1000px;
+    padding: 80px;
+    margin: auto;
+    z-index: 200;
+}
+
 .webgl
 {
     position: fixed;
@@ -26,35 +34,37 @@ html, body
     height: 100vh;
 }
 
-/* _______________________________________________ NAV */
+/* _______________________________________________ HEADER */
 
-nav
+header
 {
-    z-index: 1;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 70px;
-    max-width: 1400px;
+    z-index: 100;
+    position: relative;
     display: flex;
-    margin: auto;
     justify-content: space-between;
     align-items: center;
 }
-nav img
+
+h1
 {
-    width: 30px;
-    height: 30px;
-    padding: 20px;
-    cursor: pointer;
-    opacity: 0.8;
-    transition: 0.1s ease-in-out;
+    font-size: 40px;
+    font-weight: 400;
 }
-nav img:hover
+
+nav
 {
-    opacity: 1.0;
-    transform: scale(1.05);
+    width: 240px;
+    display: flex;
+    justify-content: space-between;
+}
+
+nav a
+{
+    color: #888888;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 /* _______________________________________________ TEST */
@@ -74,29 +84,29 @@ section
 .footer
 {
     position: relative;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 40px;
-    max-width: 1400px;
     display: flex;
-    margin: auto;
     justify-content: space-between;
     align-items: center;
 }
 
-.footer a, .footer p
+.footer h3
 {
-    padding: 10px 12px;
-    color: inherit;
-    font-size: 15px;
-    text-decoration: none;
-    opacity: 0.5;
-    transition: 0.2s;
+    color: #888888;
+    font-size: 14px;
+    font-weight: 500;
 }
 
-.footer a:hover
+.footer div
+{
+    display: flex;
+    width: 160px;
+    height: 24px;
+    justify-content: space-between;
+    opacity: 0.6;
+}
+
+/* .footer a:hover
 {
     opacity: 1;
     cursor: pointer;
-}
+} */

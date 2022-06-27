@@ -27,7 +27,7 @@ export default [
     {
         name: 'diorama_tex',
         type: 'texture',
-        path: 'images/models/diorama.png'
+        path: 'images/models/diorama2.png'
     },
     {
         name: 'environmentMap_tex',

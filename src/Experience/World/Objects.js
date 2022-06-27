@@ -85,7 +85,7 @@ export default class Objects
         this.diorama_tex = this.resources.items.diorama_tex
         this.diorama = this.dioramaResource.scene
         for(let i = 0; i < 9; i++) { this.diorama.children[i].position.z = -1 }
-        this.dioramaMat = new THREE.MeshBasicMaterial({ //TODO:
+        this.dioramaMat = new THREE.MeshBasicMaterial({
             map: this.diorama_tex,
             toneMapped: false,
             transparent: true,

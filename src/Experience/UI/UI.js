@@ -33,6 +33,7 @@ export default class UI
         // Videos
         this.videosContainer = document.getElementById("videos-container")
         this.lithoVideo = document.getElementById("litho-video")
+        this.dioramaVideo = document.getElementById("diorama-video")
 
         // Arrow area enter + exit events
         this.leftArea.addEventListener('mouseenter', () => { this.leftArrow.classList.add('visible') })

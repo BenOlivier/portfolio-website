@@ -35,6 +35,8 @@ export default class Pages
         // Video link clicks
         this.UI.lithoVideoLink.addEventListener('click', () => { this.openVideo(this.UI.lithoVideo) })
         this.UI.videosContainer.addEventListener('click', () => { this.closeVideo(this.UI.lithoVideo) })
+
+        this.objects.group.children[3].addEventListener('click', () => { console.log('yo') })
     }
 
     openVideo(video)

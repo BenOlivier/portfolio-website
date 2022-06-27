@@ -10,36 +10,6 @@ export default class UI
         this.objects = this.experience.objects
         this.camera = this.experience.camera
         this.sizes = this.experience.sizes
-
-        // Page dots
-        this.aboutDot = document.getElementById("about-dot")
-        this.lithoDot = document.getElementById("litho-dot")
-        this.dioramaDot = document.getElementById("diorama-dot")
-
-        // Arrows
-        this.leftArea = document.getElementById("left-area")
-        this.rightArea = document.getElementById("right-area")
-        this.leftArrow = document.getElementById("left-arrow")
-        this.rightArrow = document.getElementById("right-arrow")
-
-        // Text
-        this.aboutText = document.getElementById("about-text")
-        this.lithoText = document.getElementById("litho-text")
-        this.dioramaText = document.getElementById("diorama-text")
-
-        // Video links
-        this.lithoVideoLink = document.getElementById("litho-video-link")
-
-        // Videos
-        this.videosContainer = document.getElementById("videos-container")
-        this.lithoVideo = document.getElementById("litho-video")
-        this.dioramaVideo = document.getElementById("diorama-video")
-
-        // Arrow area enter + exit events
-        this.leftArea.addEventListener('mouseenter', () => { this.leftArrow.classList.add('visible') })
-        this.rightArea.addEventListener('mouseenter', () => { this.rightArrow.classList.add('visible') })
-        this.leftArea.addEventListener('mouseleave', () => { this.leftArrow.classList.remove('visible') })
-        this.rightArea.addEventListener('mouseleave', () => { this.rightArrow.classList.remove('visible') })
         
         // Points
         this.points = [
@@ -62,34 +32,34 @@ export default class UI
 
     update()
     {
-        for(const point of this.points)
-        {
-            if(this.objects.currentObject == 2 && this.pointsVisible)
-            {
-                const worldPosition = this.objects.litho.children[0].localToWorld(point.position.clone())
-                const screenPosition = worldPosition.clone().project(this.camera.camera)
+        // for(const point of this.points)
+        // {
+        //     if(this.objects.currentObject == 2 && this.pointsVisible)
+        //     {
+        //         const worldPosition = this.objects.litho.children[0].localToWorld(point.position.clone())
+        //         const screenPosition = worldPosition.clone().project(this.camera.camera)
 
-                this.raycaster.setFromCamera(screenPosition, this.camera.camera)
-                const intersects = this.raycaster.intersectObjects([this.objects.group.children[2]])
-                if(intersects.length == 0) { point.element.classList.add('visible') }
-                else
-                {
-                    const intersectionDistance = intersects[0].distance
-                    const pointDistance = worldPosition.distanceTo(this.camera.camera.position)
-                    if(intersectionDistance < pointDistance)
-                    {
-                        point.element.classList.remove('visible')
-                    }
-                    else {
-                        point.element.classList.add('visible')
-                    }
-                }
+        //         this.raycaster.setFromCamera(screenPosition, this.camera.camera)
+        //         const intersects = this.raycaster.intersectObjects([this.objects.group.children[2]])
+        //         if(intersects.length == 0) { point.element.classList.add('visible') }
+        //         else
+        //         {
+        //             const intersectionDistance = intersects[0].distance
+        //             const pointDistance = worldPosition.distanceTo(this.camera.camera.position)
+        //             if(intersectionDistance < pointDistance)
+        //             {
+        //                 point.element.classList.remove('visible')
+        //             }
+        //             else {
+        //                 point.element.classList.add('visible')
+        //             }
+        //         }
 
-                const translateX = screenPosition.x * this.sizes.width * 0.5 - 20
-                const translateY = -screenPosition.y * this.sizes.height * 0.5 - 20
-                point.element.style.transform = `translate(${translateX}px, ${translateY}px)`
-            }
-            else point.element.classList.remove('visible')
-        }
+        //         const translateX = screenPosition.x * this.sizes.width * 0.5 - 20
+        //         const translateY = -screenPosition.y * this.sizes.height * 0.5 - 20
+        //         point.element.style.transform = `translate(${translateX}px, ${translateY}px)`
+        //     }
+        //     else point.element.classList.remove('visible')
+        // }
     }
 }

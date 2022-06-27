@@ -1,0 +1,55 @@
+.point
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 200;
+}
+
+.point .point-number
+{
+    position: absolute;
+    top: -20;
+    left: -20;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #ffffff80;
+    text-align: center;
+    line-height: 40px;
+    cursor: help;
+    transform: scale(0, 0);
+    transition: transform 0.2s;
+}
+
+.point.visible .point-number
+{
+    transform: scale(1, 1);
+}
+
+.point:hover .point-text
+{
+    opacity: 1;
+}
+
+.point .point-text
+{
+    position: absolute;
+    top: 50px;
+    left: -100px;
+    width: 200px;
+    padding: 20px;
+    background: #ffffff50;
+    text-align: center;
+    font-size: 14px;
+    line-height: 22px;
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.point.text-above .point-text
+{
+    top: -100px;
+}

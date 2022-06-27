@@ -15,28 +15,6 @@ export default class Pages
         
         this.currentSection = 0
         this.totalSections = 3
-
-        // Area click events
-        this.UI.leftArea.addEventListener('click', () => { if(this.currentSection > 0) this.changeSection(this.currentSection -1) })
-        this.UI.rightArea.addEventListener('click', () => { if(this.currentSection < this.totalSections) this.changeSection(this.currentSection + 1) })
-
-        // Page dot click events
-        this.UI.aboutDot.addEventListener('click', () => { if(this.currentSection != 1) this.changeSection(1) })
-        this.UI.lithoDot.addEventListener('click', () => { if(this.currentSection != 2) this.changeSection(2) })
-        this.UI.dioramaDot.addEventListener('click', () => { if(this.currentSection != 3) this.changeSection(3) })
-
-        // Arrow key down event
-        window.addEventListener('keydown', (event) =>
-        {
-            if(event.keyCode == '37') { if(this.currentSection > 0) this.changeSection(this.currentSection -1) }
-            else if(event.keyCode == '39') { if(this.currentSection < this.totalSections) this.changeSection(this.currentSection + 1) }
-        })
-
-        // Video link clicks
-        this.UI.lithoVideoLink.addEventListener('click', () => { this.openVideo(this.UI.lithoVideo) })
-        this.UI.videosContainer.addEventListener('click', () => { this.closeVideo(this.UI.lithoVideo) })
-
-        this.objects.group.children[3].addEventListener('click', () => { console.log('yo') })
     }
 
     openVideo(video)

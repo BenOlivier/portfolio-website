@@ -56,7 +56,7 @@ export default class Experience
             this.UI = new UI()
             this.pages = new Pages()
             // this.raycaster = new Raycaster()
-            this.darkMode = new DarkMode()
+            // this.darkMode = new DarkMode()
         })
 
         // Stats

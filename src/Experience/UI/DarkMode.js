@@ -14,8 +14,6 @@ export default class DarkMode
         this.raycaster = new THREE.Raycaster()
 
         this.darkModeEnabled = false
-        this.leftArrow = document.getElementById("left-arrow")
-        this.rightArrow = document.getElementById("right-arrow")
         this.darkModeButton = document.getElementById("dark-mode-button")
         this.homeButton = document.getElementById("home-button")
         this.navContainer = document.getElementById("nav-container")

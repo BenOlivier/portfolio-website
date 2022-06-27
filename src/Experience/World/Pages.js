@@ -131,8 +131,8 @@ export default class Pages
             break
             case 3: // DIORAMA
                 this.objects.group.children[3].visible = true
-                for(let i = 0; i < 9; i++){ gsap.to(this.objects.group.children[3].children[i].position, { z: 0, duration: 0.5, ease: "power1.out", delay: i * 0.05 })}
-                gsap.to(this.objects.dioramaMat, { opacity: 1, duration: 1, ease: "power1.out", delay: 0 })
+                for(let i = 0; i < 9; i++){ gsap.to(this.objects.group.children[3].children[i].position, { z: 0, duration: 0.5, ease: "power1.out", delay: 0.5 + i * 0.05 })}
+                gsap.to(this.objects.dioramaMat, { opacity: 1, duration: 1, ease: "power1.out", delay: 0.5 })
                 this.UI.dioramaDot.classList.add('current-page')    
                 this.showText(this.UI.dioramaText, true)
             break

@@ -111,7 +111,8 @@ export default class Objects
 
         this.pointer.on('mousemove', () =>
         {
-            if(this.currentObject == 3) this.castRay()
+            if(this.currentObject == 3 || this.currentObject == 2) this.castRay()
+            this.timer = 0
         })
 
         this.pointer.on('mousedown', () =>
@@ -142,18 +143,22 @@ export default class Objects
         this.intersects = this.raycaster.intersectObjects([
             this.diorama.children[0], this.diorama.children[1], this.diorama.children[2],
             this.diorama.children[3], this.diorama.children[4], this.diorama.children[5],
-            this.diorama.children[6], this.diorama.children[7], this.diorama.children[8]
+            this.diorama.children[6], this.diorama.children[7], this.diorama.children[8],
+            this.litho
         ])
 
-        // Hover on Litho
+        // Hover
         if(this.intersects.length)
         {
             if(this.currentIntersect == null)
             {
                 this.currentIntersect = this.intersects[0]
                 document.body.style.cursor = 'pointer'
-                gsap.to(this.currentIntersect.object.position,
-                    { z: 0.1, duration: 0.2, ease: "power2.out" })
+                if(this.currentObject == 3)
+                {
+                    gsap.to(this.currentIntersect.object.position,
+                        { z: 0.1, duration: 0.2, ease: "power2.out" })
+                }
             }
             else
             {

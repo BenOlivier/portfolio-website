@@ -20,6 +20,11 @@ export default [
         path: 'models/Litho.glb'
     },
     {
+        name: 'diorama',
+        type: 'gltfModel',
+        path: 'models/Diorama.glb'
+    },
+    {
         name: 'diorama_tex',
         type: 'texture',
         path: 'images/models/diorama.png'

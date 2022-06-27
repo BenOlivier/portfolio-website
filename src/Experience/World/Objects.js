@@ -81,29 +81,19 @@ export default class Objects
         this.litho.visible = false
 
         // Diorama
+        this.dioramaResource = this.resources.items.diorama
         this.diorama_tex = this.resources.items.diorama_tex
-        this.dioramaGeo = new THREE.PlaneBufferGeometry(0.2, 0.2, 1, 1)
-        this.dioramaMat = new THREE.MeshBasicMaterial({
+        this.diorama = this.dioramaResource.scene
+        for(let i = 0; i < 9; i++) { this.diorama.children[i].position.z = -1 }
+        this.dioramaMat = new THREE.MeshBasicMaterial({ //TODO:
             map: this.diorama_tex,
-            transparent: true,
             toneMapped: false,
+            transparent: true,
             depthTest: false,
-            // opacity: 0
+            opacity: 0
         })
-        this.dioramaMat.map.repeat.set(0.33333, 0.33333)
-        this.dioramaMat.map.offset.set(0.33333, 0.66666)
-
-        this.diorama = new THREE.Group()
+        this.diorama.traverse((o) => { if (o.isMesh) o.material = this.dioramaMat })
         this.diorama.visible = false
-        this.dioramaSquares = [] 
-
-        for(let i = 0; i < 9; i++)
-        {
-            this.dioramaSquares[i] = new THREE.Mesh(this.dioramaGeo, this.dioramaMat)
-            this.dioramaSquares[i].position.set(i < 3? i * 0.22 - 0.22: i < 6?
-                i * 0.22 - 0.88 : i * 0.22 - 1.54, i < 3? 0.22 : i < 6? 0 : -0.22, -1)
-            this.diorama.add(this.dioramaSquares[i])
-        }
 
         this.resize()
         this.setObjectPos()
@@ -150,15 +140,9 @@ export default class Objects
     {
         this.raycaster.setFromCamera(this.pointer.pointerPos, this.camera.camera)
         this.intersects = this.raycaster.intersectObjects([
-            this.dioramaSquares[0],
-            this.dioramaSquares[1],
-            this.dioramaSquares[2],
-            this.dioramaSquares[3],
-            this.dioramaSquares[4],
-            this.dioramaSquares[5],
-            this.dioramaSquares[6],
-            this.dioramaSquares[7],
-            this.dioramaSquares[8]
+            this.diorama.children[0], this.diorama.children[1], this.diorama.children[2],
+            this.diorama.children[3], this.diorama.children[4], this.diorama.children[5],
+            this.diorama.children[6], this.diorama.children[7], this.diorama.children[8]
         ])
 
         // Hover on Litho
@@ -171,6 +155,10 @@ export default class Objects
                 gsap.to(this.currentIntersect.object.position,
                     { z: 0.1, duration: 0.2, ease: "power2.out" })
             }
+            else
+            {
+                //TODO: When crossing from one tile to another
+            }
         }
         // Exit hover
         else
@@ -178,7 +166,7 @@ export default class Objects
             if(this.currentIntersect)
             {
                 gsap.to(this.currentIntersect.object.position,
-                    { z: 0, duration: 0.2, ease: "power2.out" })
+                    { z: 0, duration: 0.3, ease: "power2.out" })
                 this.currentIntersect = null
                 document.body.style.cursor = 'default'
             }

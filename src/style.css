@@ -20,9 +20,8 @@ html, body
 .container
 {
     max-width: 1000px;
-    padding: 80px;
+    padding: 100px;
     margin: auto;
-    z-index: 200;
 }
 
 .webgl
@@ -43,6 +42,7 @@ header
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 80px;
 }
 
 h1
@@ -60,11 +60,17 @@ nav
 
 nav a
 {
+    padding: 8px 0;
     color: #888888;
     font-size: 14px;
     font-weight: 500;
     text-decoration: none;
     cursor: pointer;
+}
+
+nav a:hover, nav a.current
+{
+    color: #222222;
 }
 
 /* _______________________________________________ TEST */
@@ -87,6 +93,7 @@ section
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 80px;
 }
 
 .footer h3
@@ -96,17 +103,15 @@ section
     font-weight: 500;
 }
 
-.footer div
+.footer img
 {
-    display: flex;
-    width: 160px;
+    width: 24px;
     height: 24px;
-    justify-content: space-between;
+    padding: 12px;
     opacity: 0.6;
 }
 
-/* .footer a:hover
+.footer img:hover
 {
-    opacity: 1;
-    cursor: pointer;
-} */
+    opacity: 0.8;
+}

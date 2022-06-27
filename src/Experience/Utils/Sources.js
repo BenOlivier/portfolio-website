@@ -10,6 +10,11 @@ export default [
         path: 'images/models/hello.png'
     },
     {
+        name: 'hello2_tex',
+        type: 'texture',
+        path: 'images/models/hello2.png'
+    },
+    {
         name: 'about_tex',
         type: 'texture',
         path: 'images/models/about.png'

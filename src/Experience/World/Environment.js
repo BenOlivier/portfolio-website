@@ -1,8 +1,8 @@
 import * as THREE from 'three'
 import gsap from 'gsap'
-import Experience from '../Experience.js'
-import backgroundVertexShader from '../Shaders/Background/vertex.glsl'
-import backgroundFragmentShader from '../Shaders/Background/fragment.glsl'
+import Experience from '../experience.js'
+import backgroundVertexShader from '../shaders/background/vertex.glsl'
+import backgroundFragmentShader from '../shaders/background/fragment.glsl'
 
 export default class Environment
 {

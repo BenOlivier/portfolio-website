@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import Experience from '../Experience.js'
+import Experience from '../experience.js'
 import gsap from 'gsap'
 
 export default class Pages

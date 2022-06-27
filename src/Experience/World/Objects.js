@@ -1,8 +1,8 @@
 import * as THREE from 'three'
 import gsap from 'gsap'
-import Experience from '../Experience.js'
-import aboutVertexShader from '../Shaders/About/vertex.glsl'
-import aboutFragmentShader from '../Shaders/About/fragment.glsl'
+import Experience from '../experience.js'
+import aboutVertexShader from '../shaders/about/vertex.glsl'
+import aboutFragmentShader from '../shaders/about/fragment.glsl'
 
 export default class Objects
 {
@@ -38,6 +38,11 @@ export default class Objects
         this.hello_tex.wrapT = THREE.RepeatWrapping
         this.hello_tex.repeat.set(0.15, 0.15)
 
+        this.hello2_tex = this.resources.items.hello2_tex
+        this.hello2_tex.wrapS = THREE.RepeatWrapping
+        this.hello2_tex.wrapT = THREE.RepeatWrapping
+        this.hello2_tex.repeat.set(0.15, 0.15)
+
         this.hello = this.helloResource.scene
         this.helloMat = new THREE.MeshBasicMaterial({
             map: this.hello_tex,
@@ -47,6 +52,21 @@ export default class Objects
             depthTest: false
         })
         this.hello.traverse((o) => { if (o.isMesh) o.material = this.helloMat })
+        this.hello.children[0].scale.set(1.8, 1.8, 1.8)
+        this.hello.rotation.z = 0.5
+
+        this.hello2 = this.hello.clone()
+        this.hello2Mat = new THREE.MeshBasicMaterial({
+            map: this.hello2_tex,
+            side: THREE.DoubleSide,
+            toneMapped: false,
+            transparent: true,
+            depthTest: false
+        })
+        this.hello2.traverse((o) => { if (o.isMesh) o.material = this.hello2Mat })
+        this.hello2.children[0].scale.set(2.8, 2.8, 2.8)
+        this.hello2.rotation.z = -0.5
+        this.hello2.position.z = -1
 
         // About
         this.about_tex = this.resources.items.about_tex
@@ -98,10 +118,11 @@ export default class Objects
         this.resize()
         this.setObjectPos()
         this.group = new THREE.Group()
-        this.group.add(this.hello, this.about, this.litho, this.diorama)
+        this.group.add(this.hello, this.hello2, this.about, this.litho, this.diorama)
         this.scene.add(this.group)
         this.currentObject = 0
-        this.targetQuaternion = new THREE.Quaternion()
+        this.targetQuaternion1 = new THREE.Quaternion()
+        this.targetQuaternion2 = new THREE.Quaternion()
     }
 
     setRaycaster()
@@ -189,18 +210,25 @@ export default class Objects
             case 0: //HELLO
                 if(this.timer < 1.2) //TODO: After mouse stop
                 {
-                    this.targetQuaternion.setFromEuler(new THREE.Euler
-                        (0, this.pointer.pointerPos.x * 0.4, 0))
-                    this.hello.quaternion.slerp(this.targetQuaternion, 0.2)
+                    this.targetQuaternion1.setFromEuler(new THREE.Euler
+                        (0, this.pointer.pointerPos.x * 0.4, 0.5))
+                    this.hello.quaternion.slerp(this.targetQuaternion1, 0.2)
+                    this.targetQuaternion2.setFromEuler(new THREE.Euler
+                        (this.pointer.pointerPos.x * 0.4, 0, -0.5))
+                    this.hello2.quaternion.slerp(this.targetQuaternion2, 0.2)
                 }
                 else
                 {
-                    this.targetQuaternion.setFromEuler(new THREE.Euler(0, 0, 0))
-                    this.hello.quaternion.slerp(this.targetQuaternion, 0.02)
+                    this.targetQuaternion1.setFromEuler(new THREE.Euler(0, 0, 0.5))
+                    this.hello.quaternion.slerp(this.targetQuaternion1, 0.02)
+                    this.targetQuaternion2.setFromEuler(new THREE.Euler(0, 0, -0.5))
+                    this.hello2.quaternion.slerp(this.targetQuaternion2, 0.02)
                 }
-                
+
                 this.helloMat.map.offset.x += this.time.delta / 18000
                 if (this.helloMat.map.offset.x > 1) this.helloMat.map.offset.x = 0
+                this.hello2Mat.map.offset.x += this.time.delta / 18000
+                if (this.hello2Mat.map.offset.x > 1) this.hello2Mat.map.offset.x = 0
             break
             case 1:
                 this.aboutMat.uniforms.uTime.value += this.time.delta

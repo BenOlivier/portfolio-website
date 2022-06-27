@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { Raycaster } from 'three'
-import Experience from '../Experience.js'
+import Experience from '../experience.js'
 
 export default class UI
 {

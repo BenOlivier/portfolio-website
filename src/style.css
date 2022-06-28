@@ -38,6 +38,16 @@ html, body
     }
 }
 
+h2
+{
+    font-size: 100px;
+    font-weight: 800;
+    margin-bottom: 50px;
+    text-align: center;
+    line-height: 100px;
+    color: rgb(216, 216, 216);
+}
+
 p
 {
     font-size: 15px;
@@ -131,7 +141,6 @@ nav a:hover, nav a.current
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 80px;
 }
 
 .footer h3

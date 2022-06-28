@@ -1,7 +1,23 @@
+#contact p
+{
+    text-align: center;
+    padding: 0 20px;
+}
+
 #contact form
 {
-    margin: 100px auto 200px auto;
-    width: 500px;
+    box-sizing: border-box;
+    margin: 50px auto 100px auto;
+    width: min(600px, 100%);
+    padding: 0 20px;
+}
+
+@media(min-width: 800px)
+{
+    #contact form
+    {
+        margin: 100px auto 200px auto;
+    }
 }
 
 #contact form label
@@ -20,6 +36,13 @@
     height: 40px;
     padding: 0 10px;
     margin: 5px 0 20px 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+#contact form input:focus
+{
+    border: 2px solid var(--highlight-color);
+    outline: none;
 }
 
 #contact form textarea
@@ -33,6 +56,13 @@
     padding: 10px;
     margin: 5px 0 20px 0;
     resize: vertical;
+    font-family: 'Montserrat', sans-serif;
+}
+
+#contact form textarea:focus
+{
+    border: 2px solid var(--highlight-color);
+    outline: none;
 }
 
 #contact form button

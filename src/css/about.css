@@ -1,0 +1,29 @@
+section
+{
+    position: relative;
+    display: flex;
+    height: auto;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+
+section div
+{
+    margin: 50px;
+}
+
+section a
+{
+    color: rgb(74, 133, 170);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+@media(min-width: 800px)
+{
+    section
+    {
+        flex-direction: row;
+    }
+}

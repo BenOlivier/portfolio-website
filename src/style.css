@@ -43,23 +43,20 @@ header
     z-index: 100;
     position: relative;
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 60px;
+    justify-content: center;
+    align-items: center;
 }
 
-@media(min-width: 800px)
+header h1
 {
-    header
-    {
-        margin-bottom: 80px;
-        align-items: center;
-    }
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-left: 5px;
 }
 
-h1 a
+header h1 a
 {
-    /* z-index: 200; */
     font-size: 25px;
     font-weight: 400;
     color: #222222;
@@ -68,7 +65,17 @@ h1 a
 
 @media(min-width: 800px)
 {
-    h1 a
+    header
+    {
+        justify-content: space-between;
+    }
+
+    header h1
+    {
+        position: relative
+    }
+    
+    header h1 a
     {
         font-size: 40px;
         font-weight: 400;
@@ -85,8 +92,8 @@ nav
     align-items: center;
     overflow: hidden;
     max-height: 0;
-    padding-top: 40px;
-    transition: max-height 0.3s ease-in-out;
+    padding-top: 80px;
+    transition: 0.3s ease-in-out;
 }
 
 @media(min-width: 800px)
@@ -102,7 +109,7 @@ nav
 
 nav a
 {
-    padding: 8px 0;
+    padding: 10px;
     color: #888888;
     font-size: 14px;
     font-weight: 500;
@@ -112,14 +119,15 @@ nav a
 
 nav.expanded
 {
-    max-height: 150px;
+    max-height: 140px;
+    padding-bottom: 60px;
 }
 
 @media(min-width: 800px)
 {
     nav a
     {
-      flex-direction: row;
+        flex-direction: row;
     }
 }
 
@@ -132,10 +140,13 @@ nav a:hover, nav a.current
 
 header button
 {
-    /* z-index: 100; */
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 6.25px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
     cursor: pointer;
     outline: none;
     border: none;
@@ -146,7 +157,7 @@ header button
 {
     header button
     {
-      display: none;
+        display: none;
     }
 }
 
@@ -198,7 +209,7 @@ h2
     h2
     {
         font-size: 100px;
-        margin-bottom: 50px;
+        margin: 50px 0 70px 0;
         line-height: 100px;
     }
 }

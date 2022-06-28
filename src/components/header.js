@@ -13,7 +13,7 @@ class Header extends HTMLElement
                 <nav>
                     <a href="/about.html">ABOUT</a>
                     <a href="">WORK</a>
-                    <a href="">CONTACT</a>
+                    <a href="/contact.html">CONTACT</a>
                 </nav>
             </header>
         `

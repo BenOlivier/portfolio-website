@@ -1,7 +1,6 @@
 import './style.css'
 import './css/about.css'
-
-// import PDF from '../static/pdf/cv.pdf'
+import './css/contact.css'
 
 import Experience from './experience/experience.js'
 

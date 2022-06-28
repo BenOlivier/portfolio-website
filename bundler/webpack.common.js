@@ -9,7 +9,8 @@ module.exports = {
     {
         hashFunction: 'xxhash64',
         filename: 'bundle.[contenthash].js',
-        path: path.resolve(__dirname, '../dist')
+        path: path.resolve(__dirname, '../dist'),
+        assetModuleFilename: "assets/[name][ext]"
     },
     devtool: 'source-map',
     plugins:
@@ -96,6 +97,16 @@ module.exports = {
                 generator:
                 {
                     filename: 'assets/images/[hash][ext]'
+                }
+            },
+
+            // PDF
+            {
+                test: /\.(pdf|txt)$/,
+                type: "asset/resource",
+                generator:
+                {
+                    filename: "assets/[name][ext]",
                 }
             }
         ]

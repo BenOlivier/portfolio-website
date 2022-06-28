@@ -32,7 +32,6 @@ export default class Loading
             this.fadeLoadingBar()
         }, 200)
         // Fade out overlay
-        this.hello = this.experience.objects.hello
         setTimeout(() => {
             this.fadeOverlay()
         }, 400)

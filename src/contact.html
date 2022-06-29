@@ -11,21 +11,23 @@
 </head>
 
 <body class="contact">
-  <div class="container" id="contact">
+  <div class="container">
     <header-component></header-component>
-    <h2>Contact</h2>
-    <p>Get in touch using the form below, or email me at 
-      <a class="link" href="mailto:dbeolivier@gmail.com">dbeolivier@gmail.com</a></p>
-    <form name="contact" method="post" data-netlify="true" onsubmit="submit">
-      <label for="name">Name</label>
-      <input type="text" id="name" name="name">
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" required>
-      <label for="message">Message</label>
-      <textarea name="message" id="message" required></textarea>
-      <button type="submit">Send message</button>
-    </form>
-    <script>
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>Get in touch using the form below, or email me at 
+        <a class="link" href="mailto:dbeolivier@gmail.com">dbeolivier@gmail.com</a></p>
+      <form name="contact" method="post" data-netlify="true" onsubmit="submit">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+        <label for="message">Message</label>
+        <textarea name="message" id="message" required></textarea>
+        <button type="submit">Send message</button>
+      </form>
+    </section>
+    <!-- <script>
       function myFunction() {
         var copyText = document.getElementById("myInput");
         copyText.select();
@@ -40,7 +42,7 @@
         var tooltip = document.getElementById("myTooltip");
         tooltip.innerHTML = "Copy to clipboard";
       }
-      </script>
+      </script> -->
     <footer-component></footer-component>
   </div>
 </body>

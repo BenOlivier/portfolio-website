@@ -35,6 +35,11 @@ module.exports = {
             filename: 'contact.html',
             minify: true
         }),
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, '../src/success.html'),
+            filename: 'success.html',
+            minify: true
+        }),
         new MiniCSSExtractPlugin()
     ],
     module:

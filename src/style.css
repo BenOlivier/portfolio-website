@@ -10,6 +10,7 @@
     --bg-light: #eeeeee;
     --highlight: #3884b0;
     --light-grey: #e0e0e0;
+    --mid-grey: #888888;
 }
 
 html, body
@@ -41,11 +42,11 @@ html, body
 
 h2
 {
-    font-size: 60px;
+    font-size: 80px;
     font-weight: 800;
-    margin-bottom: 50px;
+    margin: 100px 0 80px 0;
     text-align: center;
-    line-height: 60px;
+    line-height: 80px;
     color: var(--light-grey);
 }
 
@@ -54,9 +55,14 @@ h2
     h2
     {
         font-size: 100px;
-        margin: 50px 0 70px 0;
         line-height: 100px;
     }
+}
+
+h3
+{
+    font-size: 18px;
+    font-weight: 400;
 }
 
 p
@@ -125,7 +131,7 @@ header h1 a
 {
     font-size: 25px;
     font-weight: 400;
-    color: #222222;
+    color: var(--main-dark);
     text-decoration: none;
 }
 
@@ -158,8 +164,7 @@ nav
     align-items: center;
     overflow: hidden;
     max-height: 0;
-    padding-top: 80px;
-    transition: 0.3s ease-in-out;
+    transition: max-height 0.4s ease-in-out;
 }
 
 @media(min-width: 800px)
@@ -169,24 +174,27 @@ nav
         width: 240px;
         flex-direction: row;
         max-height: none;
-        padding-top: 0;
     }
 }
 
 nav a
 {
     padding: 10px;
-    color: #888888;
+    color: var(--mid-grey);
     font-size: 14px;
     font-weight: 500;
     text-decoration: none;
     cursor: pointer;
 }
 
+nav a:nth-of-type(1)
+{
+    margin-top: 120px;
+}
+
 nav.expanded
 {
-    max-height: 140px;
-    padding-bottom: 60px;
+    max-height: 270px;
 }
 
 @media(min-width: 800px)
@@ -195,11 +203,16 @@ nav.expanded
     {
         flex-direction: row;
     }
+
+    nav a:nth-of-type(1)
+    {
+        margin-top: 0;
+    }
 }
 
 nav a:hover, nav a.current
 {
-    color: #222222;
+    color: var(--main-dark);
 }
 
 /* _______________________________________________ BUTTON */
@@ -229,7 +242,7 @@ header button
 
 header button span
 {
-    background: #333333;
+    background: var(--main-dark);
     transition: all 0.2s ease-in-out;
     width: 26px;
     height: 2px;
@@ -271,7 +284,7 @@ header button.collapsed span:nth-child(3)
 
 .footer h3
 {
-    color: #888888;
+    color: var(--mid-grey);
     font-size: 14px;
     font-weight: 500;
     margin: 20px 0;

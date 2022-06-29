@@ -32,7 +32,7 @@ html, body
 {
     .container
     {
-        padding: 100px;
+        padding: 80px;
     }
 }
 
@@ -216,7 +216,7 @@ h2
 
 p
 {
-    font-size: 15px;
+    font-size: 14px;
     margin-bottom: 20px;
 }
 

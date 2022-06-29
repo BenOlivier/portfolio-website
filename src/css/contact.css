@@ -83,3 +83,8 @@
 {
     background-color: #d6dbde;
 }
+
+#contact form button.success
+{
+    content: 'Message sent!'
+}

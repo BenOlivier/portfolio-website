@@ -22,15 +22,16 @@ class Header extends HTMLElement
                 </button>
             </header>
         `
+        const aboutNav = document.getElementById('about-nav')
+        const workNav = document.getElementById('work-nav')
+        const contactNav = document.getElementById('contact-nav')
 
-        // this.aboutNav = document.getElementById('about-nav')
-        // this.workNav = document.getElementById('work-nav')
-        // this.contactNav = document.getElementById('contact-nav')
-
-        // this.aboutNav.addEventListener('click', function()
-        // {
-        //     this.aboutNav.classList.add('current')
-        // })
+        window.onload = function()
+        {
+            if(document.body.classList.contains('about')) aboutNav.classList.add('current')
+            if(document.body.classList.contains('work')) workNav.classList.add('current')
+            if(document.body.classList.contains('contact')) contactNav.classList.add('current')
+        }
     }
 }
 

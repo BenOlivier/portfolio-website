@@ -71,14 +71,15 @@
     height: 40px;
     border-radius: 0.4em;
     border: none;
-    background-color: #f2f2f2;
+    background-color: var(--light-grey);
     font-family: 'Montserrat', sans-serif;
-    color: var(--main-dark);
+    color: var(--highlight);
     font-size: 15px;
     cursor: pointer;
+    transition: 0.2s background-color;
 }
 
 #contact form button:hover
 {
-    background-color: #fafafa;
+    background-color: #d6dbde;
 }

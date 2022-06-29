@@ -7,8 +7,9 @@
 :root
 {
     --main-dark: #333333;
-    --bg-light: #e5e5e5;
+    --bg-light: #eeeeee;
     --highlight: #3884b0;
+    --light-grey: #e0e0e0;
 }
 
 html, body
@@ -45,7 +46,7 @@ h2
     margin-bottom: 50px;
     text-align: center;
     line-height: 60px;
-    color: rgb(216, 216, 216);
+    color: var(--light-grey);
 }
 
 @media(min-width: 800px)

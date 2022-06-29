@@ -5,11 +5,11 @@ import Debug from './utils/debug.js'
 import Sizes from './utils/sizes.js'
 import Loading from './utils/loading.js'
 import Time from './utils/time.js'
-import Camera from './world/camera.js'
+import Camera from './utils/camera.js'
 import Pointer from './utils/pointer.js'
-import Renderer from './renderer.js'
-import Environment from './world/environment.js'
-import Objects from './world/objects.js'
+import Renderer from './utils/renderer.js'
+import Environment from './scenes/hello/environment.js'
+import Hello from './scenes/hello/hello.js'
 // import Stats from 'stats.js'
 
 let instance = null
@@ -48,7 +48,7 @@ export default class Experience
         {
             // Setup
             this.environment = new Environment()
-            this.objects = new Objects()
+            this.hello = new Hello()
         })
 
         // Stats
@@ -76,7 +76,6 @@ export default class Experience
         if(this.objects) this.objects.update()
         this.renderer.update()
         this.camera.update()
-        if(this.UI) this.UI.update()
     }
 
     destroy()

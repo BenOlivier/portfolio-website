@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import Experience from './experience.js'
+import Experience from '../scenes/hello/experience.js'
 
 export default class Renderer
 {

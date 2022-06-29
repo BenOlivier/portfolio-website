@@ -32,7 +32,7 @@ html, body
     margin: auto;
 }
 
-@media(min-width: 800px)
+@media(min-width: 750px)
 {
     .container
     {
@@ -50,7 +50,7 @@ h2
     color: var(--light-grey);
 }
 
-@media(min-width: 800px)
+@media(min-width: 750px)
 {
     h2
     {
@@ -129,13 +129,14 @@ header h1
 
 header h1 a
 {
+    /* font-family: 'Noto Serif'; */
     font-size: 25px;
     font-weight: 400;
     color: var(--main-dark);
     text-decoration: none;
 }
 
-@media(min-width: 800px)
+@media(min-width: 750px)
 {
     header
     {
@@ -149,7 +150,6 @@ header h1 a
     
     header h1 a
     {
-        font-size: 40px;
         font-weight: 400;
     }
 }
@@ -167,7 +167,7 @@ nav
     transition: max-height 0.4s ease-in-out;
 }
 
-@media(min-width: 800px)
+@media(min-width: 750px)
 {
     nav
     {
@@ -197,7 +197,7 @@ nav.expanded
     max-height: 270px;
 }
 
-@media(min-width: 800px)
+@media(min-width: 750px)
 {
     nav a
     {
@@ -232,7 +232,7 @@ header button
     background: none;
 }
 
-@media(min-width: 800px)
+@media(min-width: 750px)
 {
     header button
     {
@@ -310,7 +310,7 @@ header button.collapsed span:nth-child(3)
     opacity: 0.8;
 }
 
-@media(min-width: 800px)
+@media(min-width: 750px)
 {
     .footer
     {

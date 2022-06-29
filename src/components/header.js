@@ -12,7 +12,7 @@ class Header extends HTMLElement
                 <h1><a href="/index.html">Ben Olivier</a></h1>
                 <nav id="nav">
                     <a id="about-nav" href="/about.html">ABOUT</a>
-                    <a id="work-nav" href="">WORK</a>
+                    <a id="work-nav" href="/work.html">WORK</a>
                     <a id="contact-nav" href="/contact.html">CONTACT</a>
                 </nav>
                 <button onclick="this.classList.toggle('collapsed');document.getElementById('nav').classList.toggle('expanded')">

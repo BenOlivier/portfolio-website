@@ -10,26 +10,6 @@ export default [
         path: 'images/models/hello.png'
     },
     {
-        name: 'about_tex',
-        type: 'texture',
-        path: 'images/models/about.png'
-    },
-    {
-        name: 'litho',
-        type: 'gltfModel',
-        path: 'models/Litho.glb'
-    },
-    {
-        name: 'diorama',
-        type: 'gltfModel',
-        path: 'models/Diorama.glb'
-    },
-    {
-        name: 'diorama_tex',
-        type: 'texture',
-        path: 'images/models/diorama2.png'
-    },
-    {
         name: 'environmentMap_tex',
         type: 'cubeTexture',
         path:

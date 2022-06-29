@@ -1,5 +1,6 @@
 import './style.css'
 import './css/about.css'
+import './css/work.css'
 import './css/contact.css'
 
 import Experience from './three/experience.js'

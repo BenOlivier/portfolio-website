@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import Sources from './utils/sources.js'
+import Sources from './scenes/hello/sources.js'
 import Resources from './utils/resources.js'
 import Debug from './utils/debug.js'
 import Sizes from './utils/sizes.js'

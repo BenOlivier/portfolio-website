@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import Experience from '../scenes/hello/experience.js'
+import Experience from '../experience.js'
 
 export default class Renderer
 {
@@ -17,10 +17,10 @@ export default class Renderer
             this.debugFolder = this.debug.ui.addFolder('renderer')
         }
 
-        this.setRenderers()
+        this.setRenderer()
     }
 
-    setRenderers()
+    setRenderer()
     {
         this.renderer = new THREE.WebGLRenderer({
             canvas: this.canvas,
@@ -35,7 +35,6 @@ export default class Renderer
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
         this.renderer.setSize(this.sizes.width, this.sizes.height)
         this.renderer.setPixelRatio(Math.min(this.sizes.pixelRatio, 2))
-        // this.renderer.sortObjects = false
 
         if(this.debug.active)
         {
@@ -59,6 +58,5 @@ export default class Renderer
     update()
     {
         this.renderer.render(this.scene, this.camera.camera)
-        // this.cssRenderer.render(this.scene, this.camera.camera)
     }
 }

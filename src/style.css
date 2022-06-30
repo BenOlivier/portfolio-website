@@ -24,6 +24,7 @@ html, body
     color: var(--main-dark);
     line-height: 1.8em;
     font-family: 'Montserrat', sans-serif;
+    overscroll-behavior: none;
     overflow-x: hidden;
 }
 
@@ -90,16 +91,9 @@ h4
 
 p
 {
-    font-size: 12px;
+    font-size: 14px;
+    font-weight: 500;
     margin-bottom: 20px;
-}
-
-@media(min-width: 750px)
-{
-    p
-    {
-        font-size: 14px;
-    }
 }
 
 .link
@@ -213,7 +207,7 @@ nav a
     padding: 10px;
     color: var(--mid-grey);
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     text-decoration: none;
     cursor: pointer;
 }

@@ -90,6 +90,7 @@
     border: none;
     background-color: var(--light-grey);
     font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
     color: var(--highlight);
     font-size: 15px;
     cursor: pointer;
@@ -110,11 +111,12 @@
 
 #success h2
 {
-    margin-top: 200px;
+    margin: 300px 0 50px 0;
+    text-align: center;
 }
 
 #success h3
 {
     text-align: center;
-    margin-bottom: 200px;
+    margin-bottom: 350px;
 }

@@ -144,7 +144,7 @@
     transition: 0.2s all;
 }
 
-#skills-grid div:hover
+#skills-grid div:hover, #skills-grid div:active
 {
     background-color: var(--bg-white);
     box-shadow: 0 0 20px #00000010;

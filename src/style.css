@@ -103,6 +103,7 @@ p
     font-weight: 500;
     padding: 2px 0;
     position: relative;
+    cursor: pointer;
 }
 
 .link::before

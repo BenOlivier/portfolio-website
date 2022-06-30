@@ -26,6 +26,11 @@
     }
 }
 
+.work-section a
+{
+    text-decoration: none;
+}
+
 .text-container
 {
     width: 100%;

@@ -9,3 +9,8 @@ if(document.body.classList.contains('index'))
 {
     const experience = new Experience(document.querySelector('canvas.webgl'))
 }
+
+if(document.body.classList.contains('litho'))
+{
+    const experience = new Experience(document.querySelector('canvas.webgl'))
+}

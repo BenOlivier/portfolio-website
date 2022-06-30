@@ -17,17 +17,24 @@
     <section id="about">
         <!-- <img class="gradient" src="/static/images/other/gradient2.png" alt="Gradient"> -->
         <img src="/static/images/other/profile.png" alt="Profile">
-        <div>
+        <div id="about-text">
             <h2 id="box-heading">Hi! I'm Ben</h2>
-            <p>I'm a Product Designer who loves to craft beautiful products and interactive experiences with code.</p>
-            <p>I believe computers can be amazing tools for the betterment of humanity and want to help shape our immersive future.</p>
-            <p><a class="link" href="pdf/cv.pdf" target="_blank">Read more &blacktriangledown;<span class="arrow-down"></span></a></p>
+            <p>I'm a Product Designer who loves to craft beautiful interactive experiences with code.</p>
+            <p>I believe computers can be amazing tools and I want to help shape our immersive future for the better.</p>
+            <div id="hidden-text">
+                <p>I studied Product Design at Central Saint Martins where I learned classical design fundamentals.</p>
+                <p>After university I joined London-based startup Litho. I have been involved in every capacity of the business which has been an invaluable experience.</p>
+                <p></p>
+            </div>
+            <button class="link" id="expand-button" onclick=";document.getElementById('hidden-text').classList.toggle('expanded');this.innerHTML='Show less &blacktriangle;'">Read more &blacktriangledown;</button>
             <!-- <p><a class="link" href="pdf/cv.pdf" target="_blank">Check out my CV</a></p> -->
         </div>
     </section>
     <section id="skills">
-        <h3>My awesome skills</h3>
-        <p>I'm self-taught and always learning new ones</p>
+        <div id="heading">
+            <h3>My awesome skills</h3>
+            <p>I'm self-taught and always learning new ones</p>
+        </div>
         <div id="skills-grid">
             <div>
                 <img src="/static/images/icons/skills/productmgmt.svg">

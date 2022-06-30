@@ -5,7 +5,6 @@
     align-items: center;
     flex-direction: column;
     padding-bottom: 60px;
-    border-bottom: 1px solid rgb(180, 180, 180);
 }
 
 @media(min-width: 750px)
@@ -21,6 +20,15 @@
 {
     width: 100%;
     max-width: 400px;
+    z-index: 1;
+}
+
+#about .gradient
+{
+    position: absolute;
+    top: 200px;
+    width: 2000px;
+    height: 400px;
 }
 
 #about div
@@ -43,6 +51,24 @@
 
 /* _______________________________________________ SKILLS */
 
+#skills
+{
+    position: relative;
+    padding: 100px 0;
+}
+
+#skills:before
+{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX( -50%);
+    height: 100%;
+    width: 100vw;
+    background: var(--bg-light-grey);
+}
+
 #skills-grid
 {
     display: grid;
@@ -51,7 +77,7 @@
     width: 100%;
     box-sizing: border-box;
     padding: 0 20px;
-    margin: 0 auto 100px auto;
+    margin: auto;
     align-items: center;
     justify-items: center;
 }

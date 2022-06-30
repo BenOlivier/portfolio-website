@@ -1,7 +1,22 @@
+#contact h2
+{
+    text-align: center;
+    margin: 100px 0 40px 0;
+}
+
 #contact p
 {
     text-align: center;
-    padding: 0 20px;
+    margin: auto;
+    max-width: 330px;
+}
+
+@media(min-width: 750px)
+{
+    #contact p
+    {
+        max-width: 380px;
+    }
 }
 
 #contact form

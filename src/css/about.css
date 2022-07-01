@@ -53,6 +53,7 @@
     {
         flex-direction: row;
         align-items: center;
+        padding: 40px 0 100px 0;
     }
 }
 
@@ -63,15 +64,11 @@
     max-width: 400px;
 }
 
-#about-text
-{
-    flex-basis: 470px;
-}
-
 @media(min-width: 750px)
 {
     #about-text
     {
+        flex-basis: 470px;
         padding: 0 0 0 40px;
     }
 }
@@ -85,15 +82,26 @@
 
 #hidden-text.expanded
 {
-    max-height: 200px;
+    max-height: 280px;
 }
 
-#expand-button
+#expand-button, #contract-button
 {
+    display: block;
     font-family: 'Montserrat', sans-serif;
     font-size: 15px;
     background: none;
     border: none;
+}
+
+#expand-button span, #contract-button span
+{
+    font-size: 18px;
+}
+
+#expand-button.hidden, #contract-button.hidden
+{
+    display: none;
 }
 
 /* _______________________________________________ SKILLS */

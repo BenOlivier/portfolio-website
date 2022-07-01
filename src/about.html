@@ -24,10 +24,10 @@
             <div id="hidden-text">
                 <p>I studied Product Design at Central Saint Martins where I learned classical design fundamentals.</p>
                 <p>After university I joined London-based startup Litho. I have been involved in every capacity of the business which has been an invaluable experience.</p>
-                <p></p>
+                <p><a class="link" href="pdf/cv.pdf" target="_blank">Check out my CV</a></p>
             </div>
-            <button class="link" id="expand-button" onclick=";document.getElementById('hidden-text').classList.toggle('expanded');this.innerHTML='Show less &blacktriangle;'">Read more &blacktriangledown;</button>
-            <!-- <p><a class="link" href="pdf/cv.pdf" target="_blank">Check out my CV</a></p> -->
+            <button class="link" id="expand-button" onclick=";document.getElementById('hidden-text').classList.add('expanded');this.classList.add('hidden');document.getElementById('contract-button').classList.remove('hidden');">Read more <span>&darr;</span></button>
+            <button class="link hidden" id="contract-button" onclick=";document.getElementById('hidden-text').classList.remove('expanded');this.classList.add('hidden');document.getElementById('expand-button').classList.remove('hidden');">Show less <span>&uarr;</span></button>
         </div>
     </section>
     <section id="skills">

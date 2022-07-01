@@ -32,6 +32,7 @@ export default class Renderer
         this.renderer.toneMappingExposure = 2
         this.renderer.shadowMap.enabled = true
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
+        this.renderer.setClearColor('#1a1a1a')
         this.renderer.setSize(this.sizes.width, this.sizes.height)
         this.renderer.setPixelRatio(Math.min(this.sizes.pixelRatio, 2))
 

@@ -9,7 +9,7 @@ class ModelViewerHeader extends HTMLElement
     {
         this.innerHTML = `
             <header id="model-viewer-header">
-                <button onclick="window.history.back()";>Back</button>
+                <img src="/images/icons/arrow.svg" onclick="window.history.back()";>Back</img>
             </header>
         `
     }

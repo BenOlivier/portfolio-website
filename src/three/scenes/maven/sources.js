@@ -5,6 +5,11 @@ export default [
         path: 'models/maven.glb'
     },
     {
+        name: 'floorTexture',
+        type: 'texture',
+        path: 'images/models/floor.png'
+    },
+    {
         name: 'environmentMap_tex',
         type: 'cubeTexture',
         path:

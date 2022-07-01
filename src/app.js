@@ -6,8 +6,9 @@ import './css/about.css'
 import './css/work.css'
 import './css/contact.css'
 
-// import Experience from './three/scenes/hello/experience.js'
+import Experience from './three/scenes/hello/experience.js'
 import Maven from './three/scenes/maven/maven.js'
+import AbstractForm from './three/scenes/abstract-form/abstract-form.js'
 
 if(document.body.classList.contains('index'))
 {
@@ -22,4 +23,9 @@ if(document.body.classList.contains('litho'))
 if(document.body.classList.contains('maven'))
 {
     const experience = new Maven(document.querySelector('canvas.webgl'))
+}
+
+if(document.body.classList.contains('abstract-form'))
+{
+    const experience = new AbstractForm(document.querySelector('canvas.webgl'))
 }

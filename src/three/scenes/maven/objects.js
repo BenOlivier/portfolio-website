@@ -29,6 +29,7 @@ export default class Objects
             if(child instanceof THREE.Mesh)
             {
                 child.castShadow = true
+                child.receiveShadow = true
             }
         })
     }

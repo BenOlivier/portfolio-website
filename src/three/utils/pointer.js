@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import EventEmitter from './eventemitter.js'
+import EventEmitter from './event-emitter.js'
 
 export default class Pointer extends EventEmitter
 {

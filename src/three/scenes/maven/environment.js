@@ -15,7 +15,20 @@ export default class Environment
             this.debugFolder = this.debug.ui.addFolder('environment')
         }
 
+        this.setSunLight()
         this.setEnvironmentMap()
+        this.setFloor()
+    }
+
+    setSunLight()
+    {
+        this.sunLight = new THREE.DirectionalLight('#ffffff', 2)
+        this.sunLight.castShadow = true
+        this.sunLight.shadow.camera.far = 15
+        this.sunLight.shadow.mapSize.set(1024, 1024)
+        this.sunLight.shadow.normalBias = 0.05
+        this.sunLight.position.set(1, 2, 1)
+        this.scene.add(this.sunLight)
     }
 
     setEnvironmentMap()
@@ -52,5 +65,23 @@ export default class Environment
                 .step(0.1)
                 .onChange(this.environmentMap.updateMaterials)
         }
+    }
+
+    setFloor()
+    {
+        this.floorGeometry = new THREE.PlaneGeometry(3, 3)
+        this.floorTexture = this.resources.items.floorTexture
+        this.floorMaterial = new THREE.MeshStandardMaterial({
+            map: this.floorTexture,
+            transparent: true,
+            // depthTest: false,
+            opacity: 0.1
+        })
+
+        this.floor = new THREE.Mesh(this.floorGeometry, this.floorMaterial)
+        this.floor.position.y = -0.8
+        this.floor.rotation.x = - Math.PI * 0.5
+        this.floor.receiveShadow = true
+        this.scene.add(this.floor)
     }
 }

@@ -11,39 +11,22 @@
 </head>
 
 <body class="contact">
-  <div class="container">
-    <header-component></header-component>
-    <section id="contact">
-      <h2>Get in touch</h2>
-      <p>Feel free to send me a message using the form below, or email me at 
-        <a class="link" href="mailto:dbeolivier@gmail.com">dbeolivier@gmail.com</a></p>
-      <form name="contact" method="post" data-netlify="true" onsubmit="submit" action="/success.html">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
-        <label for="message">Message</label>
-        <textarea name="message" id="message" required></textarea>
-        <button type="submit">Send message</button>
-      </form>
-    </section>
-    <!-- <script>
-      function myFunction() {
-        var copyText = document.getElementById("myInput");
-        copyText.select();
-        copyText.setSelectionRange(0, 99999);
-        navigator.clipboard.writeText(copyText.value);
-        
-        var tooltip = document.getElementById("myTooltip");
-        tooltip.innerHTML = "Copied: " + copyText.value;
-      }
-      
-      function outFunc() {
-        var tooltip = document.getElementById("myTooltip");
-        tooltip.innerHTML = "Copy to clipboard";
-      }
-      </script> -->
-    <footer-component></footer-component>
+  <div id="background">
+    <div class="container">
+      <header-component></header-component>
+      <section id="contact">
+        <h2>Get in touch</h2>
+        <p>Feel free to send me a message using the form below, or email me at 
+          <a class="link" href="mailto:dbeolivier@gmail.com">dbeolivier@gmail.com</a></p>
+        <form name="contact" method="post" data-netlify="true" onsubmit="submit" action="/success.html">
+          <input type="text" id="name" name="name" placeholder="Your name">
+          <input type="email" id="email" name="email" placeholder="Your email address" required>
+          <textarea name="message" id="message" placeholder="Write your message here" required></textarea>
+          <button type="submit">Send message</button>
+        </form>
+      </section>
+      <footer-component></footer-component>
+    </div>
   </div>
 </body>
 </html>

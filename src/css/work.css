@@ -1,110 +1,44 @@
-.work-section
+.work h2
 {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 80px;
+    margin: 100px 0 100px 0;
 }
 
-.work-section:last-of-type
+#work-section
 {
-    padding-bottom: 140px;
-}
-
-@media(min-width: 750px)
-{
-    .work-section
-    {
-        flex-direction: row;
-    }
-
-    .work-section:nth-of-type(2n) .text-container
-    {
-        order: 1;
-        padding: 0 0 0 40px;
-    }
-}
-
-.work-section a
-{
-    text-decoration: none;
-}
-
-.text-container
-{
-    width: 100%;
-    box-sizing: border-box;
-    padding: 40px 0 0 0;
-    order: 1;
-}
-
-@media(min-width: 750px)
-{
-    .text-container
-    {
-        width: 50%;
-        order: 0;
-        padding-right: 40px;
-    }
-}
-
-.text-container h3
-{
-    color: var(--highlight);
-    padding-bottom: 20px;
+    margin-bottom: 200px;
 }
 
 .image-container
 {
     position: relative;
-    height: 300px;
+    height: 150px;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
     overflow: hidden;
-}
-
-.image-container::after
-{
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: #333333;
-    opacity: 0;
+    margin-bottom: 5px;
+    transform: skewY(-5deg);
+    border-radius: 5px;
     transition: .5s ease all;
-}
-
-.image-container:hover::after
-{
-    opacity: 0.1;
     cursor: pointer;
 }
 
-@media(min-width: 750px)
+.image-container:hover
 {
-    .image-container
-    {
-        width: 50%;
-        border-radius: 8px;
-    }
+    height: 300px;
 }
 
-.image-container img
+.image-container a
 {
     width: 100%;
     height: 100%;
-    /* flex-grow: 100%; */
-    object-fit: cover;
-    transition: 0.5s ease all;
 }
 
-.image-container:hover img
+.image-container a, .image-container img
 {
-    transform: scale(1.05);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.5s ease all;
 }

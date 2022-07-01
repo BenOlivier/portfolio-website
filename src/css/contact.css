@@ -1,3 +1,19 @@
+#contact
+{
+    position: relative;
+    z-index: 1;
+}
+
+/* #contact::before
+{
+    content: '';
+    background: radial-gradient(#b9f7f7a4, var(--bg-white) 50%, var(--bg-white) 0);
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    z-index: -1;
+} */
+
 #contact h2
 {
     text-align: center;
@@ -23,8 +39,19 @@
 {
     box-sizing: border-box;
     margin: 50px auto 100px auto;
+    background-color: var(--bg-light-grey);
+    /* box-shadow: 0 0 50px #00000010; */
+    border-radius: 20px;
     width: min(600px, 100%);
-    padding: 0 20px;
+    padding: 20px;
+}
+
+@media(min-width: 480px)
+{
+    #contact form
+    {
+        padding: 30px 40px 40px 40px;
+    }
 }
 
 @media(min-width: 750px)
@@ -32,6 +59,7 @@
     #contact form
     {
         margin: 100px auto 200px auto;
+        padding: 50px 60px 60px 60px;
     }
 }
 
@@ -45,6 +73,7 @@
 {
     background: none;
     border: 1px solid #b2b2b2;
+    background-color: var(--bg-white);
     border-radius: 5px;
     box-sizing: border-box;
     width: 100%;
@@ -64,6 +93,7 @@
 {
     background: none;
     border: 1px solid #b2b2b2;
+    background-color: var(--bg-white);
     border-radius: 5px;
     box-sizing: border-box;
     width: 100%;

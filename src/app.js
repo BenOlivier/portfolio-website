@@ -1,4 +1,7 @@
 import './style.css'
+import './css/header.css'
+import './css/footer.css'
+import './css/modelviewer.css'
 import './css/about.css'
 import './css/work.css'
 import './css/contact.css'
@@ -11,6 +14,11 @@ if(document.body.classList.contains('index'))
 }
 
 if(document.body.classList.contains('litho'))
+{
+    const experience = new Experience(document.querySelector('canvas.webgl'))
+}
+
+if(document.body.classList.contains('maven'))
 {
     const experience = new Experience(document.querySelector('canvas.webgl'))
 }

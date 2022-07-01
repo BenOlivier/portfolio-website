@@ -1,0 +1,12 @@
+#model-viewer-header button
+{
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    background: none;
+    border: none;
+    z-index: 1;
+    cursor: pointer;
+}

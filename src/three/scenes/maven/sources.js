@@ -1,13 +1,8 @@
 export default [
     {
-        name: 'hello',
+        name: 'maven',
         type: 'gltfModel',
-        path: 'models/Hello.glb'
-    },
-    {
-        name: 'hello_tex',
-        type: 'texture',
-        path: 'images/models/hello.png'
+        path: 'models/maven.glb'
     },
     {
         name: 'environmentMap_tex',

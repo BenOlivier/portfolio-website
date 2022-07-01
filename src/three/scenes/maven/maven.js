@@ -1,44 +1,105 @@
 import * as THREE from 'three'
-import Experience from '../../experience.js'
+import Sources from './sources.js'
+import Resources from '../../utils/resources.js'
+import Debug from '../../utils/debug.js'
+import Sizes from '../../utils/sizes.js'
+import Loading from '../../utils/loading.js'
+import Time from '../../utils/time.js'
+import Camera from '../../utils/camera.js'
+import Pointer from '../../utils/pointer.js'
+import Renderer from '../../utils/renderer.js'
+import Environment from './environment'
+import Objects from './objects.js'
+// import Stats from 'stats.js'
 
-export default class Hello
+let instance = null
+
+export default class Maven
 {
-    constructor()
+    constructor(_canvas)
     {
-        this.experience = new Experience()
-        this.scene = this.experience.scene
-        this.resources = this.experience.resources
-        this.camera = this.experience.camera
-        this.time = this.experience.time
-        this.debug = this.experience.debug
+        // Singleton
+        if(instance)
+        {
+            return instance
+        }
+        instance = this
+        
+        // Global access
+        window.experience = this
 
-        this.setModel()
-    }
+        // Options
+        this.canvas = _canvas
 
-    setModel()
-    {
-        this.helloResource = this.resources.items.hello
-        this.hello_tex = this.resources.items.hello_tex
-        this.hello_tex.wrapS = THREE.RepeatWrapping
-        this.hello_tex.wrapT = THREE.RepeatWrapping
-        this.hello_tex.repeat.set(0.15, 0.15)
+        // Setup
+        this.debug = new Debug()
+        this.sizes = new Sizes()
+        this.time = new Time()
+        this.scene = new THREE.Scene()
+        this.loading = new Loading()
+        this.resources = new Resources(Sources)
+        this.pointer = new Pointer()
+        this.camera = new Camera()
+        this.renderer = new Renderer()
+        // this.stats = new Stats()
+        
+        // Wait for resources
+        this.resources.on('ready', () =>
+        {
+            // Setup
+            this.environment = new Environment()
+            this.objects = new Objects()
+        })
 
-        this.hello = this.helloResource.scene
-        // this.helloMat = new THREE.MeshBasicMaterial({
-        //     map: this.hello_tex,
-        //     side: THREE.DoubleSide,
-        //     toneMapped: false,
-        //     transparent: true,
-        //     depthTest: false
-        // })
-        // this.hello.traverse((o) => { if (o.isMesh) o.material = this.helloMat })
-        this.hello.scale.set(0.8, 0.8, 0.8)
-        this.scene.add(this.hello)
+        // Stats
+        // this.stats.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
+        // document.body.appendChild(this.stats.dom)
+
+        // Resize event
+        this.sizes.on('resize', () =>
+        {
+            this.camera.resize()
+            this.renderer.resize()
+        })
+
+        // Time tick event
+        this.time.on('tick', () =>
+        {
+            // this.stats.begin()
+            this.update()
+            // this.stats.end()
+        })
     }
 
     update()
     {
-        // this.helloMat.map.offset.x += this.time.delta / 18000
-        // if (this.helloMat.map.offset.x > 1) this.helloMat.map.offset.x = 0
+        if(this.objects) this.objects.update()
+        this.renderer.update()
+        this.camera.update()
+    }
+
+    destroy()
+    {
+        this.sizes.off('resize')
+        this.time.off('tick')
+
+        this.scene.traverse((child) =>
+        {
+            if(child instanceof THREE.Mesh)
+            {
+                child.geometry.dispose()
+                for(const key in child.material)
+                {
+                    const value = child.material[key]
+                    if(value && typeof value.dispose === 'function')
+                    {
+                        value.dispose()
+                    }
+                }
+            }
+        })
+
+        this.renderer.instance.dispose()
+        if(this.debug.active) this.debug.ui.destroy()
     }
 }

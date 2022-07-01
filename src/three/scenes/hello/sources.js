@@ -2,7 +2,7 @@ export default [
     {
         name: 'hello',
         type: 'gltfModel',
-        path: 'models/Hello.glb'
+        path: 'models/hello.glb'
     },
     {
         name: 'hello_tex',

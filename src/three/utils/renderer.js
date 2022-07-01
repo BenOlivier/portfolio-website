@@ -1,11 +1,10 @@
 import * as THREE from 'three'
-import Experience from '../experience.js'
 
 export default class Renderer
 {
     constructor()
     {
-        this.experience = new Experience()
+        this.experience = window.experience
         this.canvas = this.experience.canvas
         this.sizes = this.experience.sizes
         this.scene = this.experience.scene

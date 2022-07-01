@@ -1,12 +1,10 @@
 import * as THREE from 'three'
-import gsap from 'gsap'
-import Experience from '../../experience.js'
 
 export default class Environment
 {
     constructor()
     {
-        this.experience = new Experience()
+        this.experience = window.experience
         this.scene = this.experience.scene
         this.resources = this.experience.resources
         this.debug = this.experience.debug

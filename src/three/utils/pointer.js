@@ -1,6 +1,5 @@
 import * as THREE from 'three'
 import EventEmitter from './eventemitter.js'
-import Experience from '../experience.js'
 
 export default class Pointer extends EventEmitter
 {
@@ -10,7 +9,7 @@ export default class Pointer extends EventEmitter
 
         // Setup
         this.pointerPos = new THREE.Vector2()
-        this.experience = new Experience()
+        this.experience = window.experience
         this.sizes = this.experience.sizes
         this.leftArrow = document.getElementById("left-arrow")
 

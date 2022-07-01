@@ -10,3 +10,8 @@
     z-index: 1;
     cursor: pointer;
 }
+
+.webgl
+{
+    cursor: grab;
+}

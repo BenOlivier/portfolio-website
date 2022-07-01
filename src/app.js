@@ -6,7 +6,8 @@ import './css/about.css'
 import './css/work.css'
 import './css/contact.css'
 
-import Experience from './three/experience.js'
+// import Experience from './three/scenes/hello/experience.js'
+import Maven from './three/scenes/maven/maven.js'
 
 if(document.body.classList.contains('index'))
 {
@@ -20,5 +21,5 @@ if(document.body.classList.contains('litho'))
 
 if(document.body.classList.contains('maven'))
 {
-    const experience = new Experience(document.querySelector('canvas.webgl'))
+    const experience = new Maven(document.querySelector('canvas.webgl'))
 }

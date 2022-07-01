@@ -1,12 +1,10 @@
 import * as THREE from 'three'
-import Experience from '../experience.js'
-import gsap from 'gsap'
 
 export default class Loading
 {
     constructor()
     {
-        this.experience = new Experience()
+        this.experience = window.experience
         this.sizes = this.experience.sizes
         this.time = this.experience.time
         this.scene = this.experience.scene

@@ -1,11 +1,10 @@
 import * as THREE from 'three'
-import Experience from '../experience.js'
 
 export default class Raycaster
 {
     constructor()
     {
-        this.experience = new Experience()
+        this.experience = window.experience
         this.scene = this.experience.scene
         this.pointer = this.experience.pointer
         this.camera = this.experience.camera

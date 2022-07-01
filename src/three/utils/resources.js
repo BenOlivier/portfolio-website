@@ -1,7 +1,6 @@
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import EventEmitter from './eventemitter.js'
-import Experience from '../experience.js'
 
 export default class Resources extends EventEmitter
 {
@@ -10,7 +9,7 @@ export default class Resources extends EventEmitter
         super()
 
         this.sources = Sources
-        this.experience = new Experience()
+        this.experience = window.experience
 
         this.items = {}
         this.toLoad = this.sources.length

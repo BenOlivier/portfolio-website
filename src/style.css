@@ -8,6 +8,7 @@
 {
     --bg-white: #f8f8f8;
     --bg-light-grey: #eeeeee;
+    --bg-light-blue: #ebedf0;
     --light-grey: #dddddd;
     --mid-grey: #888888;
     --main-dark: #333333;
@@ -20,12 +21,23 @@ html, body
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--bg-white);
+    /* background: fuchsia; */
+    background: linear-gradient(0deg, #ff00ea 50%, #00FFFF 50%);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
     color: var(--main-dark);
     line-height: 1.8em;
     font-family: 'Montserrat', sans-serif;
-    overscroll-behavior: none;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
+}
+
+.background
+{
+    position: relative;
+    /* background-color: var(--bg-white); */
+    z-index: 1;
+    overflow: hidden;
 }
 
 .container

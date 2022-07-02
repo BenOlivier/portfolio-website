@@ -4,20 +4,12 @@
     z-index: 1;
 }
 
-#background
-{
-    position: relative;
-    z-index: 1;
-    overflow: hidden;
-}
-
-#background::before
+.background::before
 {
     content: '';
-    /* background-color: #e5f1ff; */
-    background-color: #ebedf0;
+    background-color: var(--bg-light-blue);
     position: absolute;
-    top: -60px;
+    top: -50px;
     left: 50%;
     width: 100vw;
     height: 1100px;
@@ -28,17 +20,17 @@
 
 @media(min-width: 480px)
 {
-    #background::before
+    .background::before
     {
-        top: -20px;;
+        top: -20px;
     }
 }
 
 @media(min-width: 750px)
 {
-    #background::before
+    .background::before
     {
-        top: 200px;
+        top: 100px;
     }
 }
 

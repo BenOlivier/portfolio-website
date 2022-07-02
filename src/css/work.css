@@ -5,14 +5,15 @@
 
 #work-container
 {
-    width: 600px;
+    width: 100%;
+    max-width: 650px;
     margin: auto;
     margin-bottom: 300px;
 }
 
 .work-section
 {
-    padding-bottom: 10px;
+    padding-bottom: 8px;
 }
 
 .text-container

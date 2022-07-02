@@ -8,11 +8,10 @@
 {
     --bg-white: #f8f8f8;
     --bg-light-grey: #eeeeee;
-    --light-grey: #e0e0e0;
+    --light-grey: #dddddd;
     --mid-grey: #888888;
     --main-dark: #333333;
     --highlight: #57a4d1;
-    --highlight-dark: #3884b0;
 }
 
 html, body
@@ -54,9 +53,9 @@ html, body
 
 h2
 {
-    font-size: 40px;
+    font-size: 50px;
     font-weight: 800;
-    line-height: 40px;
+    line-height: 50px;
     color: var(--light-grey);
 }
 

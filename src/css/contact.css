@@ -14,7 +14,8 @@
 #background::before
 {
     content: '';
-    background-color: #e5f1ff;
+    /* background-color: #e5f1ff; */
+    background-color: #ebedf0;
     position: absolute;
     top: -60px;
     left: 50%;

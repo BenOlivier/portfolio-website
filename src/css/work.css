@@ -120,11 +120,6 @@
     }
 }
 
-.image-container .image-sizer
-{
-    /* transform: scale(1.25) skewY(5deg); */
-}
-
 .image-container img
 {
     position: relative;

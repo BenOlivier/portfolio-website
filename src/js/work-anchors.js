@@ -1,10 +1,20 @@
-if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
+const isTouchDevice = () => {  
+    return window.matchMedia("(pointer: coarse)").matches  
+}
+
+if(isTouchDevice())
 {
     const anchors = {
         lithoAnchor: document.getElementById('litho-anchor'),
         dioramaAnchor: document.getElementById('diorama-anchor'),
         threeDAnchor: document.getElementById('3d-anchor'),
         otherAnchor: document.getElementById('other-anchor')
+    }
+
+    window.onload = function() {
+        Object.values(anchors).forEach(val => {
+            val.classList.remove('clickable')
+        })
     }
     
     Object.values(anchors).forEach(val => {
@@ -34,10 +44,4 @@ if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigat
             })
         }
     })
-    
-    window.onload = function() {
-        Object.values(anchors).forEach(val => {
-            val.classList.remove('clickable')
-        })
-    }
 }

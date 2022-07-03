@@ -122,7 +122,7 @@
     transform: translateX( -50%);
     height: 100%;
     width: 100vw;
-    background: var(--bg-light-grey);
+    background: var(--bg-light-blue);
     z-index: -1;
 }
 

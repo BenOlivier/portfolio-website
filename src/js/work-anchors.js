@@ -37,3 +37,9 @@ document.addEventListener('click', (e) =>
         })
     }
 })
+
+window.onload = function() {
+    Object.values(anchors).forEach(val => {
+        val.classList.remove('clickable')
+    })
+}

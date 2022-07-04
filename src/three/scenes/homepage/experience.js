@@ -3,18 +3,17 @@ import Sources from './sources.js'
 import Resources from '../../utils/resources.js'
 import Debug from '../../utils/debug.js'
 import Sizes from '../../utils/sizes.js'
-import Loading from '../../utils/loading.js'
+import Loading from './loading.js'
 import Time from '../../utils/time.js'
-import Camera from '../../utils/camera.js'
+import Camera from './camera.js'
 import Pointer from '../../utils/pointer.js'
-import Renderer from '../../utils/renderer.js'
+import Renderer from './renderer.js'
 import Environment from './environment.js'
 import Objects from './objects.js'
-// import Stats from 'stats.js'
 
 let instance = null
 
-export default class Experience
+export default class Homepage
 {
     constructor(_canvas)
     {
@@ -51,10 +50,6 @@ export default class Experience
             this.objects = new Objects()
         })
 
-        // Stats
-        // this.stats.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
-        // document.body.appendChild(this.stats.dom)
-
         // Resize event
         this.sizes.on('resize', () =>
         {
@@ -65,15 +60,13 @@ export default class Experience
         // Time tick event
         this.time.on('tick', () =>
         {
-            // this.stats.begin()
             this.update()
-            // this.stats.end()
         })
     }
 
     update()
     {
-        if(this.objects) this.objects.update()
+        // if(this.objects) this.objects.update()
         this.renderer.update()
         this.camera.update()
     }

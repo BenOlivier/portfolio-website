@@ -1,9 +1,10 @@
 import './style.css'
 import './css/header.css'
 import './css/footer.css'
-import './css/modelviewer.css'
 import './css/about.css'
 import './css/work.css'
+import './css/modelviewer.css'
+import './css/3d.css'
 import './css/contact.css'
 
 import Homepage from './three/scenes/homepage/experience.js'

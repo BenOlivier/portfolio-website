@@ -28,24 +28,8 @@ export default class Renderer
         })
         this.renderer.physicallyCorrectLights = true
         this.renderer.outputEncoding = THREE.LinearEncoding
-        this.renderer.toneMapping = THREE.CineonToneMapping
-        this.renderer.toneMappingExposure = 2
-        this.renderer.shadowMap.enabled = true
-        this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
         this.renderer.setSize(this.sizes.width, this.sizes.height)
         this.renderer.setPixelRatio(Math.min(this.sizes.pixelRatio, 2))
-
-        if(this.debug.active)
-        {
-            this.debugFolder.add(this.renderer, 'toneMapping', {
-                No: THREE.NoToneMapping,
-                Linear: THREE.ReinhardToneMapping,
-                Cineon: THREE.CineonToneMapping,
-                ACESFilmic: THREE.ACESFilmicToneMapping
-            })
-            
-            this.debugFolder.add(this.renderer, 'toneMappingExposure').min(0).max(5).step(0.001)
-        }
     }
 
     resize()

@@ -8,7 +8,6 @@ import Time from '../../utils/time.js'
 import Camera from './camera.js'
 import Pointer from '../../utils/pointer.js'
 import Renderer from './renderer.js'
-import Environment from './environment.js'
 import Objects from './objects.js'
 
 let instance = null
@@ -46,7 +45,6 @@ export default class Homepage
         this.resources.on('ready', () =>
         {
             // Setup
-            this.environment = new Environment()
             this.objects = new Objects()
         })
 
@@ -66,7 +64,7 @@ export default class Homepage
 
     update()
     {
-        // if(this.objects) this.objects.update()
+        if(this.objects) this.objects.update()
         this.renderer.update()
         this.camera.update()
     }

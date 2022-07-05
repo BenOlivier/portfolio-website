@@ -1,8 +1,8 @@
-const isTouchDevice = () => {  
-    return window.matchMedia("(pointer: coarse)").matches  
-}
+// const isTouchDevice = () => {  
+//     return window.matchMedia("(pointer: coarse)").matches  
+// }
 
-if(isTouchDevice())
+if(window.innerWidth < 750)
 {
     const anchors = {
         lithoAnchor: document.getElementById('litho-anchor'),

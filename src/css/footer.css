@@ -18,13 +18,12 @@
     transform: translateX( -50%);
     height: 100%;
     width: 100vw;
-    background: #333333;
     z-index: -1;
 }
 
 .footer h3
 {
-    color: #ffffffbb;
+    color: var(--mid-grey);
     font-size: 14px;
     font-weight: 500;
     margin: 20px 0;
@@ -42,7 +41,7 @@
     width: 24px;
     height: 24px;
     padding: 8px;
-    opacity: 0.6;
+    opacity: 1;
 }
 
 .footer img:hover

@@ -4,7 +4,7 @@
     z-index: 1;
 }
 
-.contact .background::before
+/* .contact .background::before
 {
     content: '';
     background-color: var(--bg-light-blue);
@@ -15,6 +15,20 @@
     height: 1100px;
     transform-origin: 0 100%;
     transform: skewY(-10deg) translateX(-50%) translateY(400px);
+    z-index: -1;
+} */
+
+#contact form::before
+{
+    content: '';
+    background-color: var(--bg-light-blue);
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    width: 100vw;
+    height: 1100px;
+    transform-origin: 0 100%;
+    transform: translateX(-50%) translateY(120px);
     z-index: -1;
 }
 

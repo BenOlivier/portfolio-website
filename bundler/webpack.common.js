@@ -46,13 +46,8 @@ module.exports = {
             minify: true
         }),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../src/maven.html'),
-            filename: 'maven.html',
-            minify: true
-        }),
-        new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../src/abstract-form.html'),
-            filename: 'abstract-form.html',
+            template: path.resolve(__dirname, '../src/model-viewer.html'),
+            filename: 'model-viewer.html',
             minify: true
         }),
         new HtmlWebpackPlugin({

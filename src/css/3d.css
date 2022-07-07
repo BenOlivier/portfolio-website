@@ -1,19 +1,44 @@
-.three-d h2
+.three-d h1
 {
     margin: 100px 0 80px 0;
 }
 
-.three-d img
+.three-d h2
+{
+    margin: 0 0 10px 0;
+}
+
+.three-d .image-container
+{
+    margin-bottom: 20px;
+}
+
+.three-d .image-container img
 {
     width: 100%;
+}
+
+.three-d .image-container p
+{
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--mid-grey);
+    text-align: center;
+}
+
+.three-d .image-container a
+{
+    font-size: 14px;
+    color: var(--highlight);
+    margin-left: 10px;
+}
+
+.three-d img
+{
+    /* width: 100%; */
 }
 
 .three-d video
 {
     width: 100%;
 }
-
-/* #photogrammetry
-{
-    
-} */

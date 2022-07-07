@@ -1,4 +1,4 @@
-.work h2
+.work h1
 {
     margin: 100px 0 80px 0;
 }
@@ -24,7 +24,7 @@
     padding-bottom: 8px;
 }
 
-.text-container
+.work-section .text-container
 {
     position: absolute;
     display: flex;
@@ -42,18 +42,18 @@
     transition: 0.5s ease all;
 }
 
-.text-container h3
+.work-section .text-container h3
 {
     font-size: 20px;
     margin-bottom: 10px;
 }
 
-.text-container p
+.work-section .text-container p
 {
     margin: 0;
 }
 
-.text-container span
+.work-section .text-container span
 {
     font-size: 12px;
     background-color: #ffffff30;
@@ -63,7 +63,7 @@
     box-shadow: 0 0 10px #00000010;
 }
 
-.image-container
+.work-section .image-container
 {
     position: relative;
     height: 180px;
@@ -81,13 +81,13 @@
 
 @media(min-width: 750px)
 {
-    .image-container
+    .work-section .image-container
     {
         height: 250px;
     }
 }
 
-.image-container::after
+.work-section .image-container::after
 {
     content: '';
     position: absolute;
@@ -100,35 +100,35 @@
     transition: 0.5s ease all;
   }
   
-.image-container:hover::after
+.work-section .image-container:hover::after
 {
     opacity: 0.4;
 }
 
-.image-container:hover img
+.work-section .image-container:hover img
 {
     filter: blur(20px);
 }
 
-.image-container:hover .text-container
+.work-section .image-container:hover .text-container
 {
     opacity: 1;
 }
 
-.image-container:hover
+.work-section .image-container:hover
 {
     height: 260px;
 }
 
 @media(min-width: 750px)
 {
-    .image-container:hover
+    .work-section .image-container:hover
     {
         height: 350px;
     }
 }
 
-.image-container img
+.work-section .image-container img
 {
     position: relative;
     width: 100%;

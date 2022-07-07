@@ -11,55 +11,53 @@
 </head>
 
 <body class="about">
-    <div class="background">
-        <div class="container">
-            <header-component></header-component>
-            <h2 id="top-heading">Hi I'm Ben</h2>
-            <section id="about">
-                <img src="/static/images/other/profile.png" alt="Profile">
-                <div id="about-text">
-                    <h2 id="box-heading">Hi I'm Ben</h2>
-                    <p>I'm a Product Designer who loves to craft beautiful interactive experiences with code.</p>
-                    <p>I believe computers can be amazing tools and I want to help shape our immersive future for the better.</p>
-                    <div id="hidden-text">
-                        <p>I studied Product Design at Central Saint Martins where I learned classical design fundamentals.</p>
-                        <p>After university I joined London-based startup Litho. I have been involved in every capacity of the business which has been an invaluable experience.</p>
-                        <p><a class="link" href="pdf/cv.pdf" target="_blank">Check out my CV</a></p>
-                    </div>
-                    <button class="link" id="expand-button" onclick=";document.getElementById('hidden-text').classList.add('expanded');this.classList.add('hidden');document.getElementById('contract-button').classList.remove('hidden');">Read more <span>&darr;</span></button>
-                    <button class="link hidden" id="contract-button" onclick=";document.getElementById('hidden-text').classList.remove('expanded');this.classList.add('hidden');document.getElementById('expand-button').classList.remove('hidden');">Show less <span>&uarr;</span></button>
+    <div class="container">
+        <header-component></header-component>
+        <h1 id="top-heading">Hi I'm Ben</h1>
+        <section id="about">
+            <img src="/static/images/other/profile.png" alt="Profile">
+            <div id="about-text">
+                <h1 id="box-heading">Hi I'm Ben</h1>
+                <p>I'm a Product Designer who loves to craft beautiful interactive experiences with code.</p>
+                <p>I believe computers can be amazing tools and I want to help shape our immersive future for the better.</p>
+                <div id="hidden-text">
+                    <p>I studied Product Design at Central Saint Martins where I learned classical design fundamentals.</p>
+                    <p>After university I joined London-based startup Litho. I have been involved in every capacity of the business which has been an invaluable experience.</p>
+                    <p><a class="link" href="pdf/cv.pdf" target="_blank">Check out my CV</a></p>
                 </div>
-            </section>
-            <section id="skills">
-                <div id="heading">
-                    <h3>Things I'm good at</h3>
-                    <p>I'm self-taught and always learning new skills</p>
+                <button class="link" id="expand-button" onclick=";document.getElementById('hidden-text').classList.add('expanded');this.classList.add('hidden');document.getElementById('contract-button').classList.remove('hidden');">Read more <span>&darr;</span></button>
+                <button class="link hidden" id="contract-button" onclick=";document.getElementById('hidden-text').classList.remove('expanded');this.classList.add('hidden');document.getElementById('expand-button').classList.remove('hidden');">Show less <span>&uarr;</span></button>
+            </div>
+        </section>
+        <section id="skills">
+            <div id="heading">
+                <h2>Things I'm good at</h2>
+                <p>I'm self-taught and always learning new skills</p>
+            </div>
+            <div id="skills-grid">
+                <div>
+                    <img src="/static/images/icons/skills/productmgmt.svg">
+                    <h3>Product Management</h3>
+                    <p>Guiding development from idea to ship</p>
                 </div>
-                <div id="skills-grid">
-                    <div>
-                        <img src="/static/images/icons/skills/productmgmt.svg">
-                        <h4>Product Management</h4>
-                        <p>Guiding development from idea to ship</p>
-                    </div>
-                    <div>
-                        <img src="/static/images/icons/skills/uiux.svg">
-                        <h4>UI / UX Design</h4>
-                        <p>User-centered interfaces and experiences</p>
-                    </div>
-                    <div>
-                        <img src="/static/images/icons/skills/prototyping.svg">
-                        <h4>Prototyping</h4>
-                        <p>Rapid iteration and user validation</p>
-                    </div>
-                    <div>
-                        <img src="/static/images/icons/skills/3d.svg">
-                        <h4>3D</h4>
-                        <p>3D modelling, spatial interactions</p>
-                    </div>
+                <div>
+                    <img src="/static/images/icons/skills/uiux.svg">
+                    <h3>UI / UX Design</h3>
+                    <p>User-centered interfaces and experiences</p>
                 </div>
-            </section>
-            <footer-component></footer-component>
-          </div>
+                <div>
+                    <img src="/static/images/icons/skills/prototyping.svg">
+                    <h3>Prototyping</h3>
+                    <p>Rapid iteration and user validation</p>
+                </div>
+                <div>
+                    <img src="/static/images/icons/skills/3d.svg">
+                    <h3>3D</h3>
+                    <p>3D modelling, spatial interactions</p>
+                </div>
+            </div>
+        </section>
+        <footer-component></footer-component>
     </div>
 </body>
 </html>

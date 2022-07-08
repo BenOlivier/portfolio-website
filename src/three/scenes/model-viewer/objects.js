@@ -7,9 +7,14 @@ export default class Objects
         this.experience = window.experience
         this.scene = this.experience.scene
         this.resources = this.experience.resources
+        this.overlay = this.experience.overlay
         this.camera = this.experience.camera
         this.time = this.experience.time
         this.debug = this.experience.debug
+        this.selector = document.getElementById('model-selector')
+        this.selector.addEventListener('change', () => {
+            this.changeModel()
+        })
 
         this.setModel(_model)
         this.setAnimation()
@@ -48,5 +53,41 @@ export default class Objects
     update()
     {
         if(this.animate) this.animation.mixer.update(this.time.delta * 0.001)
+    }
+
+    changeModel()
+    {
+        this.overlay.fadeOverlay(1, 0.3)
+        setTimeout(() => {
+            this.removeModel()
+        }, 300)
+        setTimeout(() => {
+            this.setModel(this.selector.value)
+            this.setAnimation()
+        }, 300)
+        setTimeout(() => {
+            this.overlay.fadeOverlay(0, 0.5)
+        }, 300)
+    }
+
+    removeModel()
+    {
+        this.animate = false
+        this.scene.remove(this.model)
+        this.model.children.forEach(function (child)
+        {
+            if(child instanceof THREE.Mesh)
+            {
+                child.geometry.dispose()
+                for(const key in child.material)
+                {
+                    const value = child.material[key]
+                    if(value && typeof value.dispose === 'function')
+                    {
+                        value.dispose()
+                    }
+                }
+            }
+        })
     }
 }

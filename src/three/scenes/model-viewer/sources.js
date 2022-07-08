@@ -5,7 +5,7 @@ export default [
         path: 'models/maven.glb'
     },
     {
-        name: 'abstractForm',
+        name: 'abstract-form',
         type: 'gltfModel',
         path: 'models/abstract-form.glb'
     },
@@ -15,7 +15,7 @@ export default [
         path: 'models/mobius.glb'
     },
     {
-        name: 'woodOrnament',
+        name: 'wood-ornament',
         type: 'gltfModel',
         path: 'models/wood-ornament.glb'
     },
@@ -25,7 +25,7 @@ export default [
         path: 'images/models/floor.png'
     },
     {
-        name: 'environmentMap_tex',
+        name: 'environmentMapTexture',
         type: 'cubeTexture',
         path:
         [

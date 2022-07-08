@@ -14,7 +14,6 @@ export default class Resources extends EventEmitter
         this.items = {}
         this.toLoad = this.sources.length
         this.loaded = 0
-        this.progressRatio = 0
 
         this.setLoaders()
         this.startLoading()
@@ -27,13 +26,7 @@ export default class Resources extends EventEmitter
             // Loaded
             () =>
             {
-                this.experience.loading.initiateLoadedSequence()
-            },
-
-            // Progress
-            (itemUrl, itemsLoaded, itemsTotal) =>
-            {
-                this.progressRatio = itemsLoaded / itemsTotal
+                this.experience.overlay.fadeOverlay(0, 0.5)
             }
         )
         this.loaders.gltfLoader = new GLTFLoader(this.loadingManager)

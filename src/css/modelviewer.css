@@ -18,26 +18,33 @@
     padding: 10px;
     z-index: 1;
     cursor: pointer;
+    opacity: 0.8;
+}
+
+#model-viewer-header img:hover
+{
+    opacity: 1;
 }
 
 #model-viewer-header select
 {
     color: #fff;
-    background-color: #77777750;
+    background: none;
     border: none;
+    outline: none;
     text-align: center;
     font-size: 15px;
     line-height: 15px;
     font-weight: 400;
-    padding: 10px 30px;
+    padding: 10px;
     border-radius: 5px;
     z-index: 1;
     cursor: pointer;
 }
 
-#model-viewer-header h2:hover
+#model-viewer-header select:hover
 {
-    background-color: #777;
+    background-color: #88888820;
 }
 
 .webgl

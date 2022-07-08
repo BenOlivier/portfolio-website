@@ -18,5 +18,6 @@ if(document.body.classList.contains('index'))
 if(document.body.classList.contains('model-viewer'))
 {
     const model = localStorage.getItem('model-viewer-model')
+    document.getElementById('model-selector').value = model
     const experience = new ModelViewer(document.querySelector('canvas.webgl'), model)
 }

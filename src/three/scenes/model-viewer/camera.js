@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import gsap from 'gsap'
 
 export default class Camera
 {
@@ -12,6 +13,16 @@ export default class Camera
         this.pointer = this.experience.pointer
         this.time = this.experience.time
         this.debug = this.experience.debug
+
+        this.autoRotate = true
+        this.timer = 0
+
+        this.canvas.addEventListener('click', (event) =>
+        {
+            this.controls.autoRotate = false
+            this.autoRotate = false
+            this.timer = 0
+        })
 
         // Debug
         if(this.debug.active)
@@ -43,6 +54,15 @@ export default class Camera
     update()
     {
         this.controls.update()
+        if(!this.autoRotate)
+        {
+            this.timer += this.time.delta
+            if(this.timer > 3000)
+            {
+                this.controls.autoRotate = true
+                this.autoRotate = true
+            }
+        }
     }
 
     resize()

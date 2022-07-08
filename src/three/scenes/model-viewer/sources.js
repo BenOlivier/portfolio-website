@@ -25,16 +25,16 @@ export default [
         path: 'images/models/floor.png'
     },
     {
-        name: 'environmentMapTexture',
-        type: 'cubeTexture',
-        path:
-        [
-            'images/environmentMap/px.jpg',
-            'images/environmentMap/nx.jpg',
-            'images/environmentMap/py.jpg',
-            'images/environmentMap/ny.jpg',
-            'images/environmentMap/pz.jpg',
-            'images/environmentMap/nz.jpg'
-        ]
+        name: 'envMapTexture',
+        type: 'hdrTexture',
+        path: 'images/environmentMap/studio.hdr'
+        // [
+        //     'images/environmentMap/px.png',
+        //     'images/environmentMap/nx.png',
+        //     'images/environmentMap/py.png',
+        //     'images/environmentMap/ny.png',
+        //     'images/environmentMap/pz.png',
+        //     'images/environmentMap/nz.png'
+        // ]
     }
 ]

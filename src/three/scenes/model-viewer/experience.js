@@ -1,9 +1,9 @@
 import * as THREE from 'three'
 import Sources from './sources.js'
-import Resources from '../../utils/resources.js'
+import Resources from './resources.js'
 import Debug from '../../utils/debug.js'
 import Sizes from '../../utils/sizes.js'
-import Loading from '../../utils/loading.js'
+import Loading from './loading.js'
 import Time from '../../utils/time.js'
 import Camera from './camera.js'
 import Pointer from '../../utils/pointer.js'
@@ -13,9 +13,9 @@ import Objects from './objects.js'
 
 let instance = null
 
-export default class Maven
+export default class ModelViewer
 {
-    constructor(_canvas)
+    constructor(_canvas, _model)
     {
         // Singleton
         if(instance)
@@ -46,7 +46,7 @@ export default class Maven
         {
             // Setup
             this.environment = new Environment()
-            this.objects = new Objects()
+            this.objects = new Objects(_model)
         })
 
         // Resize event

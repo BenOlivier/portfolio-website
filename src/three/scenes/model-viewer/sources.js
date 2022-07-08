@@ -5,6 +5,21 @@ export default [
         path: 'models/maven.glb'
     },
     {
+        name: 'abstractForm',
+        type: 'gltfModel',
+        path: 'models/abstract-form.glb'
+    },
+    {
+        name: 'mobius',
+        type: 'gltfModel',
+        path: 'models/mobius.glb'
+    },
+    {
+        name: 'woodOrnament',
+        type: 'gltfModel',
+        path: 'models/wood-ornament.glb'
+    },
+    {
         name: 'floorTexture',
         type: 'texture',
         path: 'images/models/floor.png'

@@ -1,15 +1,43 @@
-#model-viewer-header img
+#model-viewer-header
 {
-    position: absolute;
+    display: flex;
+    margin: auto;
+    justify-content: space-between;
+    align-items: center;
     top: 0;
     left: 0;
-    width: 20px;
-    padding: 10px;
-    color: white;
+    right: 0;
     background: none;
     border: none;
     z-index: 1;
+}
+
+#model-viewer-header img
+{
+    width: 25px;
+    padding: 10px;
+    z-index: 1;
     cursor: pointer;
+}
+
+#model-viewer-header select
+{
+    color: #fff;
+    background-color: #77777750;
+    border: none;
+    text-align: center;
+    font-size: 15px;
+    line-height: 15px;
+    font-weight: 400;
+    padding: 10px 30px;
+    border-radius: 5px;
+    z-index: 1;
+    cursor: pointer;
+}
+
+#model-viewer-header h2:hover
+{
+    background-color: #777;
 }
 
 .webgl

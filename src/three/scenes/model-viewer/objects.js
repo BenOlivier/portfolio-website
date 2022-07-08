@@ -2,7 +2,7 @@ import * as THREE from 'three'
 
 export default class Objects
 {
-    constructor()
+    constructor(_model)
     {
         this.experience = window.experience
         this.scene = this.experience.scene
@@ -11,20 +11,19 @@ export default class Objects
         this.time = this.experience.time
         this.debug = this.experience.debug
 
-        this.setModel()
+        this.setModel(_model)
         this.setAnimation()
     }
 
-    setModel()
+    setModel(_model)
     {
-        this.resource = this.resources.items.maven
+        this.resource = this.resources.items[_model]
 
-        this.maven = this.resource.scene
-        this.maven.position.set(0, -0.5, 0)
-        this.maven.scale.set(0.2, 0.2, 0.2)
-        this.scene.add(this.maven)
+        this.model = this.resource.scene
+        this.model.position.set(0, -0.5, 0)
+        this.scene.add(this.model)
 
-        this.maven.traverse((child) =>
+        this.model.traverse((child) =>
         {
             if(child instanceof THREE.Mesh)
             {
@@ -36,14 +35,18 @@ export default class Objects
 
     setAnimation()
     {
-        this.animation = {}
-        this.animation.mixer = new THREE.AnimationMixer(this.maven)
-        this.animation.action = this.animation.mixer.clipAction(this.resource.animations[0])
-        this.animation.action.play()
+        if(this.resource.animations.length > 0)
+        {
+            this.animate = true
+            this.animation = {}
+            this.animation.mixer = new THREE.AnimationMixer(this.model)
+            this.animation.action = this.animation.mixer.clipAction(this.resource.animations[0])
+            this.animation.action.play()
+        }
     }
 
     update()
     {
-        this.animation.mixer.update(this.time.delta * 0.001)
+        if(this.animate) this.animation.mixer.update(this.time.delta * 0.001)
     }
 }

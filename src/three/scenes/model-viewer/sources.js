@@ -25,8 +25,18 @@ export default [
         path: 'images/models/floor.png'
     },
     {
-        name: 'envMapTexture',
+        name: 'autoshopHDRI',
         type: 'hdrTexture',
-        path: 'images/environmentMap/studio.hdr'
+        path: 'images/environmentMap/autoshop_01.hdr'
+    },
+    {
+        name: 'marketHDRI',
+        type: 'hdrTexture',
+        path: 'images/environmentMap/leadenhall_market.hdr'
+    },
+    {
+        name: 'parkHDRI',
+        type: 'hdrTexture',
+        path: 'images/environmentMap/rooitou_park.hdr'
     }
 ]

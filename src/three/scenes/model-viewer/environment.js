@@ -9,17 +9,23 @@ export default class Environment
         this.resources = this.experience.resources
         this.renderer = this.experience.renderer
 
-        this.setEnvironmentMap()
+        this.setEnvironmentMaps()
         this.setFloor()
     }
 
-    setEnvironmentMap()
+    setEnvironmentMaps()
     {
+        this.envMaps = []
         const pmremGenerator = new THREE.PMREMGenerator(this.renderer.renderer)
         pmremGenerator.compileEquirectangularShader()
-        const envMap = pmremGenerator.fromEquirectangular(this.resources.items.envMapTexture).texture
-        this.scene.environment = envMap
-        this.resources.items.envMapTexture.dispose()
+        const autoshopEnvMap = pmremGenerator.fromEquirectangular(this.resources.items.autoshopHDRI).texture
+        const marketEnvMap = pmremGenerator.fromEquirectangular(this.resources.items.marketHDRI).texture
+        const parkEnvMap = pmremGenerator.fromEquirectangular(this.resources.items.parkHDRI).texture
+        this.envMaps.push(autoshopEnvMap, marketEnvMap, parkEnvMap)
+        this.scene.environment = this.envMaps[0]
+        this.resources.items.autoshopHDRI.dispose()
+        this.resources.items.marketHDRI.dispose()
+        this.resources.items.parkHDRI.dispose()
         pmremGenerator.dispose()
     }
 
@@ -30,7 +36,6 @@ export default class Environment
         this.floorMaterial = new THREE.MeshStandardMaterial({
             map: this.floorTexture,
             transparent: true,
-            // depthTest: false,
             opacity: 0.1
         })
 

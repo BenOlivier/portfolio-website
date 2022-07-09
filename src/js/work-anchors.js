@@ -2,7 +2,7 @@
 //     return window.matchMedia("(pointer: coarse)").matches  
 // }
 
-if(window.innerWidth < 750)
+if(screen.width < 750)
 {
     const anchors = {
         lithoAnchor: document.getElementById('litho-anchor'),

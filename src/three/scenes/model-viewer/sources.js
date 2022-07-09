@@ -28,13 +28,5 @@ export default [
         name: 'envMapTexture',
         type: 'hdrTexture',
         path: 'images/environmentMap/studio.hdr'
-        // [
-        //     'images/environmentMap/px.png',
-        //     'images/environmentMap/nx.png',
-        //     'images/environmentMap/py.png',
-        //     'images/environmentMap/ny.png',
-        //     'images/environmentMap/pz.png',
-        //     'images/environmentMap/nz.png'
-        // ]
     }
 ]

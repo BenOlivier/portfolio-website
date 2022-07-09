@@ -12,23 +12,12 @@ export default class Camera
         this.canvas = this.experience.canvas
         this.pointer = this.experience.pointer
         this.time = this.experience.time
-        this.debug = this.experience.debug
 
         this.autoRotate = true
         this.timer = 0
 
-        this.canvas.addEventListener('click', (event) =>
-        {
-            this.controls.autoRotate = false
-            this.autoRotate = false
-            this.timer = 0
-        })
-
-        // Debug
-        if(this.debug.active)
-        {
-            this.debugFolder = this.debug.ui.addFolder('camera')
-        }
+        this.canvas.addEventListener('click', (event) => { this.pauseRotation() })
+        this.canvas.addEventListener('touchend', (event) => { this.pauseRotation() })
 
         this.setCamera()
     }
@@ -63,6 +52,13 @@ export default class Camera
                 this.autoRotate = true
             }
         }
+    }
+
+    pauseRotation()
+    {
+        this.controls.autoRotate = false
+        this.autoRotate = false
+        this.timer = 0
     }
 
     resize()

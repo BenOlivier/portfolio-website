@@ -10,14 +10,20 @@
 
 <body class="model-viewer">
   <header id="model-viewer-header">
-    <img src="/static/images/icons/arrow.svg" onclick="window.history.back()">
+    <img src="/static/images/icons/arrow.svg" onclick="window.history.back();">
     <select id="model-selector">
       <option value="maven">Maven</option>
       <option value="abstract-form">Abstract Form</option>
       <option value="mobius">Mobius</option>
       <option value="wood-ornament">Wood Ornament</option>
     </select>
-    <img src="/static/images/icons/settings.svg" onclick="window.history.back()">
+    <img id="settings-button" src="/static/images/icons/settings.svg" onclick="document.getElementById('envMapThumbs').classList.add('visible');this.classList.add('hidden');">
+    <div id="envMapThumbs">
+      <img src="/static/images/icons/cross.svg" alt="Close button" onclick="document.getElementById('envMapThumbs').classList.remove('visible');document.getElementById('settings-button').classList.remove('hidden');">
+      <img src="/static/images/environmentMap/thumbs/autoshop.png" alt="Environment map 1">
+      <img src="/static/images/environmentMap/thumbs/market.png" alt="Environment map 2">
+      <img src="/static/images/environmentMap/thumbs/park.png" alt="Environment map 3">
+    </div>
   </header>
   <canvas class="webgl"></canvas>
 </body>

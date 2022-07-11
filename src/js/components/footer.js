@@ -17,7 +17,7 @@ class Footer extends HTMLElement
                     <a href="https://twitter.com/benolivier_" target="_blank"><img src="/images/icons/footer/twitter.svg"></a>
                 </div>
             </footer>
-        `
+        `;
     }
 }
 

@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import gsap from 'gsap'
 
-export default class Overlay
+export default class Loading
 {
     constructor()
     {

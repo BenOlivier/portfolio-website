@@ -7,15 +7,16 @@ import Loading from './loading.js'
 import Time from '../../utils/time.js'
 import Camera from './camera.js'
 import Pointer from '../../utils/pointer.js'
-import Renderer from '../../utils/renderer.js'
-import Environment from './environment'
+import Renderer from './renderer.js'
 import Objects from './objects.js'
+import Environment from './environment.js'
+import Points from './points.js'
 
 let instance = null
 
-export default class ModelViewer
+export default class Homepage
 {
-    constructor(_canvas, _model)
+    constructor(_canvas)
     {
         // Singleton
         if(instance)
@@ -40,13 +41,15 @@ export default class ModelViewer
         this.pointer = new Pointer()
         this.camera = new Camera()
         this.renderer = new Renderer()
+        // this.stats = new Stats()
         
         // Wait for resources
         this.resources.on('ready', () =>
         {
             // Setup
+            this.objects = new Objects()
+            this.points = new Points()
             this.environment = new Environment()
-            this.objects = new Objects(_model)
         })
 
         // Resize event
@@ -65,8 +68,37 @@ export default class ModelViewer
 
     update()
     {
-        if(this.objects) this.objects.update()
-        this.camera.update()
+        if(this.objects) 
+        {
+            this.objects.update()
+            this.points.update()
+        }
         this.renderer.update()
+        this.camera.update()
+    }
+
+    destroy()
+    {
+        this.sizes.off('resize')
+        this.time.off('tick')
+
+        this.scene.traverse((child) =>
+        {
+            if(child instanceof THREE.Mesh)
+            {
+                child.geometry.dispose()
+                for(const key in child.material)
+                {
+                    const value = child.material[key]
+                    if(value && typeof value.dispose === 'function')
+                    {
+                        value.dispose()
+                    }
+                }
+            }
+        })
+
+        this.renderer.instance.dispose()
+        if(this.debug.active) this.debug.ui.destroy()
     }
 }

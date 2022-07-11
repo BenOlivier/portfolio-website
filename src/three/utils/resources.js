@@ -1,20 +1,20 @@
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
-import EventEmitter from './event-emitter.js'
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
+import EventEmitter from './event-emitter'
 
 export default class Resources extends EventEmitter
 {
-    constructor(Sources)
+    constructor(sources)
     {
         super()
 
-        this.sources = Sources
+        this.sources = sources
         this.experience = window.experience
 
         this.items = {}
         this.toLoad = this.sources.length
         this.loaded = 0
-        this.progressRatio = 0
 
         this.setLoaders()
         this.startLoading()
@@ -28,17 +28,12 @@ export default class Resources extends EventEmitter
             () =>
             {
                 this.experience.loading.initiateLoadedSequence()
-            },
-
-            // Progress
-            (itemUrl, itemsLoaded, itemsTotal) =>
-            {
-                this.progressRatio = itemsLoaded / itemsTotal
             }
         )
         this.loaders.gltfLoader = new GLTFLoader(this.loadingManager)
         this.loaders.textureLoader = new THREE.TextureLoader(this.loadingManager)
         this.loaders.cubeTextureLoader = new THREE.CubeTextureLoader(this.loadingManager)
+        this.loaders.RGBELoader = new RGBELoader(this.loadingManager)
     }
 
     startLoading()
@@ -69,6 +64,16 @@ export default class Resources extends EventEmitter
             else if(source.type === 'cubeTexture')
             {
                 this.loaders.cubeTextureLoader.load(
+                    source.path,
+                    (file) =>
+                    {
+                        this.sourceLoaded(source, file)
+                    }
+                )
+            }
+            else if(source.type === 'hdrTexture')
+            {
+                this.loaders.RGBELoader.load(
                     source.path,
                     (file) =>
                     {

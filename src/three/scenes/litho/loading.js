@@ -24,10 +24,8 @@ export default class Loading
         }, 0)
         // Enable points
         setTimeout(() => {
-            this.point0.classList.add('visible')
-            this.point1.classList.add('visible')
-            this.point2.classList.add('visible')
-        }, 1000)
+            //TODO: Enable points
+        }, 2000)
         // Destroy overlay
         setTimeout(() => {
             this.destroy()

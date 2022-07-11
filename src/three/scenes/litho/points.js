@@ -55,7 +55,7 @@ export default class Points
             }
 
             const translateX = screenPosition.x * this.sizes.width * 0.5 - 20
-            const translateY = -screenPosition.y * this.sizes.height * 0.5 - 20
+            const translateY = -screenPosition.y * this.sizes.height * 0.5 - 20 - 160
             point.element.style.transform = `translate(${translateX}px, ${translateY}px)`
         }
     }

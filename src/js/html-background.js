@@ -1,5 +1,5 @@
-let scrollingUp = true
-let lastScrollPos = 0
+let scrollingUp = true;
+let lastScrollPos = 0;
 
 // window.addEventListener('scroll', (e) =>
 // {

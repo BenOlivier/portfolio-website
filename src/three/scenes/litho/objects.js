@@ -17,7 +17,7 @@ export default class Objects
         // Resize event
         this.screenVec = new THREE.Vector3()
         this.objectPos = new THREE.Vector3()
-        this.sizes.on('resize', () => { this.resize() })
+        // this.sizes.on('resize', () => { this.setScale() })
 
         this.setModels()
     }
@@ -28,8 +28,8 @@ export default class Objects
         this.lithoResource = this.resources.items.litho
 
         this.litho = this.lithoResource.scene
-        this.litho.children[0].scale.set(0.7, 0.7, 0.7)
-        // this.hello.rotation.z = 0.5
+        this.litho.children[0].scale.set(0.8, 0.8, 0.8)
+        // this.setScale()
         this.scene.add(this.litho)
     }
 
@@ -38,9 +38,9 @@ export default class Objects
         
     }
 
-    setObjectScale(object, factor)
+    setScale()
     {
-        this.scale = this.sizes.width < 1400? Math.pow(this.sizes.width / 1400, factor) : 1
-        object.scale.set(this.scale, this.scale, this.scale)
+        this.scale = this.sizes.width < 1400? Math.pow(this.sizes.width / 1400, 0.5) : 1
+        this.litho.scale.set(this.scale, this.scale, this.scale)
     }
 }

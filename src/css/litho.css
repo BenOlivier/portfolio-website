@@ -1,9 +1,14 @@
+.litho .webgl
+{
+    position: relative;
+    margin-top: 40px;
+}
+
 .point
 {
     position: absolute;
     top: 50%;
     left: 50%;
-    z-index: 200;
 }
 
 .point .point-number
@@ -14,7 +19,7 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: #ffffff80;
+    background: #e6e6e6bb;
     text-align: center;
     line-height: 40px;
     cursor: help;
@@ -39,7 +44,7 @@
     left: -100px;
     width: 200px;
     padding: 20px;
-    background: #ffffff50;
+    background: #e6e6e6bb;
     text-align: center;
     font-size: 14px;
     line-height: 22px;
@@ -52,4 +57,9 @@
 .point.text-above .point-text
 {
     top: -100px;
+}
+
+.litho h1
+{
+    margin: 0 0 40px 0;
 }

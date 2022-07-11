@@ -8,37 +8,19 @@
     margin: 0 0 10px 0;
 }
 
-.three-d .image-container
+#photogrammetry
 {
-    margin-bottom: 20px;
+    padding-bottom: 50px;
+    margin-bottom: 80px;
+    border-bottom: 1px solid #cccccc;
 }
 
-.three-d .image-container img
+.three-d .image-container:nth-of-type(1)
 {
-    width: 100%;
+    margin-top: 50px;
 }
 
-.three-d .image-container p
+#nft
 {
-    font-size: 14px;
-    line-height: 20px;
-    color: var(--mid-grey);
-    text-align: center;
-}
-
-.three-d .image-container a
-{
-    font-size: 14px;
-    color: var(--highlight);
-    margin-left: 10px;
-}
-
-.three-d img
-{
-    /* width: 100%; */
-}
-
-.three-d video
-{
-    width: 100%;
+    margin-bottom: 120px;
 }

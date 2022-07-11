@@ -152,3 +152,31 @@ p
     width: 100%;
     height: 100%;
 }
+
+.image-container
+{
+    margin-bottom: 50px;
+}
+
+.image-container img
+{
+    width: 100%;
+}
+
+.image-container p
+{
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--mid-grey);
+    text-align: center;
+}
+
+.image-container a
+{
+    margin-left: 10px;
+}
+
+.image-container.video div
+{
+    margin-bottom: 10px;
+}

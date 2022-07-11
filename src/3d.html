@@ -22,15 +22,13 @@
         <img src="/static/images/work/3d/rig.jpg" alt="Capture rig">
         <p><span>My capture setup</span></p>
       </div>
-      <div class="image-container">
-        <div>
-          <video src="/static/images/work/3d/bowl-rotate.webm" autoplay="true" loop="true" alt="Bowl rotate"></video>
-        </div>
+      <div class="image-container video">
+        <div style="padding:60% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/728754297?h=54ebac5342&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Photogrammetry Project"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
         <p><span>Turntable capture rings</span></p>
       </div>
       <div class="image-container">
         <img src="/static/images/work/3d/ornament.jpg" alt="Wood ornmament">
-        <p><span>Scan of a wooden ornament</span><a href="">View</a></p>
+        <p><span>Scan of a wooden ornament</span><a class="link" href="/model-viewer.html" onclick="localStorage.setItem('model-viewer-model', 'wood-ornament')">View model</a></p>
       </div>
       <div class="image-container">
         <img src="/static/images/work/3d/food.jpg" alt="Food">
@@ -42,16 +40,20 @@
       </div>
     </section>
     <section id="nft">
-      <div class="image-container">
-        <div>
-          <video src="/static/images/work/3d/mobius.mp4" autoplay="true" loop="true" alt="3D modelling video">
-        </div>
-        <p><span>3D modelling process in Gravity Sketch and Blender</span></p>
+      <h2>NFT</h2>
+      <p>I have dabbled with creating my own 3D NFTs on the Ethereum blockchain. I aim for each model's textures to be devoid of any baked-in lighting so that they can be placed in any potential lighting condition. In this sense they are 'metaverse ready' assets.</p>
+      <div class="image-container video">
+        <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/728742186?h=b275425b7c&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="3D Modelling Speedrun"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+        <p><span>Gravity Sketch and Blender workflow</span><a class="link" href="/model-viewer.html" onclick="localStorage.setItem('model-viewer-model', 'mobius')">View model</a></p>
       </div>
-      <a class="link" href="/model-viewer.html" onclick="localStorage.setItem('model-viewer-model', 'maven')">Maven</a>
-      <a class="link" href="/model-viewer.html" onclick="localStorage.setItem('model-viewer-model', 'abstract-form')">Abstract Form</a>
-      <a class="link" href="/model-viewer.html" onclick="localStorage.setItem('model-viewer-model', 'mobius')">Mobius</a>
-      <a class="link" href="/model-viewer.html" onclick="localStorage.setItem('model-viewer-model', 'wood-ornament')">Wood Ornament</a>
+      <div class="image-container">
+        <img src="/static/images/work/3d/maven.jpg" alt="Maven">
+        <p><span>Maven</span><a class="link" href="https://opensea.io/assets/ethereum/0x495f947276749ce646f68ac8c248420045cb7b5e/49969410147514262953276482567691854993410506261505787349856931396458509238273" target="_blank">View token</a><a class="link" href="/model-viewer.html" onclick="localStorage.setItem('model-viewer-model', 'maven')">View model</a></p>
+      </div>
+      <div class="image-container">
+        <img src="/static/images/work/3d/abstract-form.jpg" alt="Abstract Form">
+        <p><span>Abstract Form</span><a class="link" href="https://opensea.io/assets/ethereum/0x495f947276749ce646f68ac8c248420045cb7b5e/49969410147514262953276482567691854993410506261505787349856931395358997610497" target="_blank">View token</a><a class="link" href="/model-viewer.html" onclick="localStorage.setItem('model-viewer-model', 'abstract-form')">View model</a></p>
+      </div>
     </section>
     </div>
     <footer-component></footer-component>

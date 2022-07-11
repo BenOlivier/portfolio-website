@@ -13,5 +13,7 @@ module.exports = {
   'rules': {
     'indent': 'off',
     'brace-style': ['error', 'allman'],
+    'require-jsdoc': 'off',
+    'max-len': ['error', {'code': 100}],
   },
 };

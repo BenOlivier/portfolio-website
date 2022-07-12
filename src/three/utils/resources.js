@@ -1,98 +1,86 @@
-import * as THREE from 'three'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
-import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
-import EventEmitter from './event-emitter'
+import * as THREE from 'three';
+import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
+import {RGBELoader} from 'three/examples/jsm/loaders/RGBELoader';
+import EventEmitter from './event-emitter';
 
 export default class Resources extends EventEmitter
 {
     constructor(sources)
     {
-        super()
+        super();
 
-        this.sources = sources
-        this.experience = window.experience
+        this.sources = sources;
+        this.experience = window.experience;
 
-        this.items = {}
-        this.toLoad = this.sources.length
-        this.loaded = 0
+        this.items = {};
+        this.toLoad = this.sources.length;
+        this.loaded = 0;
 
-        this.setLoaders()
-        this.startLoading()
+        this.setLoaders();
+        this.startLoading();
     }
 
     setLoaders()
     {
-        this.loaders = {}
-        this.loadingManager = new THREE.LoadingManager(
+        this.loaders = {};
+        const loadingManager = new THREE.LoadingManager(
             // Loaded
             () =>
             {
-                this.experience.loading.initiateLoadedSequence()
-            }
-        )
-        this.loaders.gltfLoader = new GLTFLoader(this.loadingManager)
-        this.loaders.textureLoader = new THREE.TextureLoader(this.loadingManager)
-        this.loaders.cubeTextureLoader = new THREE.CubeTextureLoader(this.loadingManager)
-        this.loaders.RGBELoader = new RGBELoader(this.loadingManager)
+                this.experience.loading.initiateLoadedSequence();
+            },
+        );
+        this.loaders.gltfLoader = new GLTFLoader(loadingManager);
+        this.loaders.textureLoader = new THREE.TextureLoader(loadingManager);
+        this.loaders.RGBELoader = new RGBELoader(loadingManager);
     }
 
     startLoading()
     {
         // Load each source
-        for(const source of this.sources)
+        for (const source of this.sources)
         {
-            if(source.type === 'gltfModel')
+            if (source.type === 'gltfModel')
             {
                 this.loaders.gltfLoader.load(
                     source.path,
                     (file) =>
                     {
-                        this.sourceLoaded(source, file)
-                    }
-                )
+                        this.sourceLoaded(source, file);
+                    },
+                );
             }
-            else if(source.type === 'texture')
+            else if (source.type === 'texture')
             {
                 this.loaders.textureLoader.load(
                     source.path,
                     (file) =>
                     {
-                        this.sourceLoaded(source, file)
-                    }
-                )
+                        this.sourceLoaded(source, file);
+                    },
+                );
             }
-            else if(source.type === 'cubeTexture')
-            {
-                this.loaders.cubeTextureLoader.load(
-                    source.path,
-                    (file) =>
-                    {
-                        this.sourceLoaded(source, file)
-                    }
-                )
-            }
-            else if(source.type === 'hdrTexture')
+            else if (source.type === 'hdrTexture')
             {
                 this.loaders.RGBELoader.load(
                     source.path,
                     (file) =>
                     {
-                        this.sourceLoaded(source, file)
-                    }
-                )
+                        this.sourceLoaded(source, file);
+                    },
+                );
             }
         }
     }
 
     sourceLoaded(source, file)
     {
-        this.items[source.name] = file
+        this.items[source.name] = file;
+        this.loaded++;
 
-        this.loaded++
-
-        if(this.loaded === this.toLoad)
+        if (this.loaded === this.toLoad)
         {
-            this.trigger('ready')
+            this.trigger('ready');
         }
     }
 }

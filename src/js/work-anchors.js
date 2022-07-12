@@ -4,7 +4,7 @@
 
 if (screen.width < 750)
 {
-    const anchors = {
+    const anchors ={
         lithoAnchor: document.getElementById('litho-anchor'),
         dioramaAnchor: document.getElementById('diorama-anchor'),
         threeDAnchor: document.getElementById('3d-anchor'),

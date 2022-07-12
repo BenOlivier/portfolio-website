@@ -7,7 +7,7 @@ import Loading from './loading.js'
 import Time from '../../utils/time.js'
 import Camera from './camera.js'
 import Pointer from '../../utils/pointer.js'
-import Renderer from '../../utils/renderer.js'
+import Renderer from './renderer.js'
 import Environment from './environment'
 import Objects from './objects.js'
 

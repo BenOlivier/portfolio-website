@@ -114,6 +114,7 @@ h2
 {
     font-size: 20px;
     font-weight: 600;
+    margin-bottom: 20px;
 }
 
 h3
@@ -153,10 +154,42 @@ p
     height: 100%;
 }
 
-.image-container
+/* .image-container
 {
-    /* display: flex; */
-    margin-bottom: 50px;
+    margin-bottom: 0px;
+}
+
+@media(min-width: 480px)
+{
+    .image-container
+    {
+        margin-bottom: 100px;
+    }
+}
+
+@media(min-width: 750px)
+{
+    .image-container
+    {
+        margin-bottom: 200px;
+    }
+} */
+
+.image-container.multi
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+.image-container.multi img
+{
+    width: 50%;
+}
+
+.image-container.multi iframe
+{
+    width: 30%;
+    height: 50vw;
 }
 
 .image-container img

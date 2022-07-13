@@ -1,16 +1,22 @@
+.litho .image-container
+{
+    margin-bottom: 100px;
+}
+
+.litho #header-video
+{
+    margin: 50px 0 30px 0;
+}
+
 .litho .work-container
 {
     margin-bottom: 200px;
 }
 
-.litho .image-container:nth-of-type(1)
-{
-    margin-top: 50px;
-}
-
 .litho h1
 {
-    margin: 60px 0 60px 0;
+    position: absolute;
+    margin-top: 60px;
 }
 
 .litho .webgl
@@ -87,10 +93,15 @@
     }
 }
 
+.litho .text-container
+{
+    margin-bottom: 100px;
+}
+
 #featured-in
 {
     text-align: center;
-    margin-bottom: 50px;
+    margin: 0 0 50px 0;
 }
 
 #press-container

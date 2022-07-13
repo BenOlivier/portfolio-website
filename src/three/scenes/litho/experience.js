@@ -68,12 +68,12 @@ export default class Homepage
 
     update()
     {
+        this.camera.update()
         if(this.objects) 
         {
             this.points.update()
         }
         this.renderer.update()
-        this.camera.update()
     }
 
     destroy()

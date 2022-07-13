@@ -30,8 +30,6 @@ export default class Camera
 
         this.controls = new OrbitControls(this.camera, this.canvas);
         this.controls.autoRotate = true;
-        this.controls.enableDamping = true;
-        this.controls.dampingFactor = 0.1;
         this.controls.enablePan = false;
         this.controls.enableZoom = false;
     }

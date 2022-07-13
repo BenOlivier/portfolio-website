@@ -8,21 +8,20 @@ export default class Points
         this.objects = this.experience.objects;
         this.camera = this.experience.camera;
         this.sizes = this.experience.sizes;
-
-        this.pointer = this.experience.pointer;
+        this.canvas = this.experience.canvas;
 
         // Points of interest
         this.points = [
             {
-                position: new THREE.Vector3(0, 0.3, 0),
+                position: new THREE.Vector3(0, 0.28, 0),
                 element: document.getElementById('point-0'),
             },
             {
-                position: new THREE.Vector3(0.3, -0.14, 0),
+                position: new THREE.Vector3(0.3, -0.11, 0),
                 element: document.getElementById('point-1'),
             },
             {
-                position: new THREE.Vector3(-0.3, -0.3, 0),
+                position: new THREE.Vector3(-0.3, -0.28, 0),
                 element: document.getElementById('point-2'),
             },
         ];
@@ -57,10 +56,11 @@ export default class Points
                 }
             }
 
-            const translateX = screenPosition.x * this.sizes.width * 0.5 - 20 +
-                (window.innerWidth - this.sizes.width) * 0.5;
-            const translateY = -screenPosition.y * this.sizes.height * 0.5 - 30 -
-                this.sizes.height * 0.5;
+            const translateX = this.sizes.width * 0.5 +
+                screenPosition.x * this.sizes.width * 0.5 - 20;
+            const translateY = this.sizes.height * 0.5 -
+                screenPosition.y * this.sizes.height * 0.5 - 20;
+
             point.element.style.transform = `translate(${translateX}px, ${translateY}px)`;
         }
     }

@@ -1,23 +1,24 @@
-import EventEmitter from '../../utils/event-emitter.js'
+import EventEmitter from '../../utils/event-emitter.js';
 
 export default class Sizes extends EventEmitter
 {
     constructor()
     {
-        super()
-        
-        this.width = window.innerWidth
-        this.height = window.innerWidth
-        this.pixelRatio = Math.min(window.devicePixelRatio, 2)
+        super();
+
+        const container = document.getElementById('work-container');
+        this.width = container.offsetWidth;
+        this.height = this.width;
+        this.pixelRatio = Math.min(window.devicePixelRatio, 2);
 
         // Resize event
         window.addEventListener('resize', () =>
         {
-            this.width = window.innerWidth
-            this.height = window.innerWidth
-            this.pixelRatio = Math.min(window.devicePixelRatio, 2)
+            this.width = container.offsetWidth;
+            this.height = this.width;
+            this.pixelRatio = Math.min(window.devicePixelRatio, 2);
 
-            this.trigger('resize')
-        })
+            this.trigger('resize');
+        });
     }
 }

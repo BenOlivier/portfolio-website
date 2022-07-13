@@ -70,7 +70,6 @@ export default class Homepage
     {
         if(this.objects) 
         {
-            this.objects.update()
             this.points.update()
         }
         this.renderer.update()

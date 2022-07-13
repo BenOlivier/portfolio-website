@@ -12,8 +12,10 @@ module.exports = {
   },
   'rules': {
     'indent': 'off',
-    'brace-style': ['error', 'allman'],
+    'brace-style': ['error', 'allman', { 'allowSingleLine': true }],
     'require-jsdoc': 'off',
     'max-len': ['error', {'code': 100}],
+    'object-curly-spacing': 'off',
+    'block-spacing': ['error', 'always'],
   },
 };

@@ -5,11 +5,10 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 30px 0;
     z-index: 1;
 }
 
-.footer:before
+/* .footer:before
 {
     content: '';
     position: absolute;
@@ -19,7 +18,7 @@
     height: 100%;
     width: 100vw;
     z-index: -1;
-}
+} */
 
 .footer h3
 {

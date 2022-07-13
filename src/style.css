@@ -57,7 +57,7 @@ html, body
 .container
 {
     max-width: 1000px;
-    padding: 20px 20px 0 20px;
+    padding: 20px;
     margin: auto;
 }
 
@@ -65,7 +65,7 @@ html, body
 {
     .container
     {
-        padding: 40px 40px 0 40px;
+        padding: 40px;
     }
 }
 
@@ -73,7 +73,7 @@ html, body
 {
     .container
     {
-        padding: 80px 80px 0 80px;
+        padding: 80px;
     }
 }
 
@@ -155,6 +155,7 @@ p
 
 .image-container
 {
+    /* display: flex; */
     margin-bottom: 50px;
 }
 
@@ -176,7 +177,12 @@ p
     margin-left: 10px;
 }
 
-.image-container.video div
+/* .image-container.video iframe
+{
+    width: 100%;
+} */
+
+/* .image-container.video div
 {
     margin-bottom: 10px;
-}
+} */

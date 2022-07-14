@@ -186,12 +186,6 @@ p
     width: 50%;
 }
 
-.image-container.multi iframe
-{
-    width: 30%;
-    height: 50vw;
-}
-
 .image-container img
 {
     width: 100%;
@@ -209,13 +203,3 @@ p
 {
     margin-left: 10px;
 }
-
-/* .image-container.video iframe
-{
-    width: 100%;
-} */
-
-/* .image-container.video div
-{
-    margin-bottom: 10px;
-} */

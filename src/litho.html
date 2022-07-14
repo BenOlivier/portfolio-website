@@ -12,11 +12,14 @@
 <body class="litho">
   <div class="container">
     <header-component></header-component>
-    <div class="image-container video" id="header-video">
+
+    <div class="image-container" id="header-video">
       <div style="padding:60% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/316287460?h=706d09e88e&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="LITHO Trailer"></iframe></div>
     </div>
+
     <div class="work-container" id="work-container">
       <h1>Litho Controller</h1>
+
       <div id="points-container">
         <div class="point text-above" id="point-0">
           <div class="point-number">1</div>
@@ -31,28 +34,47 @@
           <p class="point-text">Capacitive touchpad for thumb taps and swipes</p>
         </div>
       </div>
+
       <canvas class="webgl"></canvas>
+
       <div class="text-container">
         <h2>A controller for the real world</h2>
-        <p>The problem</p>
-        <p>The solution</p>
-        <p>What it does</p>
+        <p>Augmented reality has an input problem. Current solutions have us tapping and swiping at the air, wielding bulky controllers, or resorting back to our phones.</p>
+        <p>To address this, we developed the <a class="link" href="https://www.litho.cc/" target="_blank">Litho Controller</a> - a small wearable controller that sits comfortably between your index and middle fingers and connects to your phone via Bluetooth.</p>
       </div>
+
       <div class="image-container multi">
         <img src="/static/images/work/litho/litho-main.jpg" alt="Litho Controller">
         <img src="/static/images/work/litho/point-grip.gif" alt="Point grip">
       </div>
+
+      <div class="text-container">
+        <p>Litho allows for natural and precise input with its touch surface on the underside, custom haptic feedback system and array of motion-tracking sensors.</p>
+      </div>
       
-      <div class="image-container video">
+      <div class="image-container">
         <div style="padding:60% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/373153532?h=057b08c976&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="AR Item Browser"></iframe></div>
         <p><span>An AR product browser UI I built for Litho</span></p>
       </div>
-      <div class="image-container multi video">
+
+      <div class="text-container">
+        <h2>SDK</h2>
+        <p>We built a Unity SDK with off the shelf interactions for common 3D manipulations such as moving, scaling and rotating - allowing builders to quickly put together apps.</p>
+        <p>Our Developer Hub is a community pioneering the future of digital interaction. Have a look at some of the projects built with Litho.</p>
+      </div>
+
+      <div class="image-container multi" id="triple-video" >
         <iframe src="https://player.vimeo.com/video/396733400?h=e7a48b5c7a&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" title="Drawing with Litho"></iframe>
         <iframe src="https://player.vimeo.com/video/368815792?h=7d2f841b23&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" title="#MadeWithLitho"></iframe>
         <iframe src="https://player.vimeo.com/video/380512193?h=ef92236605&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" title="Quick Frame App (Charlie Fuller)"></iframe>
       </div>
+
+      <div class="text-container">
+        <p>We have shipped hundreds of developer kits around the world and in 2021 partnered with US startup <a class="link" href="https://arkh.com/" target="_blank">ARKH</a> who continue to sell the device under their own branding.</p>
+      </div>
+
       <h2 id="featured-in">Featured in:</h2>
+
       <div id="press-container">
         <a href="https://www.wired.co.uk/article/ar-influencers-litho-virtual-reality" target="_blank"><img id="wired" src="/static/images/work/litho/wired-logo.png" alt="Wired article"></a>
         <a href="https://globaldesignnews.com/ben-olivier-and-litho-devise-a-new-wearable-controller/" target="_blank"><img id="gdn" src="/static/images/work/litho/global-design-news-logo.png" alt="Global Design News article"></a>
@@ -60,6 +82,7 @@
         <a href="https://techcrunch.com/2019/02/18/litho/" target="_blank"><img id="tech-crunch" src="/static/images/work/litho/tech-crunch-logo.png" alt="Tech Crunch article"></a>
       </div>
     </div>
+
     <footer-component></footer-component>
   </div>
 </body>

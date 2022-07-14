@@ -17,6 +17,8 @@
 {
     position: absolute;
     margin-top: 60px;
+
+    text-align: center;
 }
 
 .litho .webgl
@@ -96,6 +98,12 @@
 .litho .text-container
 {
     margin-bottom: 100px;
+}
+
+.litho #triple-video iframe
+{
+    width: 30%;
+    height: 40vw;
 }
 
 #featured-in

@@ -13,23 +13,23 @@ export default class Loading
         this.point1 = document.getElementById('point-1')
         this.point2 = document.getElementById('point-2')
 
-        this.setOverlay()
+        // this.setOverlay()
     }
 
     initiateLoadedSequence()
     {
-        // Fade out overlay
-        setTimeout(() => {
-            this.fadeOverlay()
-        }, 0)
-        // Enable points
-        setTimeout(() => {
-            //TODO: Enable points
-        }, 2000)
-        // Destroy overlay
-        setTimeout(() => {
-            this.destroy()
-        }, 2500)
+        // // Fade out overlay
+        // setTimeout(() => {
+        //     this.fadeOverlay()
+        // }, 0)
+        // // Enable points
+        // setTimeout(() => {
+        //     //TODO: Enable points
+        // }, 2000)
+        // // Destroy overlay
+        // setTimeout(() => {
+        //     this.destroy()
+        // }, 2500)
     }
 
     setOverlay()

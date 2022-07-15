@@ -1,0 +1,63 @@
+.diorama #header-video
+{
+    margin: 80px 0 20px 0;
+}
+
+@media(min-width: 750px)
+{
+    .diorama #header-video
+    {
+        margin: 30px 0 30px 0;
+    }
+}
+
+.diorama h1
+{
+    text-align: center;
+    margin: 50px 0 50px 0;
+}
+
+.diorama #product-hunt
+{
+    text-align: center;
+    margin: 80px 0 100px 0;
+}
+
+.diorama #product-hunt img
+{
+    height: 50px;
+}
+
+.diorama #triple-video iframe
+{
+    width: 30%;
+    height: 60vw;
+    max-height: 490px;
+}
+
+@media(min-width: 480px)
+{
+    .diorama #triple-video iframe
+    {
+        height: 50vw;
+    }
+}
+
+@media(min-width: 750px)
+{
+    .diorama #triple-video iframe
+    {
+       height: 40vw;
+    }
+}
+
+.diorama #app-store
+{
+    text-align: center;
+    margin: 80px 0 200px 0;
+}
+
+.diorama #app-store img
+{
+    height: 50px;
+}

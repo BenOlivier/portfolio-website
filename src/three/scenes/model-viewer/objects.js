@@ -7,7 +7,7 @@ export default class Objects
         this.experience = window.experience
         this.scene = this.experience.scene
         this.resources = this.experience.resources
-        this.overlay = this.experience.overlay
+        this.loading = this.experience.loading
         this.camera = this.experience.camera
         this.time = this.experience.time
         this.debug = this.experience.debug
@@ -57,7 +57,7 @@ export default class Objects
 
     changeModel()
     {
-        this.overlay.fadeOverlay(1, 0.3)
+        this.loading.fadeOverlay(1, 0.3)
         setTimeout(() => {
             this.removeModel()
         }, 300)
@@ -66,7 +66,7 @@ export default class Objects
             this.setAnimation()
         }, 300)
         setTimeout(() => {
-            this.overlay.fadeOverlay(0, 0.5)
+            this.loading.fadeOverlay(0, 0.5)
         }, 300)
     }
 

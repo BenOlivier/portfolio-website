@@ -41,6 +41,11 @@ module.exports = {
             minify: true
         }),
         new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, '../src/diorama.html'),
+            filename: 'diorama.html',
+            minify: true
+        }),
+        new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../src/3d.html'),
             filename: '3d.html',
             minify: true

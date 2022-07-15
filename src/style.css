@@ -187,3 +187,16 @@ p
 {
     margin-left: 10px;
 }
+
+.text-container
+{
+    margin-bottom: 50px;
+}
+
+@media(min-width: 750px)
+{
+    .text-container
+    {
+        margin-bottom: 80px;
+    }
+}

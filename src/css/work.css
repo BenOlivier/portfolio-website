@@ -1,27 +1,14 @@
-.work h1
-{
-    margin: 100px 0 80px 0;
-}
-
-.work #work-container
+.work .work-thumbnail
 {
     width: 100%;
     max-width: 650px;
     margin: auto;
-    margin-bottom: 200px;
-}
-
-@media(min-width: 750px)
-{
-    .work #work-container
-    {
-        margin-bottom: 300px;
-    }
-}
-
-.work-section
-{
     padding-bottom: 8px;
+}
+
+.work-thumbnail:last-of-type
+{
+    margin-bottom: 200px;
 }
 
 .work-text-container
@@ -79,7 +66,7 @@
     transform: skewY(-5deg);
 }
 
-@media(min-width: 750px)
+@media(min-width: 480px)
 {
     .work-image-container
     {

@@ -84,6 +84,19 @@ html, body
     margin: auto;
 }
 
+.work-section
+{
+    padding-bottom: 50px;
+    margin-bottom: 80px;
+    border-bottom: 1px solid #cccccc;
+}
+
+.work-section:last-of-type
+{
+    margin-bottom: 100px;
+    border-bottom: none
+}
+
 h1
 {
     font-size: 50px;
@@ -92,6 +105,7 @@ h1
     font-family: 'Red Hat Display', sans-serif;
     font-weight: 800;
     text-align: center;
+    margin: 100px 0 100px 0;
 }
 
 @media(min-width: 480px)
@@ -158,7 +172,12 @@ p
 
 .image-container
 {
-    margin-bottom: 50px;
+    margin: 50px 0;
+}
+
+.image-container img
+{
+    width: 100%;
 }
 
 .image-container.multi
@@ -172,22 +191,23 @@ p
     width: 50%;
 }
 
-.image-container img
-{
-    width: 100%;
-}
-
 .image-container p
 {
     font-size: 14px;
     line-height: 20px;
     color: var(--mid-grey);
     text-align: center;
+    /* margin: 10px 0 20px 0; */
 }
 
 .image-container a
 {
     margin-left: 10px;
+}
+
+.image-container.video p
+{
+    margin: 12px 0 20px 0;
 }
 
 .text-container

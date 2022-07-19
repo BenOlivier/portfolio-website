@@ -5,9 +5,7 @@ import './css/about.css';
 import './css/work.css';
 import './css/litho.css';
 import './css/diorama.css';
-import './css/3d.css';
 import './css/modelviewer.css';
-import './css/other-work.css';
 import './css/contact.css';
 
 import Homepage from './three/scenes/homepage/experience.js';

@@ -2,3 +2,16 @@
 {
     margin: 100px 0 100px 0;
 }
+
+.other-work section
+{
+    padding-bottom: 50px;
+    margin-bottom: 80px;
+    border-bottom: 1px solid #cccccc;
+}
+
+.other-work section:last-of-type
+{
+    margin-bottom: 100px;
+    border-bottom: none
+}

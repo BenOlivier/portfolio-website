@@ -27,7 +27,10 @@ export default class Resources extends EventEmitter
             // Loaded
             () =>
             {
-                this.experience.loading.initiateLoadedSequence();
+                if (typeof this.experience.loading != 'undefined')
+                {
+                    this.experience.loading.initiateLoadedSequence();
+                }
             },
         );
         this.loaders.gltfLoader = new GLTFLoader(loadingManager);

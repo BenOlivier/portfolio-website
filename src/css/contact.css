@@ -1,4 +1,4 @@
-#contact form::before
+/* #contact form::before
 {
     content: '';
     background-color: var(--bg-light-blue);
@@ -10,7 +10,7 @@
     transform-origin: 0 100%;
     transform: translateX(-50%) translateY(120px);
     z-index: -1;
-}
+} */
 
 @media(min-width: 480px)
 {

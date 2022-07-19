@@ -1,27 +1,27 @@
-import * as THREE from 'three'
-import gsap from 'gsap'
+import * as THREE from 'three';
+import gsap from 'gsap';
 
 export default class Loading
 {
     constructor()
     {
-        this.experience = window.experience
-        this.sizes = this.experience.sizes
-        this.time = this.experience.time
-        this.scene = this.experience.scene
+        this.experience = window.experience;
+        this.sizes = this.experience.sizes;
+        this.time = this.experience.time;
+        this.scene = this.experience.scene;
 
         // Events
         this.sizes.on('resize', () =>
         {
             // this.resize()
-        })
+        });
         this.time.on('tick', () =>
         {
             // if(this.loadingBar.parent == this.scene) this.updateLoadingBar()
-        })
-        
+        });
+
         // this.setLoadingBar()
-        this.setOverlay()
+        this.setOverlay();
     }
 
     initiateLoadedSequence()
@@ -31,24 +31,26 @@ export default class Loading
         //     this.fadeLoadingBar()
         // }, 200)
         // Fade out overlay
-        setTimeout(() => {
-            this.fadeOverlay()
-        }, 0)
+        setTimeout(() =>
+        {
+            this.fadeOverlay();
+        }, 0);
         // Destroy loading bar and overlay
-        setTimeout(() => {
-            this.destroy()
-        }, 2500)
+        setTimeout(() =>
+        {
+            this.destroy();
+        }, 2500);
     }
 
     setOverlay()
     {
-        this.overlayGeometry = new THREE.PlaneGeometry(2, 2, 1, 1)
+        this.overlayGeometry = new THREE.PlaneGeometry(2, 2, 1, 1);
         this.overlayMaterial = new THREE.ShaderMaterial({
             transparent: true,
             uniforms:
             {
                 uAlpha: { value: 1 },
-                uColor: { value: new THREE.Color('#f8f8f8') }
+                uColor: { value: new THREE.Color('#f8f8f8') },
             },
             vertexShader: `
                 void main()
@@ -63,25 +65,25 @@ export default class Loading
                 {
                     gl_FragColor = vec4(uColor, uAlpha);
                 }
-            `
-        })
+            `,
+        });
 
-        this.overlay = new THREE.Mesh(this.overlayGeometry, this.overlayMaterial)
-        this.overlay.renderOrder = 0
-        this.scene.add(this.overlay)
+        this.overlay = new THREE.Mesh(this.overlayGeometry, this.overlayMaterial);
+        this.overlay.renderOrder = 0;
+        this.scene.add(this.overlay);
     }
 
     setLoadingBar()
     {
         this.loadingBarWidth = 0.5
 
-        if(this.sizes.width > 1000)
+        if (this.sizes.width > 1000)
         {
             this.loadingBarWidth = 300 / this.sizes.width
         }
-        
+
         this.loadingBarGeometry = new THREE.PlaneGeometry(this.loadingBarWidth,
-            this.sizes.height * 0.00001, 1, 1)
+            this.sizes.height * 0.00001, 1, 1);
         this.loadingBarMaterial = new THREE.ShaderMaterial({
             transparent: true,
             uniforms:
@@ -89,7 +91,7 @@ export default class Loading
                 uProgress: { value: 0.0 },
                 uAlpha: { value: 1.0 },
                 uColor: { value: new THREE.Color('#e5e5e5') },
-                uResolution: { value: new THREE.Vector2(this.sizes.width, this.sizes.height) }
+                uResolution: { value: new THREE.Vector2(this.sizes.width, this.sizes.height) },
             },
             vertexShader: `
                 varying vec2 vUv;
@@ -110,25 +112,25 @@ export default class Loading
                     vec3 backgroundColor = step(uProgress, vUv.x) * uColor;
                     gl_FragColor = vec4(barColor + backgroundColor, uAlpha);
                 }
-            `
-        })
+            `,
+        });
 
-        this.loadingBar = new THREE.Mesh(this.loadingBarGeometry, this.loadingBarMaterial)
-        this.loadingBar.renderOrder = 999
-        this.loadingBar.position.set(0, 0, 0)
-        this.scene.add(this.loadingBar)
+        this.loadingBar = new THREE.Mesh(this.loadingBarGeometry, this.loadingBarMaterial);
+        this.loadingBar.renderOrder = 999;
+        this.loadingBar.position.set(0, 0, 0);
+        this.scene.add(this.loadingBar);
     }
 
     updateLoadingBar()
     {
-        if(this.experience.resources.progressRatio == 0)
+        if (this.experience.resources.progressRatio == 0)
         {
-            this.loadingBarMaterial.uniforms.uProgress.value += 0.002
+            this.loadingBarMaterial.uniforms.uProgress.value += 0.002;
         }
         else
         {
             this.loadingBarMaterial.uniforms.uProgress.value +=
-                this.experience.resources.progressRatio * 0.05
+                this.experience.resources.progressRatio * 0.05;
         }
     }
 

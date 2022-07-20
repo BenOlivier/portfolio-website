@@ -27,16 +27,16 @@ export default [
     {
         name: 'autoshopHDRI',
         type: 'hdrTexture',
-        path: 'images/environmentMap/autoshop_01.hdr',
+        path: 'images/environmentMap/autoshop.hdr',
     },
     {
-        name: 'marketHDRI',
+        name: 'amphitheatreHDRI',
         type: 'hdrTexture',
-        path: 'images/environmentMap/leadenhall_market.hdr',
+        path: 'images/environmentMap/amphitheatre.hdr',
     },
     {
-        name: 'parkHDRI',
+        name: 'decorShopHDRI',
         type: 'hdrTexture',
-        path: 'images/environmentMap/rooitou_park.hdr',
+        path: 'images/environmentMap/decor-shop.hdr',
     },
 ];

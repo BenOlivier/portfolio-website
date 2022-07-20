@@ -16,9 +16,21 @@ export default class Environment
         const marketThumb = envMapThumbs.children[2];
         const parkThumb = envMapThumbs.children[3];
 
-        autoshopThumb.addEventListener('click', (event) => { this.scene.environment = this.envMaps[0]; });
-        marketThumb.addEventListener('click', (event) => { this.scene.environment = this.envMaps[1]; });
-        parkThumb.addEventListener('click', (event) => { this.scene.environment = this.envMaps[2]; });
+        autoshopThumb.addEventListener('click', (event) =>
+        {
+            this.scene.environment = this.envMaps[0];
+            this.renderer.renderer.toneMappingExposure = 4;
+        });
+        marketThumb.addEventListener('click', (event) =>
+        {
+            this.scene.environment = this.envMaps[1];
+            this.renderer.renderer.toneMappingExposure = 4;
+        });
+        parkThumb.addEventListener('click', (event) =>
+        {
+            this.scene.environment = this.envMaps[2];
+            this.renderer.renderer.toneMappingExposure = 6;
+        });
 
         this.canvas.addEventListener('click', (event) =>
         {
@@ -37,13 +49,13 @@ export default class Environment
         const pmremGenerator = new THREE.PMREMGenerator(this.renderer.renderer);
         pmremGenerator.compileEquirectangularShader();
         const autoshopEnvMap = pmremGenerator.fromEquirectangular(this.resources.items.autoshopHDRI).texture;
-        const marketEnvMap = pmremGenerator.fromEquirectangular(this.resources.items.marketHDRI).texture;
-        const parkEnvMap = pmremGenerator.fromEquirectangular(this.resources.items.parkHDRI).texture;
-        this.envMaps.push(autoshopEnvMap, marketEnvMap, parkEnvMap);
+        const amphitheatreEnvMap = pmremGenerator.fromEquirectangular(this.resources.items.amphitheatreHDRI).texture;
+        const decorShopEnvMap = pmremGenerator.fromEquirectangular(this.resources.items.decorShopHDRI).texture;
+        this.envMaps.push(autoshopEnvMap, amphitheatreEnvMap, decorShopEnvMap);
         this.scene.environment = this.envMaps[0];
         this.resources.items.autoshopHDRI.dispose();
-        this.resources.items.marketHDRI.dispose();
-        this.resources.items.parkHDRI.dispose();
+        this.resources.items.amphitheatreHDRI.dispose();
+        this.resources.items.decorShopHDRI.dispose();
         pmremGenerator.dispose();
     }
 

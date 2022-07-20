@@ -40,8 +40,7 @@ export default class Loading
         // Destroy loading bar and overlay
         setTimeout(() =>
         {
-            this.destroy(this.overlay);
-            this.destroy(this.loadingBar);
+            this.destroyLoaadingBar();
         }, 2000);
     }
 
@@ -152,17 +151,17 @@ export default class Loading
             this.sizes.height;
     }
 
-    destroy(object)
+    destroyLoaadingBar(object)
     {
-        this.scene.remove(object);
-        object.children.forEach(function(child)
+        this.scene.remove(this.loadingBar);
+        this.loadingBar.children.forEach(function(child)
         {
             if (child instanceof THREE.Mesh)
             {
                 child.geometry.dispose();
-                if (child.material && typeof value.dispose === 'function')
+                if (child.material && typeof child.material.dispose === 'function')
                 {
-                    value.dispose();
+                    child.material.dispose();
                 }
             }
         });

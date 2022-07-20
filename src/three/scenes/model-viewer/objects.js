@@ -58,7 +58,7 @@ export default class Objects
 
     changeModel()
     {
-        this.loading.fadeOverlay(1, 0.3);
+        this.loading.fadeAlpha(this.loading.overlayMaterial.uniforms.uAlpha, 1, 0.3);
         setTimeout(() =>
         {
             this.removeModel();
@@ -70,7 +70,7 @@ export default class Objects
         }, 300);
         setTimeout(() =>
         {
-            this.loading.fadeOverlay(0, 0.5);
+            this.loading.fadeAlpha(this.loading.overlayMaterial.uniforms.uAlpha, 0, 0.5);
         }, 300);
     }
 
@@ -83,11 +83,12 @@ export default class Objects
             if (child instanceof THREE.Mesh)
             {
                 child.geometry.dispose();
-                if (child.material && typeof value.dispose === 'function')
+                if (child.material && typeof child.material.dispose === 'function')
                 {
-                    value.dispose();
+                    child.material.dispose();
                 }
             }
         });
+        this.model = {};
     }
 }

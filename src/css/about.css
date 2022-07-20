@@ -120,8 +120,9 @@
     top: 0;
     left: 50%;
     transform: translateX( -50%);
-    height: 120%;
+    height: 100%;
     width: 100vw;
+    padding-bottom: 130px;
     background: var(--bg-light-blue);
     z-index: -1;
 }

@@ -51,7 +51,7 @@ html, body
     position: relative;
     background-color: var(--bg-white);
     z-index: 1;
-    overflow: hidden;
+    overflow-y: hidden;
 }
 
 .container

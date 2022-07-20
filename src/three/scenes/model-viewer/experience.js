@@ -35,8 +35,8 @@ export default class ModelViewer
         this.sizes = new Sizes();
         this.time = new Time();
         this.scene = new THREE.Scene();
-        this.loading = new Loading();
         this.resources = new Resources(Sources);
+        this.loading = new Loading();
         this.pointer = new Pointer();
         this.camera = new Camera();
         this.renderer = new Renderer();

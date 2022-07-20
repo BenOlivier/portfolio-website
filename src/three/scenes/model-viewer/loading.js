@@ -9,37 +9,40 @@ export default class Loading
         this.sizes = this.experience.sizes;
         this.time = this.experience.time;
         this.scene = this.experience.scene;
+        this.resources = this.experience.resources;
 
         // Events
         this.sizes.on('resize', () =>
         {
-            // this.resize()
+            this.resize();
         });
         this.time.on('tick', () =>
         {
-            // if(this.loadingBar.parent == this.scene) this.updateLoadingBar()
+            if (this.loadingBar.parent == this.scene) this.updateLoadingBar();
         });
 
-        // this.setLoadingBar()
+        this.setLoadingBar();
         this.setOverlay();
     }
 
     initiateLoadedSequence()
     {
         // Fade out loading bar
-        // setTimeout(() => {
-        //     this.fadeLoadingBar()
-        // }, 200)
+        setTimeout(() =>
+        {
+            this.fadeAlpha(this.loadingBarMaterial.uniforms.uAlpha, 0, 1);
+        }, 200);
         // Fade out overlay
         setTimeout(() =>
         {
-            this.fadeOverlay();
-        }, 0);
+            this.fadeAlpha(this.overlayMaterial.uniforms.uAlpha, 0, 1);
+        }, 600);
         // Destroy loading bar and overlay
         setTimeout(() =>
         {
-            this.destroy();
-        }, 2500);
+            this.destroy(this.overlay);
+            this.destroy(this.loadingBar);
+        }, 2000);
     }
 
     setOverlay()
@@ -50,7 +53,7 @@ export default class Loading
             uniforms:
             {
                 uAlpha: { value: 1 },
-                uColor: { value: new THREE.Color('#f8f8f8') },
+                uColor: { value: new THREE.Color('#1a1a1a') },
             },
             vertexShader: `
                 void main()
@@ -75,11 +78,11 @@ export default class Loading
 
     setLoadingBar()
     {
-        this.loadingBarWidth = 0.5
+        this.loadingBarWidth = 0.5;
 
         if (this.sizes.width > 1000)
         {
-            this.loadingBarWidth = 300 / this.sizes.width
+            this.loadingBarWidth = 300 / this.sizes.width;
         }
 
         this.loadingBarGeometry = new THREE.PlaneGeometry(this.loadingBarWidth,
@@ -90,7 +93,6 @@ export default class Loading
             {
                 uProgress: { value: 0.0 },
                 uAlpha: { value: 1.0 },
-                uColor: { value: new THREE.Color('#e5e5e5') },
                 uResolution: { value: new THREE.Vector2(this.sizes.width, this.sizes.height) },
             },
             vertexShader: `
@@ -104,12 +106,11 @@ export default class Loading
             fragmentShader: `
                 uniform float uProgress;
                 uniform float uAlpha;
-                uniform vec3 uColor;
                 varying vec2 vUv;
                 void main()
                 {
                     vec3 barColor = step(vUv.x, uProgress) * vec3(1.0, 1.0, 1.0);
-                    vec3 backgroundColor = step(uProgress, vUv.x) * uColor;
+                    vec3 backgroundColor = step(uProgress, vUv.x) * vec3(0.0, 0.0, 0.0);
                     gl_FragColor = vec4(barColor + backgroundColor, uAlpha);
                 }
             `,
@@ -123,65 +124,47 @@ export default class Loading
 
     updateLoadingBar()
     {
-        if (this.experience.resources.progressRatio == 0)
+        if (this.resources.progressRatio == 0)
         {
             this.loadingBarMaterial.uniforms.uProgress.value += 0.002;
         }
         else
         {
             this.loadingBarMaterial.uniforms.uProgress.value +=
-                this.experience.resources.progressRatio * 0.05;
+                this.resources.progressRatio * 0.05;
         }
     }
 
-    fadeLoadingBar()
+    fadeAlpha(target, value, duration)
     {
-        let barAlpha = 1
-        let interval = setInterval(() =>
-        {
-            this.loadingBarMaterial.uniforms.uAlpha.value = animateFade(barAlpha)
-        }, 10)
-
-        function animateFade()
-        {
-            if(barAlpha > 0)
-            {
-                barAlpha -= 0.05
-                return barAlpha
-            }
-            else
-            {
-                clearInterval(interval)
-                return 0
-            }
-        }
-    }
-
-    fadeOverlay(_value, _duration)
-    {
-        gsap.to(this.overlayMaterial.uniforms.uAlpha, {
-            value: _value,
-            duration: _duration,
-            ease: 'power1.in'
-        })
+        gsap.to(target, {
+            value: value,
+            duration: duration,
+            ease: 'power1.in',
+        });
     }
 
     resize()
     {
-        this.loadingBarMaterial.uniforms.uResolution.value.x
-            = this.sizes.width
-        this.loadingBarMaterial.uniforms.uResolution.value.y
-            = this.sizes.height
+        this.loadingBarMaterial.uniforms.uResolution.value.x =
+            this.sizes.width;
+        this.loadingBarMaterial.uniforms.uResolution.value.y =
+            this.sizes.height;
     }
 
-    destroy()
+    destroy(object)
     {
-        // this.scene.remove(this.loadingBar)
-        this.scene.remove(this.overlay)
-        this.overlayGeometry.dispose()
-        // this.loadingBarGeometry.dispose()
-        this.overlayMaterial.dispose()
-        // this.loadingBarMaterial.dispose()
+        this.scene.remove(object);
+        object.children.forEach(function(child)
+        {
+            if (child instanceof THREE.Mesh)
+            {
+                child.geometry.dispose();
+                if (child.material && typeof value.dispose === 'function')
+                {
+                    value.dispose();
+                }
+            }
+        });
     }
-
 }

@@ -15,6 +15,7 @@ export default class Resources extends EventEmitter
         this.items = {};
         this.toLoad = this.sources.length;
         this.loaded = 0;
+        this.progressRatio = 0;
 
         this.setLoaders();
         this.startLoading();
@@ -31,6 +32,11 @@ export default class Resources extends EventEmitter
                 {
                     this.experience.loading.initiateLoadedSequence();
                 }
+            },
+            // Progress
+            (itemUrl, itemsLoaded, itemsTotal) =>
+            {
+                this.progressRatio = itemsLoaded / itemsTotal;
             },
         );
         this.loaders.gltfLoader = new GLTFLoader(loadingManager);

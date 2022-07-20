@@ -1,22 +1,17 @@
-import * as THREE from 'three'
+import * as THREE from 'three';
 
 export default class Renderer
 {
     constructor()
     {
-        this.experience = window.experience
-        this.canvas = this.experience.canvas
-        this.sizes = this.experience.sizes
-        this.scene = this.experience.scene
-        this.camera = this.experience.camera
-        this.debug = this.experience.debug
+        this.experience = window.experience;
+        this.canvas = this.experience.canvas;
+        this.sizes = this.experience.sizes;
+        this.scene = this.experience.scene;
+        this.camera = this.experience.camera;
+        this.debug = this.experience.debug;
 
-        if(this.debug.active)
-        {
-            this.debugFolder = this.debug.ui.addFolder('renderer')
-        }
-
-        this.setRenderer()
+        this.setRenderer();
     }
 
     setRenderer()
@@ -24,39 +19,27 @@ export default class Renderer
         this.renderer = new THREE.WebGLRenderer({
             canvas: this.canvas,
             antialias: true,
-            alpha: true
-        })
-        this.renderer.physicallyCorrectLights = true
-        this.renderer.outputEncoding = THREE.LinearEncoding
-        this.renderer.toneMapping = THREE.CineonToneMapping
-        this.renderer.toneMappingExposure = 3
-        this.renderer.shadowMap.enabled = true
-        this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
-        this.renderer.setClearColor('#1a1a1a')
-        this.renderer.setSize(this.sizes.width, this.sizes.height)
-        this.renderer.setPixelRatio(Math.min(this.sizes.pixelRatio, 2))
-
-        if(this.debug.active)
-        {
-            this.debugFolder.add(this.renderer, 'toneMapping', {
-                No: THREE.NoToneMapping,
-                Linear: THREE.ReinhardToneMapping,
-                Cineon: THREE.CineonToneMapping,
-                ACESFilmic: THREE.ACESFilmicToneMapping
-            })
-            
-            this.debugFolder.add(this.renderer, 'toneMappingExposure').min(0).max(5).step(0.001)
-        }
+            alpha: true,
+        });
+        this.renderer.physicallyCorrectLights = true;
+        this.renderer.outputEncoding = THREE.LinearEncoding;
+        this.renderer.toneMapping = THREE.CineonToneMapping;
+        this.renderer.toneMappingExposure = 3;
+        this.renderer.shadowMap.enabled = true;
+        this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        this.renderer.setClearColor('#1a1a1a');
+        this.renderer.setSize(this.sizes.width, this.sizes.height);
+        this.renderer.setPixelRatio(Math.min(this.sizes.pixelRatio, 2));
     }
 
     resize()
     {
-        this.renderer.setSize(this.sizes.width, this.sizes.height)
-        this.renderer.setPixelRatio(Math.min(this.sizes.pixelRatio, 2))
+        this.renderer.setSize(this.sizes.width, this.sizes.height);
+        this.renderer.setPixelRatio(Math.min(this.sizes.pixelRatio, 2));
     }
 
     update()
     {
-        this.renderer.render(this.scene, this.camera.camera)
+        this.renderer.render(this.scene, this.camera.camera);
     }
 }

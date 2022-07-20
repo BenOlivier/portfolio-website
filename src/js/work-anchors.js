@@ -1,10 +1,6 @@
-// const isTouchDevice = () => {
-//     return window.matchMedia("(pointer: coarse)").matches;
-// };
-
 if (screen.width < 750)
 {
-    const anchors ={
+    const anchors = {
         lithoAnchor: document.getElementById('litho-anchor'),
         dioramaAnchor: document.getElementById('diorama-anchor'),
         threeDAnchor: document.getElementById('3d-anchor'),
@@ -47,7 +43,7 @@ if (screen.width < 750)
     // Set all projects to not clickable when clicking on background
     document.addEventListener('click', (e) =>
     {
-        if (!e.target.classList.contains('image-container'))
+        if (!e.target.classList.contains('work-image-container'))
         {
             Object.values(anchors).forEach((val) =>
             {

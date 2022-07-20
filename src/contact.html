@@ -13,22 +13,20 @@
 </head>
 
 <body class="contact">
-  <div class="background">
-    <div class="container">
-      <header-component></header-component>
-      <section id="contact">
-        <h1>Get in touch</h1>
-        <p>Feel free to send me a message using the form below, or email me at 
-          <a class="link" href="mailto:dbeolivier@gmail.com">dbeolivier@gmail.com</a></p>
-        <form name="contact" method="post" data-netlify="true" onsubmit="submit" action="/success.html">
-          <input type="text" id="name" name="name" placeholder="Your name">
-          <input type="email" id="email" name="email" placeholder="Your email address" required>
-          <textarea name="message" id="message" placeholder="Write your message here" required></textarea>
-          <button type="submit">Send message</button>
-        </form>
-      </section>
-      <footer-component></footer-component>
-    </div>
+  <div class="container">
+    <header-component></header-component>
+    <section id="contact">
+      <h1>Get in touch</h1>
+      <p>Feel free to send me a message using the form below, or email me at 
+        <a class="link" href="mailto:dbeolivier@gmail.com">dbeolivier@gmail.com</a></p>
+      <form name="contact" method="post" data-netlify="true" onsubmit="submit" action="/success.html">
+        <input type="text" id="name" name="name" placeholder="Your name">
+        <input type="email" id="email" name="email" placeholder="Your email address" required>
+        <textarea name="message" id="message" placeholder="Write your message here" required></textarea>
+        <button type="submit">Send message</button>
+      </form>
+    </section>
+    <footer-component></footer-component>
   </div>
 </body>
 </html>

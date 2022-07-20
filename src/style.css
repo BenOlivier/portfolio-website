@@ -46,14 +46,6 @@ html, body
     }
 }
 
-.background
-{
-    position: relative;
-    background-color: var(--bg-white);
-    z-index: 1;
-    overflow-y: hidden;
-}
-
 .container
 {
     max-width: 1000px;

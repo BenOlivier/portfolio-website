@@ -5,6 +5,24 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 80px;
+}
+
+@media(min-width: 480px)
+{
+    #header
+    {
+        margin-bottom: 80px;
+    }
+}
+
+@media(min-width: 750px)
+{
+    #header
+    {
+        margin-bottom: 80px;
+        justify-content: space-between;
+    }
 }
 
 #home-button
@@ -21,11 +39,6 @@
 
 @media(min-width: 750px)
 {
-    #header
-    {
-        justify-content: space-between;
-    }
-
     #home-button
     {
         position: relative

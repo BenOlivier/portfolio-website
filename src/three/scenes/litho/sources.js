@@ -2,11 +2,11 @@ export default [
     {
         name: 'litho',
         type: 'gltfModel',
-        path: 'models/litho.glb'
+        path: 'models/litho.glb',
     },
     {
         name: 'HDRI',
         type: 'hdrTexture',
-        path: 'images/environmentMap/autoshop_01.hdr'
-    }
-]
+        path: 'images/environmentMap/autoshop.hdr',
+    },
+];

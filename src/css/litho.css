@@ -52,6 +52,11 @@
     opacity: 1;
 }
 
+.point:focus .point-text
+{
+    opacity: 1;
+}
+
 .point .point-text
 {
     position: absolute;

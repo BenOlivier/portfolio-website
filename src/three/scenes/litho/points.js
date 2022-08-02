@@ -49,6 +49,7 @@ export default class Points
                 if (intersectionDistance < pointDistance)
                 {
                     point.element.classList.remove('visible');
+                    // point.element.children[1].style.opacity = 0;
                 }
                 else
                 {

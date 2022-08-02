@@ -47,14 +47,12 @@
     transform: scale(1, 1);
 }
 
-.point:hover .point-text
+@media(min-width: 750px)
 {
-    opacity: 1;
-}
-
-.point:focus .point-text
-{
-    opacity: 1;
+    .point:hover .point-text
+    {
+        opacity: 1;
+    }
 }
 
 .point .point-text

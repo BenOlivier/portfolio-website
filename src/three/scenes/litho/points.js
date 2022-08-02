@@ -25,6 +25,19 @@ export default class Points
                 element: document.getElementById('point-2'),
             },
         ];
+
+        for (const point of this.points)
+        {
+            point.element.addEventListener('click', () => this.mobilePointTap(point.element));
+        }
+        this.canvas.addEventListener('touchend', () =>
+        {
+            for (const point of this.points)
+            {
+                this.mobileResetPoint(point.element);
+            }
+        });
+
         this.raycaster = new THREE.Raycaster();
     }
 
@@ -49,7 +62,7 @@ export default class Points
                 if (intersectionDistance < pointDistance)
                 {
                     point.element.classList.remove('visible');
-                    // point.element.children[1].style.opacity = 0;
+                    this.mobileResetPoint(point.element);
                 }
                 else
                 {
@@ -64,5 +77,22 @@ export default class Points
 
             point.element.style.transform = `translate(${translateX}px, ${translateY}px)`;
         }
+    }
+
+    mobilePointTap(point)
+    {
+        if (screen.width < 750)
+        {
+            for (const point of this.points)
+            {
+                point.element.children[1].style.opacity = 0;
+            }
+            point.children[1].style.opacity = 1;
+        }
+    }
+
+    mobileResetPoint(point)
+    {
+        if (screen.width < 750) point.children[1].style.opacity = 0;
     }
 }

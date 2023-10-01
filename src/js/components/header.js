@@ -11,7 +11,7 @@ class Header extends HTMLElement
             <header id="header">
                 <a id="home-button" href="/">BEN OLIVIER</a>
                 <nav id="nav">
-                    <a id="work-nav" href="/work.html">WORK</a>
+                    <a id="work-nav" href="/">WORK</a>
                     <a id="about-nav" href="/about.html">ABOUT</a>
                     <a id="contact-nav" href="/contact.html">CONTACT</a>
                 </nav>

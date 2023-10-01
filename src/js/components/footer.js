@@ -9,7 +9,7 @@ class Footer extends HTMLElement
     {
         this.innerHTML = `
             <footer class="footer">
-                <h3>&copy;&nbsp;2022&nbsp;BEN OLIVIER</h3>
+                <h3>&copy;&nbsp;<span id="year"></span>&nbsp;BEN OLIVIER</h3>
                 <div>
                     <a href="mailto:dbeolivier@gmail.com">
                     <img src="/images/icons/footer/mail.svg"></a>
@@ -25,6 +25,7 @@ class Footer extends HTMLElement
                 </div>
             </footer>
         `;
+        document.getElementById('year').innerHTML = new Date().getFullYear();
     }
 }
 

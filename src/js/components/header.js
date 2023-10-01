@@ -9,10 +9,10 @@ class Header extends HTMLElement
     {
         this.innerHTML = `
             <header id="header">
-                <a id="home-button" href="/index.html">Ben Olivier</a>
+                <a id="home-button" href="/">BEN OLIVIER</a>
                 <nav id="nav">
-                    <a id="about-nav" href="/about.html">ABOUT</a>
                     <a id="work-nav" href="/work.html">WORK</a>
+                    <a id="about-nav" href="/about.html">ABOUT</a>
                     <a id="contact-nav" href="/contact.html">CONTACT</a>
                 </nav>
                 <button onclick="this.classList.toggle('collapsed');

@@ -46,7 +46,7 @@
 .work .work-thumbnail
 {
     width: 100%;
-    max-width: 750px;
+    /* max-width: 750px; */
     margin: auto;
     padding-bottom: 8px;
 }
@@ -60,7 +60,7 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background-color: #f0f0f2;
+    background-color: #ebecf0;
     border-radius: 12px;
     transition: 0.5s ease all;
     cursor: pointer;
@@ -98,12 +98,12 @@
   
 .work-image-container:hover::after
 {
-    opacity: 0.4;
+    opacity: 0.1;
 }
 
 .work-image-container:hover img
 {
-    filter: blur(20px);
+    filter: blur(30px);
 }
 
 .work-image-container:hover .work-text-container
@@ -135,11 +135,35 @@
 .work-image-container img
 {
     position: relative;
-    width: 400px;
-    height: 400px;
+    width: 300px;
+    height: 300px;
     object-fit: cover;
     transition: 0.5s ease all;
     transform: skewY(5deg);
+}
+
+#meta img
+{
+    width: 280px;
+    height: 280px;
+}
+
+#litho img
+{
+    width: 300px;
+    height: 300px;
+}
+
+#endfield img
+{
+    width: 400px;
+    height: 400px;
+}
+
+#other img
+{
+    width: 320px;
+    height: 320px;
 }
 
 .work-text-container

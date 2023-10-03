@@ -12,7 +12,7 @@ import Homepage from './three/scenes/homepage/experience.js';
 import Litho from './three/scenes/litho/experience.js';
 import ModelViewer from './three/scenes/model-viewer/experience.js';
 
-if (document.body.classList.contains('index'))
+if (document.body.classList.contains('hello'))
 {
     new Homepage(document.querySelector('canvas.webgl'));
 }

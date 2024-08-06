@@ -21,6 +21,7 @@
 
 .work #work-container
 {
+    margin-top: 80px;
     margin-bottom: 120px;
 }
 
@@ -28,6 +29,7 @@
 {
     .work #work-container
     {
+        margin-top: 120px;
         margin-bottom: 160px;
     }
 }
@@ -36,6 +38,7 @@
 {
     .work #work-container
     {
+        margin-top: 120px;
         margin-bottom: 200px;
     }
 }
@@ -43,7 +46,7 @@
 .work .work-thumbnail
 {
     width: 100%;
-    max-width: 750px;
+    /* max-width: 750px; */
     margin: auto;
     padding-bottom: 8px;
 }
@@ -57,7 +60,8 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    border-radius: 5px;
+    background-color: #ebecf0;
+    border-radius: 12px;
     transition: 0.5s ease all;
     cursor: pointer;
     transform: skewY(-5deg);
@@ -94,12 +98,12 @@
   
 .work-image-container:hover::after
 {
-    opacity: 0.4;
+    opacity: 0.1;
 }
 
 .work-image-container:hover img
 {
-    filter: blur(20px);
+    filter: blur(30px);
 }
 
 .work-image-container:hover .work-text-container
@@ -131,11 +135,35 @@
 .work-image-container img
 {
     position: relative;
-    width: 100%;
-    height: 125%;
+    width: 300px;
+    height: 300px;
     object-fit: cover;
     transition: 0.5s ease all;
     transform: skewY(5deg);
+}
+
+#meta img
+{
+    width: 280px;
+    height: 280px;
+}
+
+#litho img
+{
+    width: 300px;
+    height: 300px;
+}
+
+#endfield img
+{
+    width: 400px;
+    height: 400px;
+}
+
+#other img
+{
+    width: 400px;
+    height: 400px;
 }
 
 .work-text-container

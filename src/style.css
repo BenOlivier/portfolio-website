@@ -15,7 +15,7 @@
     --mid-grey: #888888;
     --dark-grey: #555555;
     --main-dark: #333333;
-    --highlight: #57a4d1;
+    --highlight: #5aa2e1;
 }
 
 html, body
@@ -68,26 +68,6 @@ html, body
     {
         padding: 80px;
     }
-}
-
-.work-container
-{
-    width: 100%;
-    max-width: 750px;
-    margin: auto;
-}
-
-.work-section
-{
-    padding-bottom: 50px;
-    margin-bottom: 80px;
-    border-bottom: 1px solid #cccccc;
-}
-
-.work-section:last-of-type
-{
-    margin-bottom: 100px;
-    border-bottom: none
 }
 
 h1
@@ -191,7 +171,6 @@ p
     line-height: 20px;
     color: var(--mid-grey);
     text-align: center;
-    /* margin: 10px 0 20px 0; */
 }
 
 .image-container a

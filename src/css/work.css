@@ -9,6 +9,12 @@
     margin-bottom: 32px;
 }
 
+.project-header h2
+{
+    margin-bottom: 40px;
+    color: var(--light-grey);
+}
+
 .skills-container
 {
     display: flex;
@@ -16,7 +22,7 @@
     margin-bottom: 80px;
 }
 
-.skills-container span
+/* .skills-container span
 {
     font-size: 15px;
     font-weight: bold;
@@ -24,6 +30,19 @@
     background-color: #ffffff;
     box-shadow: 0 0 10px #00000005;
     padding: 2px 16px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    border-radius: 20px;
+} */
+
+.skills-container span
+{
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--light-grey);
+    background-color: #ffffff;
+    box-shadow: 0 0 10px #00000005;
+    padding: 0px 16px;
     margin-right: 8px;
     margin-bottom: 8px;
     border-radius: 20px;

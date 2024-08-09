@@ -166,6 +166,33 @@
     }
 }
 
+#customuse img
+{
+    width: 220px;
+    height: 220px;
+    top: 30px;
+}
+
+@media(min-width: 480px)
+{
+    #customuse img
+    {
+        width: 310px;
+        height: 310px;
+        top: 45px;
+    }
+}
+
+@media(min-width: 750px)
+{
+    #customuse img
+    {
+        width: 400px;
+        height: 400px;
+        top: 70px;
+    }
+}
+
 #litho img
 {
     width: 180px;

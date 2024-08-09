@@ -72,21 +72,20 @@ html, body
 
 h1
 {
-    font-size: 50px;
-    line-height: 50px;
-    color: var(--light-grey);
+    font-size: 60px;
+    line-height: 60px;
+    color: var(--dark-grey);
     font-family: 'Red Hat Display', sans-serif;
     font-weight: 700;
-    text-align: center;
-    margin-bottom: 100px;
+    text-align: left;
 }
 
 @media(min-width: 480px)
 {
     h1
     {
-        font-size: 60px;
-        line-height: 60px;
+        font-size: 70px;
+        line-height: 70px;
     }
 }
 

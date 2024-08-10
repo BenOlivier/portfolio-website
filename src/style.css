@@ -102,6 +102,7 @@ h2
 {
     font-size: 20px;
     font-weight: 600;
+    color: var(--dark-grey);
     margin-bottom: 20px;
 }
 
@@ -151,12 +152,6 @@ p
 .image-container img
 {
     width: 100%;
-}
-
-img
-{
-    width: 100%;
-    margin-bottom: 60px;
 }
 
 .image-container.multi

@@ -116,7 +116,7 @@ p
     font-size: 16px;
     font-weight: 400;
     line-height: 28px;
-    margin-bottom: 20px;
+    margin-bottom: 28px;
 }
 
 .link
@@ -145,12 +145,18 @@ p
 
 .image-container
 {
-    margin: 50px 0;
+    margin-bottom: 60px;
 }
 
 .image-container img
 {
     width: 100%;
+}
+
+img
+{
+    width: 100%;
+    margin-bottom: 60px;
 }
 
 .image-container.multi
@@ -184,13 +190,12 @@ p
 
 .text-container
 {
-    margin-bottom: 50px;
+    margin-bottom: 60px;
 }
 
-@media(min-width: 750px)
+iframe
 {
-    .text-container
-    {
-        margin-bottom: 80px;
-    }
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    margin-bottom: 60px;
 }

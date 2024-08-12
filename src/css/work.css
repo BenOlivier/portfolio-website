@@ -100,13 +100,9 @@ hr
     overflow: hidden;
     background-color: #ebecf0;
     border-radius: 12px;
+    transform: skewY(-5deg);
     transition: 0.5s ease all;
     cursor: pointer;
-}
-
-.work-page .work-image-container
-{
-    transform: skewY(-5deg);
 }
 
 @media(min-width: 480px)
@@ -153,14 +149,14 @@ hr
     opacity: 1;
 }
 
-.work-page .work-image-container:hover
+.work-image-container:hover
 {
     height: 220px;
 }
 
 @media(min-width: 480px)
 {
-    .work-page .work-image-container:hover
+    .work-image-container:hover
     {
         height: 300px;
     }
@@ -179,41 +175,31 @@ hr
     position: relative;
     object-fit: cover;
     transition: 0.5s ease all;
-}
-
-.work-page .work-image-container img
-{
     transform: skewY(5deg);
-}
-
-#meta img
-{
-    width: 170px;
-    height: 170px;
+    width: 250px;
+    height: 250px;
 }
 
 @media(min-width: 480px)
 {
-    #meta img
+    .work-image-container img
     {
-        width: 220px;
-        height: 220px;
+        width: 325px;
+        height: 325px;
     }
 }
 
 @media(min-width: 750px)
 {
-    #meta img
+    .work-image-container img
     {
-        width: 280px;
-        height: 280px;
+        width: 400px;
+        height: 400px;
     }
 }
 
 #customuse img
 {
-    width: 220px;
-    height: 220px;
     top: 30px;
 }
 
@@ -221,8 +207,6 @@ hr
 {
     #customuse img
     {
-        width: 310px;
-        height: 310px;
         top: 45px;
     }
 }
@@ -231,81 +215,7 @@ hr
 {
     #customuse img
     {
-        width: 400px;
-        height: 400px;
         top: 70px;
-    }
-}
-
-#litho img
-{
-    width: 180px;
-    height: 180px;
-}
-
-@media(min-width: 480px)
-{
-    #litho img
-    {
-        width: 250px;
-        height: 250px;
-    }
-}
-
-@media(min-width: 750px)
-{
-    #litho img
-    {
-        width: 300px;
-        height: 300px;
-    }
-}
-
-#endfield img
-{
-    width: 250px;
-    height: 250px;
-}
-
-@media(min-width: 480px)
-{
-    #endfield img
-    {
-        width: 325px;
-        height: 325px;
-    }
-}
-
-@media(min-width: 750px)
-{
-    #endfield img
-    {
-        width: 400px;
-        height: 400px;
-    }
-}
-
-#other img
-{
-    width: 250px;
-    height: 250px;
-}
-
-@media(min-width: 480px)
-{
-    #other img
-    {
-        width: 325px;
-        height: 325px;
-    }
-}
-
-@media(min-width: 750px)
-{
-    #other img
-    {
-        width: 400px;
-        height: 400px;
     }
 }
 
@@ -324,10 +234,6 @@ hr
     pointer-events: none;
     opacity: 0;
     transition: 0.5s ease all;
-}
-
-.work-page .work-text-container
-{
     transform: skewY(5deg);
 }
 

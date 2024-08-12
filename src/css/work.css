@@ -258,29 +258,3 @@ hr
     box-shadow: 0 0 10px #00000010;
 }
 
-.suggestions
-{
-    margin-top: 80px;
-    margin-bottom: 120px;
-}
-
-.suggestions h2
-{
-    margin-top: 80px;
-    margin-bottom: 40px;
-}
-
-.suggestions-row
-{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-@media(min-width: 750px)
-{
-    .suggestions-row
-    {
-        flex-direction: row;
-    }
-}

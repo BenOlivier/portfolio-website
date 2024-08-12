@@ -2,6 +2,7 @@ import './style.css';
 import './css/header.css';
 import './css/footer.css';
 import './css/about.css';
+import './css/suggestions.css';
 import './css/work.css';
 import './css/litho.css';
 import './css/diorama.css';

@@ -6,7 +6,7 @@ export default class Sizes extends EventEmitter
     {
         super();
 
-        const container = document.getElementById('work-container');
+        const container = document.getElementById('project-content');
         this.width = container.offsetWidth;
         this.height = this.width;
         this.pixelRatio = Math.min(window.devicePixelRatio, 2);

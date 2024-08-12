@@ -15,89 +15,118 @@
 <body class="litho">
   <div class="container">
     <header-component></header-component>
-    <div class="project-container">
-      <div class="project-header">
-        <h1>Litho Controller</h1>
-        <h2>Litho, London, 2022</h2>
-        <div class="skills-container">
-          <span>Product Design</span><span>Prototyping</span><span>Figma</span><span>Unity</span>
-        </div>
-        <hr>
+
+    <section class="project-header">
+      <h1>Litho Controller</h1>
+      <h2>Litho, London, 2022</h2>
+      <div class="skills-container">
+        <span>Product Design</span><span>Prototyping</span><span>Figma</span><span>Unity</span>
       </div>
-      <div class="project-content">
-        <div class="image-container" id="header-video">
-          <div style="padding:50% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/316287460?h=706d09e88e&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="LITHO Trailer"></iframe></div>
+      <hr>
+    </section>
+
+    <section class="project-content">
+      <div class="image-container" id="header-video">
+        <div style="padding:50% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/316287460?h=706d09e88e&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="LITHO Trailer"></iframe></div>
+      </div>
+      <div class="text-container" id="top-text">
+        <h2>A controller for the real world</h2>
+        <p>Augmented reality has an input problem. Current solutions have us tapping and swiping at the air, wielding bulky controllers, or resorting back to our phones.</p>
+        <p>To address this, we developed the <a class="link" href="https://www.litho.cc/" target="_blank">Litho Controller</a> - a small wearable controller that sits comfortably between your index and middle fingers and connects to your phone via Bluetooth.</p>
+      </div>
+
+      <div id="points-container">
+        <div class="point text-above" id="point-0">
+          <div class="point-number">1</div>
+          <p class="point-text">Motion tracking sensors and haptic feedback system</p>
         </div>
-        <div class="text-container" id="top-text">
-          <h2>A controller for the real world</h2>
-          <p>Augmented reality has an input problem. Current solutions have us tapping and swiping at the air, wielding bulky controllers, or resorting back to our phones.</p>
-          <p>To address this, we developed the <a class="link" href="https://www.litho.cc/" target="_blank">Litho Controller</a> - a small wearable controller that sits comfortably between your index and middle fingers and connects to your phone via Bluetooth.</p>
+        <div class="point text-above" id="point-1">
+          <div class="point-number">2</div>
+          <p class="point-text">Worn between first and second fingers</p>
         </div>
-  
-        <div id="points-container">
-          <div class="point text-above" id="point-0">
-            <div class="point-number">1</div>
-            <p class="point-text">Motion tracking sensors and haptic feedback system</p>
-          </div>
-          <div class="point text-above" id="point-1">
-            <div class="point-number">2</div>
-            <p class="point-text">Worn between first and second fingers</p>
-          </div>
-          <div class="point" id="point-2">
-            <div class="point-number">3</div>
-            <p class="point-text">Capacitive touchpad for thumb taps and swipes</p>
-          </div>
-        </div>
-  
-        <canvas class="webgl"></canvas>
-  
-        <div class="text-container">
-          <h2>Natively spatial</h2>
-          <p>Litho allows for natural and precise input with the world around you via its touch surface on the underside, custom haptic feedback system and array of motion-tracking sensors.</p>
-        </div>
-  
-        <div class="image-container multi">
-          <img src="/static/images/work/litho/litho-main.jpg" alt="Litho Controller">
-          <img src="/static/images/work/litho/point-grip.gif" alt="Point grip">
-        </div>
-  
-        <div class="text-container">
-          <h2>My work</h2>
-          <p>My focus Litho is to conceptualize and prototype new spatial interactions, interfaces and experiences for the controller which build on its strengths as an input device.</p>
-          <p>User research is a key tool for validating novel interactions. I find it invaluable to observe users' natural inclinations which may be influenced by real world physical interactions or existing digital patterns.</p>
-        </div>
-        
-        <div class="image-container">
-          <div style="padding:60% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/373153532?h=057b08c976&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="AR Item Browser"></iframe></div>
-          <p><span>An AR product browser UI I built for Litho</span></p>
-        </div>
-  
-        <div class="text-container">
-          <h2>SDK</h2>
-          <p>We built a Unity SDK with off the shelf interactions for common 3D manipulations such as moving, scaling and rotating - allowing builders to quickly put together apps for Litho.</p>
-          <p>Our Developer Hub is a community pioneering the future of digital interaction. Check out some of the projects built with Litho below.</p>
-        </div>
-  
-        <div class="image-container multi" id="triple-video" >
-          <iframe src="https://player.vimeo.com/video/396733400?h=e7a48b5c7a&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" title="Drawing with Litho"></iframe>
-          <iframe src="https://player.vimeo.com/video/368815792?h=7d2f841b23&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" title="#MadeWithLitho"></iframe>
-          <iframe src="https://player.vimeo.com/video/380512193?h=ef92236605&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" title="Quick Frame App (Charlie Fuller)"></iframe>
-        </div>
-  
-        <div class="text-container">
-          <p>We shipped hundreds of developer kits around the world and in 2021 partnered with US startup <a class="link" href="https://arkh.com/" target="_blank">ARKH</a> who continue to sell the device under their own branding.</p>
-        </div>
-  
-        <h2 id="featured-in">Featured in:</h2>
-  
-        <div id="press-container">
-          <a href="https://www.wired.co.uk/article/ar-influencers-litho-virtual-reality" target="_blank"><img id="wired" src="/static/images/work/litho/wired-logo.png" alt="Wired article"></a>
-          <a href="https://globaldesignnews.com/ben-olivier-and-litho-devise-a-new-wearable-controller/" target="_blank"><img id="gdn" src="/static/images/work/litho/global-design-news-logo.png" alt="Global Design News article"></a>
-          <a href="https://www.theverge.com/2019/2/19/18225277/litho-controller-ar-vr-motion-ring-development-kit-shipping-cost-launch" target="_blank"><img id="the-verge" src="/static/images/work/litho/the-verge-logo.png" alt="The Verge article"></a>
-          <a href="https://techcrunch.com/2019/02/18/litho/" target="_blank"><img id="tech-crunch" src="/static/images/work/litho/tech-crunch-logo.png" alt="Tech Crunch article"></a>
+        <div class="point" id="point-2">
+          <div class="point-number">3</div>
+          <p class="point-text">Capacitive touchpad for thumb taps and swipes</p>
         </div>
       </div>
-    </div>
+
+      <canvas class="webgl"></canvas>
+
+      <div class="text-container">
+        <h2>Natively spatial</h2>
+        <p>Litho allows for natural and precise input with the world around you via its touch surface on the underside, custom haptic feedback system and array of motion-tracking sensors.</p>
+      </div>
+
+      <div class="image-container multi">
+        <img src="/static/images/work/litho/litho-main.jpg" alt="Litho Controller">
+        <img src="/static/images/work/litho/point-grip.gif" alt="Point grip">
+      </div>
+
+      <div class="text-container">
+        <h2>My work</h2>
+        <p>My focus Litho is to conceptualize and prototype new spatial interactions, interfaces and experiences for the controller which build on its strengths as an input device.</p>
+        <p>User research is a key tool for validating novel interactions. I find it invaluable to observe users' natural inclinations which may be influenced by real world physical interactions or existing digital patterns.</p>
+      </div>
+      
+      <div class="image-container">
+        <div style="padding:60% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/373153532?h=057b08c976&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="AR Item Browser"></iframe></div>
+        <p><span>An AR product browser UI I built for Litho</span></p>
+      </div>
+
+      <div class="text-container">
+        <h2>SDK</h2>
+        <p>We built a Unity SDK with off the shelf interactions for common 3D manipulations such as moving, scaling and rotating - allowing builders to quickly put together apps for Litho.</p>
+        <p>Our Developer Hub is a community pioneering the future of digital interaction. Check out some of the projects built with Litho below.</p>
+      </div>
+
+      <div class="image-container multi" id="triple-video" >
+        <iframe src="https://player.vimeo.com/video/396733400?h=e7a48b5c7a&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" title="Drawing with Litho"></iframe>
+        <iframe src="https://player.vimeo.com/video/368815792?h=7d2f841b23&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" title="#MadeWithLitho"></iframe>
+        <iframe src="https://player.vimeo.com/video/380512193?h=ef92236605&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" title="Quick Frame App (Charlie Fuller)"></iframe>
+      </div>
+
+      <div class="text-container">
+        <p>We shipped hundreds of developer kits around the world and in 2021 partnered with US startup <a class="link" href="https://arkh.com/" target="_blank">ARKH</a> who continue to sell the device under their own branding.</p>
+      </div>
+
+      <h2 id="featured-in">Featured in:</h2>
+
+      <div id="press-container">
+        <a href="https://www.wired.co.uk/article/ar-influencers-litho-virtual-reality" target="_blank"><img id="wired" src="/static/images/work/litho/wired-logo.png" alt="Wired article"></a>
+        <a href="https://globaldesignnews.com/ben-olivier-and-litho-devise-a-new-wearable-controller/" target="_blank"><img id="gdn" src="/static/images/work/litho/global-design-news-logo.png" alt="Global Design News article"></a>
+        <a href="https://www.theverge.com/2019/2/19/18225277/litho-controller-ar-vr-motion-ring-development-kit-shipping-cost-launch" target="_blank"><img id="the-verge" src="/static/images/work/litho/the-verge-logo.png" alt="The Verge article"></a>
+        <a href="https://techcrunch.com/2019/02/18/litho/" target="_blank"><img id="tech-crunch" src="/static/images/work/litho/tech-crunch-logo.png" alt="Tech Crunch article"></a>
+      </div>
+    </section>
+
+    <section class="suggestions">
+      <hr>
+      <h2>Other Work</h2>
+      <div class="suggestions-row">
+        <div class="suggestions-card">
+          <a id="meta-anchor" href="/meta.html">
+            <div class="suggestions-image-container" id="meta">
+              <img src="/static/images/work/meta/meta-thumbnail.jpg" alt="Meta Hero">
+              <div class="suggestions-text-container">
+                <h3>Horizon Workrooms</h3>
+                <p><span>2023 - present</span></p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="suggestions-card">
+          <a id="other-anchor" href="/other-work.html">
+            <div class="suggestions-image-container" id="other">
+              <img src="/static/images/work/other/other-thumbnail.jpg" alt="Other Hero">
+              <div class="suggestions-text-container">
+                <h3>Other Work</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <footer-component></footer-component>
   </div>
 </body>

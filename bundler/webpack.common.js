@@ -4,7 +4,7 @@ const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const path = require('path')
 
 module.exports = {
-    entry: path.resolve(__dirname, '../src/app.js'),
+    entry: path.resolve(__dirname, '../src/js/app.js'),
     output:
     {
         hashFunction: 'xxhash64',
@@ -21,62 +21,62 @@ module.exports = {
             ]
         }),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../src/index.html'),
+            template: path.resolve(__dirname, '../src/html/index.html'),
             filename: 'index.html',
             minify: true
         }),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../src/about.html'),
+            template: path.resolve(__dirname, '../src/html/about.html'),
             filename: 'about.html',
             minify: true
         }),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../src/work.html'),
+            template: path.resolve(__dirname, '../src/html/work.html'),
             filename: 'work.html',
             minify: true
         }),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../src/meta.html'),
+            template: path.resolve(__dirname, '../src/html/meta.html'),
             filename: 'meta.html',
             minify: true
         }),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../src/customuse.html'),
+            template: path.resolve(__dirname, '../src/html/customuse.html'),
             filename: 'customuse.html',
             minify: true
         }),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../src/litho.html'),
+            template: path.resolve(__dirname, '../src/html/litho.html'),
             filename: 'litho.html',
             minify: true
         }),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../src/diorama.html'),
+            template: path.resolve(__dirname, '../src/html/diorama.html'),
             filename: 'diorama.html',
             minify: true
         }),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../src/3d.html'),
+            template: path.resolve(__dirname, '../src/html/3d.html'),
             filename: '3d.html',
             minify: true
         }),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../src/model-viewer.html'),
+            template: path.resolve(__dirname, '../src/html/model-viewer.html'),
             filename: 'model-viewer.html',
             minify: true
         }),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../src/other-work.html'),
+            template: path.resolve(__dirname, '../src/html/other-work.html'),
             filename: 'other-work.html',
             minify: true
         }),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../src/contact.html'),
+            template: path.resolve(__dirname, '../src/html/contact.html'),
             filename: 'contact.html',
             minify: true
         }),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../src/success.html'),
+            template: path.resolve(__dirname, '../src/html/success.html'),
             filename: 'success.html',
             minify: true
         }),

@@ -20,8 +20,8 @@ class Footer extends HTMLElement
                     <a href="https://github.com/BenOlivier" target="_blank">
                     <img src="/images/icons/footer/github.svg"></a>
 
-                    <a href="https://twitter.com/benolivier_" target="_blank">
-                    <img src="/images/icons/footer/twitter.svg"></a>
+                    <a href="https://x.com/benolivierxyz" target="_blank">
+                    <img src="/images/icons/footer/x.svg"></a>
                 </div>
             </footer>
         `;

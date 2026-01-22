@@ -25,7 +25,7 @@ class Footer extends HTMLElement
                 </div>
             </footer>
         `;
-        document.getElementById('year').innerHTML = new Date().getFullYear();
+        document.getElementById('year').textContent = new Date().getFullYear();
     }
 }
 

@@ -51,7 +51,7 @@ export default class Points
 
             this.raycaster.setFromCamera(screenPosition, this.camera.camera);
             const intersects = this.raycaster.intersectObjects([this.objects.litho.children[0]]);
-            if (intersects.length == 0)
+            if (intersects.length === 0)
             {
                 point.element.classList.add('visible');
             }

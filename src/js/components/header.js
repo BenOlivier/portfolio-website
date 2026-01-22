@@ -15,24 +15,29 @@ class Header extends HTMLElement
                     <a id="about-nav" href="/about.html">ABOUT</a>
                     <a id="contact-nav" href="/contact.html">CONTACT</a>
                 </nav>
-                <button onclick="this.classList.toggle('collapsed');
-                document.getElementById('nav').classList.toggle('expanded')">
+                <button aria-label="Toggle navigation menu">
                     <span></span>
                     <span></span>
                     <span></span>
                 </button>
             </header>
         `;
+
+        const menuButton = this.querySelector('button');
+        const nav = document.getElementById('nav');
+        menuButton.addEventListener('click', () =>
+        {
+            menuButton.classList.toggle('collapsed');
+            nav.classList.toggle('expanded');
+        });
+
         const aboutNav = document.getElementById('about-nav');
         const workNav = document.getElementById('work-nav');
         const contactNav = document.getElementById('contact-nav');
 
-        window.onload = function()
-        {
-            if (document.body.classList.contains('about')) aboutNav.classList.add('current');
-            if (document.body.classList.contains('work')) workNav.classList.add('current');
-            if (document.body.classList.contains('contact')) contactNav.classList.add('current');
-        };
+        if (document.body.classList.contains('about')) aboutNav.classList.add('current');
+        if (document.body.classList.contains('work')) workNav.classList.add('current');
+        if (document.body.classList.contains('contact')) contactNav.classList.add('current');
     }
 }
 

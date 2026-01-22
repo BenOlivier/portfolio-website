@@ -27,13 +27,13 @@ if (screen.width < 750)
     };
 
     // Reset all projects to not clickable on page load
-    window.onload = () =>
+    document.addEventListener('DOMContentLoaded', () =>
     {
         Object.values(anchors).forEach((val) =>
         {
-            val.classList.remove('clickable');
+            if (val) val.classList.remove('clickable');
         });
-    };
+    });
 
     Object.values(anchors).forEach((val) =>
     {

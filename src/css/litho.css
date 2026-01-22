@@ -22,8 +22,8 @@
 .point .point-number
 {
     position: absolute;
-    top: -20;
-    left: -20;
+    top: -20px;
+    left: -20px;
     width: 30px;
     height: 30px;
     border-radius: 50%;

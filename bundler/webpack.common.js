@@ -1,7 +1,7 @@
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
-const path = require('path')
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
+const path = require('path');
 
 module.exports = {
     entry: path.resolve(__dirname, '../src/js/app.js'),
@@ -10,77 +10,52 @@ module.exports = {
         hashFunction: 'xxhash64',
         filename: 'bundle.[contenthash].js',
         path: path.resolve(__dirname, '../dist'),
-        assetModuleFilename: "assets/[name][ext]"
+        assetModuleFilename: 'assets/[name][ext]',
     },
     devtool: 'source-map',
     plugins:
     [
         new CopyWebpackPlugin({
             patterns: [
-                { from: path.resolve(__dirname, '../static') }
-            ]
+                { from: path.resolve(__dirname, '../static') },
+            ],
         }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../src/html/index.html'),
             filename: 'index.html',
-            minify: true
+            minify: true,
         }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../src/html/about.html'),
             filename: 'about.html',
-            minify: true
+            minify: true,
         }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../src/html/work.html'),
             filename: 'work.html',
-            minify: true
+            minify: true,
         }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../src/html/meta.html'),
             filename: 'meta.html',
-            minify: true
+            minify: true,
         }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../src/html/customuse.html'),
             filename: 'customuse.html',
-            minify: true
+            minify: true,
         }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../src/html/litho.html'),
             filename: 'litho.html',
-            minify: true
-        }),
-        new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../src/html/diorama.html'),
-            filename: 'diorama.html',
-            minify: true
-        }),
-        new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../src/html/3d.html'),
-            filename: '3d.html',
-            minify: true
-        }),
-        new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../src/html/model-viewer.html'),
-            filename: 'model-viewer.html',
-            minify: true
-        }),
-        new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../src/html/other-work.html'),
-            filename: 'other-work.html',
-            minify: true
+            minify: true,
         }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../src/html/contact.html'),
             filename: 'contact.html',
-            minify: true
+            minify: true,
         }),
-        new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../src/html/success.html'),
-            filename: 'success.html',
-            minify: true
-        }),
-        new MiniCSSExtractPlugin()
+        new MiniCSSExtractPlugin(),
     ],
     module:
     {
@@ -91,8 +66,8 @@ module.exports = {
                 test: /\.(html)$/,
                 use:
                 [
-                    'html-loader'
-                ]
+                    'html-loader',
+                ],
             },
 
             // JS
@@ -101,8 +76,8 @@ module.exports = {
                 exclude: /node_modules/,
                 use:
                 [
-                    'babel-loader'
-                ]
+                    'babel-loader',
+                ],
             },
 
             // CSS
@@ -111,8 +86,8 @@ module.exports = {
                 use:
                 [
                     MiniCSSExtractPlugin.loader,
-                    'css-loader'
-                ]
+                    'css-loader',
+                ],
             },
 
             // Images
@@ -121,8 +96,8 @@ module.exports = {
                 type: 'asset/resource',
                 generator:
                 {
-                    filename: 'assets/images/[hash][ext]'
-                }
+                    filename: 'assets/images/[hash][ext]',
+                },
             },
 
             // Fonts
@@ -131,8 +106,8 @@ module.exports = {
                 type: 'asset/resource',
                 generator:
                 {
-                    filename: 'assets/fonts/[hash][ext]'
-                }
+                    filename: 'assets/fonts/[hash][ext]',
+                },
             },
 
             // Shaders
@@ -141,19 +116,19 @@ module.exports = {
                 type: 'asset/source',
                 generator:
                 {
-                    filename: 'assets/images/[hash][ext]'
-                }
+                    filename: 'assets/images/[hash][ext]',
+                },
             },
 
             // PDF
             {
                 test: /\.(pdf|txt)$/,
-                type: "asset/resource",
+                type: 'asset/resource',
                 generator:
                 {
-                    filename: "assets/[name][ext]",
-                }
-            }
-        ]
-    }
-}
+                    filename: 'assets/[name][ext]',
+                },
+            },
+        ],
+    },
+};

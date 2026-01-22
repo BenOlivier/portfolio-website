@@ -20,8 +20,7 @@ export default class Renderer
             antialias: true,
             alpha: true,
         });
-        this.renderer.physicallyCorrectLights = true;
-        this.renderer.outputEncoding = THREE.LinearEncoding;
+        this.renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
         this.renderer.toneMapping = THREE.CineonToneMapping;
         this.renderer.toneMappingExposure = 3;
         this.renderer.setSize(this.sizes.width, this.sizes.height);

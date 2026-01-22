@@ -108,6 +108,14 @@
     }
 }
 
+.looping-video
+{
+    pointer-events: none;
+    user-select: none;
+    display: block;
+    object-fit: cover;
+}
+
 #featured-in
 {
     text-align: center;

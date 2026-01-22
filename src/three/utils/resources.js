@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
-import {RGBELoader} from 'three/examples/jsm/loaders/RGBELoader';
-import EventEmitter from './event-emitter';
+import {RGBELoader} from 'three/examples/jsm/loaders/RGBELoader.js';
+import EventEmitter from './event-emitter.js';
 
 export default class Resources extends EventEmitter
 {

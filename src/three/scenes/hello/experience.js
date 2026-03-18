@@ -10,7 +10,7 @@ import Objects from './objects.js';
 
 let instance = null;
 
-export default class Homepage
+export default class Hello
 {
     constructor(_canvas)
     {

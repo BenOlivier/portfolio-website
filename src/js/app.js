@@ -7,19 +7,11 @@ import '../css/work.css';
 import '../css/litho.css';
 import '../css/contact.css';
 
-if (document.body.classList.contains('index'))
+if (document.body.classList.contains('index') || document.body.classList.contains('hello'))
 {
-    import('../three/scenes/index/experience.js').then(({default: Index}) =>
+    import('../three/scenes/homepage/experience.js').then(({default: Homepage}) =>
     {
-        new Index(document.querySelector('canvas.webgl'));
-    });
-}
-
-if (document.body.classList.contains('hello'))
-{
-    import('../three/scenes/hello/experience.js').then(({default: Hello}) =>
-    {
-        new Hello(document.querySelector('canvas.webgl'));
+        new Homepage(document.querySelector('canvas.webgl'));
     });
 }
 

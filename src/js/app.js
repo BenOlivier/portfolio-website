@@ -7,7 +7,7 @@ import '../css/work.css';
 import '../css/litho.css';
 import '../css/contact.css';
 
-if (document.body.classList.contains('index') || document.body.classList.contains('hello'))
+if (document.body.classList.contains('index'))
 {
     import('../three/scenes/homepage/experience.js').then(({default: Homepage}) =>
     {

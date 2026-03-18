@@ -8,6 +8,7 @@ import Pointer from '../../utils/pointer.js';
 import Renderer from './renderer.js';
 import Objects from './objects.js';
 import Environment from './environment.js';
+import Physics from './physics.js';
 
 let instance = null;
 
@@ -42,6 +43,7 @@ export default class Index
         {
             // Setup
             this.environment = new Environment();
+            this.physics = new Physics();
             this.objects = new Objects();
         });
 
@@ -61,6 +63,7 @@ export default class Index
 
     update()
     {
+        if (this.physics) this.physics.update();
         if (this.objects) this.objects.update();
         this.renderer.update();
         this.camera.update();

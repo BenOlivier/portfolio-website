@@ -55,69 +55,68 @@ export default class Objects
         this.scene.add(this.redBalloon);
     }
 
-    setPhysics()
+    createBBody(posX)
     {
-        // Compute collider radius from mesh bounds
-        const box = new THREE.Box3().setFromObject(this.blueBalloon);
-        const size = new THREE.Vector3();
-        box.getSize(size);
-        const radius = Math.max(size.x, size.y, size.z) * 0.5;
+        // Compound shape sizes — tune these manually
+        const boxHalf = new CANNON.Vec3(0.14, 0.32, 0.1);
+        const sphereR = 0.16;
 
-        // Blue body — left
-        this.blueBody = new CANNON.Body({
+        // Compound shape offsets
+        const boxOffset = new CANNON.Vec3(-0.1, 0, 0.07);
+        const topSphereOffset = new CANNON.Vec3(0.15, 0.16, 0.07);
+        const bottomSphereOffset = new CANNON.Vec3(0.15, -0.16, 0.07);
+
+        const body = new CANNON.Body({
             mass: 1,
-            shape: new CANNON.Sphere(radius),
-            position: new CANNON.Vec3(-0.2, 0, 0),
+            position: new CANNON.Vec3(posX, 0, 0),
             linearDamping: 0.8,
             angularDamping: 0.8,
         });
+        body.addShape(new CANNON.Box(boxHalf), boxOffset);
+        body.addShape(new CANNON.Sphere(sphereR), topSphereOffset);
+        body.addShape(new CANNON.Sphere(sphereR), bottomSphereOffset);
+
+        return { body };
+    }
+
+    setPhysics()
+    {
+        // Blue body — left
+        const blue = this.createBBody(-0.4);
+        this.blueBody = blue.body;
         this.world.addBody(this.blueBody);
 
-        const blueAnchor = new CANNON.Body({ mass: 0, position: new CANNON.Vec3(-0.2, 0, 0) });
+        const blueAnchor = new CANNON.Body({
+            mass: 0, position: new CANNON.Vec3(-0.2, 0, 0),
+        });
         this.world.addBody(blueAnchor);
         this.blueSpring = new CANNON.Spring(this.blueBody, blueAnchor, {
-            restLength: 0,
-            stiffness: 5,
-            damping: 1,
+            restLength: 0, stiffness: 5, damping: 1,
         });
 
         // Red body — right
-        this.redBody = new CANNON.Body({
-            mass: 1,
-            shape: new CANNON.Sphere(radius),
-            position: new CANNON.Vec3(0.2, 0, 0),
-            linearDamping: 0.8,
-            angularDamping: 0.8,
-        });
+        const red = this.createBBody(0.4);
+        this.redBody = red.body;
         this.world.addBody(this.redBody);
 
-        const redAnchor = new CANNON.Body({ mass: 0, position: new CANNON.Vec3(0.2, 0, 0) });
+        const redAnchor = new CANNON.Body({
+            mass: 0, position: new CANNON.Vec3(0.2, 0, 0),
+        });
         this.world.addBody(redAnchor);
         this.redSpring = new CANNON.Spring(this.redBody, redAnchor, {
-            restLength: 0,
-            stiffness: 5,
-            damping: 1,
+            restLength: 0, stiffness: 5, damping: 1,
         });
-
-        // Debug collider wireframes
-        const wireframeMat = new THREE.MeshBasicMaterial({
-            color: 0x00ff00,
-            wireframe: true,
-            transparent: true,
-            opacity: 0.3,
-        });
-        const sphereGeo = new THREE.SphereGeometry(radius, 16, 16);
-
-        this.blueDebug = new THREE.Mesh(sphereGeo, wireframeMat);
-        this.scene.add(this.blueDebug);
-
-        this.redDebug = new THREE.Mesh(sphereGeo, wireframeMat);
-        this.scene.add(this.redDebug);
 
         // Track balloon pairs for raycasting and syncing
         this.balloons = [
-            { mesh: this.blueBalloon, body: this.blueBody, spring: this.blueSpring, debug: this.blueDebug },
-            { mesh: this.redBalloon, body: this.redBody, spring: this.redSpring, debug: this.redDebug },
+            {
+                mesh: this.blueBalloon, body: this.blueBody,
+                spring: this.blueSpring,
+            },
+            {
+                mesh: this.redBalloon, body: this.redBody,
+                spring: this.redSpring,
+            },
         ];
 
         // Joint body used as the drag target (massless, kinematic)
@@ -211,13 +210,39 @@ export default class Objects
 
     update()
     {
-        for (const balloon of this.balloons)
+        const t = this.time.current * 0.001;
+        const windStrength = 0.05;
+
+        for (let i = 0; i < this.balloons.length; i++)
         {
+            const balloon = this.balloons[i];
+            const offset = i * 1.7;
+
+            // Smooth wind force using offset sine waves
+            const fx = Math.sin(t * 0.7 + offset) * windStrength;
+            const fy = Math.sin(t * 1.1 + offset + 3.0) * windStrength;
+            const fz = Math.sin(t * 0.9 + offset + 5.0) * windStrength * 0.5;
+
+            // Apply at a varying offset from centre to create torque
+            const px = Math.sin(t * 0.5 + offset + 2.0) * 0.15;
+            const py = Math.sin(t * 0.3 + offset + 4.0) * 0.15;
+            const pz = Math.sin(t * 0.4 + offset + 6.0) * 0.1;
+            const pos = balloon.body.position;
+            balloon.body.applyForce(
+                new CANNON.Vec3(fx, fy, fz),
+                new CANNON.Vec3(pos.x + px, pos.y + py, pos.z + pz),
+            );
+
+            // Restoring torque — nudge orientation back toward camera
+            const q = balloon.body.quaternion;
+            const restoreStrength = 0.1;
+            balloon.body.torque.x += -q.x * restoreStrength;
+            balloon.body.torque.y += -q.y * restoreStrength;
+            balloon.body.torque.z += -q.z * restoreStrength;
+
             balloon.spring.applyForce();
             balloon.mesh.position.copy(balloon.body.position);
             balloon.mesh.quaternion.copy(balloon.body.quaternion);
-            balloon.debug.position.copy(balloon.body.position);
-            balloon.debug.quaternion.copy(balloon.body.quaternion);
         }
     }
 }

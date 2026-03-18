@@ -7,6 +7,7 @@ import Camera from './camera.js';
 import Pointer from '../../utils/pointer.js';
 import Renderer from './renderer.js';
 import Objects from './objects.js';
+import Environment from './environment.js';
 
 let instance = null;
 
@@ -40,6 +41,7 @@ export default class Index
         this.resources.on('ready', () =>
         {
             // Setup
+            this.environment = new Environment();
             this.objects = new Objects();
         });
 

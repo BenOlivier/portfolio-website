@@ -38,7 +38,7 @@ export default class Objects
         this.blueMat = new THREE.MeshStandardMaterial({
             color: 0x2266cc,
             metalness: 1.0,
-            roughness: 0.05,
+            roughness: 0.2,
         });
         this.blueBalloon = source.scene;
         this.blueBalloon.traverse((o) => { if (o.isMesh) o.material = this.blueMat; });
@@ -48,7 +48,7 @@ export default class Objects
         this.redMat = new THREE.MeshStandardMaterial({
             color: 0xcc2222,
             metalness: 1.0,
-            roughness: 0.05,
+            roughness: 0.2,
         });
         this.redBalloon = source.scene.clone(true);
         this.redBalloon.traverse((o) => { if (o.isMesh) o.material = this.redMat; });

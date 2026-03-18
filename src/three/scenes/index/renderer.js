@@ -22,7 +22,7 @@ export default class Renderer
         });
         this.renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
         this.renderer.toneMapping = THREE.CineonToneMapping;
-        this.renderer.toneMappingExposure = 3;
+        this.renderer.toneMappingExposure = 7;
         this.renderer.setSize(this.sizes.width, this.sizes.height);
         this.renderer.setPixelRatio(Math.min(this.sizes.pixelRatio, 2));
     }

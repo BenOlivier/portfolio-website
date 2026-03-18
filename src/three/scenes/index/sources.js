@@ -7,6 +7,6 @@ export default [
     {
         name: 'HDRI',
         type: 'hdrTexture',
-        path: 'images/environmentMap/autoshop.hdr',
+        path: 'images/environmentMap/studio_kontrast_04_1k.hdr',
     },
 ];

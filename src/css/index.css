@@ -1,0 +1,263 @@
+/* Homepage — index.html */
+
+body.index
+{
+    background-color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.home
+{
+    position: relative;
+    z-index: 1;
+    max-width: 590px;
+    margin: 0 auto;
+    padding: 120px 20px 80px;
+}
+
+@media(min-width: 480px)
+{
+    .home
+    {
+        padding: 150px 40px 80px;
+    }
+}
+
+@media(min-width: 1000px)
+{
+    .home
+    {
+        margin: 0;
+        padding: 12vh 0 80px 10vw;
+    }
+}
+
+/* Header — Name + Title */
+
+.home-header
+{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.home h1
+{
+    font-size: 20px;
+    font-weight: 590;
+    line-height: normal;
+    color: var(--dark);
+    font-family: inherit;
+    text-align: left;
+    margin: 0;
+}
+
+.home-subtitle
+{
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--secondary);
+    margin: 0;
+    line-height: normal;
+}
+
+/* Sections */
+
+.home-section
+{
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding: 32px 0;
+    margin-top: 16px;
+}
+
+.home-section h2
+{
+    font-size: 16px;
+    font-weight: 510;
+    color: var(--dark);
+    margin: 0;
+    line-height: normal;
+}
+
+.home-section p
+{
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.8;
+    color: var(--primary);
+    margin: 0;
+}
+
+/* Pill button */
+
+.home-pill-button
+{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 32px;
+    padding: 0 12px;
+    border: 0.5px solid var(--light);
+    border-radius: 1000px;
+    font-size: 16px;
+    font-weight: 400;
+    font-family: inherit;
+    color: var(--secondary);
+    text-decoration: none;
+    white-space: nowrap;
+    width: fit-content;
+    transition: border-color 0.2s;
+}
+
+.home-pill-button:hover
+{
+    border-color: var(--tertiary);
+}
+
+.home-pill-button .arrow
+{
+    color: var(--light);
+}
+
+/* Experience */
+
+.experience-list
+{
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.experience-entry
+{
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.experience-date
+{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.8;
+    color: var(--tertiary);
+    width: 100px;
+    flex-shrink: 0;
+}
+
+.experience-info
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.experience-role
+{
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.8;
+    color: var(--primary);
+    margin: 0;
+}
+
+.experience-role a
+{
+    color: var(--primary);
+    text-decoration: underline;
+    text-decoration-color: var(--light);
+    text-underline-offset: 2px;
+}
+
+.experience-role a:hover
+{
+    text-decoration-color: var(--tertiary);
+}
+
+.experience-location
+{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.8;
+    color: var(--secondary);
+    margin: 0;
+}
+
+@media(max-width: 479px)
+{
+    .experience-entry
+    {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .experience-date
+    {
+        width: auto;
+    }
+}
+
+/* Connect */
+
+.home-connect
+{
+    border-top: 0.5px solid var(--light);
+}
+
+.connect-row
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.connect-links
+{
+    display: flex;
+    gap: 32px;
+}
+
+.connect-links a
+{
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--primary);
+    text-decoration: underline;
+    text-decoration-color: var(--light);
+    text-underline-offset: 2px;
+}
+
+.connect-links a:hover
+{
+    text-decoration-color: var(--tertiary);
+}
+
+.connect-time
+{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--tertiary);
+    white-space: nowrap;
+}
+
+.clock-icon
+{
+    color: var(--light);
+}
+
+/* Hide balloons on small screens */
+
+@media(max-width: 768px)
+{
+    .webgl
+    {
+        display: none;
+    }
+}

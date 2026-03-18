@@ -81,26 +81,26 @@ export default class Objects
 
     setPhysics()
     {
-        // Blue body — left
-        const blue = this.createBBody(-0.4);
+        // Blue body — right of centre
+        const blue = this.createBBody(0.4);
         this.blueBody = blue.body;
         this.world.addBody(this.blueBody);
 
         const blueAnchor = new CANNON.Body({
-            mass: 0, position: new CANNON.Vec3(-0.2, 0, 0),
+            mass: 0, position: new CANNON.Vec3(0.5, 0, 0),
         });
         this.world.addBody(blueAnchor);
         this.blueSpring = new CANNON.Spring(this.blueBody, blueAnchor, {
             restLength: 0, stiffness: 5, damping: 1,
         });
 
-        // Red body — right
-        const red = this.createBBody(0.4);
+        // Red body — far right
+        const red = this.createBBody(1.0);
         this.redBody = red.body;
         this.world.addBody(this.redBody);
 
         const redAnchor = new CANNON.Body({
-            mass: 0, position: new CANNON.Vec3(0.2, 0, 0),
+            mass: 0, position: new CANNON.Vec3(0.9, 0, 0),
         });
         this.world.addBody(redAnchor);
         this.redSpring = new CANNON.Spring(this.redBody, redAnchor, {
@@ -138,7 +138,7 @@ export default class Objects
                 {
                     this.isDragging = true;
                     this.activeBalloon = balloon;
-                    this.canvas.style.cursor = 'grabbing';
+                    document.body.style.cursor = 'grabbing';
 
                     const hitPoint = intersects[0].point;
                     this.dragPlane.constant = -balloon.body.position.z;
@@ -187,7 +187,7 @@ export default class Objects
                         break;
                     }
                 }
-                this.canvas.style.cursor = hovering ? 'grab' : '';
+                document.body.style.cursor = hovering ? 'grab' : '';
             }
         });
 
@@ -197,7 +197,7 @@ export default class Objects
             {
                 this.isDragging = false;
                 this.activeBalloon = null;
-                this.canvas.style.cursor = '';
+                document.body.style.cursor = '';
 
                 if (this.constraint)
                 {

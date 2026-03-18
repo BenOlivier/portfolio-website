@@ -1,6 +1,7 @@
 import '../css/style.css';
 import '../css/header.css';
 import '../css/footer.css';
+import '../css/index.css';
 import '../css/about.css';
 import '../css/suggestions.css';
 import '../css/work.css';
@@ -12,6 +13,11 @@ if (document.body.classList.contains('index'))
     import('../three/scenes/index/experience.js').then(({default: Index}) =>
     {
         new Index(document.querySelector('canvas.webgl'));
+    });
+
+    import('./home-time.js').then(({default: initHomeTime}) =>
+    {
+        initHomeTime();
     });
 }
 

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Ben Olivier | Product Designer</title>
+    <title>Ben Olivier | Software Designer</title>
     <meta charset="UTF-8">
-    <meta name="description" content="Ben Olivier is a Product Designer crafting interactive experiences for immersive technology, AR/VR, and the metaverse.">
+    <meta name="description" content="Ben Olivier is a Software Designer who cares deeply about refined user interfaces, meaningful motion, and thoughtful micro-interactions.">
     <link rel="icon" type="image/x-icon" href="/static/images/icons/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -15,16 +15,75 @@
 
       gtag('config', 'G-8YX0KGDX0M');
     </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Red+Hat+Display:wght@800&display=swap" rel="stylesheet">
-    <script defer src="../js/components/header.js" type="text/javascript"></script>
 </head>
 
 <body class="index">
-  <div class="container">
+  <main class="home">
 
+      <header class="home-header">
+        <h1>Ben Olivier</h1>
+        <p class="home-subtitle">Software Designer</p>
+      </header>
+
+      <section class="home-section">
+        <h2>About</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <a href="/about.html" class="home-pill-button">
+          More about me <span class="arrow">&#x2197;</span>
+        </a>
+      </section>
+
+      <section class="home-section">
+        <h2>Experience</h2>
+        <div class="experience-list">
+          <div class="experience-entry">
+            <span class="experience-date">2024 - now</span>
+            <div class="experience-info">
+              <p class="experience-role">Freelance Product Designer</p>
+              <p class="experience-location">Remote, UK</p>
+            </div>
+          </div>
+          <div class="experience-entry">
+            <span class="experience-date">2023 - 2024</span>
+            <div class="experience-info">
+              <p class="experience-role">Product Design Prototyper at <a href="https://meta.com" target="_blank">Meta</a></p>
+              <p class="experience-location">London, UK</p>
+            </div>
+          </div>
+          <div class="experience-entry">
+            <span class="experience-date">2022 - 2023</span>
+            <div class="experience-info">
+              <p class="experience-role">Lead Product Designer at <a href="/customuse.html">Customuse</a></p>
+              <p class="experience-location">London, UK</p>
+            </div>
+          </div>
+          <div class="experience-entry">
+            <span class="experience-date">2019 - 2022</span>
+            <div class="experience-info">
+              <p class="experience-role">Lead Product Designer at <a href="/litho.html">Litho</a></p>
+              <p class="experience-location">London, UK</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="home-section home-connect">
+        <h2>Connect</h2>
+        <div class="connect-row">
+          <div class="connect-links">
+            <a href="mailto:dbeolivier@gmail.com">Email</a>
+            <a href="https://x.com/benolivierxyz" target="_blank">Twitter</a>
+            <a href="https://github.com/BenOlivier" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/in/ben-olivier-38b901145/" target="_blank">LinkedIn</a>
+          </div>
+          <div class="connect-time">
+            <span class="clock-icon">&#x25F7;</span>
+            <span id="local-time"></span>
+          </div>
+        </div>
+      </footer>
+
+    </main>
     <canvas class="webgl"></canvas>
-  </div>
 </body>
 </html>

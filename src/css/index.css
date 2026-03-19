@@ -27,12 +27,12 @@ body.index
     }
 }
 
-@media(min-width: 1000px)
+@media(min-width: 1200px)
 {
     .home
     {
         margin: 0;
-        padding: 18vh 0 80px 10vw;
+        padding: 18vh 0 80px 14vw;
     }
 }
 

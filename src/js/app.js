@@ -19,6 +19,11 @@ if (document.body.classList.contains('index'))
     {
         initHomeTime();
     });
+
+    import('./content-reveal.js').then(({default: initContentReveal}) =>
+    {
+        initContentReveal();
+    });
 }
 
 if (document.body.classList.contains('hello'))

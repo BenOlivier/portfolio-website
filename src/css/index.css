@@ -2,15 +2,19 @@
 
 body.index
 {
-    background-color: #ffffff;
     font-family: -apple-system, BlinkMacSystemFont, 'SF Pro', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .home
 {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
     position: relative;
     z-index: 1;
-    max-width: 590px;
+    max-width: 650px;
     margin: 0 auto;
     padding: 120px 20px 80px;
 }
@@ -37,6 +41,22 @@ body.index
 .home-header
 {
     display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.home-avatar
+{
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.home-header-text
+{
+    display: flex;
     flex-direction: column;
     gap: 8px;
 }
@@ -44,7 +64,7 @@ body.index
 .home h1
 {
     font-size: 20px;
-    font-weight: 590;
+    font-weight: 600;
     line-height: normal;
     color: var(--dark);
     font-family: inherit;
@@ -69,19 +89,18 @@ body.index
     flex-direction: column;
     gap: 32px;
     padding: 32px 0;
-    margin-top: 16px;
 }
 
 .home-section h2
 {
     font-size: 16px;
-    font-weight: 510;
+    font-weight: 500;
     color: var(--dark);
     margin: 0;
     line-height: normal;
 }
 
-.home-section p
+.home-section > p
 {
     font-size: 18px;
     font-weight: 400;
@@ -168,7 +187,7 @@ body.index
     color: var(--primary);
     text-decoration: underline;
     text-decoration-color: var(--light);
-    text-underline-offset: 2px;
+    text-underline-offset: 3px;
 }
 
 .experience-role a:hover
@@ -223,12 +242,12 @@ body.index
 
 .connect-links a
 {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 400;
     color: var(--primary);
     text-decoration: underline;
     text-decoration-color: var(--light);
-    text-underline-offset: 2px;
+    text-underline-offset: 3px;
 }
 
 .connect-links a:hover

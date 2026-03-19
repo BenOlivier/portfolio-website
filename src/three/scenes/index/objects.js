@@ -139,6 +139,7 @@ export default class Objects
                     this.isDragging = true;
                     this.activeBalloon = balloon;
                     document.body.style.cursor = 'grabbing';
+                    document.body.style.userSelect = 'none';
 
                     const hitPoint = intersects[0].point;
                     this.dragPlane.constant = -balloon.body.position.z;
@@ -198,6 +199,7 @@ export default class Objects
                 this.isDragging = false;
                 this.activeBalloon = null;
                 document.body.style.cursor = '';
+                document.body.style.userSelect = '';
 
                 if (this.constraint)
                 {

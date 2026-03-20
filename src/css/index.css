@@ -1,5 +1,48 @@
 /* Homepage — index.html */
 
+/* Construction banner */
+
+.construction-banner
+{
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 10;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--secondary);
+    background: #ffffff;
+    border: 0.5px solid var(--light);
+    border-radius: 8px;
+    padding: 6px 12px;
+    cursor: default;
+    white-space: nowrap;
+}
+
+.construction-popover
+{
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 260px;
+    padding: 12px;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--primary);
+    background: #ffffff;
+    border: 0.5px solid var(--light);
+    border-radius: 8px;
+    white-space: normal;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.construction-banner:hover .construction-popover
+{
+    display: block;
+}
+
 body.index
 {
     font-family: -apple-system, BlinkMacSystemFont, 'SF Pro', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;

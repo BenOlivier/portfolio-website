@@ -12,7 +12,7 @@ import Physics from './physics.js';
 
 let instance = null;
 
-export default class Index
+export default class Homepage
 {
     constructor(_canvas)
     {

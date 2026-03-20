@@ -29,10 +29,10 @@ if (document.body.classList.contains('index'))
         {
             if (!sceneLoaded)
             {
-                const {default: Index} = await import(
-                    '../three/scenes/index/experience.js'
+                const {default: Homepage} = await import(
+                    '../three/scenes/homepage/experience.js'
                 );
-                new Index(canvas);
+                new Homepage(canvas);
                 sceneLoaded = true;
             }
             canvas.style.display = '';
@@ -51,14 +51,6 @@ if (document.body.classList.contains('index'))
 
         checkScene();
         sizes.on('resize', checkScene);
-    });
-}
-
-if (document.body.classList.contains('hello'))
-{
-    import('../three/scenes/hello/experience.js').then(({default: Hello}) =>
-    {
-        new Hello(document.querySelector('canvas.webgl'));
     });
 }
 

@@ -9,7 +9,6 @@ export default class Renderer
         this.sizes = this.experience.sizes;
         this.scene = this.experience.scene;
         this.camera = this.experience.camera;
-        this.debug = this.experience.debug;
 
         this.setRenderer();
     }
@@ -22,6 +21,8 @@ export default class Renderer
             alpha: true,
         });
         this.renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
+        this.renderer.toneMapping = THREE.CineonToneMapping;
+        this.renderer.toneMappingExposure = 7;
         this.renderer.setSize(this.sizes.width, this.sizes.height);
         this.renderer.setPixelRatio(Math.min(this.sizes.pixelRatio, 2));
     }

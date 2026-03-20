@@ -16,6 +16,12 @@
     --dark-grey: #555555;
     --main-dark: #333333;
     --highlight: #5aa2e1;
+
+    --dark: #18181b;
+    --primary: #52525b;
+    --secondary: #71717a;
+    --tertiary: #a1a1aa;
+    --light: #d4d4d8;
 }
 
 html, body
@@ -24,7 +30,7 @@ html, body
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--bg-white);
+    background-color: #ffffff;
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
@@ -142,6 +148,8 @@ p
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: 2;
+    pointer-events: none;
 }
 
 .image-container

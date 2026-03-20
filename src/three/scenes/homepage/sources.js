@@ -1,12 +1,12 @@
 export default [
     {
-        name: 'hello',
+        name: 'balloon',
         type: 'gltfModel',
-        path: 'models/hello.glb',
+        path: 'models/balloon.glb',
     },
     {
-        name: 'hello_tex',
-        type: 'texture',
-        path: 'images/models/hello.png',
+        name: 'HDRI',
+        type: 'hdrTexture',
+        path: 'images/environmentMap/studio_kontrast_04_1k.hdr',
     },
 ];

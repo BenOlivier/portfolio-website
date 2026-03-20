@@ -4,17 +4,18 @@ import * as CANNON from 'cannon-es';
 // --- Controls ---
 const DEBUG_COLLIDERS = false;
 const ENTRY_DELAY = 0; // seconds — delay before first balloon appears
-const ENTRY_STAGGER = 0; // seconds — delay between each balloon
+const ENTRY_STAGGER = 0.05; // seconds — delay between each balloon
 const BUOYANCY = 0.25; // upward force strength
 const WIND_STRENGTH = 0.02; // lateral wind force
-const SPAWN_MARGIN = 0.4; // extra distance below/above viewport edge for spawn/despawn
-const INITIAL_VELOCITY = 6; // upward velocity on first spawn
+const SPAWN_MARGIN = 0.5; // extra distance below/above viewport edge for spawn/despawn
+const INITIAL_VELOCITY = 7; // upward velocity on first spawn
 const Z_RESTORE = 1; // force pulling balloons back to the drag plane (z=0)
 const X_BOUNDS_FORCE = 1; // force pushing balloons back within horizontal bounds
 const X_RANGE = 0.6; // fraction of available right-side space to use (0–1)
 const BALLOON_SCALE = 1; // scales mesh and colliders (1 = default)
+const RESPAWN_MIN_DIST = 0.6; // min distance from other balloons to allow respawn
 
-const BALLOON_COUNT = 5;
+const BALLOON_COUNT = 10;
 
 const PALETTES = [
     [0x2266cc, 0xcc2222, 0x22aa44, 0x8833cc, 0xdd8811],
@@ -152,6 +153,19 @@ export default class Objects
             Math.random() * Math.PI * 2,
         );
         balloon.mat.color.setHex(this.randomColour());
+    }
+
+    canSpawnAt(x, y, excludeBody)
+    {
+        const minDist2 = RESPAWN_MIN_DIST * RESPAWN_MIN_DIST;
+        for (const b of this.balloons)
+        {
+            if (b.body === excludeBody || !b.active) continue;
+            const dx = b.body.position.x - x;
+            const dy = b.body.position.y - y;
+            if (dx * dx + dy * dy < minDist2) return false;
+        }
+        return true;
     }
 
     setPhysics()
@@ -341,10 +355,16 @@ export default class Objects
                 );
             }
 
-            // Respawn when above viewport
+            // Respawn when above viewport if spawn zone is clear
             if (pos.y > despawnY)
             {
-                this.respawn(balloon);
+                const { halfH } = this.getViewBounds();
+                const spawnY = -halfH - SPAWN_MARGIN;
+                const spawnX = this.randomSpawnX();
+                if (this.canSpawnAt(spawnX, spawnY, balloon.body))
+                {
+                    this.respawn(balloon);
+                }
             }
 
             balloon.mesh.position.copy(balloon.body.position);

@@ -47,42 +47,51 @@ function getRevealElements()
 
 export default function initContentReveal()
 {
-    const home = document.querySelector('.home');
-    const elements = getRevealElements();
-    if (!elements.length) return;
-
-    // Make container visible — individual elements stay hidden via gsap.set below
-    home.style.visibility = 'visible';
-
-    gsap.set(elements, {
-        opacity: 0,
-        y: TRANSLATE_Y,
-        filter: `blur(${INITIAL_BLUR}px)`,
-    });
-
-    elements.forEach((el, i) =>
+    return new Promise((resolve) =>
     {
-        const delay = START_DELAY + i * STAGGER;
+        const home = document.querySelector('.home');
+        const elements = getRevealElements();
+        if (!elements.length)
+        {
+            resolve();
+            return;
+        }
 
-        gsap.to(el, {
-            opacity: 1,
-            duration: DURATION,
-            delay,
-            ease: OPACITY_EASE,
+        // Make container visible — individual elements stay hidden via gsap.set below
+        home.style.visibility = 'visible';
+
+        gsap.set(elements, {
+            opacity: 0,
+            y: TRANSLATE_Y,
+            filter: `blur(${INITIAL_BLUR}px)`,
         });
 
-        gsap.to(el, {
-            filter: 'blur(0px)',
-            duration: DURATION,
-            delay,
-            ease: BLUR_EASE,
-        });
+        elements.forEach((el, i) =>
+        {
+            const delay = START_DELAY + i * STAGGER;
+            const isLast = i === elements.length - 1;
 
-        gsap.to(el, {
-            y: 0,
-            duration: DURATION,
-            delay,
-            ease: TRANSLATE_EASE,
+            gsap.to(el, {
+                opacity: 1,
+                duration: DURATION,
+                delay,
+                ease: OPACITY_EASE,
+                onComplete: isLast ? resolve : undefined,
+            });
+
+            gsap.to(el, {
+                filter: 'blur(0px)',
+                duration: DURATION,
+                delay,
+                ease: BLUR_EASE,
+            });
+
+            gsap.to(el, {
+                y: 0,
+                duration: DURATION,
+                delay,
+                ease: TRANSLATE_EASE,
+            });
         });
     });
 }

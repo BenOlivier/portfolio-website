@@ -3,7 +3,7 @@ import * as CANNON from 'cannon-es';
 
 // --- Controls ---
 const DEBUG_COLLIDERS = false;
-const ENTRY_DELAY = 1; // seconds — delay before first balloon appears
+const ENTRY_DELAY = 0; // seconds — delay before first balloon appears
 const ENTRY_STAGGER = 0; // seconds — delay between each balloon
 const BUOYANCY = 0.25; // upward force strength
 const WIND_STRENGTH = 0.02; // lateral wind force

@@ -10,19 +10,18 @@ import '../css/contact.css';
 
 if (document.body.classList.contains('index'))
 {
-    import('../three/scenes/index/experience.js').then(({default: Index}) =>
-    {
-        new Index(document.querySelector('canvas.webgl'));
-    });
-
     import('./home-time.js').then(({default: initHomeTime}) =>
     {
         initHomeTime();
     });
 
-    import('./content-reveal.js').then(({default: initContentReveal}) =>
+    import('./content-reveal.js').then(async ({default: initContentReveal}) =>
     {
-        initContentReveal();
+        await initContentReveal();
+
+        // Heavy Three.js work deferred until after content reveal finishes
+        const {default: Index} = await import('../three/scenes/index/experience.js');
+        new Index(document.querySelector('canvas.webgl'));
     });
 }
 

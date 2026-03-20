@@ -36,6 +36,13 @@ body.index
     }
 }
 
+/* Hide content before reveal animation runs */
+
+.home
+{
+    visibility: hidden;
+}
+
 /* Header — Name + Title */
 
 .home-header

@@ -47,8 +47,12 @@ function getRevealElements()
 
 export default function initContentReveal()
 {
+    const home = document.querySelector('.home');
     const elements = getRevealElements();
     if (!elements.length) return;
+
+    // Make container visible — individual elements stay hidden via gsap.set below
+    home.style.visibility = 'visible';
 
     gsap.set(elements, {
         opacity: 0,

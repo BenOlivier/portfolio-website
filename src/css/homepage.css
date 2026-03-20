@@ -4,7 +4,7 @@
 
 .construction-banner
 {
-    position: fixed;
+    position: absolute;
     top: 16px;
     left: 16px;
     z-index: 10;
@@ -57,7 +57,7 @@ body.index
     gap: 48px;
     position: relative;
     z-index: 1;
-    max-width: 650px;
+    max-width: 530px;
     margin: 0 auto;
     padding: 120px 20px 80px;
 }
@@ -95,13 +95,21 @@ body.index
     gap: 20px;
 }
 
+.home-header a
+{
+    display: block;
+    border-radius: 50%;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
 .home-avatar
 {
     width: 52px;
     height: 52px;
     border-radius: 50%;
     object-fit: cover;
-    flex-shrink: 0;
+    display: block;
 }
 
 .home-header-text
@@ -114,7 +122,7 @@ body.index
 .home h1
 {
     font-size: 20px;
-    font-weight: 600;
+    font-weight: 500;
     line-height: normal;
     color: var(--dark);
     font-family: inherit;
@@ -166,29 +174,39 @@ body.index
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    height: 32px;
-    padding: 0 12px;
-    border: 0.5px solid var(--light);
+    gap: 6px;
+    height: 34px;
+    padding: 0 12px 0 14px;
+    border: 1px solid var(--light);
     border-radius: 1000px;
     font-size: 16px;
     font-weight: 400;
     font-family: inherit;
-    color: var(--secondary);
+    color: var(--primary);
     text-decoration: none;
     white-space: nowrap;
     width: fit-content;
-    transition: border-color 0.2s;
+    transition: border-color 0.15s, color 0.15s;
 }
 
-.home-pill-button:hover
+.home-pill-button:hover,
+.home-pill-button:active
 {
-    border-color: var(--tertiary);
+    border-color: var(--secondary);
+    transition: border-color 0.1s, color 0.1s;
 }
 
 .home-pill-button .arrow
 {
     color: var(--light);
+    transition: color 0.15s;
+}
+
+.home-pill-button:hover .arrow,
+.home-pill-button:active .arrow
+{
+    color: var(--secondary);
+    transition: color 0.1s;
 }
 
 /* Experience */
@@ -237,12 +255,16 @@ body.index
     color: var(--primary);
     text-decoration: underline;
     text-decoration-color: var(--light);
+    text-decoration-thickness: 1px;
     text-underline-offset: 3px;
+    transition: text-decoration-color 0.1s;
 }
 
-.experience-role a:hover
+.experience-role a:hover,
+.experience-role a:active
 {
-    text-decoration-color: var(--tertiary);
+    text-decoration-color: var(--primary);
+    transition: text-decoration-color 0.1s;
 }
 
 .experience-location
@@ -292,17 +314,21 @@ body.index
 
 .connect-links a
 {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 400;
     color: var(--primary);
     text-decoration: underline;
     text-decoration-color: var(--light);
+    text-decoration-thickness: 1px;
     text-underline-offset: 3px;
+    transition: text-decoration-color 0.1s;
 }
 
-.connect-links a:hover
+.connect-links a:hover,
+.connect-links a:active
 {
-    text-decoration-color: var(--tertiary);
+    text-decoration-color: var(--primary);
+    transition: text-decoration-color 0.1s;
 }
 
 .connect-time

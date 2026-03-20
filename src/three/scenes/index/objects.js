@@ -5,17 +5,20 @@ import * as CANNON from 'cannon-es';
 const DEBUG_COLLIDERS = false;
 const ENTRY_DELAY = 0; // seconds — delay before first balloon appears
 const ENTRY_STAGGER = 0.05; // seconds — delay between each balloon
-const BUOYANCY = 0.25; // upward force strength
+const BUOYANCY_MIN = 0.2; // minimum upward force
+const BUOYANCY_MAX = 0.3; // maximum upward force
 const WIND_STRENGTH = 0.02; // lateral wind force
 const SPAWN_MARGIN = 0.5; // extra distance below/above viewport edge for spawn/despawn
 const INITIAL_VELOCITY = 7; // upward velocity on first spawn
 const Z_RESTORE = 1; // force pulling balloons back to the drag plane (z=0)
+const Z_RANGE = 0.8; // allowed Z distance from grab plane before restore kicks in
 const X_BOUNDS_FORCE = 1; // force pushing balloons back within horizontal bounds
 const X_RANGE = 0.6; // fraction of available right-side space to use (0–1)
 const BALLOON_SCALE = 1; // scales mesh and colliders (1 = default)
 const RESPAWN_MIN_DIST = 0.6; // min distance from other balloons to allow respawn
+const GRAB_ATTRACT = 2; // attraction strength toward grabbed balloon
 
-const BALLOON_COUNT = 10;
+const BALLOON_COUNT = 6;
 
 const PALETTES = [
     [0x2266cc, 0xcc2222, 0x22aa44, 0x8833cc, 0xdd8811],
@@ -122,7 +125,7 @@ export default class Objects
 
         const body = new CANNON.Body({
             mass: 1,
-            position: new CANNON.Vec3(posX, posY || 0, 0),
+            position: new CANNON.Vec3(posX, posY || 0, (Math.random() - 0.5) * 2 * Z_RANGE),
             linearDamping: 0.98,
             angularDamping: 0.98,
         });
@@ -144,7 +147,8 @@ export default class Objects
         const spawnY = -halfH - SPAWN_MARGIN;
         const spawnX = this.randomSpawnX();
 
-        balloon.body.position.set(spawnX, spawnY, 0);
+        const spawnZ = (Math.random() - 0.5) * 2 * Z_RANGE;
+        balloon.body.position.set(spawnX, spawnY, spawnZ);
         balloon.body.velocity.set(0, 0, 0);
         balloon.body.angularVelocity.set(0, 0, 0);
         balloon.body.quaternion.setFromEuler(
@@ -153,6 +157,7 @@ export default class Objects
             Math.random() * Math.PI * 2,
         );
         balloon.mat.color.setHex(this.randomColour());
+        balloon.buoyancy = BUOYANCY_MIN + Math.random() * (BUOYANCY_MAX - BUOYANCY_MIN);
     }
 
     canSpawnAt(x, y, excludeBody)
@@ -201,6 +206,7 @@ export default class Objects
                 mesh,
                 mat,
                 body,
+                buoyancy: BUOYANCY_MIN + Math.random() * (BUOYANCY_MAX - BUOYANCY_MIN),
                 active: false,
                 debugMesh,
             };
@@ -324,8 +330,21 @@ export default class Objects
             const windOffset = i * 1.7;
             const pos = balloon.body.position;
 
-            // Buoyancy — constant upward force
-            balloon.body.applyForce(new CANNON.Vec3(0, BUOYANCY, 0));
+            // Buoyancy or attraction
+            if (this.isDragging && this.activeBalloon !== balloon)
+            {
+                const target = this.activeBalloon.body.position;
+                const dx = target.x - pos.x;
+                const dy = target.y - pos.y;
+                const dz = target.z - pos.z;
+                balloon.body.applyForce(new CANNON.Vec3(
+                    dx * GRAB_ATTRACT, dy * GRAB_ATTRACT, dz * GRAB_ATTRACT,
+                ));
+            }
+            else
+            {
+                balloon.body.applyForce(new CANNON.Vec3(0, balloon.buoyancy, 0));
+            }
 
             // Gentle wind
             const fx = Math.sin(t * 0.15 + windOffset) * WIND_STRENGTH;
@@ -338,8 +357,15 @@ export default class Objects
                 new CANNON.Vec3(pos.x + px, pos.y + py, pos.z + pz),
             );
 
-            // Z restore — pull toward drag plane (z=0)
-            balloon.body.applyForce(new CANNON.Vec3(0, 0, -pos.z * Z_RESTORE));
+            // Z restore — only pull back if outside allowed range
+            if (pos.z > Z_RANGE)
+            {
+                balloon.body.applyForce(new CANNON.Vec3(0, 0, -(pos.z - Z_RANGE) * Z_RESTORE));
+            }
+            else if (pos.z < -Z_RANGE)
+            {
+                balloon.body.applyForce(new CANNON.Vec3(0, 0, -(pos.z + Z_RANGE) * Z_RESTORE));
+            }
 
             // X bounds — push back if outside spawn range
             if (pos.x < spawnMinX)

@@ -23,8 +23,8 @@ export default function initHomeTime()
 
     function update()
     {
-        const time = formatter.format(new Date());
-        el.textContent = time + ' London, UK';
+        const time = formatter.format(new Date()).replace(' ', '');
+        el.textContent = time + ' London';
 
         if (iconEl)
         {

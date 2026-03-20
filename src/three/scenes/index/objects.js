@@ -8,7 +8,7 @@ const ENTRY_STAGGER = 0.05; // seconds — delay between each balloon
 const BUOYANCY_MIN = 0.2; // minimum upward force
 const BUOYANCY_MAX = 0.3; // maximum upward force
 const WIND_STRENGTH = 0.02; // lateral wind force
-const SPAWN_MARGIN = 0.5; // extra distance below/above viewport edge for spawn/despawn
+const SPAWN_MARGIN = 0.6; // extra distance below/above viewport edge for spawn/despawn
 const INITIAL_VELOCITY = 7; // upward velocity on first spawn
 const Z_RESTORE = 1; // force pulling balloons back to the drag plane (z=0)
 const Z_RANGE = 0.8; // allowed Z distance from grab plane before restore kicks in
@@ -23,9 +23,20 @@ const REPEL_RADIUS = 1; // distance within which repulsion applies
 const BALLOON_COUNT = 6;
 
 const PALETTES = [
-    [0x2266cc, 0xcc2222, 0x22aa44, 0x8833cc, 0xdd8811],
-    [0xff6b6b, 0x4ecdc4, 0x45b7d1, 0xf7dc6f, 0xbb8fce],
-    [0xe74c3c, 0x3498db, 0x2ecc71, 0xf39c12, 0x9b59b6],
+    // Forest
+    [0xEDFFFF, 0xCDF1D6, 0x8BCF9C, 0x39884D, 0x115823, 0x004511],
+
+    // Blue
+    [0xFFFFFF, 0xA9D6E5, 0x61A5C2, 0x1E78AD, 0x005A9B, 0xE1562B],
+
+    // Turquoise
+    [0xA9E5E0, 0x61C2BA, 0x01867B, 0x005E56, 0xF5E6A9, 0xF7DC6F],
+
+    // Peach
+    [0xFAAD8A, 0xFA7053, 0xE6472B, 0xBE2111, 0x7C0B00, 0xB22A41],
+
+    // Yellow
+    [0xFFEAB0, 0xFFDA73, 0xFE9B544, 0xAC6700, 0xCE6C20, 0xEFA25F],
 ];
 
 export default class Objects
@@ -67,11 +78,14 @@ export default class Objects
     {
         const source = this.resources.items.balloon;
 
+        // Shuffle palette for unique initial colours
+        const shuffled = [...this.palette].sort(() => Math.random() - 0.5);
+
         this.meshes = [];
         for (let i = 0; i < BALLOON_COUNT; i++)
         {
             const mat = new THREE.MeshStandardMaterial({
-                color: this.randomColour(),
+                color: shuffled[i % shuffled.length],
                 metalness: 1.0,
                 roughness: 0.2,
             });

@@ -64,6 +64,11 @@ export default class Objects
         this.balloons = [];
         this.palette = PALETTES[Math.floor(Math.random() * PALETTES.length)];
 
+        // Pre-allocated vectors for update loop (avoids GC pressure)
+        this._force = new CANNON.Vec3();
+        this._forcePoint = new CANNON.Vec3();
+        this._repelForce = new CANNON.Vec3();
+
         this.setModels();
         this.setPhysics();
         this.setInteraction();
@@ -78,6 +83,16 @@ export default class Objects
     {
         const source = this.resources.items.balloon;
 
+        // Extract normal map from the GLB's original material
+        let originalNormalMap = null;
+        source.scene.traverse((o) =>
+        {
+            if (o.isMesh && o.material && o.material.normalMap)
+            {
+                originalNormalMap = o.material.normalMap;
+            }
+        });
+
         // Shuffle palette for unique initial colours
         const shuffled = [...this.palette].sort(() => Math.random() - 0.5);
 
@@ -88,6 +103,7 @@ export default class Objects
                 color: shuffled[i % shuffled.length],
                 metalness: 1.0,
                 roughness: 0.2,
+                normalMap: originalNormalMap,
             });
 
             const mesh = i === 0 ? source.scene : source.scene.clone(true);
@@ -334,9 +350,13 @@ export default class Objects
     update()
     {
         const t = this.time.current * 0.001;
+        const f = this._force;
+        const fp = this._forcePoint;
+
+        // Cache bounds once per frame
         const { halfH } = this.getViewBounds();
         const despawnY = halfH + SPAWN_MARGIN;
-
+        const spawnY = -halfH - SPAWN_MARGIN;
         const { min: spawnMinX, max: spawnMaxX } = this.getSpawnXRange();
 
         for (let i = 0; i < this.balloons.length; i++)
@@ -350,60 +370,61 @@ export default class Objects
             if (this.isDragging && this.activeBalloon !== balloon)
             {
                 const target = this.activeBalloon.body.position;
-                const dx = target.x - pos.x;
-                const dy = target.y - pos.y;
-                const dz = target.z - pos.z;
-                balloon.body.applyForce(new CANNON.Vec3(
-                    dx * GRAB_ATTRACT, dy * GRAB_ATTRACT, dz * GRAB_ATTRACT,
-                ));
+                f.set(
+                    (target.x - pos.x) * GRAB_ATTRACT,
+                    (target.y - pos.y) * GRAB_ATTRACT,
+                    (target.z - pos.z) * GRAB_ATTRACT,
+                );
             }
             else
             {
-                balloon.body.applyForce(new CANNON.Vec3(0, balloon.buoyancy, 0));
+                f.set(0, balloon.buoyancy, 0);
             }
+            balloon.body.applyForce(f);
 
             // Gentle wind
             const fx = Math.sin(t * 0.15 + windOffset) * WIND_STRENGTH;
             const fz = Math.sin(t * 0.2 + windOffset + 5.0) * WIND_STRENGTH * 0.5;
-            const px = Math.sin(t * 0.1 + windOffset + 2.0) * 0.15;
-            const py = Math.sin(t * 0.08 + windOffset + 4.0) * 0.15;
-            const pz = Math.sin(t * 0.09 + windOffset + 6.0) * 0.1;
-            balloon.body.applyForce(
-                new CANNON.Vec3(fx, 0, fz),
-                new CANNON.Vec3(pos.x + px, pos.y + py, pos.z + pz),
+            f.set(fx, 0, fz);
+            fp.set(
+                pos.x + Math.sin(t * 0.1 + windOffset + 2.0) * 0.15,
+                pos.y + Math.sin(t * 0.08 + windOffset + 4.0) * 0.15,
+                pos.z + Math.sin(t * 0.09 + windOffset + 6.0) * 0.1,
             );
+            balloon.body.applyForce(f, fp);
 
             // Z restore — only pull back if outside allowed range
             if (pos.z > Z_RANGE)
             {
-                balloon.body.applyForce(new CANNON.Vec3(0, 0, -(pos.z - Z_RANGE) * Z_RESTORE));
+                f.set(0, 0, -(pos.z - Z_RANGE) * Z_RESTORE);
+                balloon.body.applyForce(f);
             }
             else if (pos.z < -Z_RANGE)
             {
-                balloon.body.applyForce(new CANNON.Vec3(0, 0, -(pos.z + Z_RANGE) * Z_RESTORE));
+                f.set(0, 0, -(pos.z + Z_RANGE) * Z_RESTORE);
+                balloon.body.applyForce(f);
             }
 
-            // X bounds — push back if outside spawn range
-            if (pos.x < spawnMinX)
+            // X bounds — push back if outside spawn range (disabled while dragging)
+            if (!this.isDragging)
             {
-                balloon.body.applyForce(
-                    new CANNON.Vec3((spawnMinX - pos.x) * X_BOUNDS_FORCE, 0, 0),
-                );
-            }
-            else if (pos.x > spawnMaxX)
-            {
-                balloon.body.applyForce(
-                    new CANNON.Vec3((spawnMaxX - pos.x) * X_BOUNDS_FORCE, 0, 0),
-                );
+                if (pos.x < spawnMinX)
+                {
+                    f.set((spawnMinX - pos.x) * X_BOUNDS_FORCE, 0, 0);
+                    balloon.body.applyForce(f);
+                }
+                else if (pos.x > spawnMaxX)
+                {
+                    f.set((spawnMaxX - pos.x) * X_BOUNDS_FORCE, 0, 0);
+                    balloon.body.applyForce(f);
+                }
             }
 
             // Respawn when above viewport if spawn zone is clear
             if (pos.y > despawnY)
             {
-                const { halfH } = this.getViewBounds();
-                const spawnY = -halfH - SPAWN_MARGIN;
-                const spawnX = this.randomSpawnX();
-                if (this.canSpawnAt(spawnX, spawnY, balloon.body))
+                const sx = this.randomSpawnX();
+                if (this.canSpawnAt(sx, spawnY, balloon.body))
                 {
                     this.respawn(balloon);
                 }
@@ -419,9 +440,12 @@ export default class Objects
             }
         }
 
-        // Repel force when not dragging
+        // Repel force when not dragging (squared distance comparison)
         if (!this.isDragging)
         {
+            const repelRadius2 = REPEL_RADIUS * REPEL_RADIUS;
+            const rf = this._repelForce;
+
             for (let i = 0; i < this.balloons.length; i++)
             {
                 if (!this.balloons[i].active) continue;
@@ -435,20 +459,17 @@ export default class Objects
                     const dx = posA.x - posB.x;
                     const dy = posA.y - posB.y;
                     const dz = posA.z - posB.z;
-                    const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+                    const dist2 = dx * dx + dy * dy + dz * dz;
 
-                    if (dist < REPEL_RADIUS && dist > 0.001)
+                    if (dist2 < repelRadius2 && dist2 > 0.000001)
                     {
+                        const dist = Math.sqrt(dist2);
                         const strength = REPEL_STRENGTH * (1 - dist / REPEL_RADIUS);
-                        const nx = dx / dist;
-                        const ny = dy / dist;
-                        const nz = dz / dist;
-                        this.balloons[i].body.applyForce(
-                            new CANNON.Vec3(nx * strength, ny * strength, nz * strength),
-                        );
-                        this.balloons[j].body.applyForce(
-                            new CANNON.Vec3(-nx * strength, -ny * strength, -nz * strength),
-                        );
+                        const invDist = strength / dist;
+                        rf.set(dx * invDist, dy * invDist, dz * invDist);
+                        this.balloons[i].body.applyForce(rf);
+                        rf.set(-rf.x, -rf.y, -rf.z);
+                        this.balloons[j].body.applyForce(rf);
                     }
                 }
             }

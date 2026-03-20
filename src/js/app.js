@@ -1,10 +1,10 @@
 import '../css/global.css';
 import '../css/header.css';
 import '../css/footer.css';
+import '../css/homepage.css';
 
 if (document.body.classList.contains('index'))
 {
-    import('../css/homepage.css');
 
     import('./home-time.js').then(({default: initHomeTime}) =>
     {

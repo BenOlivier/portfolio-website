@@ -13,10 +13,12 @@ const INITIAL_VELOCITY = 7; // upward velocity on first spawn
 const Z_RESTORE = 1; // force pulling balloons back to the drag plane (z=0)
 const Z_RANGE = 0.8; // allowed Z distance from grab plane before restore kicks in
 const X_BOUNDS_FORCE = 1; // force pushing balloons back within horizontal bounds
-const X_RANGE = 0.6; // fraction of available right-side space to use (0–1)
+const X_RANGE = 0.7; // fraction of available right-side space to use (0–1)
 const BALLOON_SCALE = 1; // scales mesh and colliders (1 = default)
 const RESPAWN_MIN_DIST = 0.6; // min distance from other balloons to allow respawn
 const GRAB_ATTRACT = 2; // attraction strength toward grabbed balloon
+const REPEL_STRENGTH = 1; // gentle repel force between nearby balloons
+const REPEL_RADIUS = 1; // distance within which repulsion applies
 
 const BALLOON_COUNT = 6;
 
@@ -400,6 +402,41 @@ export default class Objects
             {
                 balloon.debugMesh.position.copy(balloon.body.position);
                 balloon.debugMesh.quaternion.copy(balloon.body.quaternion);
+            }
+        }
+
+        // Repel force when not dragging
+        if (!this.isDragging)
+        {
+            for (let i = 0; i < this.balloons.length; i++)
+            {
+                if (!this.balloons[i].active) continue;
+                const posA = this.balloons[i].body.position;
+
+                for (let j = i + 1; j < this.balloons.length; j++)
+                {
+                    if (!this.balloons[j].active) continue;
+                    const posB = this.balloons[j].body.position;
+
+                    const dx = posA.x - posB.x;
+                    const dy = posA.y - posB.y;
+                    const dz = posA.z - posB.z;
+                    const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+                    if (dist < REPEL_RADIUS && dist > 0.001)
+                    {
+                        const strength = REPEL_STRENGTH * (1 - dist / REPEL_RADIUS);
+                        const nx = dx / dist;
+                        const ny = dy / dist;
+                        const nz = dz / dist;
+                        this.balloons[i].body.applyForce(
+                            new CANNON.Vec3(nx * strength, ny * strength, nz * strength),
+                        );
+                        this.balloons[j].body.applyForce(
+                            new CANNON.Vec3(-nx * strength, -ny * strength, -nz * strength),
+                        );
+                    }
+                }
             }
         }
     }

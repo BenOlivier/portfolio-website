@@ -37,6 +37,7 @@ if (document.body.classList.contains('index'))
                     exp.objects.reset();
                 }
             }
+            canvas.style.opacity = '1';
             canvas.style.display = '';
         }
 

@@ -3,26 +3,24 @@ import SplitType from 'split-type';
 
 // --- Home content animation parameters ---
 const HOME_BLUR = 6;
-const HOME_TRANSLATE_X = -32;
-const HOME_DURATION = 0.5;
-const HOME_STAGGER = 0.1;
-const HOME_LINE_STAGGER = 0.06;
+const HOME_TRANSLATE_X = -24;
+const HOME_DURATION = 0.6;
+const HOME_STAGGER = 0.04;
+const HOME_LINE_STAGGER = 0.02;
 const HOME_START_DELAY = 0.5;
 const HOME_EXIT_DURATION = 0.3;
 
 // --- Work cards animation parameters ---
 const WORK_BLUR = 6;
-const WORK_TRANSLATE_X = 32;
-const WORK_DURATION = 0.5;
-const WORK_STAGGER = 0.1;
+const WORK_TRANSLATE_X = 24;
+const WORK_DURATION = 1.2;
+const WORK_STAGGER = 0.04;
 const WORK_START_DELAY = 0.5;
 const WORK_EXIT_DURATION = 0.3;
-const PILL_DELAY = 0.15; // extra delay for pill after its card starts
 
 // --- Shared easing ---
-const OPACITY_EASE = 'power2.out';
-const BLUR_EASE = 'power2.out';
-const TRANSLATE_EASE = 'easeOutBack';
+const ENTER_EASE = 'power2.out';
+const EXIT_EASE = 'power2.in';
 
 // --- SplitType state ---
 let activeSplits = [];
@@ -218,7 +216,7 @@ export function revealHome(options = {})
                 opacity: 1,
                 duration: HOME_DURATION,
                 delay,
-                ease: OPACITY_EASE,
+                ease: ENTER_EASE,
                 onComplete: el === lastTarget ? onRevealComplete : undefined,
             });
 
@@ -226,14 +224,14 @@ export function revealHome(options = {})
                 filter: 'blur(0px)',
                 duration: HOME_DURATION,
                 delay,
-                ease: BLUR_EASE,
+                ease: ENTER_EASE,
             });
 
             gsap.to(el, {
                 x: 0,
                 duration: HOME_DURATION,
                 delay,
-                ease: TRANSLATE_EASE,
+                ease: ENTER_EASE,
             });
         }
 
@@ -319,7 +317,7 @@ export function exitHome()
                 filter: `blur(${HOME_BLUR}px)`,
                 duration: HOME_EXIT_DURATION,
                 delay,
-                ease: 'power2.in',
+                ease: EXIT_EASE,
                 onComplete: isLast ? onExitComplete : undefined,
             });
         }
@@ -346,7 +344,6 @@ export function revealWork()
         pendingResolves.push(resolve);
         const workContent = document.querySelector('.work-content');
         const cards = document.querySelectorAll('.work-card');
-        const pills = document.querySelectorAll('.work-card-pill');
 
         if (!cards.length)
         {
@@ -365,11 +362,6 @@ export function revealWork()
             filter: `blur(${WORK_BLUR}px)`,
         });
 
-        // Set initial state for pills
-        gsap.set(pills, {
-            y: '100%',
-        });
-
         // Fade in the container
         gsap.set(workContent, { opacity: 1 });
 
@@ -382,7 +374,7 @@ export function revealWork()
                 opacity: 1,
                 duration: WORK_DURATION,
                 delay,
-                ease: OPACITY_EASE,
+                ease: ENTER_EASE,
                 onComplete: isLast ? () => { removePendingResolve(resolve); resolve(); } : undefined,
             });
 
@@ -390,27 +382,15 @@ export function revealWork()
                 filter: 'blur(0px)',
                 duration: WORK_DURATION,
                 delay,
-                ease: BLUR_EASE,
+                ease: ENTER_EASE,
             });
 
             gsap.to(card, {
                 x: 0,
                 duration: WORK_DURATION,
                 delay,
-                ease: TRANSLATE_EASE,
+                ease: ENTER_EASE,
             });
-
-            // Pill animates up from below the card
-            const pill = card.querySelector('.work-card-pill');
-            if (pill)
-            {
-                gsap.to(pill, {
-                    y: '0%',
-                    duration: WORK_DURATION,
-                    delay: delay + PILL_DELAY,
-                    ease: TRANSLATE_EASE,
-                });
-            }
         });
     });
 }
@@ -438,7 +418,7 @@ export function exitWork()
             filter: `blur(${WORK_BLUR}px)`,
             duration: WORK_EXIT_DURATION,
             stagger: WORK_STAGGER,
-            ease: 'power2.in',
+            ease: EXIT_EASE,
             onComplete()
             {
                 removePendingResolve(resolve);
@@ -508,7 +488,6 @@ export function showWorkImmediate()
     const homeContent = document.querySelector('.home-content');
     const workContent = document.querySelector('.work-content');
     const cards = document.querySelectorAll('.work-card');
-    const pills = document.querySelectorAll('.work-card-pill');
 
     homeContent.style.visibility = 'hidden';
     homeContent.style.pointerEvents = 'none';
@@ -517,5 +496,4 @@ export function showWorkImmediate()
     workContent.style.pointerEvents = 'auto';
     gsap.set(workContent, { opacity: 1 });
     gsap.set(cards, { opacity: 1, x: 0, filter: 'blur(0px)' });
-    gsap.set(pills, { y: '0%' });
 }

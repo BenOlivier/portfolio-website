@@ -51,7 +51,21 @@ module.exports = {
                 test: /\.(html)$/,
                 use:
                 [
-                    'html-loader',
+                    {
+                        loader: 'html-loader',
+                        options:
+                        {
+                            sources:
+                            {
+                                list:
+                                [
+                                    { tag: 'img', attribute: 'src', type: 'src' },
+                                    { tag: 'link', attribute: 'href', type: 'src' },
+                                    { tag: 'source', attribute: 'src', type: 'src', filter: () => false },
+                                ],
+                            },
+                        },
+                    },
                 ],
             },
 

@@ -19,7 +19,6 @@ const RESPAWN_MIN_DIST = 0.6; // min distance from other balloons to allow respa
 const GRAB_ATTRACT = 2; // attraction strength toward grabbed balloon
 const REPEL_STRENGTH = 1; // gentle repel force between nearby balloons
 const REPEL_RADIUS = 1; // distance within which repulsion applies
-const RELEASE_BUOYANCY = 5.0; // high buoyancy when releasing balloons
 
 const BALLOON_COUNT = 6;
 
@@ -357,6 +356,7 @@ export default class Objects
     {
         this.releasing = false;
         this._releaseResolve = null;
+        this.canvas.style.opacity = '1';
 
         const { halfH } = this.getViewBounds();
 
@@ -401,15 +401,31 @@ export default class Objects
             }
         }
 
-        // Crank up buoyancy
-        for (const balloon of this.balloons)
-        {
-            balloon.buoyancy = RELEASE_BUOYANCY;
-        }
-
         return new Promise((resolve) =>
         {
             this._releaseResolve = resolve;
+            this.canvas.style.transition = 'opacity 0.3s ease';
+            this.canvas.style.opacity = '0';
+
+            const onEnd = () =>
+            {
+                this.canvas.removeEventListener('transitionend', onEnd);
+                this.canvas.style.transition = '';
+
+                for (const balloon of this.balloons)
+                {
+                    balloon.active = false;
+                    balloon.mesh.visible = false;
+                }
+
+                if (this._releaseResolve)
+                {
+                    this._releaseResolve();
+                    this._releaseResolve = null;
+                }
+            };
+
+            this.canvas.addEventListener('transitionend', onEnd);
         });
     }
 
@@ -489,21 +505,13 @@ export default class Objects
                 }
             }
 
-            // Respawn when above viewport (skip when releasing — let them disappear)
-            if (pos.y > despawnY)
+            // Respawn when above viewport (skip when releasing — scale animation handles exit)
+            if (!this.releasing && pos.y > despawnY)
             {
-                if (this.releasing)
+                const sx = this.randomSpawnX();
+                if (this.canSpawnAt(sx, spawnY, balloon.body))
                 {
-                    balloon.active = false;
-                    balloon.mesh.visible = false;
-                }
-                else
-                {
-                    const sx = this.randomSpawnX();
-                    if (this.canSpawnAt(sx, spawnY, balloon.body))
-                    {
-                        this.respawn(balloon);
-                    }
+                    this.respawn(balloon);
                 }
             }
 

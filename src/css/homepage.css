@@ -199,7 +199,7 @@ body.index
 
 .home-pill-button .pill-label
 {
-    padding-bottom: 0.5px;
+    padding-bottom: 0.4px;
 }
 
 .home-pill-button .arrow
@@ -288,8 +288,8 @@ body.index
     {
         font-size: 18px;
         height: 36px;
-        gap: 8px;
-        padding: 0 14px 0 18px;
+        gap: 7px;
+        padding: 0 14px 0 16px;
     }
 
     .home-pill-button .pill-label
@@ -307,6 +307,7 @@ body.index
     {
         width: auto;
     }
+
 }
 
 /* Connect */
@@ -365,5 +366,24 @@ body.index
 {
     display: flex;
     color: var(--light);
+}
+
+@media(max-width: 479px)
+{
+    .connect-row
+    {
+        gap: 30px;
+    }
+
+    .connect-links
+    {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .connect-links a
+    {
+        font-size: 18px;
+    }
 }
 

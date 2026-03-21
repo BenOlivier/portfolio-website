@@ -197,10 +197,10 @@ body.index
     transition: border-color 0.1s, color 0.1s;
 }
 
-.home-pill-button .pill-label
+/* .home-pill-button .pill-label
 {
     padding-bottom: 0.4px;
-}
+} */
 
 .home-pill-button .arrow
 {
@@ -284,6 +284,11 @@ body.index
 
 @media(max-width: 479px)
 {
+    .home
+    {
+        padding-bottom: 4px;
+    }
+
     .home-pill-button
     {
         font-size: 18px;
@@ -294,7 +299,7 @@ body.index
 
     .home-pill-button .pill-label
     {
-        padding-bottom: 2px;
+        padding-bottom: 1.5px;
     }
 
     .experience-entry
@@ -323,7 +328,7 @@ body.index
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 32px;
 }
 
 .connect-links
@@ -384,6 +389,11 @@ body.index
     .connect-links a
     {
         font-size: 18px;
+    }
+
+    .connect-time
+    {
+        display: none;
     }
 }
 

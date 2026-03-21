@@ -41,6 +41,13 @@ module.exports = merge(
             open: true,
             allowedHosts: 'all',
             hot: false,
+            historyApiFallback:
+            {
+                rewrites:
+                [
+                    { from: /^\/work$/, to: '/index.html' },
+                ],
+            },
             watchFiles: ['src/**', 'static/**'],
             static:
             {

@@ -19,6 +19,7 @@ const RESPAWN_MIN_DIST = 0.6; // min distance from other balloons to allow respa
 const GRAB_ATTRACT = 2; // attraction strength toward grabbed balloon
 const REPEL_STRENGTH = 1; // gentle repel force between nearby balloons
 const REPEL_RADIUS = 1; // distance within which repulsion applies
+const RELEASE_BUOYANCY = 2.0; // high buoyancy when releasing balloons
 
 const BALLOON_COUNT = 6;
 
@@ -68,6 +69,9 @@ export default class Objects
         this._force = new CANNON.Vec3();
         this._forcePoint = new CANNON.Vec3();
         this._repelForce = new CANNON.Vec3();
+
+        this.releasing = false;
+        this._releaseResolve = null;
 
         this.setModels();
         this.setPhysics();
@@ -129,7 +133,7 @@ export default class Objects
         const rightEdge = halfW;
 
         // Content right edge in world-space X
-        const home = document.querySelector('.home');
+        const home = document.querySelector('.home-content');
         if (home)
         {
             const rect = home.getBoundingClientRect();
@@ -349,6 +353,37 @@ export default class Objects
         });
     }
 
+    release()
+    {
+        this.releasing = true;
+
+        // Drop any active drag
+        if (this.isDragging)
+        {
+            this.isDragging = false;
+            this.pointer.isDragging = false;
+            this.activeBalloon = null;
+            document.body.style.cursor = '';
+            document.body.style.userSelect = '';
+            if (this.constraint)
+            {
+                this.world.removeConstraint(this.constraint);
+                this.constraint = null;
+            }
+        }
+
+        // Crank up buoyancy
+        for (const balloon of this.balloons)
+        {
+            balloon.buoyancy = RELEASE_BUOYANCY;
+        }
+
+        return new Promise((resolve) =>
+        {
+            this._releaseResolve = resolve;
+        });
+    }
+
     update()
     {
         const t = this.time.current * 0.001;
@@ -369,7 +404,7 @@ export default class Objects
             const pos = balloon.body.position;
 
             // Buoyancy or attraction
-            if (this.isDragging && this.activeBalloon !== balloon)
+            if (!this.releasing && this.isDragging && this.activeBalloon !== balloon)
             {
                 const target = this.activeBalloon.body.position;
                 f.set(
@@ -384,16 +419,19 @@ export default class Objects
             }
             balloon.body.applyForce(f);
 
-            // Gentle wind
-            const fx = Math.sin(t * 0.15 + windOffset) * WIND_STRENGTH;
-            const fz = Math.sin(t * 0.2 + windOffset + 5.0) * WIND_STRENGTH * 0.5;
-            f.set(fx, 0, fz);
-            fp.set(
-                pos.x + Math.sin(t * 0.1 + windOffset + 2.0) * 0.15,
-                pos.y + Math.sin(t * 0.08 + windOffset + 4.0) * 0.15,
-                pos.z + Math.sin(t * 0.09 + windOffset + 6.0) * 0.1,
-            );
-            balloon.body.applyForce(f, fp);
+            // Gentle wind (skip when releasing)
+            if (!this.releasing)
+            {
+                const fx = Math.sin(t * 0.15 + windOffset) * WIND_STRENGTH;
+                const fz = Math.sin(t * 0.2 + windOffset + 5.0) * WIND_STRENGTH * 0.5;
+                f.set(fx, 0, fz);
+                fp.set(
+                    pos.x + Math.sin(t * 0.1 + windOffset + 2.0) * 0.15,
+                    pos.y + Math.sin(t * 0.08 + windOffset + 4.0) * 0.15,
+                    pos.z + Math.sin(t * 0.09 + windOffset + 6.0) * 0.1,
+                );
+                balloon.body.applyForce(f, fp);
+            }
 
             // Z restore — only pull back if outside allowed range
             if (pos.z > Z_RANGE)
@@ -422,13 +460,21 @@ export default class Objects
                 }
             }
 
-            // Respawn when above viewport if spawn zone is clear
+            // Respawn when above viewport (skip when releasing — let them disappear)
             if (pos.y > despawnY)
             {
-                const sx = this.randomSpawnX();
-                if (this.canSpawnAt(sx, spawnY, balloon.body))
+                if (this.releasing)
                 {
-                    this.respawn(balloon);
+                    balloon.active = false;
+                    balloon.mesh.visible = false;
+                }
+                else
+                {
+                    const sx = this.randomSpawnX();
+                    if (this.canSpawnAt(sx, spawnY, balloon.body))
+                    {
+                        this.respawn(balloon);
+                    }
                 }
             }
 
@@ -442,8 +488,8 @@ export default class Objects
             }
         }
 
-        // Repel force when not dragging (squared distance comparison)
-        if (!this.isDragging)
+        // Repel force when not dragging and not releasing
+        if (!this.isDragging && !this.releasing)
         {
             const repelRadius2 = REPEL_RADIUS * REPEL_RADIUS;
             const rf = this._repelForce;
@@ -474,6 +520,17 @@ export default class Objects
                         this.balloons[j].body.applyForce(rf);
                     }
                 }
+            }
+        }
+
+        // Check if all balloons have exited during release
+        if (this.releasing && this._releaseResolve)
+        {
+            const allGone = this.balloons.every((b) => !b.active);
+            if (allGone)
+            {
+                this._releaseResolve();
+                this._releaseResolve = null;
             }
         }
     }

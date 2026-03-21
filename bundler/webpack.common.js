@@ -26,11 +26,6 @@ module.exports = {
             minify: true,
         }),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../src/html/work.html'),
-            filename: 'work.html',
-            minify: true,
-        }),
-        new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../src/html/meta.html'),
             filename: 'meta.html',
             minify: true,

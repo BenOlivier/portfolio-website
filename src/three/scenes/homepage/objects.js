@@ -353,6 +353,35 @@ export default class Objects
         });
     }
 
+    reset()
+    {
+        this.releasing = false;
+        this._releaseResolve = null;
+
+        const { halfH } = this.getViewBounds();
+
+        this.balloons.forEach((balloon, i) =>
+        {
+            const spawnX = this.randomSpawnX();
+            const spawnY = -halfH - SPAWN_MARGIN - i * 0.5;
+            const spawnZ = (Math.random() - 0.5) * 2 * Z_RANGE;
+            balloon.body.position.set(spawnX, spawnY, spawnZ);
+            balloon.body.velocity.set(0, 0, 0);
+            balloon.body.angularVelocity.set(0, 0, 0);
+            balloon.buoyancy = BUOYANCY_MIN + Math.random() * (BUOYANCY_MAX - BUOYANCY_MIN);
+            balloon.mat.color.setHex(this.randomColour());
+            balloon.active = false;
+            balloon.mesh.visible = false;
+
+            setTimeout(() =>
+            {
+                balloon.active = true;
+                balloon.mesh.visible = true;
+                balloon.body.velocity.set(0, INITIAL_VELOCITY, 0);
+            }, (ENTRY_DELAY + i * ENTRY_STAGGER) * 1000);
+        });
+    }
+
     release()
     {
         this.releasing = true;

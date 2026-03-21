@@ -1,6 +1,7 @@
-import { exitHome, revealWork, exitWork, revealHome, showWorkImmediate } from './content-reveal.js';
+import { exitHome, revealWork, exitWork, revealHome, showWorkImmediate, killAllTweens } from './content-reveal.js';
 
 let transitioning = false;
+let transitionId = 0;
 let sceneRef = null;
 let sceneMethods = null; // { enableScene, disableScene, getExperience }
 
@@ -18,7 +19,12 @@ export function isWorkRoute()
 
 async function navigateToWork({ pushState = true } = {})
 {
-    if (transitioning) return;
+    if (transitioning)
+    {
+        killAllTweens();
+    }
+
+    const myId = ++transitionId;
     transitioning = true;
 
     if (pushState) history.pushState({}, '', '/work');
@@ -29,12 +35,16 @@ async function navigateToWork({ pushState = true } = {})
     const revealPromise = revealWork();
 
     await exitPromise;
+    if (transitionId !== myId) return;
+
     await revealPromise;
+    if (transitionId !== myId) return;
 
     // Wait for balloons to leave, then dispose scene
     if (releasePromise)
     {
         await releasePromise;
+        if (transitionId !== myId) return;
     }
     if (sceneMethods)
     {
@@ -51,7 +61,12 @@ async function navigateToWork({ pushState = true } = {})
 
 async function navigateToHome({ pushState = true } = {})
 {
-    if (transitioning) return;
+    if (transitioning)
+    {
+        killAllTweens();
+    }
+
+    const myId = ++transitionId;
     transitioning = true;
 
     if (pushState) history.pushState({}, '', '/');
@@ -61,12 +76,16 @@ async function navigateToHome({ pushState = true } = {})
     const revealPromise = revealHome({ delay: 0.1 });
 
     await exitPromise;
-    await revealPromise;
+    if (transitionId !== myId) return;
 
-    // Re-enable 3D scene
+    await revealPromise;
+    if (transitionId !== myId) return;
+
+    // Re-enable 3D scene (balloons kept floating, new ones will spawn)
     if (sceneMethods)
     {
         await sceneMethods.enableScene();
+        if (transitionId !== myId) return;
     }
 
     transitioning = false;
@@ -93,8 +112,8 @@ export function initRouter()
     {
         homeLink.addEventListener('click', (e) =>
         {
-            // Only intercept if we're on the work route
-            if (isWorkRoute())
+            // Only intercept if we're on the work route or transitioning to it
+            if (isWorkRoute() || transitioning)
             {
                 e.preventDefault();
                 navigateToHome();

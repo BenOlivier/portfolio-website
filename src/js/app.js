@@ -28,6 +28,15 @@ if (document.body.classList.contains('index'))
                 new Homepage(canvas);
                 sceneLoaded = true;
             }
+            else
+            {
+                // Reset balloons if they were released during a previous transition
+                const exp = window.experience;
+                if (exp?.objects?.releasing)
+                {
+                    exp.objects.reset();
+                }
+            }
             canvas.style.display = '';
         }
 

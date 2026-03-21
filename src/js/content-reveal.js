@@ -1,25 +1,88 @@
 import gsap from 'gsap';
+import SplitType from 'split-type';
 
-// --- Shared animation parameters ---
-const BLUR = 6;
-const TRANSLATE_Y = 32;
-const DURATION = 0.5;
-const STAGGER = 0.05;
-const START_DELAY = 0.5;
-const EXIT_DURATION = 0.3;
+// --- Home content animation parameters ---
+const HOME_BLUR = 6;
+const HOME_TRANSLATE_X = -32;
+const HOME_DURATION = 0.5;
+const HOME_STAGGER = 0.1;
+const HOME_LINE_STAGGER = 0.06;
+const HOME_START_DELAY = 0.5;
+const HOME_EXIT_DURATION = 0.3;
+
+// --- Work cards animation parameters ---
+const WORK_BLUR = 6;
+const WORK_TRANSLATE_X = 32;
+const WORK_DURATION = 0.5;
+const WORK_STAGGER = 0.1;
+const WORK_START_DELAY = 0.5;
+const WORK_EXIT_DURATION = 0.3;
+const PILL_DELAY = 0.15; // extra delay for pill after its card starts
+
+// --- Shared easing ---
 const OPACITY_EASE = 'power2.out';
 const BLUR_EASE = 'power2.out';
 const TRANSLATE_EASE = 'easeOutBack';
-const PILL_DELAY = 0.15; // extra delay for pill after its card starts
+
+// --- SplitType state ---
+let activeSplits = [];
+let resizeHandler = null;
+let revealComplete = false;
+let pendingResolves = [];
+
+function removePendingResolve(fn)
+{
+    const idx = pendingResolves.indexOf(fn);
+    if (idx !== -1) pendingResolves.splice(idx, 1);
+}
+
+function revertSplits()
+{
+    activeSplits.forEach((s) => s.revert());
+    activeSplits = [];
+}
+
+function teardownResize()
+{
+    if (resizeHandler)
+    {
+        window.removeEventListener('resize', resizeHandler);
+        resizeHandler = null;
+    }
+}
+
+function setupResize()
+{
+    teardownResize();
+    let timer;
+    resizeHandler = () =>
+    {
+        clearTimeout(timer);
+        timer = setTimeout(() =>
+        {
+            if (!revealComplete || activeSplits.length === 0) return;
+
+            // Remember which paragraphs were split
+            const paragraphs = activeSplits.map((s) => s.elements).flat();
+
+            // Revert and re-split
+            revertSplits();
+            for (const p of paragraphs)
+            {
+                const split = new SplitType(p, { types: 'lines' });
+                activeSplits.push(split);
+                gsap.set(split.lines, { opacity: 1, x: 0, filter: 'blur(0px)' });
+            }
+        }, 200);
+    };
+    window.addEventListener('resize', resizeHandler);
+}
 
 // --- Element helpers ---
 
-function getHomeRevealElements()
+function getExitUnits()
 {
-    const elements = [];
-
-    const header = document.querySelector('.home-header');
-    if (header) elements.push(header);
+    const units = [];
 
     const sections = document.querySelectorAll('.home-content > *');
     sections.forEach((section) =>
@@ -30,80 +93,175 @@ function getHomeRevealElements()
             {
                 child.querySelectorAll('.experience-entry').forEach((entry) =>
                 {
-                    elements.push(entry);
+                    units.push({ type: 'element', el: entry });
                 });
+            }
+            else if (child.matches('.home-section > p'))
+            {
+                // Reuse active split if available
+                const split = activeSplits.find((s) => s.elements.includes(child));
+                if (split && split.lines.length)
+                {
+                    units.push({ type: 'lines', els: split.lines });
+                }
+                else
+                {
+                    units.push({ type: 'element', el: child });
+                }
             }
             else
             {
-                elements.push(child);
+                units.push({ type: 'element', el: child });
             }
         });
     });
 
-    return elements;
+    return units;
+}
+
+function getHomeRevealUnits()
+{
+    const units = [];
+
+    const sections = document.querySelectorAll('.home-content > *');
+    sections.forEach((section) =>
+    {
+        Array.from(section.children).forEach((child) =>
+        {
+            if (child.classList.contains('experience-list'))
+            {
+                child.querySelectorAll('.experience-entry').forEach((entry) =>
+                {
+                    units.push({ type: 'element', el: entry });
+                });
+            }
+            else if (child.matches('.home-section > p'))
+            {
+                // Clear stale inline styles before splitting (prevents invisible text after interruption)
+                gsap.set(child, { clearProps: 'all' });
+                const split = new SplitType(child, { types: 'lines' });
+                activeSplits.push(split);
+                units.push({ type: 'lines', els: split.lines, split });
+            }
+            else
+            {
+                units.push({ type: 'element', el: child });
+            }
+        });
+    });
+
+    return units;
 }
 
 // --- Reveal homepage (staggered entrance) ---
 
 export function revealHome(options = {})
 {
-    const startDelay = options.delay ?? START_DELAY;
+    const startDelay = options.delay ?? HOME_START_DELAY;
 
     return new Promise((resolve) =>
     {
-        const home = document.querySelector('.home');
+        pendingResolves.push(resolve);
         const homeContent = document.querySelector('.home-content');
-        const elements = getHomeRevealElements();
 
-        if (!elements.length)
+        // Clean up previous splits (re-navigation)
+        revertSplits();
+        teardownResize();
+        revealComplete = false;
+
+        const units = getHomeRevealUnits();
+
+        if (!units.length)
         {
+            removePendingResolve(resolve);
             resolve();
             return;
         }
 
-        home.style.visibility = 'visible';
         homeContent.style.visibility = 'visible';
         homeContent.style.pointerEvents = 'auto';
 
         // Reset section containers (exitHome fades these to opacity 0 + blur)
         gsap.set(homeContent.children, {
             opacity: 1,
+            x: 0,
             filter: 'blur(0px)',
         });
 
-        gsap.set(elements, {
+        // Collect all animatable targets and set initial state
+        const allTargets = [];
+        for (const unit of units)
+        {
+            if (unit.type === 'lines')
+            {
+                allTargets.push(...unit.els);
+            }
+            else
+            {
+                allTargets.push(unit.el);
+            }
+        }
+
+        gsap.set(allTargets, {
             opacity: 0,
-            y: TRANSLATE_Y,
-            filter: `blur(${BLUR}px)`,
+            x: HOME_TRANSLATE_X,
+            filter: `blur(${HOME_BLUR}px)`,
         });
 
-        elements.forEach((el, i) =>
-        {
-            const delay = startDelay + i * STAGGER;
-            const isLast = i === elements.length - 1;
+        // Animate with clock-based delay
+        let clock = startDelay;
+        const lastTarget = allTargets[allTargets.length - 1];
 
+        function animateTarget(el, delay)
+        {
             gsap.to(el, {
                 opacity: 1,
-                duration: DURATION,
+                duration: HOME_DURATION,
                 delay,
                 ease: OPACITY_EASE,
-                onComplete: isLast ? resolve : undefined,
+                onComplete: el === lastTarget ? onRevealComplete : undefined,
             });
 
             gsap.to(el, {
                 filter: 'blur(0px)',
-                duration: DURATION,
+                duration: HOME_DURATION,
                 delay,
                 ease: BLUR_EASE,
             });
 
             gsap.to(el, {
-                y: 0,
-                duration: DURATION,
+                x: 0,
+                duration: HOME_DURATION,
                 delay,
                 ease: TRANSLATE_EASE,
             });
-        });
+        }
+
+        function onRevealComplete()
+        {
+            removePendingResolve(resolve);
+            revealComplete = true;
+            setupResize();
+            resolve();
+        }
+
+        for (const unit of units)
+        {
+            if (unit.type === 'lines')
+            {
+                for (const line of unit.els)
+                {
+                    animateTarget(line, clock);
+                    clock += HOME_LINE_STAGGER;
+                }
+                clock += HOME_STAGGER - HOME_LINE_STAGGER;
+            }
+            else
+            {
+                animateTarget(unit.el, clock);
+                clock += HOME_STAGGER;
+            }
+        }
     });
 }
 
@@ -113,27 +271,69 @@ export function exitHome()
 {
     return new Promise((resolve) =>
     {
+        pendingResolves.push(resolve);
         const homeContent = document.querySelector('.home-content');
-        const elements = Array.from(homeContent.children);
 
-        if (!elements.length)
+        // Build exit targets from the same unit structure as reveal
+        // If splits are active, animate lines individually; otherwise fall back to sections
+        const units = getExitUnits();
+
+        if (!units.length)
         {
+            removePendingResolve(resolve);
             resolve();
             return;
         }
 
-        gsap.to(elements, {
-            opacity: 0,
-            filter: `blur(${BLUR}px)`,
-            duration: EXIT_DURATION,
-            ease: OPACITY_EASE,
-            onComplete()
+        // Build flat targets list with clock-based stagger
+        let clock = 0;
+        const tweens = [];
+
+        for (const unit of units)
+        {
+            if (unit.type === 'lines')
             {
-                homeContent.style.visibility = 'hidden';
-                homeContent.style.pointerEvents = 'none';
-                resolve();
-            },
-        });
+                for (const line of unit.els)
+                {
+                    tweens.push({ el: line, delay: clock });
+                    clock += HOME_LINE_STAGGER;
+                }
+                clock += HOME_STAGGER - HOME_LINE_STAGGER;
+            }
+            else
+            {
+                tweens.push({ el: unit.el, delay: clock });
+                clock += HOME_STAGGER;
+            }
+        }
+
+        const lastTween = tweens[tweens.length - 1];
+
+        for (const { el, delay } of tweens)
+        {
+            const isLast = el === lastTween.el;
+
+            gsap.to(el, {
+                opacity: 0,
+                x: HOME_TRANSLATE_X,
+                filter: `blur(${HOME_BLUR}px)`,
+                duration: HOME_EXIT_DURATION,
+                delay,
+                ease: 'power2.in',
+                onComplete: isLast ? onExitComplete : undefined,
+            });
+        }
+
+        function onExitComplete()
+        {
+            removePendingResolve(resolve);
+            homeContent.style.visibility = 'hidden';
+            homeContent.style.pointerEvents = 'none';
+            revertSplits();
+            teardownResize();
+            revealComplete = false;
+            resolve();
+        }
     });
 }
 
@@ -143,12 +343,14 @@ export function revealWork()
 {
     return new Promise((resolve) =>
     {
+        pendingResolves.push(resolve);
         const workContent = document.querySelector('.work-content');
         const cards = document.querySelectorAll('.work-card');
         const pills = document.querySelectorAll('.work-card-pill');
 
         if (!cards.length)
         {
+            removePendingResolve(resolve);
             resolve();
             return;
         }
@@ -159,8 +361,8 @@ export function revealWork()
         // Set initial state for cards
         gsap.set(cards, {
             opacity: 0,
-            y: TRANSLATE_Y,
-            filter: `blur(${BLUR}px)`,
+            x: WORK_TRANSLATE_X,
+            filter: `blur(${WORK_BLUR}px)`,
         });
 
         // Set initial state for pills
@@ -173,27 +375,27 @@ export function revealWork()
 
         cards.forEach((card, i) =>
         {
-            const delay = START_DELAY + i * STAGGER;
+            const delay = WORK_START_DELAY + i * WORK_STAGGER;
             const isLast = i === cards.length - 1;
 
             gsap.to(card, {
                 opacity: 1,
-                duration: DURATION,
+                duration: WORK_DURATION,
                 delay,
                 ease: OPACITY_EASE,
-                onComplete: isLast ? resolve : undefined,
+                onComplete: isLast ? () => { removePendingResolve(resolve); resolve(); } : undefined,
             });
 
             gsap.to(card, {
                 filter: 'blur(0px)',
-                duration: DURATION,
+                duration: WORK_DURATION,
                 delay,
                 ease: BLUR_EASE,
             });
 
             gsap.to(card, {
-                y: 0,
-                duration: DURATION,
+                x: 0,
+                duration: WORK_DURATION,
                 delay,
                 ease: TRANSLATE_EASE,
             });
@@ -204,7 +406,7 @@ export function revealWork()
             {
                 gsap.to(pill, {
                     y: '0%',
-                    duration: DURATION,
+                    duration: WORK_DURATION,
                     delay: delay + PILL_DELAY,
                     ease: TRANSLATE_EASE,
                 });
@@ -219,22 +421,27 @@ export function exitWork()
 {
     return new Promise((resolve) =>
     {
+        pendingResolves.push(resolve);
         const workContent = document.querySelector('.work-content');
         const cards = document.querySelectorAll('.work-card');
 
         if (!cards.length)
         {
+            removePendingResolve(resolve);
             resolve();
             return;
         }
 
         gsap.to(cards, {
             opacity: 0,
-            filter: `blur(${BLUR}px)`,
-            duration: EXIT_DURATION,
-            ease: OPACITY_EASE,
+            x: WORK_TRANSLATE_X,
+            filter: `blur(${WORK_BLUR}px)`,
+            duration: WORK_EXIT_DURATION,
+            stagger: WORK_STAGGER,
+            ease: 'power2.in',
             onComplete()
             {
+                removePendingResolve(resolve);
                 workContent.style.visibility = 'hidden';
                 workContent.style.pointerEvents = 'none';
                 gsap.set(workContent, { opacity: 0 });
@@ -244,17 +451,64 @@ export function exitWork()
     });
 }
 
+// --- Kill all active tweens (for transition interruption) ---
+
+export function killAllTweens()
+{
+    const homeContent = document.querySelector('.home-content');
+    const workContent = document.querySelector('.work-content');
+
+    if (homeContent)
+    {
+        gsap.killTweensOf(homeContent.querySelectorAll('*'));
+        gsap.killTweensOf(Array.from(homeContent.children));
+    }
+    if (workContent)
+    {
+        gsap.killTweensOf(workContent.querySelectorAll('*'));
+    }
+
+    // Flush pending animation promises so interrupted async flows can complete
+    const toResolve = pendingResolves;
+    pendingResolves = [];
+    toResolve.forEach((r) => r());
+
+    // Clean up split state
+    revertSplits();
+    teardownResize();
+    revealComplete = false;
+}
+
+// --- Reset both views to hidden (clean slate after abort) ---
+
+export function resetViews()
+{
+    const homeContent = document.querySelector('.home-content');
+    const workContent = document.querySelector('.work-content');
+
+    if (homeContent)
+    {
+        homeContent.style.visibility = 'hidden';
+        homeContent.style.pointerEvents = 'none';
+        gsap.set(Array.from(homeContent.children), { clearProps: 'all' });
+    }
+    if (workContent)
+    {
+        workContent.style.visibility = 'hidden';
+        workContent.style.pointerEvents = 'none';
+        gsap.set(workContent, { opacity: 0 });
+        gsap.set(workContent.querySelectorAll('.work-card, .work-card-pill'), { clearProps: 'all' });
+    }
+}
+
 // --- Show work immediately (direct URL access, no animation) ---
 
 export function showWorkImmediate()
 {
-    const home = document.querySelector('.home');
     const homeContent = document.querySelector('.home-content');
     const workContent = document.querySelector('.work-content');
     const cards = document.querySelectorAll('.work-card');
     const pills = document.querySelectorAll('.work-card-pill');
-
-    home.style.visibility = 'visible';
 
     homeContent.style.visibility = 'hidden';
     homeContent.style.pointerEvents = 'none';
@@ -262,6 +516,6 @@ export function showWorkImmediate()
     workContent.style.visibility = 'visible';
     workContent.style.pointerEvents = 'auto';
     gsap.set(workContent, { opacity: 1 });
-    gsap.set(cards, { opacity: 1, y: 0, filter: 'blur(0px)' });
+    gsap.set(cards, { opacity: 1, x: 0, filter: 'blur(0px)' });
     gsap.set(pills, { y: '0%' });
 }

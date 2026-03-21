@@ -28,7 +28,7 @@ export default function initHomeTime()
     function update()
     {
         const time = formatter.format(new Date()).replace(' ', '');
-        el.textContent = time + ' London';
+        el.textContent = time + ' GMT';
 
         if (iconEl)
         {

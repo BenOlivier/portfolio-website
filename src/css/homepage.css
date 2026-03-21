@@ -237,8 +237,9 @@ body.index
     font-weight: 400;
     line-height: 1.8;
     color: var(--tertiary);
-    width: 100px;
+    width: 112px;
     flex-shrink: 0;
+    font-family: ui-monospace, 'SF Mono', monospace;
 }
 
 .experience-info
@@ -305,7 +306,7 @@ body.index
     .experience-entry
     {
         flex-direction: column;
-        gap: 4px;
+        gap: 8px;
     }
 
     .experience-date
@@ -364,6 +365,7 @@ body.index
     gap: 8px;
     font-size: 16px;
     font-weight: 400;
+    font-family: ui-monospace, 'SF Mono', monospace;
     color: var(--tertiary);
     white-space: nowrap;
 }

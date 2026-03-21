@@ -276,6 +276,7 @@ export default class Objects
                 if (intersects.length > 0)
                 {
                     this.isDragging = true;
+                    this.pointer.isDragging = true;
                     this.activeBalloon = balloon;
                     document.body.style.cursor = 'grabbing';
                     document.body.style.userSelect = 'none';
@@ -334,6 +335,7 @@ export default class Objects
             if (this.isDragging)
             {
                 this.isDragging = false;
+                this.pointer.isDragging = false;
                 this.activeBalloon = null;
                 document.body.style.cursor = '';
                 document.body.style.userSelect = '';

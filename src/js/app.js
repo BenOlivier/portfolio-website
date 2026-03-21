@@ -1,6 +1,4 @@
 import '../css/global.css';
-import '../css/header.css';
-import '../css/footer.css';
 import '../css/homepage.css';
 
 if (document.body.classList.contains('index'))
@@ -50,11 +48,6 @@ if (document.body.classList.contains('index'))
     });
 }
 
-if (document.body.classList.contains('about'))
-{
-    import('../css/about.css');
-}
-
 if (document.body.classList.contains('work-page'))
 {
     import('../css/work.css');
@@ -81,7 +74,3 @@ if (document.body.classList.contains('meta'))
     import('../css/related-projects.css');
 }
 
-if (document.body.classList.contains('contact'))
-{
-    import('../css/contact.css');
-}

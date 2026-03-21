@@ -26,11 +26,6 @@ module.exports = {
             minify: true,
         }),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../src/html/about.html'),
-            filename: 'about.html',
-            minify: true,
-        }),
-        new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../src/html/work.html'),
             filename: 'work.html',
             minify: true,
@@ -48,11 +43,6 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../src/html/litho.html'),
             filename: 'litho.html',
-            minify: true,
-        }),
-        new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../src/html/contact.html'),
-            filename: 'contact.html',
             minify: true,
         }),
         new MiniCSSExtractPlugin(),

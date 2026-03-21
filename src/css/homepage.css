@@ -116,7 +116,7 @@ body.index
 {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
 }
 
 .home h1
@@ -344,6 +344,7 @@ body.index
 
 .clock-icon
 {
+    display: flex;
     color: var(--light);
 }
 

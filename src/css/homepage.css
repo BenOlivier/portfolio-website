@@ -320,6 +320,7 @@ body.index
 .home-connect
 {
     border-top: 0.5px solid var(--light);
+    padding: 48px 0;
 }
 
 .connect-row

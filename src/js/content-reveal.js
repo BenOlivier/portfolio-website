@@ -1,14 +1,14 @@
 import gsap from 'gsap';
 
 // --- Reveal controls ---
-const INITIAL_BLUR = 4; // px — starting blur amount
-const TRANSLATE_Y = 20; // px — starting vertical offset (moves up)
-const DURATION = 0.8; // seconds — animation duration per element
-const STAGGER = 0.03; // seconds — delay between each row
+const INITIAL_BLUR = 6; // px — starting blur amount
+const TRANSLATE_Y = 32; // px — starting vertical offset (moves up)
+const DURATION = 0.5; // seconds — animation duration per element
+const STAGGER = 0.05; // seconds — delay between each row
 const START_DELAY = 0.5; // seconds — delay before first element animates
 const OPACITY_EASE = 'power2.out';
 const BLUR_EASE = 'power2.out';
-const TRANSLATE_EASE = 'power3.out';
+const TRANSLATE_EASE = 'easeOutBack';
 
 function getRevealElements()
 {

@@ -65,6 +65,12 @@ export function revealHome(options = {})
         homeContent.style.visibility = 'visible';
         homeContent.style.pointerEvents = 'auto';
 
+        // Reset section containers (exitHome fades these to opacity 0 + blur)
+        gsap.set(homeContent.children, {
+            opacity: 1,
+            filter: 'blur(0px)',
+        });
+
         gsap.set(elements, {
             opacity: 0,
             y: TRANSLATE_Y,

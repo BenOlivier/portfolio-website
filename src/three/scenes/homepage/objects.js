@@ -19,7 +19,7 @@ const RESPAWN_MIN_DIST = 0.6; // min distance from other balloons to allow respa
 const GRAB_ATTRACT = 2; // attraction strength toward grabbed balloon
 const REPEL_STRENGTH = 1; // gentle repel force between nearby balloons
 const REPEL_RADIUS = 1; // distance within which repulsion applies
-const RELEASE_BUOYANCY = 2.0; // high buoyancy when releasing balloons
+const RELEASE_BUOYANCY = 5.0; // high buoyancy when releasing balloons
 
 const BALLOON_COUNT = 6;
 

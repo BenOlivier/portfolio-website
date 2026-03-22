@@ -19,6 +19,7 @@
     "lil-gui": "^0.21.0",
     "mini-css-extract-plugin": "^2.10.0",
     "portfinder-sync": "0.0.2",
+    "split-type": "^0.3.4",
     "stats.js": "^0.17.0",
     "style-loader": "^4.0.0",
     "three": "^0.182.0",

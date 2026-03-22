@@ -68,4 +68,32 @@ export default class Homepage
         this.renderer.update();
         this.camera.update();
     }
+
+    dispose()
+    {
+        // Stop the animation loop
+        this.time.stop();
+
+        // Dispose all Three.js objects
+        this.scene.traverse((child) =>
+        {
+            if (child.isMesh)
+            {
+                if (child.geometry) child.geometry.dispose();
+                if (child.material)
+                {
+                    if (child.material.map) child.material.map.dispose();
+                    if (child.material.normalMap) child.material.normalMap.dispose();
+                    child.material.dispose();
+                }
+            }
+        });
+
+        // Dispose renderer
+        this.renderer.renderer.dispose();
+
+        // Clear global reference and singleton
+        window.experience = null;
+        instance = null;
+    }
 }

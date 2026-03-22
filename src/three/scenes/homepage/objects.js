@@ -69,6 +69,9 @@ export default class Objects
         this._forcePoint = new CANNON.Vec3();
         this._repelForce = new CANNON.Vec3();
 
+        this.releasing = false;
+        this._releaseResolve = null;
+
         this.setModels();
         this.setPhysics();
         this.setInteraction();
@@ -129,7 +132,7 @@ export default class Objects
         const rightEdge = halfW;
 
         // Content right edge in world-space X
-        const home = document.querySelector('.home');
+        const home = document.querySelector('.home-content');
         if (home)
         {
             const rect = home.getBoundingClientRect();
@@ -349,6 +352,83 @@ export default class Objects
         });
     }
 
+    reset()
+    {
+        this.releasing = false;
+        this._releaseResolve = null;
+        this.canvas.style.opacity = '1';
+
+        const { halfH } = this.getViewBounds();
+
+        this.balloons.forEach((balloon, i) =>
+        {
+            const spawnX = this.randomSpawnX();
+            const spawnY = -halfH - SPAWN_MARGIN - i * 0.5;
+            const spawnZ = (Math.random() - 0.5) * 2 * Z_RANGE;
+            balloon.body.position.set(spawnX, spawnY, spawnZ);
+            balloon.body.velocity.set(0, 0, 0);
+            balloon.body.angularVelocity.set(0, 0, 0);
+            balloon.buoyancy = BUOYANCY_MIN + Math.random() * (BUOYANCY_MAX - BUOYANCY_MIN);
+            balloon.mat.color.setHex(this.randomColour());
+            balloon.active = false;
+            balloon.mesh.visible = false;
+
+            setTimeout(() =>
+            {
+                balloon.active = true;
+                balloon.mesh.visible = true;
+                balloon.body.velocity.set(0, INITIAL_VELOCITY, 0);
+            }, (ENTRY_DELAY + i * ENTRY_STAGGER) * 1000);
+        });
+    }
+
+    release()
+    {
+        this.releasing = true;
+
+        // Drop any active drag
+        if (this.isDragging)
+        {
+            this.isDragging = false;
+            this.pointer.isDragging = false;
+            this.activeBalloon = null;
+            document.body.style.cursor = '';
+            document.body.style.userSelect = '';
+            if (this.constraint)
+            {
+                this.world.removeConstraint(this.constraint);
+                this.constraint = null;
+            }
+        }
+
+        return new Promise((resolve) =>
+        {
+            this._releaseResolve = resolve;
+            this.canvas.style.transition = 'opacity 0.3s ease';
+            this.canvas.style.opacity = '0';
+
+            const onEnd = () =>
+            {
+                this.canvas.removeEventListener('transitionend', onEnd);
+                this.canvas.style.transition = '';
+
+                for (const balloon of this.balloons)
+                {
+                    balloon.active = false;
+                    balloon.mesh.visible = false;
+                }
+
+                if (this._releaseResolve)
+                {
+                    this._releaseResolve();
+                    this._releaseResolve = null;
+                }
+            };
+
+            this.canvas.addEventListener('transitionend', onEnd);
+        });
+    }
+
     update()
     {
         const t = this.time.current * 0.001;
@@ -369,7 +449,7 @@ export default class Objects
             const pos = balloon.body.position;
 
             // Buoyancy or attraction
-            if (this.isDragging && this.activeBalloon !== balloon)
+            if (!this.releasing && this.isDragging && this.activeBalloon !== balloon)
             {
                 const target = this.activeBalloon.body.position;
                 f.set(
@@ -384,16 +464,19 @@ export default class Objects
             }
             balloon.body.applyForce(f);
 
-            // Gentle wind
-            const fx = Math.sin(t * 0.15 + windOffset) * WIND_STRENGTH;
-            const fz = Math.sin(t * 0.2 + windOffset + 5.0) * WIND_STRENGTH * 0.5;
-            f.set(fx, 0, fz);
-            fp.set(
-                pos.x + Math.sin(t * 0.1 + windOffset + 2.0) * 0.15,
-                pos.y + Math.sin(t * 0.08 + windOffset + 4.0) * 0.15,
-                pos.z + Math.sin(t * 0.09 + windOffset + 6.0) * 0.1,
-            );
-            balloon.body.applyForce(f, fp);
+            // Gentle wind (skip when releasing)
+            if (!this.releasing)
+            {
+                const fx = Math.sin(t * 0.15 + windOffset) * WIND_STRENGTH;
+                const fz = Math.sin(t * 0.2 + windOffset + 5.0) * WIND_STRENGTH * 0.5;
+                f.set(fx, 0, fz);
+                fp.set(
+                    pos.x + Math.sin(t * 0.1 + windOffset + 2.0) * 0.15,
+                    pos.y + Math.sin(t * 0.08 + windOffset + 4.0) * 0.15,
+                    pos.z + Math.sin(t * 0.09 + windOffset + 6.0) * 0.1,
+                );
+                balloon.body.applyForce(f, fp);
+            }
 
             // Z restore — only pull back if outside allowed range
             if (pos.z > Z_RANGE)
@@ -422,8 +505,8 @@ export default class Objects
                 }
             }
 
-            // Respawn when above viewport if spawn zone is clear
-            if (pos.y > despawnY)
+            // Respawn when above viewport (skip when releasing — scale animation handles exit)
+            if (!this.releasing && pos.y > despawnY)
             {
                 const sx = this.randomSpawnX();
                 if (this.canSpawnAt(sx, spawnY, balloon.body))
@@ -442,8 +525,8 @@ export default class Objects
             }
         }
 
-        // Repel force when not dragging (squared distance comparison)
-        if (!this.isDragging)
+        // Repel force when not dragging and not releasing
+        if (!this.isDragging && !this.releasing)
         {
             const repelRadius2 = REPEL_RADIUS * REPEL_RADIUS;
             const rf = this._repelForce;
@@ -474,6 +557,17 @@ export default class Objects
                         this.balloons[j].body.applyForce(rf);
                     }
                 }
+            }
+        }
+
+        // Check if all balloons have exited during release
+        if (this.releasing && this._releaseResolve)
+        {
+            const allGone = this.balloons.every((b) => !b.active);
+            if (allGone)
+            {
+                this._releaseResolve();
+                this._releaseResolve = null;
             }
         }
     }

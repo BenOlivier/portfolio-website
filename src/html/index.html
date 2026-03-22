@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Ben Olivier | Software Designer</title>
+    <title>Ben Olivier</title>
     <meta charset="UTF-8">
-    <meta name="description" content="Ben Olivier is a Software Designer who cares deeply about refined user interfaces, meaningful motion, and thoughtful micro-interactions.">
+    <meta name="description" content="Ben Olivier is a Design Engineer who builds clear and thoughtful products that people love to use, with an obsessive focus on quality and simplicity.">
     <link rel="icon" href="../../static/images/icons/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="../../static/images/icons/apple-touch-icon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,74 +25,172 @@
     🚧 Under construction 🚧
     <div class="construction-popover">I am currently in the process of rebuilding my website, so things may temporarily look strange. Check back soon!</div>
   </div>
-  <main class="home">
+  <div class="home">
+    <header class="home-header">
+      <nav>
+        <a href="/" class="home-logo" aria-label="Home">
+          <svg width="44" height="15" viewBox="0 0 43.5 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect y="1.5" width="12" height="12" fill="currentColor"/>
+            <g clip-path="url(#logo-clip)">
+              <path d="M21.9277 0.477L29.4277 13.467H14.4277L21.9277 0.477Z" fill="currentColor"/>
+            </g>
+            <circle cx="36.774" cy="7.5" r="6.5" fill="currentColor"/>
+            <defs>
+              <clipPath id="logo-clip">
+                <rect width="15" height="15" fill="white" transform="translate(14.4275)"/>
+              </clipPath>
+            </defs>
+          </svg>
+        </a>
+      </nav>
+      <div class="home-header-text">
+        <h1>Ben Olivier</h1>
+        <p class="home-subtitle">Designer prototyping human interfaces.</p>
+      </div>
+    </header>
 
-      <header class="home-header">
-        <a href="/"><img class="home-avatar" src="/static/images/profile/profile-picture.webp" alt="Ben Olivier"></a>
-        <div class="home-header-text">
-          <h1>Ben Olivier</h1>
-          <p class="home-subtitle">Design Engineer</p>
+    <main class="home-main">
+      <div class="home-content">
+        <section class="home-section">
+          <h2>About</h2>
+          <!-- <p>I design clear and thoughtful products that people love to use, with an obsessive focus on quality and simplicity.</p> -->
+          <p>I design at the intersection of screen, space, and intelligence, exploring new ways for people to experience the world.</p>
+          <p>I care deeply about the interface: how it looks, feels, and behaves. Through canvas and code, I craft thoughtful experiences, honing the details that most people don’t notice but always feel.</p>
+          <a href="/work" class="home-pill-button"><span class="pill-label">See my work</span><span class="arrow">&#x2197;</span></a>
+        </section>
+
+        <section class="home-section">
+          <h2>Experience</h2>
+          <div class="experience-list">
+            <div class="experience-entry">
+              <span class="experience-date">2024 - now</span>
+              <div class="experience-info">
+                <p class="experience-role">Freelance Product Designer</p>
+                <p class="experience-location">Remote, UK</p>
+              </div>
+            </div>
+            <div class="experience-entry">
+              <span class="experience-date">2023 - 2024</span>
+              <div class="experience-info">
+                <p class="experience-role">Product Design Prototyper at <a href="https://meta.com" target="_blank">Meta</a></p>
+                <p class="experience-location">London, UK</p>
+              </div>
+            </div>
+            <div class="experience-entry">
+              <span class="experience-date">2022 - 2023</span>
+              <div class="experience-info">
+                <p class="experience-role">Lead Product Designer at <a href="https://customuse.com/" target="_blank">Customuse</a></p>
+                <p class="experience-location">London, UK</p>
+              </div>
+            </div>
+            <div class="experience-entry">
+              <span class="experience-date">2019 - 2022</span>
+              <div class="experience-info">
+                <p class="experience-role">Lead Product Designer at <a href="https://www.litho.cc/" target="_blank">Litho</a></p>
+                <p class="experience-location">London, UK</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="work-content">
+        <div class="work-grid">
+          <div class="work-card-wrapper">
+            <a class="work-card" href="/meta.html" aria-label="AR Desk Setup Interaction">
+              <div class="work-card-media">
+                <video autoplay loop muted playsinline>
+                  <source src="/videos/workrooms-desk-alignment.mp4" type="video/mp4">
+                </video>
+              </div>
+              <span class="work-card-pill">Meta<span class="work-card-pill-detail">&nbsp;• Interaction</span></span>
+            </a>
+            <div class="work-card-text">
+              <p class="work-card-title">AR Desk Setup Interaction</p>
+              <p class="work-card-description">Meta Reality Labs &bull; 2024</p>
+            </div>
+          </div>
+          <div class="work-card-wrapper">
+            <a class="work-card" href="/meta.html" aria-label="Spatial Meeting UI">
+              <div class="work-card-media">
+                <video autoplay loop muted playsinline>
+                  <source src="/videos/workrooms-meeting-layouts.mp4" type="video/mp4">
+                </video>
+              </div>
+              <span class="work-card-pill">Meta<span class="work-card-pill-detail">&nbsp;• Product</span></span>
+            </a>
+            <div class="work-card-text">
+              <p class="work-card-title">Spatial Meeting UI</p>
+              <p class="work-card-description">Meta Reality Labs &bull; 2023</p>
+            </div>
+          </div>
+          <div class="work-card-wrapper">
+            <a class="work-card" href="/customuse.html" aria-label="3D Game Asset Editor">
+              <div class="work-card-media">
+                <video autoplay loop muted playsinline>
+                  <source src="/videos/customuse-3d-viewport.mp4" type="video/mp4">
+                </video>
+              </div>
+              <span class="work-card-pill">Customuse<span class="work-card-pill-detail">&nbsp;• Product</span></span>
+            </a>
+            <div class="work-card-text">
+              <p class="work-card-title">3D Game Asset Editor</p>
+              <p class="work-card-description">Customuse &bull; 2023</p>
+            </div>
+          </div>
+          <div class="work-card-wrapper">
+            <a class="work-card" href="/experiments.html" aria-label="Interaction Experiments">
+              <div class="work-card-media">
+                <video autoplay loop muted playsinline>
+                  <source src="/videos/swift-card-carousel.mp4" type="video/mp4">
+                </video>
+              </div>
+              <span class="work-card-pill">Experiments<span class="work-card-pill-detail">&nbsp;• Interaction</span></span>
+            </a>
+            <div class="work-card-text">
+              <p class="work-card-title">Interaction Experiments</p>
+              <p class="work-card-description">Just for fun</p>
+            </div>
+          </div>
+          <div class="work-card-wrapper">
+            <a class="work-card" href="/litho.html" aria-label="Wearable Interaction Design">
+              <div class="work-card-media"></div>
+              <span class="work-card-pill">Sunday <span class="work-card-pill-detail">&nbsp;• Product</span></span>
+            </a>
+            <div class="work-card-text">
+              <p class="work-card-title">Wearable Interaction Design</p>
+              <p class="work-card-description">Litho &bull; 2022</p>
+            </div>
+          </div>
+          <div class="work-card-wrapper">
+            <a class="work-card" href="https://endfield.co/" target="_blank" rel="noopener noreferrer" aria-label="Endfield Desk Accessories">
+              <div class="work-card-media"></div>
+              <span class="work-card-pill">Endfield <span class="work-card-pill-detail">&nbsp;• Product</span></span>
+            </a>
+            <div class="work-card-text">
+              <p class="work-card-title">Endfield Desk Accessories</p>
+              <p class="work-card-description">Side Hustle &bull; 2024</p>
+            </div>
+          </div>
         </div>
-      </header>
-
-      <section class="home-section">
-        <h2>About</h2>
-        <p>I design clear and thoughtful products that people love to use, with an obsessive focus on quality and simplicity.</p>
-        <p>I care deeply about the interface: how it looks, feels, and behaves. Through canvas and code, I craft production-ready UI, honing the details that most people don’t notice but always feel.</p>
-        <a href="/work.html" class="home-pill-button"><span class="pill-label">See my work</span><span class="arrow">&#x2197;</span></a>
-      </section>
-
-      <section class="home-section">
-        <h2>Experience</h2>
-        <div class="experience-list">
-          <div class="experience-entry">
-            <span class="experience-date">2024 - now</span>
-            <div class="experience-info">
-              <p class="experience-role">Freelance Product Designer</p>
-              <p class="experience-location">Remote, UK</p>
-            </div>
-          </div>
-          <div class="experience-entry">
-            <span class="experience-date">2023 - 2024</span>
-            <div class="experience-info">
-              <p class="experience-role">Product Design Prototyper at <a href="https://meta.com" target="_blank">Meta</a></p>
-              <p class="experience-location">London, UK</p>
-            </div>
-          </div>
-          <div class="experience-entry">
-            <span class="experience-date">2022 - 2023</span>
-            <div class="experience-info">
-              <p class="experience-role">Lead Product Designer at <a href="https://customuse.com/" target="_blank">Customuse</a></p>
-              <p class="experience-location">London, UK</p>
-            </div>
-          </div>
-          <div class="experience-entry">
-            <span class="experience-date">2019 - 2022</span>
-            <div class="experience-info">
-              <p class="experience-role">Lead Product Designer at <a href="https://www.litho.cc/" target="_blank">Litho</a></p>
-              <p class="experience-location">London, UK</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <footer class="home-section home-connect">
-        <!-- <h2>Connect</h2> -->
-        <div class="connect-row">
-          <div class="connect-links">
-            <a href="mailto:dbeolivier@gmail.com">Email</a>
-            <a href="https://x.com/benolivierxyz" target="_blank">Twitter</a>
-            <a href="https://github.com/BenOlivier" target="_blank">GitHub</a>
-            <a href="https://linkedin.com/in/ben-olivier-38b901145/" target="_blank">LinkedIn</a>
-          </div>
-          <div class="connect-time">
-            <span class="clock-icon"></span>
-            <span id="local-time"></span>
-          </div>
-        </div>
-      </footer>
-
+      </div>
     </main>
+
+    <footer class="home-connect">
+      <div class="connect-row">
+        <div class="connect-links">
+          <a href="mailto:dbeolivier@gmail.com">Email</a>
+          <a href="https://x.com/benolivierxyz" target="_blank">Twitter</a>
+          <a href="https://github.com/BenOlivier" target="_blank">GitHub</a>
+          <a href="https://linkedin.com/in/ben-olivier-38b901145/" target="_blank">LinkedIn</a>
+        </div>
+        <div class="connect-time">
+          <span class="clock-icon"></span>
+          <span id="local-time"></span>
+        </div>
+      </div>
+    </footer>
+  </div>
     <canvas class="webgl"></canvas>
 </body>
 </html>

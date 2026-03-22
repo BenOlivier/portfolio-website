@@ -26,9 +26,18 @@ export default class Time extends EventEmitter
 
         this.trigger('tick');
 
-        window.requestAnimationFrame(() =>
+        this.rafId = window.requestAnimationFrame(() =>
         {
             this.tick();
         });
     };
+
+    stop()
+    {
+        if (this.rafId)
+        {
+            cancelAnimationFrame(this.rafId);
+            this.rafId = null;
+        }
+    }
 }

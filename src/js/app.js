@@ -1,22 +1,19 @@
 import '../css/global.css';
-import '../css/header.css';
-import '../css/footer.css';
 import '../css/homepage.css';
 
 if (document.body.classList.contains('index'))
 {
-
     import('./home-time.js').then(({default: initHomeTime}) =>
     {
         initHomeTime();
     });
 
-    import('./content-reveal.js').then(async ({default: initContentReveal}) =>
+    import('./content-reveal.js').then(async (transitions) =>
     {
-        await initContentReveal();
+        const { initRouter, setSceneCallbacks, isWorkRoute } = await import('./router.js');
 
         // Scene lifecycle — load above 1200px, hide below
-        const {default: Sizes} = await import('../three/utils/sizes.js');
+        const { default: Sizes } = await import('../three/utils/sizes.js');
         const sizes = new Sizes();
         const canvas = document.querySelector('canvas.webgl');
         let sceneLoaded = false;
@@ -25,45 +22,68 @@ if (document.body.classList.contains('index'))
         {
             if (!sceneLoaded)
             {
-                const {default: Homepage} = await import(
+                const { default: Homepage } = await import(
                     '../three/scenes/homepage/experience.js'
                 );
                 new Homepage(canvas);
                 sceneLoaded = true;
             }
+            else
+            {
+                // Reset balloons if they were released during a previous transition
+                const exp = window.experience;
+                if (exp?.objects?.releasing)
+                {
+                    exp.objects.reset();
+                }
+            }
+            canvas.style.opacity = '1';
             canvas.style.display = '';
         }
 
         function disableScene()
         {
             canvas.style.display = 'none';
+            sceneLoaded = false;
         }
 
+        function getExperience()
+        {
+            return window.experience || null;
+        }
+
+        // Responsive scene toggle — shared across initial load and navigate-back
         function checkScene()
         {
+            if (isWorkRoute()) return;
             if (sizes.width >= 1200) enableScene();
             else disableScene();
         }
-
-        checkScene();
         sizes.on('resize', checkScene);
+
+        // Wire scene callbacks into router
+        setSceneCallbacks({ enableScene, disableScene, getExperience });
+
+        // Route-aware initialisation
+        if (isWorkRoute())
+        {
+            // Direct visit to /work — show work immediately, no scene
+            disableScene();
+        }
+        else
+        {
+            // Homepage — run content reveal, then enable scene
+            await transitions.revealHome();
+            checkScene();
+        }
+
+        initRouter();
     });
-}
-
-if (document.body.classList.contains('about'))
-{
-    import('../css/about.css');
-}
-
-if (document.body.classList.contains('work-page'))
-{
-    import('../css/work.css');
 }
 
 if (document.body.classList.contains('litho'))
 {
     import('../css/litho.css');
-    import('../css/related-projects.css');
 
     import('../three/scenes/litho/experience.js').then(({default: Litho}) =>
     {
@@ -73,15 +93,9 @@ if (document.body.classList.contains('litho'))
 
 if (document.body.classList.contains('customuse'))
 {
-    import('../css/related-projects.css');
 }
 
 if (document.body.classList.contains('meta'))
 {
-    import('../css/related-projects.css');
 }
 
-if (document.body.classList.contains('contact'))
-{
-    import('../css/contact.css');
-}

@@ -96,7 +96,7 @@ body.index
 .work-grid
 {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     margin-bottom: 16px;
     gap: 16px;
 }
@@ -447,7 +447,7 @@ body.work .home-connect
 
 /* Breakpoints */
 
-@media(min-width: 480px)
+@media(min-width: 768px)
 {
     .home
     {
@@ -468,6 +468,7 @@ body.work .home-connect
     {
         gap: 32px;
         margin-bottom: 32px;
+        grid-template-columns: 1fr 1fr;
     }
 
     .work-card-title
@@ -521,15 +522,15 @@ body.work .home-connect
     }
 }
 
-@media(max-width: 900px)
+/* @media(max-width: 900px)
 {
     .work-grid
     {
         grid-template-columns: 1fr;
     }
-}
+} */
 
-@media(min-width: 1200px)
+@media(min-width: 1280px)
 {
     .home
     {

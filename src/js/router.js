@@ -28,6 +28,7 @@ async function navigateToWork({ pushState = true } = {})
     transitioning = true;
 
     if (pushState) history.pushState({}, '', '/work');
+    document.body.classList.add('work');
 
     // Release balloons + exit home content simultaneously
     const releasePromise = sceneMethods?.getExperience()?.objects?.release();
@@ -70,6 +71,7 @@ async function navigateToHome({ pushState = true } = {})
     transitioning = true;
 
     if (pushState) history.pushState({}, '', '/');
+    document.body.classList.remove('work');
 
     // Exit work + reveal home simultaneously
     const exitPromise = exitWork();
@@ -137,6 +139,7 @@ export function initRouter()
     // Direct URL access to /work
     if (isWorkRoute())
     {
+        document.body.classList.add('work');
         showWorkImmediate();
     }
 }

@@ -55,6 +55,7 @@ if (document.body.classList.contains('index'))
         // Responsive scene toggle — shared across initial load and navigate-back
         function checkScene()
         {
+            if (isWorkRoute()) return;
             if (sizes.width >= 1200) enableScene();
             else disableScene();
         }

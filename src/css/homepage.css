@@ -54,14 +54,17 @@ body.index
 
 .home
 {
-    display: grid;
-    grid-template-rows: auto 1fr;
-    row-gap: 48px;
     position: relative;
     z-index: 1;
     margin: 0 auto;
-    padding: 84px 20px 20px 20px;
+    padding: 0 20px;
     max-width: 2000px;
+}
+
+.home-main
+{
+    display: grid;
+    grid-template-rows: 1fr;
 }
 
 /* Home content — stacked with work content in grid row 2 */
@@ -71,17 +74,18 @@ body.index
     visibility: hidden;
     display: flex;
     flex-direction: column;
-    gap: 48px;
+    gap: 112px;
     max-width: 530px;
-    grid-row: 2;
+    grid-row: 1;
     grid-column: 1;
+    margin-bottom: 96px;
 }
 
 /* Work content — stacked in same grid cell, hidden by default */
 
 .work-content
 {
-    grid-row: 2;
+    grid-row: 1;
     grid-column: 1;
     display: none;
     visibility: hidden;
@@ -93,7 +97,7 @@ body.index
 {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    padding-top: 32px;
+    margin-bottom: 16px;
     gap: 16px;
 }
 
@@ -156,7 +160,7 @@ body.index
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin: 20px 0 32px 0;
+    margin: 20px 0 48px 0;
     padding: 0 4px;
 }
 
@@ -183,25 +187,21 @@ body.index
 .home-header
 {
     display: flex;
-    align-items: flex-start;
-    gap: 20px;
-    max-width: 530px;
+    flex-direction: column;
+    gap: 120px;
+    padding-top: 84px;
+    margin-bottom: 120px;
 }
 
-.home-header a
+.home-logo
 {
     display: block;
-    border-radius: 50%;
-    flex-shrink: 0;
-    cursor: pointer;
+    color: var(--dark);
+    line-height: 0;
 }
 
-.home-avatar
+.home-logo svg
 {
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    object-fit: cover;
     display: block;
 }
 
@@ -209,13 +209,13 @@ body.index
 {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 12px;
 }
 
-.home h1
+.home-header h1
 {
-    font-size: 20px;
-    font-weight: 500;
+    font-size: 22px;
+    font-weight: 600;
     line-height: normal;
     color: var(--dark);
     font-family: inherit;
@@ -226,10 +226,10 @@ body.index
 .home-subtitle
 {
     font-size: 18px;
-    font-weight: 400;
+    font-weight: 500;
     color: var(--secondary);
     margin: 0;
-    line-height: normal;
+    line-height: 1.5;
 }
 
 /* Sections */
@@ -239,7 +239,6 @@ body.index
     display: flex;
     flex-direction: column;
     gap: 32px;
-    padding: 32px 0;
 }
 
 .home-section h2
@@ -382,7 +381,14 @@ body.index
 {
     border-top: 0.5px solid var(--light);
     padding: 48px 0;
+    max-width: 530px;
 }
+
+body.work .home-connect
+{
+    max-width: none;
+}
+
 
 .connect-row
 {
@@ -495,12 +501,18 @@ body.index
 {
     .home
     {
-        padding: 140px 32px 32px 32px;
+        padding: 0 32px;
+    }
+
+    .home-header
+    {
+        padding-top: 140px;
     }
 
     .work-grid
     {
         gap: 32px;
+        margin-bottom: 32px;
     }
 
     .work-card-title
@@ -521,12 +533,23 @@ body.index
 {
     .home
     {
-        padding: 120px 64px 64px 64px;
+        padding: 0 64px;
+    }
+
+    .home-header
+    {
+        padding-top: 120px;
+    }
+
+    .home-connect
+    {
+        padding: 64px 0;
     }
 
     .work-grid
     {
         gap: 48px;
+        margin-bottom: 48px;
     }
 
     .work-card-title

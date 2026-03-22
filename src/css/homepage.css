@@ -124,7 +124,8 @@ body.index
     inset: 0;
 }
 
-.work-card-media video
+.work-card-media video,
+.work-card-media img
 {
     width: 100%;
     height: 100%;

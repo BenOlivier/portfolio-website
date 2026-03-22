@@ -40,6 +40,11 @@ module.exports = {
             filename: 'litho.html',
             minify: true,
         }),
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, '../src/html/experiments.html'),
+            filename: 'experiments.html',
+            minify: true,
+        }),
         new MiniCSSExtractPlugin(),
     ],
     module:

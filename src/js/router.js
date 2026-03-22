@@ -4,7 +4,7 @@ let transitioning = false;
 let transitionId = 0;
 // eslint-disable-next-line no-unused-vars
 let sceneRef = null;
-let sceneMethods = null; // { enableScene, disableScene, getExperience }
+let sceneMethods = null; // { enableScene, disableScene, checkScene, getExperience }
 
 export function setSceneCallbacks(methods)
 {
@@ -87,7 +87,7 @@ async function navigateToHome({ pushState = true } = {})
     // Re-enable 3D scene (balloons kept floating, new ones will spawn)
     if (sceneMethods)
     {
-        await sceneMethods.enableScene();
+        await sceneMethods.checkScene();
         if (transitionId !== myId) return;
     }
 

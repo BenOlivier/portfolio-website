@@ -188,16 +188,17 @@ body.index
 {
     display: flex;
     flex-direction: column;
-    gap: 120px;
-    padding-top: 84px;
+    gap: 100px;
+    padding-top: 64px;
     margin-bottom: 120px;
 }
 
 .home-logo
 {
-    display: block;
+    display: inline-block;
     color: var(--dark);
     line-height: 0;
+    padding: 12px 0;
 }
 
 .home-logo svg
@@ -506,7 +507,7 @@ body.work .home-connect
 
     .home-header
     {
-        padding-top: 140px;
+        padding-top: 80px;
     }
 
     .work-grid
@@ -538,7 +539,7 @@ body.work .home-connect
 
     .home-header
     {
-        padding-top: 120px;
+        padding-top: 80px;
     }
 
     .home-connect

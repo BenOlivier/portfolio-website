@@ -53,16 +53,16 @@ if (document.body.classList.contains('index'))
         }
 
         // Responsive scene toggle — shared across initial load and navigate-back
-        function checkScene()
+        async function checkScene()
         {
             if (isWorkRoute()) return;
-            if (sizes.width >= 1200) enableScene();
+            if (sizes.width >= 1200) await enableScene();
             else disableScene();
         }
         sizes.on('resize', checkScene);
 
         // Wire scene callbacks into router
-        setSceneCallbacks({ enableScene, disableScene, getExperience });
+        setSceneCallbacks({ enableScene, disableScene, checkScene, getExperience });
 
         // Route-aware initialisation
         if (isWorkRoute())

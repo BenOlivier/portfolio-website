@@ -146,27 +146,38 @@ body.index
     left: 12px;
     display: inline-flex;
     align-items: center;
-    height: 28px;
-    padding: 0 10px;
+    padding: 3px 14px;
     border-radius: 1000px;
     background: rgba(255, 255, 255, 0.9);
-    font-size: 13px;
-    font-weight: 500;
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    font-size: 16px;
+    font-weight: 400;
     color: var(--dark);
     white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.work-card-pill-detail
+{
+    color: var(--secondary);
 }
 
 @media(min-width: 1200px)
 {
     .work-card-pill
     {
-        transform: translateY(calc(100% + 24px));
-        transition: transform 0.3s ease;
+        transform: translateY(8px) scale(0.9);
+        opacity: 0;
+        filter: blur(4px);
+        transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s cubic-bezier(0.25, 1, 0.5, 1), filter 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
     .work-card:hover .work-card-pill
     {
-        transform: translateY(0%);
+        transform: translateY(0%) scale(1);
+        opacity: 1;
+        filter: blur(0px);
     }
 }
 

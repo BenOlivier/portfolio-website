@@ -112,7 +112,7 @@ body.index
     position: relative;
     display: block;
     overflow: hidden;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 1 / 1;
     border-radius: 12px;
     background: var(--bg-light-grey);
     text-decoration: none;
@@ -267,13 +267,13 @@ body.index
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-    height: 34px;
+    gap: 7px;
+    height: 36px;
     margin-top: 6px;
-    padding: 0 12px 0 14px;
+    padding: 0 14px 0 16px;
     border: 1px solid var(--light);
     border-radius: 1000px;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 400;
     font-family: inherit;
     color: var(--primary);
@@ -290,10 +290,10 @@ body.index
     transition: border-color 0.1s, color 0.1s;
 }
 
-/* .home-pill-button .pill-label
+.home-pill-button .pill-label
 {
-    padding-bottom: 0.4px;
-} */
+    padding-bottom: 1.5px;
+}
 
 .home-pill-button .arrow
 {
@@ -320,7 +320,8 @@ body.index
 .experience-entry
 {
     display: flex;
-    gap: 40px;
+    flex-direction: column;
+    gap: 8px;
     align-items: flex-start;
 }
 
@@ -330,7 +331,6 @@ body.index
     font-weight: 400;
     line-height: 1.8;
     color: var(--tertiary);
-    width: 112px;
     flex-shrink: 0;
     font-family: ui-monospace, 'SF Mono', monospace;
 }
@@ -397,18 +397,20 @@ body.work .home-connect
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 32px;
+    gap: 30px;
 }
 
 .connect-links
 {
     display: flex;
     gap: 32px;
+    width: 100%;
+    justify-content: space-between;
 }
 
 .connect-links a
 {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 400;
     color: var(--primary);
     text-decoration: underline;
@@ -427,7 +429,7 @@ body.work .home-connect
 
 .connect-time
 {
-    display: flex;
+    display: none;
     align-items: center;
     gap: 8px;
     font-size: 16px;
@@ -445,59 +447,6 @@ body.work .home-connect
 
 /* Breakpoints */
 
-@media(max-width: 479px)
-{
-    .work-card
-    {
-        aspect-ratio: 1 / 1;
-    }
-
-    .home-pill-button
-    {
-        font-size: 18px;
-        height: 36px;
-        gap: 7px;
-        padding: 0 14px 0 16px;
-    }
-
-    .home-pill-button .pill-label
-    {
-        padding-bottom: 1.5px;
-    }
-
-    .experience-entry
-    {
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .experience-date
-    {
-        width: auto;
-    }
-
-    .connect-row
-    {
-        gap: 30px;
-    }
-
-    .connect-links
-    {
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    .connect-links a
-    {
-        font-size: 18px;
-    }
-
-    .connect-time
-    {
-        display: none;
-    }
-}
-
 @media(min-width: 480px)
 {
     .home
@@ -510,6 +459,11 @@ body.work .home-connect
         padding-top: 80px;
     }
 
+    .work-card
+    {
+        aspect-ratio: 16 / 9;
+    }
+
     .work-grid
     {
         gap: 32px;
@@ -519,6 +473,51 @@ body.work .home-connect
     .work-card-title
     {
         font-size: 18px;
+    }
+
+    .home-pill-button
+    {
+        font-size: 16px;
+        height: 34px;
+        gap: 6px;
+        padding: 0 12px 0 14px;
+    }
+
+    .home-pill-button .pill-label
+    {
+        padding-bottom: 0;
+    }
+
+    .experience-entry
+    {
+        flex-direction: row;
+        gap: 40px;
+    }
+
+    .experience-date
+    {
+        width: 112px;
+    }
+
+    .connect-row
+    {
+        gap: 32px;
+    }
+
+    .connect-links
+    {
+        width: auto;
+        justify-content: flex-start;
+    }
+
+    .connect-links a
+    {
+        font-size: 16px;
+    }
+
+    .connect-time
+    {
+        display: flex;
     }
 }
 

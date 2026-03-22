@@ -518,14 +518,8 @@ export function resetViews()
 export function showWorkImmediate()
 {
     const homeContent = document.querySelector('.home-content');
-    const workContent = document.querySelector('.work-content');
-    const cards = document.querySelectorAll('.work-card');
-
     homeContent.style.visibility = 'hidden';
     homeContent.style.pointerEvents = 'none';
 
-    workContent.style.visibility = 'visible';
-    workContent.style.pointerEvents = 'auto';
-    gsap.set(workContent, { opacity: 1 });
-    gsap.set(cards, { opacity: 1, x: 0, y: 0, filter: 'blur(0px)' });
+    revealWork();
 }

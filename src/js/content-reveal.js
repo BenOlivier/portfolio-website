@@ -1,22 +1,39 @@
 import gsap from 'gsap';
 import SplitType from 'split-type';
 
-// --- Home content animation parameters ---
-const HOME_BLUR = 6;
-const HOME_TRANSLATE_X = -24;
-const HOME_DURATION = 0.6;
-const HOME_STAGGER = 0.04;
-const HOME_LINE_STAGGER = 0.02;
-const HOME_START_DELAY = 0.5;
-const HOME_EXIT_DURATION = 0.3;
+// --- Home content enter ---
+const HOME_ENTER_BLUR = 6;
+const HOME_ENTER_TRANSLATE_X = 0;
+const HOME_ENTER_TRANSLATE_Y = 24;
+const HOME_ENTER_DURATION = 0.6;
+const HOME_ENTER_STAGGER = 0.04;
+const HOME_ENTER_LINE_STAGGER = 0.02;
+const HOME_ENTER_DELAY = 0.5;
 
-// --- Work cards animation parameters ---
-const WORK_BLUR = 6;
-const WORK_TRANSLATE_X = 24;
-const WORK_DURATION = 1.2;
-const WORK_STAGGER = 0.04;
-const WORK_START_DELAY = 0.5;
-const WORK_EXIT_DURATION = 0.3;
+// --- Home content exit ---
+const HOME_EXIT_BLUR = 6;
+const HOME_EXIT_TRANSLATE_X = 0;
+const HOME_EXIT_TRANSLATE_Y = -24;
+const HOME_EXIT_DURATION = 0.2;
+const HOME_EXIT_DELAY = 0;
+
+// --- Work cards enter ---
+const WORK_ENTER_BLUR = 6;
+const WORK_ENTER_TRANSLATE_X = 0;
+const WORK_ENTER_TRANSLATE_Y = 24;
+const WORK_ENTER_DURATION = 0.6;
+const WORK_ENTER_STAGGER = 0.15;
+const WORK_ENTER_DELAY = 0.2;
+const WORK_VIDEO_DELAY = 0.2;
+const WORK_VIDEO_DURATION = 0.8;
+const WORK_VIDEO_EASE = 'power1.inOut';
+
+// --- Work cards exit ---
+const WORK_EXIT_BLUR = 6;
+const WORK_EXIT_TRANSLATE_X = 0;
+const WORK_EXIT_TRANSLATE_Y = -24;
+const WORK_EXIT_DURATION = 0.2;
+const WORK_EXIT_DELAY = 0;
 
 // --- Shared easing ---
 const ENTER_EASE = 'power2.out';
@@ -69,7 +86,7 @@ function setupResize()
             {
                 const split = new SplitType(p, { types: 'lines' });
                 activeSplits.push(split);
-                gsap.set(split.lines, { opacity: 1, x: 0, filter: 'blur(0px)' });
+                gsap.set(split.lines, { opacity: 1, x: 0, y: 0, filter: 'blur(0px)' });
             }
         }, 200);
     };
@@ -155,7 +172,7 @@ function getHomeRevealUnits()
 
 export function revealHome(options = {})
 {
-    const startDelay = options.delay ?? HOME_START_DELAY;
+    const startDelay = options.delay ?? HOME_ENTER_DELAY;
 
     return new Promise((resolve) =>
     {
@@ -183,6 +200,7 @@ export function revealHome(options = {})
         gsap.set(homeContent.children, {
             opacity: 1,
             x: 0,
+            y: 0,
             filter: 'blur(0px)',
         });
 
@@ -202,8 +220,9 @@ export function revealHome(options = {})
 
         gsap.set(allTargets, {
             opacity: 0,
-            x: HOME_TRANSLATE_X,
-            filter: `blur(${HOME_BLUR}px)`,
+            x: HOME_ENTER_TRANSLATE_X,
+            y: HOME_ENTER_TRANSLATE_Y,
+            filter: `blur(${HOME_ENTER_BLUR}px)`,
         });
 
         // Animate with clock-based delay
@@ -214,7 +233,7 @@ export function revealHome(options = {})
         {
             gsap.to(el, {
                 opacity: 1,
-                duration: HOME_DURATION,
+                duration: HOME_ENTER_DURATION,
                 delay,
                 ease: ENTER_EASE,
                 onComplete: el === lastTarget ? onRevealComplete : undefined,
@@ -222,14 +241,15 @@ export function revealHome(options = {})
 
             gsap.to(el, {
                 filter: 'blur(0px)',
-                duration: HOME_DURATION,
+                duration: HOME_ENTER_DURATION,
                 delay,
                 ease: ENTER_EASE,
             });
 
             gsap.to(el, {
                 x: 0,
-                duration: HOME_DURATION,
+                y: 0,
+                duration: HOME_ENTER_DURATION,
                 delay,
                 ease: ENTER_EASE,
             });
@@ -250,14 +270,14 @@ export function revealHome(options = {})
                 for (const line of unit.els)
                 {
                     animateTarget(line, clock);
-                    clock += HOME_LINE_STAGGER;
+                    clock += HOME_ENTER_LINE_STAGGER;
                 }
-                clock += HOME_STAGGER - HOME_LINE_STAGGER;
+                clock += HOME_ENTER_STAGGER - HOME_ENTER_LINE_STAGGER;
             }
             else
             {
                 animateTarget(unit.el, clock);
-                clock += HOME_STAGGER;
+                clock += HOME_ENTER_STAGGER;
             }
         }
     });
@@ -283,44 +303,30 @@ export function exitHome()
             return;
         }
 
-        // Build flat targets list with clock-based stagger
-        let clock = 0;
-        const tweens = [];
-
+        // Collect all targets into a flat list
+        const allTargets = [];
         for (const unit of units)
         {
             if (unit.type === 'lines')
             {
-                for (const line of unit.els)
-                {
-                    tweens.push({ el: line, delay: clock });
-                    clock += HOME_LINE_STAGGER;
-                }
-                clock += HOME_STAGGER - HOME_LINE_STAGGER;
+                allTargets.push(...unit.els);
             }
             else
             {
-                tweens.push({ el: unit.el, delay: clock });
-                clock += HOME_STAGGER;
+                allTargets.push(unit.el);
             }
         }
 
-        const lastTween = tweens[tweens.length - 1];
-
-        for (const { el, delay } of tweens)
-        {
-            const isLast = el === lastTween.el;
-
-            gsap.to(el, {
-                opacity: 0,
-                x: HOME_TRANSLATE_X,
-                filter: `blur(${HOME_BLUR}px)`,
-                duration: HOME_EXIT_DURATION,
-                delay,
-                ease: EXIT_EASE,
-                onComplete: isLast ? onExitComplete : undefined,
-            });
-        }
+        gsap.to(allTargets, {
+            opacity: 0,
+            x: HOME_EXIT_TRANSLATE_X,
+            y: HOME_EXIT_TRANSLATE_Y,
+            filter: `blur(${HOME_EXIT_BLUR}px)`,
+            duration: HOME_EXIT_DURATION,
+            delay: HOME_EXIT_DELAY,
+            ease: EXIT_EASE,
+            onComplete: onExitComplete,
+        });
 
         function onExitComplete()
         {
@@ -358,21 +364,33 @@ export function revealWork()
         // Set initial state for cards
         gsap.set(cards, {
             opacity: 0,
-            x: WORK_TRANSLATE_X,
-            filter: `blur(${WORK_BLUR}px)`,
+            x: WORK_ENTER_TRANSLATE_X,
+            y: WORK_ENTER_TRANSLATE_Y,
+            filter: `blur(${WORK_ENTER_BLUR}px)`,
         });
+
+        // Hide videos initially
+        const videos = workContent.querySelectorAll('.work-card-media video');
+        gsap.set(videos, { opacity: 0 });
 
         // Fade in the container
         gsap.set(workContent, { opacity: 1 });
 
+        // Determine column count from computed grid style for per-row stagger
+        const grid = workContent.querySelector('.work-grid');
+        const cols = grid ?
+            getComputedStyle(grid).gridTemplateColumns.split(' ').length :
+            1;
+
         cards.forEach((card, i) =>
         {
-            const delay = WORK_START_DELAY + i * WORK_STAGGER;
+            const row = Math.floor(i / cols);
+            const delay = WORK_ENTER_DELAY + row * WORK_ENTER_STAGGER;
             const isLast = i === cards.length - 1;
 
             gsap.to(card, {
                 opacity: 1,
-                duration: WORK_DURATION,
+                duration: WORK_ENTER_DURATION,
                 delay,
                 ease: ENTER_EASE,
                 onComplete: isLast ? () => { removePendingResolve(resolve); resolve(); } : undefined,
@@ -380,17 +398,30 @@ export function revealWork()
 
             gsap.to(card, {
                 filter: 'blur(0px)',
-                duration: WORK_DURATION,
+                duration: WORK_ENTER_DURATION,
                 delay,
                 ease: ENTER_EASE,
             });
 
             gsap.to(card, {
                 x: 0,
-                duration: WORK_DURATION,
+                y: 0,
+                duration: WORK_ENTER_DURATION,
                 delay,
                 ease: ENTER_EASE,
             });
+
+            // Fade in video after card appears
+            const video = card.querySelector('.work-card-media video');
+            if (video)
+            {
+                gsap.to(video, {
+                    opacity: 1,
+                    duration: WORK_VIDEO_DURATION,
+                    delay: delay + WORK_VIDEO_DELAY,
+                    ease: WORK_VIDEO_EASE,
+                });
+            }
         });
     });
 }
@@ -414,10 +445,11 @@ export function exitWork()
 
         gsap.to(cards, {
             opacity: 0,
-            x: WORK_TRANSLATE_X,
-            filter: `blur(${WORK_BLUR}px)`,
+            x: WORK_EXIT_TRANSLATE_X,
+            y: WORK_EXIT_TRANSLATE_Y,
+            filter: `blur(${WORK_EXIT_BLUR}px)`,
             duration: WORK_EXIT_DURATION,
-            stagger: WORK_STAGGER,
+            delay: WORK_EXIT_DELAY,
             ease: EXIT_EASE,
             onComplete()
             {
@@ -495,5 +527,5 @@ export function showWorkImmediate()
     workContent.style.visibility = 'visible';
     workContent.style.pointerEvents = 'auto';
     gsap.set(workContent, { opacity: 1 });
-    gsap.set(cards, { opacity: 1, x: 0, filter: 'blur(0px)' });
+    gsap.set(cards, { opacity: 1, x: 0, y: 0, filter: 'blur(0px)' });
 }

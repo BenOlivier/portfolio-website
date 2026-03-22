@@ -152,7 +152,7 @@ body.index
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
     font-size: 16px;
-    font-weight: 400;
+    font-weight: 500;
     color: var(--dark);
     white-space: nowrap;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);

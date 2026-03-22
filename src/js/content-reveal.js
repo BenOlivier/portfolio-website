@@ -193,6 +193,7 @@ export function revealHome(options = {})
             return;
         }
 
+        homeContent.style.display = '';
         homeContent.style.visibility = 'visible';
         homeContent.style.pointerEvents = 'auto';
 
@@ -332,6 +333,7 @@ export function exitHome()
         {
             removePendingResolve(resolve);
             homeContent.style.visibility = 'hidden';
+            homeContent.style.display = 'none';
             homeContent.style.pointerEvents = 'none';
             revertSplits();
             teardownResize();
@@ -349,7 +351,7 @@ export function revealWork()
     {
         pendingResolves.push(resolve);
         const workContent = document.querySelector('.work-content');
-        const cards = document.querySelectorAll('.work-card');
+        const cards = document.querySelectorAll('.work-card-wrapper');
 
         if (!cards.length)
         {
@@ -358,6 +360,7 @@ export function revealWork()
             return;
         }
 
+        workContent.style.display = 'block';
         workContent.style.visibility = 'visible';
         workContent.style.pointerEvents = 'auto';
 
@@ -434,7 +437,7 @@ export function exitWork()
     {
         pendingResolves.push(resolve);
         const workContent = document.querySelector('.work-content');
-        const cards = document.querySelectorAll('.work-card');
+        const cards = document.querySelectorAll('.work-card-wrapper');
 
         if (!cards.length)
         {
@@ -455,6 +458,7 @@ export function exitWork()
             {
                 removePendingResolve(resolve);
                 workContent.style.visibility = 'hidden';
+                workContent.style.display = 'none';
                 workContent.style.pointerEvents = 'none';
                 gsap.set(workContent, { opacity: 0 });
                 resolve();
@@ -501,15 +505,18 @@ export function resetViews()
     if (homeContent)
     {
         homeContent.style.visibility = 'hidden';
+        homeContent.style.display = 'none';
         homeContent.style.pointerEvents = 'none';
         gsap.set(Array.from(homeContent.children), { clearProps: 'all' });
     }
     if (workContent)
     {
         workContent.style.visibility = 'hidden';
+        workContent.style.display = 'none';
         workContent.style.pointerEvents = 'none';
         gsap.set(workContent, { opacity: 0 });
-        gsap.set(workContent.querySelectorAll('.work-card, .work-card-pill'), { clearProps: 'all' });
+        const workEls = '.work-card-wrapper, .work-card, .work-card-pill';
+        gsap.set(workContent.querySelectorAll(workEls), { clearProps: 'all' });
     }
 }
 
@@ -519,6 +526,7 @@ export function showWorkImmediate()
 {
     const homeContent = document.querySelector('.home-content');
     homeContent.style.visibility = 'hidden';
+    homeContent.style.display = 'none';
     homeContent.style.pointerEvents = 'none';
 
     revealWork();

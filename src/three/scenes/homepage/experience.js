@@ -71,8 +71,17 @@ export default class Homepage
 
     dispose()
     {
-        // Stop the animation loop
+        // Stop the animation loop and resize listener
         this.time.stop();
+        this.sizes.dispose();
+
+        // Remove all EventEmitter callbacks so nothing fires after dispose
+        this.sizes.off('resize');
+        this.time.off('tick');
+
+        // Dispose pointer (removes all window event listeners)
+        this.pointer.dispose();
+        document.body.style.cursor = '';
 
         // Dispose all Three.js objects
         this.scene.traverse((child) =>
@@ -91,6 +100,15 @@ export default class Homepage
 
         // Dispose renderer
         this.renderer.renderer.dispose();
+
+        // Null out references so nothing can act on stale data
+        this.objects = null;
+        this.physics = null;
+        this.camera = null;
+        this.renderer = null;
+        this.pointer = null;
+        this.sizes = null;
+        this.time = null;
 
         // Clear global reference and singleton
         window.experience = null;

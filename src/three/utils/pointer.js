@@ -19,47 +19,61 @@ export default class Pointer extends EventEmitter
         };
 
         // Mouse events
-        window.addEventListener('mousemove', (event) =>
+        this._onMouseMove = (event) =>
         {
             updatePos(event.clientX, event.clientY);
             this.trigger('mousemove');
-        });
+        };
 
-        window.addEventListener('mousedown', (event) =>
+        this._onMouseDown = (event) =>
         {
             updatePos(event.clientX, event.clientY);
             this.trigger('mousedown');
-        });
+        };
 
-        window.addEventListener('mouseup', () =>
+        this._onMouseUp = () =>
         {
             this.trigger('mouseup');
-        });
+        };
 
         // Touch events
-        window.addEventListener('touchstart', (event) =>
+        this._onTouchStart = (event) =>
         {
             const touch = event.touches[0];
             updatePos(touch.clientX, touch.clientY);
             this.trigger('mousedown');
-        }, { passive: true });
+        };
 
-        window.addEventListener('touchmove', (event) =>
+        this._onTouchMove = (event) =>
         {
             if (this.isDragging) event.preventDefault();
             const touch = event.touches[0];
             updatePos(touch.clientX, touch.clientY);
             this.trigger('mousemove');
-        }, { passive: false });
+        };
 
-        window.addEventListener('touchend', () =>
+        this._onTouchEnd = () =>
         {
             this.trigger('mouseup');
-        });
+        };
 
-        window.addEventListener('touchcancel', () =>
-        {
-            this.trigger('mouseup');
-        });
+        window.addEventListener('mousemove', this._onMouseMove);
+        window.addEventListener('mousedown', this._onMouseDown);
+        window.addEventListener('mouseup', this._onMouseUp);
+        window.addEventListener('touchstart', this._onTouchStart, { passive: true });
+        window.addEventListener('touchmove', this._onTouchMove, { passive: false });
+        window.addEventListener('touchend', this._onTouchEnd);
+        window.addEventListener('touchcancel', this._onTouchEnd);
+    }
+
+    dispose()
+    {
+        window.removeEventListener('mousemove', this._onMouseMove);
+        window.removeEventListener('mousedown', this._onMouseDown);
+        window.removeEventListener('mouseup', this._onMouseUp);
+        window.removeEventListener('touchstart', this._onTouchStart);
+        window.removeEventListener('touchmove', this._onTouchMove);
+        window.removeEventListener('touchend', this._onTouchEnd);
+        window.removeEventListener('touchcancel', this._onTouchEnd);
     }
 }

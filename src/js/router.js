@@ -2,6 +2,7 @@ import { exitHome, revealWork, exitWork, revealHome, showWorkImmediate, killAllT
 
 let transitioning = false;
 let transitionId = 0;
+// eslint-disable-next-line no-unused-vars
 let sceneRef = null;
 let sceneMethods = null; // { enableScene, disableScene, getExperience }
 

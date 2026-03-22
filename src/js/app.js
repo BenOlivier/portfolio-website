@@ -84,7 +84,6 @@ if (document.body.classList.contains('index'))
 if (document.body.classList.contains('litho'))
 {
     import('../css/litho.css');
-    import('../css/related-projects.css');
 
     import('../three/scenes/litho/experience.js').then(({default: Litho}) =>
     {
@@ -94,11 +93,9 @@ if (document.body.classList.contains('litho'))
 
 if (document.body.classList.contains('customuse'))
 {
-    import('../css/related-projects.css');
 }
 
 if (document.body.classList.contains('meta'))
 {
-    import('../css/related-projects.css');
 }
 

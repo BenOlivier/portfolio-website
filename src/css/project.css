@@ -85,7 +85,7 @@
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: none;
     scrollbar-width: none;
-    overscroll-behavior: contain;
+    overscroll-behavior: none;
 }
 
 .modal-handle
@@ -112,10 +112,12 @@
 
 .modal-close-button
 {
-    position: absolute;
+    position: sticky;
     top: 24px;
-    right: 24px;
-    z-index: 1;
+    float: right;
+    margin-right: 24px;
+    margin-bottom: -48px;
+    z-index: 3;
     width: 48px;
     height: 48px;
     display: none;
@@ -155,12 +157,13 @@
 
 .modal-body
 {
-    padding: 48px 20px 64px 20px;
+    padding: 0 20px 20px 20px;
 }
 
 body.project-open
 {
     overflow: hidden;
+    overscroll-behavior: none;
 }
 
 /* Project content */
@@ -186,6 +189,24 @@ body.project-open
 {
     aspect-ratio: 16 / 9;
     border: none;
+}
+
+.project-header
+{
+    max-width: 100%;
+    margin: 96px auto;
+}
+
+.project-header h1
+{
+    margin-bottom: 12px;
+}
+
+.project-header h2
+{
+    font-size: 18px;
+    margin-bottom: 0;
+    color: var(--secondary);
 }
 
 .text-container
@@ -301,7 +322,12 @@ body.project-open
 
     .modal-body
     {
-        padding: 64px 48px 80px 48px;
+        padding: 0 48px 48px 48px;
+    }
+
+    .project-header
+    {
+        max-width: 530px;
     }
 
     .text-container
@@ -319,6 +345,6 @@ body.project-open
 
     .modal-body
     {
-        padding: 64px 96px 80px 96px;
+        padding: 0 96px 96px 96px;
     }
 }

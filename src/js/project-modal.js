@@ -17,6 +17,9 @@ const MOBILE_EXIT_EASE = 'power2.in';
 const MOBILE_SNAP_BACK_DURATION = 0.5;
 const MOBILE_SNAP_BACK_EASE = 'back.out(0.6)';
 
+// --- Media fade ---
+const MEDIA_FADE_DURATION = 1.2;
+
 // --- Drag-to-dismiss constants ---
 const DRAG_DISMISS_THRESHOLD = 100;
 
@@ -65,8 +68,79 @@ async function fetchProjectContent(slug)
     const suggestions = container?.querySelector('.suggestions');
     if (suggestions) suggestions.remove();
 
+    // Defer media loading — rewrite src to data-src
+    if (container)
+    {
+        container.querySelectorAll('img[src], iframe[src]').forEach((el) =>
+        {
+            el.setAttribute('data-src', el.getAttribute('src'));
+            el.removeAttribute('src');
+        });
+        container.querySelectorAll('source[src]').forEach((el) =>
+        {
+            el.setAttribute('data-src', el.getAttribute('src'));
+            el.removeAttribute('src');
+        });
+    }
+
     contentCache[slug] = container?.innerHTML || '';
     return contentCache[slug];
+}
+
+// --- Lazy media loading ---
+
+function wrapMediaElement(el)
+{
+    const wrapper = document.createElement('div');
+    wrapper.style.background = 'var(--bg-light-2)';
+    wrapper.style.borderRadius = '12px';
+    wrapper.style.overflow = 'hidden';
+    el.parentNode.insertBefore(wrapper, el);
+    wrapper.appendChild(el);
+    return wrapper;
+}
+
+function loadMedia()
+{
+    content.querySelectorAll('[data-src]').forEach((el) =>
+    {
+        if (el.tagName === 'SOURCE')
+        {
+            const video = el.closest('video');
+            if (video)
+            {
+                wrapMediaElement(video);
+                gsap.set(video, { opacity: 0 });
+                el.setAttribute('src', el.getAttribute('data-src'));
+                el.removeAttribute('data-src');
+                video.load();
+                video.addEventListener('loadeddata', () =>
+                {
+                    gsap.to(video, {
+                        opacity: 1,
+                        duration: MEDIA_FADE_DURATION,
+                        ease: 'power1.out',
+                    });
+                }, { once: true });
+            }
+            return;
+        }
+
+        // IMG and IFRAME — wrap in placeholder, hide, set src, fade on load
+        wrapMediaElement(el);
+        gsap.set(el, { opacity: 0 });
+        el.setAttribute('src', el.getAttribute('data-src'));
+        el.removeAttribute('data-src');
+
+        el.addEventListener('load', () =>
+        {
+            gsap.to(el, {
+                opacity: 1,
+                duration: MEDIA_FADE_DURATION,
+                ease: 'power1.out',
+            });
+        }, { once: true });
+    });
 }
 
 // --- Video pause/resume ---
@@ -143,7 +217,7 @@ export async function openProjectModal(slug)
 {
     pauseWorkVideos();
 
-    // Fetch and inject content
+    // Fetch and inject content (media src deferred to data-src)
     const html = await fetchProjectContent(slug);
     content.innerHTML = html;
 
@@ -154,11 +228,23 @@ export async function openProjectModal(slug)
     overlay.classList.add('active');
     overlay.setAttribute('aria-hidden', 'false');
 
+    // Wait one frame for layout to settle before animating
+    await new Promise((r) => requestAnimationFrame(r));
+
+    modal.style.willChange = 'transform';
+
     // Animate scrim
     gsap.fromTo(scrim,
         { opacity: 0 },
         { opacity: 1, duration: MODAL_SCRIM_DURATION, ease: 'power1.out' },
     );
+
+    function onAnimComplete(resolve)
+    {
+        modal.style.willChange = '';
+        loadMedia();
+        resolve();
+    }
 
     // Animate modal — different behavior on mobile vs desktop
     if (isMobile())
@@ -171,7 +257,7 @@ export async function openProjectModal(slug)
                     y: 0,
                     duration: MOBILE_ENTER_DURATION,
                     ease: MOBILE_ENTER_EASE,
-                    onComplete: resolve,
+                    onComplete: () => onAnimComplete(resolve),
                 },
             );
         });
@@ -186,7 +272,7 @@ export async function openProjectModal(slug)
                 y: 0,
                 duration: MODAL_ENTER_DURATION,
                 ease: MODAL_ENTER_EASE,
-                onComplete: resolve,
+                onComplete: () => onAnimComplete(resolve),
             },
         );
     });

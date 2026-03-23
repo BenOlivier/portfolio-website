@@ -106,7 +106,7 @@
     overflow: hidden;
     aspect-ratio: 1 / 1;
     border-radius: 12px;
-    background: var(--bg-light-grey);
+    background: var(--bg-light-3);
     text-decoration: none;
 }
 

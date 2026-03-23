@@ -1,12 +1,46 @@
-.litho #top-text
+/* Project pages */
+
+.project-content img,
+.project-content video,
+.project-content iframe
 {
-    margin-bottom: 0;
+    display: block;
+    width: 100%;
+    border-radius: 12px;
 }
 
-.litho #top-text p:last-of-type
+.project-content iframe
 {
-    margin-bottom: 0;
+    aspect-ratio: 16 / 9;
+    border: none;
 }
+
+.text-container
+{
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Breakpoints */
+
+@media(min-width: 768px)
+{
+    .text-container
+    {
+        max-width: 300px;
+    }
+}
+
+@media(min-width: 1280px)
+{
+    .text-container
+    {
+        max-width: 500px;
+    }
+}
+
+/* Litho 3D points (legacy) */
 
 .litho .webgl
 {
@@ -42,14 +76,6 @@
     transform: scale(1, 1);
 }
 
-@media(min-width: 750px)
-{
-    .point:hover .point-text
-    {
-        opacity: 1;
-    }
-}
-
 .point .point-text
 {
     position: absolute;
@@ -80,125 +106,14 @@
         width: 40px;
         height: 40px;
         line-height: 40px;
-
         font-size: 16px;
     }
 }
 
-.litho #triple-video iframe
-{
-    width: 30%;
-    height: 60vw;
-    max-height: 490px;
-}
-
-@media(min-width: 480px)
-{
-    .litho #triple-video iframe
-    {
-        height: 50vw;
-    }
-}
-
 @media(min-width: 750px)
 {
-    .litho #triple-video iframe
+    .point:hover .point-text
     {
-       height: 40vw;
-    }
-}
-
-.looping-video
-{
-    pointer-events: none;
-    user-select: none;
-    display: block;
-    object-fit: cover;
-}
-
-#featured-in
-{
-    text-align: center;
-    margin: 100px 0 50px 0;
-}
-
-#press-container
-{
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto 100px auto;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    row-gap: 50px;
-    justify-items: center;
-    align-items: center;
-}
-
-@media(min-width: 750px)
-{
-    #press-container
-    {
-        margin-bottom: 150px;
-    }
-}
-
-#press-container #wired
-{
-    width: 120px;
-    padding: 20px 0;
-}
-
-#press-container #gdn
-{
-    width: 80px;
-    padding: 10px;
-}
-
-#press-container #the-verge
-{
-    width: 100px;
-    padding: 10px;
-}
-
-#press-container #tech-crunch
-{
-    width: 120px;
-    padding: 10px;
-}
-
-@media(min-width: 480px)
-{
-    #press-container #wired
-    {
-        width: 150px;
-    }
-
-    #press-container #gdn
-    {
-        width: 90px;
-    }
-
-    #press-container #the-verge
-    {
-        width: 100px;
-    }
-
-    #press-container #tech-crunch
-    {
-        width: 130px;
-    }
-}
-
-@media(min-width: 750px)
-{
-    #press-container
-    {
-        grid-template-columns: repeat(4, 1fr);
-        max-width: none;
-    }
-
-    #press-container #wired
-    {
-        margin-right: 30px;
+        opacity: 1;
     }
 }

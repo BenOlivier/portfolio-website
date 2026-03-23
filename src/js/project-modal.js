@@ -204,12 +204,12 @@ export function killModalTweens()
 
 export function initProjectModal(onClose)
 {
-    overlay = document.querySelector('.project-modal-overlay');
-    scrim = document.querySelector('.project-modal-scrim');
-    modal = document.querySelector('.project-modal');
-    content = document.querySelector('.project-modal-content');
-    closeBtn = document.querySelector('.project-modal-close');
-    handle = document.querySelector('.project-modal-handle');
+    overlay = document.querySelector('.modal-overlay');
+    scrim = document.querySelector('.modal-scrim');
+    modal = document.querySelector('.modal');
+    content = document.querySelector('.modal-content');
+    closeBtn = document.querySelector('.modal-close-button');
+    handle = document.querySelector('.modal-handle');
     onCloseCallback = onClose;
 
     // Close button

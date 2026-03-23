@@ -9,12 +9,19 @@
 :root
 {
     --content-width: 530px;
-    --bg-light-grey: #eeeeee;
+    
+    /* Text colors */
     --dark: #18181b;
     --primary: #52525b;
     --secondary: #71717a;
     --tertiary: #a1a1aa;
     --light: #d4d4d8;
+
+    /* Background colors */
+    --bg-light-3: #e4e4e7;
+    --bg-light-2: #f4f4f5;
+    --bg-light-1: #fafafa;
+    --bg-white: #ffffff;
 }
 
 html, body

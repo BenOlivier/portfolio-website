@@ -59,7 +59,7 @@
     grid-template-rows: 1fr;
 }
 
-/* Home content — stacked with work content in grid row 2 */
+/* About + work content overlap in same grid cell */
 
 .about-content
 {
@@ -90,7 +90,7 @@
     display: grid;
     grid-template-columns: 1fr;
     margin-bottom: 16px;
-    gap: 16px;
+    gap: 32px;
 }
 
 .work-card-wrapper
@@ -153,26 +153,19 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin: 20px 0 48px 0;
+    margin: 32px 0 48px 0;
     padding: 0 4px;
 }
 
-.work-card-title
+.work-card-text h2
 {
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--dark);
     margin: 0;
-    line-height: normal;
 }
 
-.work-card-description
+.work-card-text p
 {
-    font-size: 16px;
-    font-weight: 400;
-    color: var(--secondary);
     margin: 0;
-    line-height: normal;
+    font-size: 15px;
 }
 
 /* Header */
@@ -201,7 +194,6 @@ body.work .home-header
 {
     display: inline-block;
     color: var(--dark);
-    line-height: 0;
     padding: 12px 0;
 }
 
@@ -318,7 +310,7 @@ body.work .home-header
     margin: 0;
 }
 
-/* Connect */
+/* Contact */
 
 .contact
 {
@@ -394,9 +386,15 @@ body.work .contact
         grid-template-columns: 1fr 1fr;
     }
 
-    .work-card-title
+    .work-card-text h2
     {
         font-size: 18px;
+    }
+
+    .work-card-text p
+    {
+        margin: 0;
+        font-size: 16px;
     }
 
     .button
@@ -421,11 +419,6 @@ body.work .contact
     .experience-date
     {
         width: 112px;
-    }
-
-    .connect-row
-    {
-        gap: 32px;
     }
 
     .contact-links
@@ -461,11 +454,6 @@ body.work .contact
     {
         gap: 48px;
         margin-bottom: 48px;
-    }
-
-    .work-card-title
-    {
-        font-size: 18px;
     }
 
     /* .work-card-pill

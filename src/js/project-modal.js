@@ -1,17 +1,27 @@
 import gsap from 'gsap';
 
-// --- Animation constants ---
+// --- Animation constants (desktop) ---
 const MODAL_ENTER_DURATION = 0.5;
 const MODAL_ENTER_Y = 60;
-const MODAL_ENTER_EASE = 'power2.out';
+const MODAL_ENTER_EASE = 'back.out(1.2)';
 const MODAL_SCRIM_DURATION = 0.3;
 const MODAL_EXIT_DURATION = 0.3;
 const MODAL_EXIT_Y = 40;
 const MODAL_EXIT_EASE = 'power2.in';
 
+// --- Animation constants (mobile) ---
+const MOBILE_ENTER_DURATION = 0.6;
+const MOBILE_ENTER_EASE = 'back.out(0.6)';
+const MOBILE_EXIT_DURATION = 0.3;
+const MOBILE_EXIT_EASE = 'power2.in';
+const MOBILE_SNAP_BACK_DURATION = 0.5;
+const MOBILE_SNAP_BACK_EASE = 'back.out(0.6)';
+
 // --- Drag-to-dismiss constants ---
-const DRAG_DISMISS_THRESHOLD = 120;
-const DRAG_SNAP_BACK_DURATION = 0.3;
+const DRAG_DISMISS_THRESHOLD = 200;
+
+// --- Mobile breakpoint ---
+const MOBILE_BREAKPOINT = 768;
 
 // --- Content cache ---
 const contentCache = {};
@@ -29,6 +39,13 @@ let onCloseCallback;
 let dragStartY = 0;
 let dragCurrentY = 0;
 let isDragging = false;
+
+// --- Helpers ---
+
+function isMobile()
+{
+    return window.innerWidth < MOBILE_BREAKPOINT;
+}
 
 // --- Fetch + parse project content ---
 
@@ -77,7 +94,6 @@ function onDragStart(e)
     isDragging = true;
     dragStartY = e.touches ? e.touches[0].clientY : e.clientY;
     dragCurrentY = 0;
-    modal.style.transition = 'none';
 }
 
 function onDragMove(e)
@@ -88,35 +104,34 @@ function onDragMove(e)
     dragCurrentY = Math.max(0, clientY - dragStartY);
 
     // Apply transform directly for responsive feel
-    modal.style.transform = `translateY(${dragCurrentY}px)`;
+    gsap.set(modal, { y: dragCurrentY });
 
     // Fade scrim proportionally
     const progress = Math.min(dragCurrentY / DRAG_DISMISS_THRESHOLD, 1);
-    scrim.style.opacity = 1 - progress * 0.5;
+    gsap.set(scrim, { opacity: 1 - progress * 0.5 });
 }
 
 function onDragEnd()
 {
     if (!isDragging) return;
     isDragging = false;
-    modal.style.transition = '';
 
     if (dragCurrentY >= DRAG_DISMISS_THRESHOLD)
     {
-        // Dismiss
-        if (onCloseCallback) onCloseCallback();
+        // Dismiss — animate down off screen
+        if (onCloseCallback) onCloseCallback({ fromDrag: true });
     }
     else
     {
-        // Snap back
+        // Snap back with bounce
         gsap.to(modal, {
             y: 0,
-            duration: DRAG_SNAP_BACK_DURATION,
-            ease: 'power2.out',
+            duration: MOBILE_SNAP_BACK_DURATION,
+            ease: MOBILE_SNAP_BACK_EASE,
         });
         gsap.to(scrim, {
             opacity: 1,
-            duration: DRAG_SNAP_BACK_DURATION,
+            duration: MOBILE_SNAP_BACK_DURATION,
             ease: 'power2.out',
         });
     }
@@ -145,7 +160,23 @@ export async function openProjectModal(slug)
         { opacity: 1, duration: MODAL_SCRIM_DURATION, ease: 'power1.out' },
     );
 
-    // Animate modal
+    // Animate modal — different behavior on mobile vs desktop
+    if (isMobile())
+    {
+        return new Promise((resolve) =>
+        {
+            gsap.fromTo(modal,
+                { y: window.innerHeight },
+                {
+                    y: 0,
+                    duration: MOBILE_ENTER_DURATION,
+                    ease: MOBILE_ENTER_EASE,
+                    onComplete: resolve,
+                },
+            );
+        });
+    }
+
     return new Promise((resolve) =>
     {
         gsap.fromTo(modal,
@@ -163,14 +194,43 @@ export async function openProjectModal(slug)
 
 // --- Close modal ---
 
-export async function closeProjectModal()
+export async function closeProjectModal({ fromDrag = false } = {})
 {
     gsap.to(scrim, {
         opacity: 0,
-        duration: MODAL_EXIT_DURATION,
-        ease: MODAL_EXIT_EASE,
+        duration: fromDrag ? MOBILE_EXIT_DURATION : MODAL_EXIT_DURATION,
+        ease: fromDrag ? MOBILE_EXIT_EASE : MODAL_EXIT_EASE,
     });
 
+    function onComplete()
+    {
+        overlay.classList.remove('active');
+        overlay.setAttribute('aria-hidden', 'true');
+        content.innerHTML = '';
+        gsap.set(modal, { clearProps: 'all' });
+        gsap.set(scrim, { clearProps: 'all' });
+        resumeWorkVideos();
+    }
+
+    // Mobile drag dismiss — slide straight down
+    if (fromDrag || isMobile())
+    {
+        return new Promise((resolve) =>
+        {
+            gsap.to(modal, {
+                y: window.innerHeight,
+                duration: MOBILE_EXIT_DURATION,
+                ease: MOBILE_EXIT_EASE,
+                onComplete()
+                {
+                    onComplete();
+                    resolve();
+                },
+            });
+        });
+    }
+
+    // Desktop — fade + translate
     return new Promise((resolve) =>
     {
         gsap.to(modal, {
@@ -180,12 +240,7 @@ export async function closeProjectModal()
             ease: MODAL_EXIT_EASE,
             onComplete()
             {
-                overlay.classList.remove('active');
-                overlay.setAttribute('aria-hidden', 'true');
-                content.innerHTML = '';
-                modal.style.transform = '';
-                scrim.style.opacity = '';
-                resumeWorkVideos();
+                onComplete();
                 resolve();
             },
         });

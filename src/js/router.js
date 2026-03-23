@@ -128,11 +128,11 @@ async function navigateToProject(slug, { pushState = true } = {})
 
 // --- Close project ---
 
-async function closeProject({ pushState = true } = {})
+async function closeProject({ pushState = true, fromDrag = false } = {})
 {
     document.body.classList.remove('project-open');
     if (pushState) history.pushState({}, '', '/work');
-    await closeProjectModal();
+    await closeProjectModal({ fromDrag });
 }
 
 // --- Init ---
@@ -140,7 +140,7 @@ async function closeProject({ pushState = true } = {})
 export function initRouter()
 {
     // Init project modal with close callback
-    initProjectModal(() => closeProject());
+    initProjectModal((opts) => closeProject(opts));
 
     // Intercept "See my work" button
     const workButton = document.querySelector('.button[href="/work"]');

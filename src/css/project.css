@@ -88,10 +88,14 @@
 
 .modal-handle
 {
+    position: sticky;
+    top: 0;
+    z-index: 1;
     display: flex;
     justify-content: center;
     padding: 12px 0 12px 0;
     cursor: grab;
+    background: var(--bg-white);
 }
 
 .modal-handle::after

@@ -18,7 +18,7 @@ const MOBILE_SNAP_BACK_DURATION = 0.5;
 const MOBILE_SNAP_BACK_EASE = 'back.out(0.6)';
 
 // --- Drag-to-dismiss constants ---
-const DRAG_DISMISS_THRESHOLD = 200;
+const DRAG_DISMISS_THRESHOLD = 100;
 
 // --- Mobile breakpoint ---
 const MOBILE_BREAKPOINT = 768;

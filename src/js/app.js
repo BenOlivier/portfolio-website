@@ -83,7 +83,7 @@ if (document.body.classList.contains('index'))
 
 if (document.body.classList.contains('litho'))
 {
-    import('../css/litho.css');
+    import('../css/project.css');
 
     import('../three/scenes/litho/experience.js').then(({default: Litho}) =>
     {

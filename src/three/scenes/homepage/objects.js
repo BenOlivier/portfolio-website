@@ -132,7 +132,7 @@ export default class Objects
         const rightEdge = halfW;
 
         // Content right edge in world-space X
-        const home = document.querySelector('.home-content');
+        const home = document.querySelector('.about-content');
         if (home)
         {
             const rect = home.getBoundingClientRect();

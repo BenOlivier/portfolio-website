@@ -43,14 +43,6 @@
     display: block;
 }
 
-/* Page */
-
-body.index
-{
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
 
 .home
 {
@@ -67,15 +59,15 @@ body.index
     grid-template-rows: 1fr;
 }
 
-/* Home content — stacked with work content in grid row 2 */
+/* About + work content overlap in same grid cell */
 
-.home-content
+.about-content
 {
     visibility: hidden;
     display: flex;
     flex-direction: column;
     gap: 112px;
-    max-width: 530px;
+    max-width: var(--content-width);
     grid-row: 1;
     grid-column: 1;
     margin-bottom: 96px;
@@ -98,7 +90,7 @@ body.index
     display: grid;
     grid-template-columns: 1fr;
     margin-bottom: 16px;
-    gap: 16px;
+    gap: 32px;
 }
 
 .work-card-wrapper
@@ -161,26 +153,19 @@ body.index
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin: 20px 0 48px 0;
+    margin: 32px 0 48px 0;
     padding: 0 4px;
 }
 
-.work-card-title
+.work-card-text h2
 {
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--dark);
     margin: 0;
-    line-height: normal;
 }
 
-.work-card-description
+.work-card-text p
 {
-    font-size: 16px;
-    font-weight: 400;
-    color: var(--secondary);
     margin: 0;
-    line-height: normal;
+    font-size: 15px;
 }
 
 /* Header */
@@ -191,14 +176,24 @@ body.index
     flex-direction: column;
     gap: 100px;
     padding-top: 64px;
-    margin-bottom: 120px;
+    padding-bottom: 120px;
+    max-width: var(--content-width);
+}
+
+body.work .home-header
+{
+    max-width: none;
+}
+
+.home-header nav
+{
+    line-height: 0;
 }
 
 .home-logo
 {
     display: inline-block;
     color: var(--dark);
-    line-height: 0;
     padding: 12px 0;
 }
 
@@ -234,36 +229,10 @@ body.index
     line-height: 1.5;
 }
 
-/* Sections */
 
-.home-section
-{
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-}
+/* Button */
 
-.home-section h2
-{
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--dark);
-    margin: 0;
-    line-height: normal;
-}
-
-.home-section > p
-{
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 1.8;
-    color: var(--primary);
-    margin: 0;
-}
-
-/* Pill button */
-
-.home-pill-button
+.button
 {
     display: inline-flex;
     align-items: center;
@@ -284,26 +253,26 @@ body.index
     transition: border-color 0.15s, color 0.15s;
 }
 
-.home-pill-button:hover,
-.home-pill-button:active
+.button:hover,
+.button:active
 {
     border-color: var(--secondary);
     transition: border-color 0.1s, color 0.1s;
 }
 
-.home-pill-button .pill-label
+.button .pill-label
 {
     padding-bottom: 1.5px;
 }
 
-.home-pill-button .arrow
+.button .arrow
 {
     color: var(--light);
     transition: color 0.15s;
 }
 
-.home-pill-button:hover .arrow,
-.home-pill-button:active .arrow
+.button:hover .arrow,
+.button:active .arrow
 {
     color: var(--secondary);
     transition: color 0.1s;
@@ -311,19 +280,13 @@ body.index
 
 /* Experience */
 
-.experience-list
-{
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-}
-
 .experience-entry
 {
     display: flex;
     flex-direction: column;
     gap: 8px;
     align-items: flex-start;
+    margin-bottom: 32px;
 }
 
 .experience-date
@@ -342,66 +305,31 @@ body.index
     flex-direction: column;
 }
 
-.experience-role
+.experience-info p
 {
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 1.8;
-    color: var(--primary);
     margin: 0;
 }
 
-.experience-role a
-{
-    color: var(--primary);
-    text-decoration: underline;
-    text-decoration-color: var(--light);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 3px;
-    transition: text-decoration-color 0.1s;
-}
+/* Contact */
 
-.experience-role a:hover,
-.experience-role a:active
-{
-    text-decoration-color: var(--primary);
-    transition: text-decoration-color 0.1s;
-}
-
-.experience-location
-{
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.8;
-    color: var(--secondary);
-    margin: 0;
-}
-
-/* Connect */
-
-.home-connect
-{
-    border-top: 0.5px solid var(--light);
-    padding: 48px 0;
-    max-width: 530px;
-}
-
-body.work .home-connect
-{
-    max-width: none;
-}
-
-
-.connect-row
+.contact
 {
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 30px;
+    border-top: 0.5px solid var(--light);
+    padding: 48px 0;
+    max-width: var(--content-width);
 }
 
-.connect-links
+body.work .contact
+{
+    max-width: none;
+}
+
+.contact-links
 {
     display: flex;
     gap: 32px;
@@ -409,26 +337,12 @@ body.work .home-connect
     justify-content: space-between;
 }
 
-.connect-links a
+.contact-links a
 {
     font-size: 18px;
-    font-weight: 400;
-    color: var(--primary);
-    text-decoration: underline;
-    text-decoration-color: var(--light);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 3px;
-    transition: text-decoration-color 0.1s;
 }
 
-.connect-links a:hover,
-.connect-links a:active
-{
-    text-decoration-color: var(--primary);
-    transition: text-decoration-color 0.1s;
-}
-
-.connect-time
+.contact-time
 {
     display: none;
     align-items: center;
@@ -472,12 +386,18 @@ body.work .home-connect
         grid-template-columns: 1fr 1fr;
     }
 
-    .work-card-title
+    .work-card-text h2
     {
         font-size: 18px;
     }
 
-    .home-pill-button
+    .work-card-text p
+    {
+        margin: 0;
+        font-size: 16px;
+    }
+
+    .button
     {
         font-size: 16px;
         height: 34px;
@@ -485,7 +405,7 @@ body.work .home-connect
         padding: 0 12px 0 14px;
     }
 
-    .home-pill-button .pill-label
+    .button .pill-label
     {
         padding-bottom: 0;
     }
@@ -501,35 +421,17 @@ body.work .home-connect
         width: 112px;
     }
 
-    .connect-row
-    {
-        gap: 32px;
-    }
-
-    .connect-links
+    .contact-links
     {
         width: auto;
         justify-content: flex-start;
     }
 
-    .connect-links a
-    {
-        font-size: 16px;
-    }
-
-    .connect-time
+    .contact-time
     {
         display: flex;
     }
 }
-
-/* @media(max-width: 900px)
-{
-    .work-grid
-    {
-        grid-template-columns: 1fr;
-    }
-} */
 
 @media(min-width: 1280px)
 {
@@ -543,7 +445,7 @@ body.work .home-connect
         padding-top: 80px;
     }
 
-    .home-connect
+    .contact
     {
         padding: 64px 0;
     }
@@ -552,11 +454,6 @@ body.work .home-connect
     {
         gap: 48px;
         margin-bottom: 48px;
-    }
-
-    .work-card-title
-    {
-        font-size: 18px;
     }
 
     /* .work-card-pill

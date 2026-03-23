@@ -99,7 +99,7 @@ async function navigateToHome({ pushState = true } = {})
 export function initRouter()
 {
     // Intercept "See my work" pill button
-    const workButton = document.querySelector('.home-pill-button[href="/work"]');
+    const workButton = document.querySelector('.button[href="/work"]');
     if (workButton)
     {
         workButton.addEventListener('click', (e) =>

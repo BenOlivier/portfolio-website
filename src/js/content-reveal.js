@@ -99,12 +99,12 @@ function getExitUnits()
 {
     const units = [];
 
-    const sections = document.querySelectorAll('.home-content > *');
+    const sections = document.querySelectorAll('.about-content > *');
     sections.forEach((section) =>
     {
         Array.from(section.children).forEach((child) =>
         {
-            if (child.matches('.home-section > p'))
+            if (child.matches('.about-section > p'))
             {
                 // Reuse active split if available
                 const split = activeSplits.find((s) => s.elements.includes(child));
@@ -131,12 +131,12 @@ function getHomeRevealUnits()
 {
     const units = [];
 
-    const sections = document.querySelectorAll('.home-content > *');
+    const sections = document.querySelectorAll('.about-content > *');
     sections.forEach((section) =>
     {
         Array.from(section.children).forEach((child) =>
         {
-            if (child.matches('.home-section > p'))
+            if (child.matches('.about-section > p'))
             {
                 // Clear stale inline styles before splitting (prevents invisible text after interruption)
                 gsap.set(child, { clearProps: 'all' });
@@ -163,7 +163,7 @@ export function revealHome(options = {})
     return new Promise((resolve) =>
     {
         pendingResolves.push(resolve);
-        const homeContent = document.querySelector('.home-content');
+        const homeContent = document.querySelector('.about-content');
 
         // Clean up previous splits (re-navigation)
         revertSplits();
@@ -277,7 +277,7 @@ export function exitHome()
     return new Promise((resolve) =>
     {
         pendingResolves.push(resolve);
-        const homeContent = document.querySelector('.home-content');
+        const homeContent = document.querySelector('.about-content');
 
         // Build exit targets from the same unit structure as reveal
         // If splits are active, animate lines individually; otherwise fall back to sections
@@ -457,7 +457,7 @@ export function exitWork()
 
 export function killAllTweens()
 {
-    const homeContent = document.querySelector('.home-content');
+    const homeContent = document.querySelector('.about-content');
     const workContent = document.querySelector('.work-content');
 
     if (homeContent)
@@ -485,7 +485,7 @@ export function killAllTweens()
 
 export function resetViews()
 {
-    const homeContent = document.querySelector('.home-content');
+    const homeContent = document.querySelector('.about-content');
     const workContent = document.querySelector('.work-content');
 
     if (homeContent)
@@ -510,7 +510,7 @@ export function resetViews()
 
 export function showWorkImmediate()
 {
-    const homeContent = document.querySelector('.home-content');
+    const homeContent = document.querySelector('.about-content');
     homeContent.style.visibility = 'hidden';
     homeContent.style.display = 'none';
     homeContent.style.pointerEvents = 'none';

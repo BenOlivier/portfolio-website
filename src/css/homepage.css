@@ -43,15 +43,6 @@
     display: block;
 }
 
-/* Page */
-
-body.index
-{
-    --content-width: 530px;
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
 
 .home
 {
@@ -70,7 +61,7 @@ body.index
 
 /* Home content — stacked with work content in grid row 2 */
 
-.home-content
+.about-content
 {
     visibility: hidden;
     display: flex;
@@ -329,29 +320,24 @@ body.work .home-header
 
 /* Connect */
 
-.home-connect
-{
-    border-top: 0.5px solid var(--light);
-    padding: 48px 0;
-    max-width: var(--content-width);
-}
-
-body.work .home-connect
-{
-    max-width: none;
-}
-
-
-.connect-row
+.contact
 {
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 30px;
+    border-top: 0.5px solid var(--light);
+    padding: 48px 0;
+    max-width: var(--content-width);
 }
 
-.connect-links
+body.work .contact
+{
+    max-width: none;
+}
+
+.contact-links
 {
     display: flex;
     gap: 32px;
@@ -359,12 +345,12 @@ body.work .home-connect
     justify-content: space-between;
 }
 
-.connect-links a
+.contact-links a
 {
     font-size: 18px;
 }
 
-.connect-time
+.contact-time
 {
     display: none;
     align-items: center;
@@ -442,13 +428,13 @@ body.work .home-connect
         gap: 32px;
     }
 
-    .connect-links
+    .contact-links
     {
         width: auto;
         justify-content: flex-start;
     }
 
-    .connect-time
+    .contact-time
     {
         display: flex;
     }
@@ -466,7 +452,7 @@ body.work .home-connect
         padding-top: 80px;
     }
 
-    .home-connect
+    .contact
     {
         padding: 64px 0;
     }

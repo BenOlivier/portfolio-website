@@ -8,6 +8,7 @@
 
 :root
 {
+    --content-width: 530px;
     --bg-light-grey: #eeeeee;
     --dark: #18181b;
     --primary: #52525b;
@@ -24,6 +25,9 @@ html, body
     height: 100%;
     background-color: #ffffff;
     line-height: 1.8;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 @media(max-width: 750px)

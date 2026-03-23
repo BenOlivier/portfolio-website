@@ -47,6 +47,7 @@
 
 body.index
 {
+    --content-width: 530px;
     font-family: -apple-system, BlinkMacSystemFont, 'SF Pro', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -75,7 +76,7 @@ body.index
     display: flex;
     flex-direction: column;
     gap: 112px;
-    max-width: 530px;
+    max-width: var(--content-width);
     grid-row: 1;
     grid-column: 1;
     margin-bottom: 96px;
@@ -191,7 +192,18 @@ body.index
     flex-direction: column;
     gap: 100px;
     padding-top: 64px;
-    margin-bottom: 120px;
+    padding-bottom: 120px;
+    max-width: var(--content-width);
+}
+
+body.work .home-header
+{
+    max-width: none;
+}
+
+.home-header nav
+{
+    line-height: 0;
 }
 
 .home-logo
@@ -234,36 +246,10 @@ body.index
     line-height: 1.5;
 }
 
-/* Sections */
 
-.home-section
-{
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-}
+/* Button */
 
-.home-section h2
-{
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--dark);
-    margin: 0;
-    line-height: normal;
-}
-
-.home-section > p
-{
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 1.8;
-    color: var(--primary);
-    margin: 0;
-}
-
-/* Pill button */
-
-.home-pill-button
+.button
 {
     display: inline-flex;
     align-items: center;
@@ -284,26 +270,26 @@ body.index
     transition: border-color 0.15s, color 0.15s;
 }
 
-.home-pill-button:hover,
-.home-pill-button:active
+.button:hover,
+.button:active
 {
     border-color: var(--secondary);
     transition: border-color 0.1s, color 0.1s;
 }
 
-.home-pill-button .pill-label
+.button .pill-label
 {
     padding-bottom: 1.5px;
 }
 
-.home-pill-button .arrow
+.button .arrow
 {
     color: var(--light);
     transition: color 0.15s;
 }
 
-.home-pill-button:hover .arrow,
-.home-pill-button:active .arrow
+.button:hover .arrow,
+.button:active .arrow
 {
     color: var(--secondary);
     transition: color 0.1s;
@@ -383,7 +369,7 @@ body.index
 {
     border-top: 0.5px solid var(--light);
     padding: 48px 0;
-    max-width: 530px;
+    max-width: var(--content-width);
 }
 
 body.work .home-connect
@@ -477,7 +463,7 @@ body.work .home-connect
         font-size: 18px;
     }
 
-    .home-pill-button
+    .button
     {
         font-size: 16px;
         height: 34px;
@@ -485,7 +471,7 @@ body.work .home-connect
         padding: 0 12px 0 14px;
     }
 
-    .home-pill-button .pill-label
+    .button .pill-label
     {
         padding-bottom: 0;
     }
@@ -522,14 +508,6 @@ body.work .home-connect
         display: flex;
     }
 }
-
-/* @media(max-width: 900px)
-{
-    .work-grid
-    {
-        grid-template-columns: 1fr;
-    }
-} */
 
 @media(min-width: 1280px)
 {

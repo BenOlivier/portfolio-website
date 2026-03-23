@@ -9,12 +9,19 @@
 :root
 {
     --content-width: 530px;
-    --bg-light-grey: #eeeeee;
+    
+    /* Text colors */
     --dark: #18181b;
     --primary: #52525b;
     --secondary: #71717a;
     --tertiary: #a1a1aa;
-    --light: #d4d4d8;
+    
+    /* Background colors */
+    --bg-light-4: #d4d4d8;
+    --bg-light-3: #e4e4e7;
+    --bg-light-2: #f4f4f5;
+    --bg-light-1: #fafafa;
+    --bg-white: #ffffff;
 }
 
 html, body
@@ -86,7 +93,7 @@ p
 {
     color: var(--primary);
     text-decoration: underline;
-    text-decoration-color: var(--light);
+    text-decoration-color: var(--bg-light-4);
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
     transition: text-decoration-color 0.1s;
@@ -97,4 +104,68 @@ p
 {
     text-decoration-color: var(--primary);
     transition: text-decoration-color 0.1s;
+}
+
+/* Button */
+
+.button
+{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    height: 36px;
+    margin-top: 6px;
+    padding: 0 14px 0 16px;
+    border: 1px solid var(--bg-light-4);
+    border-radius: 1000px;
+    font-size: 18px;
+    font-weight: 400;
+    font-family: inherit;
+    color: var(--primary);
+    text-decoration: none;
+    white-space: nowrap;
+    width: fit-content;
+    transition: border-color 0.15s, color 0.15s;
+}
+
+.button:hover,
+.button:active
+{
+    border-color: var(--secondary);
+    transition: border-color 0.1s, color 0.1s;
+}
+
+.button .pill-label
+{
+    padding-bottom: 1.5px;
+}
+
+.button .arrow
+{
+    color: var(--bg-light-4);
+    transition: color 0.15s;
+}
+
+.button:hover .arrow,
+.button:active .arrow
+{
+    color: var(--secondary);
+    transition: color 0.1s;
+}
+
+@media(min-width: 768px)
+{
+    .button
+    {
+        font-size: 16px;
+        height: 34px;
+        gap: 6px;
+        padding: 0 12px 0 14px;
+    }
+
+    .button .pill-label
+    {
+        padding-bottom: 0;
+    }
 }

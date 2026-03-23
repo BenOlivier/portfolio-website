@@ -21,10 +21,6 @@
 </head>
 
 <body class="index">
-  <div class="construction-banner">
-    🚧 Under construction 🚧
-    <div class="construction-popover">I am currently in the process of rebuilding my website, so things may temporarily look strange. Check back soon!</div>
-  </div>
   <div class="home">
     <header class="home-header">
       <nav>
@@ -95,7 +91,7 @@
       <div class="work-content">
         <div class="work-grid">
           <div class="work-card-wrapper">
-            <a class="work-card" href="/meta.html" aria-label="AR Desk Setup Interaction">
+            <a class="work-card" href="/work/meta" data-project="meta" aria-label="AR Desk Setup Interaction">
               <div class="work-card-media">
                 <video autoplay loop muted playsinline>
                   <source src="/videos/workrooms-desk-alignment.mp4" type="video/mp4">
@@ -109,7 +105,7 @@
             </div>
           </div>
           <div class="work-card-wrapper">
-            <a class="work-card" href="/meta.html" aria-label="Spatial Meeting UI">
+            <a class="work-card" href="/work/meta" data-project="meta" aria-label="Spatial Meeting UI">
               <div class="work-card-media">
                 <video autoplay loop muted playsinline>
                   <source src="/videos/workrooms-meeting-layouts.mp4" type="video/mp4">
@@ -123,10 +119,10 @@
             </div>
           </div>
           <div class="work-card-wrapper">
-            <a class="work-card" href="/customuse.html" aria-label="3D Game Asset Editor">
+            <a class="work-card" href="/work/customuse" data-project="customuse" aria-label="3D Game Asset Editor">
               <div class="work-card-media">
                 <video autoplay loop muted playsinline>
-                  <source src="/videos/customuse-3d-viewport.mp4" type="video/mp4">
+                  <source src="/videos/customuse-card.mov" type="video/mp4">
                 </video>
               </div>
               <span class="work-card-pill">Customuse<span class="work-card-pill-detail">&nbsp;• Product</span></span>
@@ -137,7 +133,7 @@
             </div>
           </div>
           <div class="work-card-wrapper">
-            <a class="work-card" href="/experiments.html" aria-label="Interaction Experiments">
+            <a class="work-card" href="/work/experiments" data-project="experiments" aria-label="Interaction Experiments">
               <div class="work-card-media">
                 <video autoplay loop muted playsinline>
                   <source src="/videos/swift-card-carousel.mp4" type="video/mp4">
@@ -151,7 +147,7 @@
             </div>
           </div>
           <div class="work-card-wrapper">
-            <a class="work-card" href="/litho.html" aria-label="Wearable Interaction Design">
+            <a class="work-card" href="/work/litho" data-project="litho" aria-label="Wearable Interaction Design">
               <div class="work-card-media">
                 <video autoplay loop muted playsinline>
                   <source src="/videos/point-grip.mp4" type="video/mp4">
@@ -194,5 +190,18 @@
     </footer>
   </div>
     <canvas class="webgl"></canvas>
+    <div class="modal-overlay" aria-hidden="true">
+      <div class="modal-scrim"></div>
+      <div class="modal" role="dialog" aria-modal="true">
+        <div class="modal-handle"></div>
+        <button class="modal-close-button" aria-label="Close project">
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5">
+            <line x1="1" y1="1" x2="14" y2="14"/>
+            <line x1="14" y1="1" x2="1" y2="14"/>
+          </svg>
+        </button>
+        <div class="modal-content"></div>
+      </div>
+    </div>
 </body>
 </html>

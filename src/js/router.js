@@ -1,4 +1,5 @@
 import { exitHome, revealWork, exitWork, revealHome, showWorkImmediate, killAllTweens } from './content-reveal.js';
+import { openProjectModal, closeProjectModal, initProjectModal, killModalTweens } from './project-modal.js';
 
 let transitioning = false;
 let transitionId = 0;
@@ -13,7 +14,13 @@ export function setSceneCallbacks(methods)
 
 export function isWorkRoute()
 {
-    return location.pathname === '/work';
+    return location.pathname === '/work' || location.pathname.startsWith('/work/');
+}
+
+export function getProjectSlug()
+{
+    const match = location.pathname.match(/^\/work\/([a-z0-9-]+)$/);
+    return match ? match[1] : null;
 }
 
 // --- Navigate to work ---
@@ -23,6 +30,14 @@ async function navigateToWork({ pushState = true } = {})
     if (transitioning)
     {
         killAllTweens();
+        killModalTweens();
+    }
+
+    // Close project modal if open (without pushState)
+    if (document.body.classList.contains('project-open'))
+    {
+        document.body.classList.remove('project-open');
+        await closeProjectModal();
     }
 
     const myId = ++transitionId;
@@ -66,6 +81,14 @@ async function navigateToHome({ pushState = true } = {})
     if (transitioning)
     {
         killAllTweens();
+        killModalTweens();
+    }
+
+    // Close project modal if open (without pushState)
+    if (document.body.classList.contains('project-open'))
+    {
+        document.body.classList.remove('project-open');
+        await closeProjectModal();
     }
 
     const myId = ++transitionId;
@@ -94,11 +117,32 @@ async function navigateToHome({ pushState = true } = {})
     transitioning = false;
 }
 
+// --- Navigate to project ---
+
+async function navigateToProject(slug, { pushState = true } = {})
+{
+    if (pushState) history.pushState({}, '', `/work/${slug}`);
+    document.body.classList.add('project-open');
+    await openProjectModal(slug);
+}
+
+// --- Close project ---
+
+async function closeProject({ pushState = true, fromDrag = false } = {})
+{
+    document.body.classList.remove('project-open');
+    if (pushState) history.pushState({}, '', '/work');
+    await closeProjectModal({ fromDrag });
+}
+
 // --- Init ---
 
 export function initRouter()
 {
-    // Intercept "See my work" pill button
+    // Init project modal with close callback
+    initProjectModal((opts) => closeProject(opts));
+
+    // Intercept "See my work" button
     const workButton = document.querySelector('.button[href="/work"]');
     if (workButton)
     {
@@ -109,13 +153,25 @@ export function initRouter()
         });
     }
 
+    // Intercept work card clicks (event delegation)
+    const workGrid = document.querySelector('.work-grid');
+    if (workGrid)
+    {
+        workGrid.addEventListener('click', (e) =>
+        {
+            const card = e.target.closest('a.work-card[data-project]');
+            if (!card) return;
+            e.preventDefault();
+            navigateToProject(card.dataset.project);
+        });
+    }
+
     // Intercept home header link (back to home)
     const homeLink = document.querySelector('.home-header a[href="/"]');
     if (homeLink)
     {
         homeLink.addEventListener('click', (e) =>
         {
-            // Only intercept if we're on the work route or transitioning to it
             if (isWorkRoute() || transitioning)
             {
                 e.preventDefault();
@@ -127,9 +183,21 @@ export function initRouter()
     // Handle browser back/forward
     window.addEventListener('popstate', () =>
     {
-        if (isWorkRoute())
+        const slug = getProjectSlug();
+        if (slug)
         {
-            navigateToWork({ pushState: false });
+            navigateToProject(slug, { pushState: false });
+        }
+        else if (location.pathname === '/work')
+        {
+            if (document.body.classList.contains('project-open'))
+            {
+                closeProject({ pushState: false });
+            }
+            else
+            {
+                navigateToWork({ pushState: false });
+            }
         }
         else
         {
@@ -137,8 +205,15 @@ export function initRouter()
         }
     });
 
-    // Direct URL access to /work
-    if (isWorkRoute())
+    // Direct URL access
+    const slug = getProjectSlug();
+    if (slug)
+    {
+        document.body.classList.add('work');
+        showWorkImmediate();
+        navigateToProject(slug, { pushState: false });
+    }
+    else if (location.pathname === '/work')
     {
         document.body.classList.add('work');
         showWorkImmediate();

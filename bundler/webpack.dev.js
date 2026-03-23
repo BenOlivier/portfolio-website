@@ -45,7 +45,7 @@ module.exports = merge(
             {
                 rewrites:
                 [
-                    { from: /^\/work$/, to: '/index.html' },
+                    { from: /^\/work(\/.*)?$/, to: '/index.html' },
                 ],
             },
             watchFiles: ['src/**', 'static/**'],

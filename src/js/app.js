@@ -1,5 +1,6 @@
 import '../css/global.css';
 import '../css/homepage.css';
+import '../css/modal.css';
 
 if (document.body.classList.contains('index'))
 {

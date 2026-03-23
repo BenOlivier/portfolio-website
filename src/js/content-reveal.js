@@ -104,14 +104,7 @@ function getExitUnits()
     {
         Array.from(section.children).forEach((child) =>
         {
-            if (child.classList.contains('experience-list'))
-            {
-                child.querySelectorAll('.experience-entry').forEach((entry) =>
-                {
-                    units.push({ type: 'element', el: entry });
-                });
-            }
-            else if (child.matches('.home-section > p'))
+            if (child.matches('.home-section > p'))
             {
                 // Reuse active split if available
                 const split = activeSplits.find((s) => s.elements.includes(child));
@@ -143,14 +136,7 @@ function getHomeRevealUnits()
     {
         Array.from(section.children).forEach((child) =>
         {
-            if (child.classList.contains('experience-list'))
-            {
-                child.querySelectorAll('.experience-entry').forEach((entry) =>
-                {
-                    units.push({ type: 'element', el: entry });
-                });
-            }
-            else if (child.matches('.home-section > p'))
+            if (child.matches('.home-section > p'))
             {
                 // Clear stale inline styles before splitting (prevents invisible text after interruption)
                 gsap.set(child, { clearProps: 'all' });

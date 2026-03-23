@@ -297,19 +297,13 @@ body.work .home-header
 
 /* Experience */
 
-.experience-list
-{
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-}
-
 .experience-entry
 {
     display: flex;
     flex-direction: column;
     gap: 8px;
     align-items: flex-start;
+    margin-bottom: 32px;
 }
 
 .experience-date
@@ -328,38 +322,8 @@ body.work .home-header
     flex-direction: column;
 }
 
-.experience-role
+.experience-info p
 {
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 1.8;
-    color: var(--primary);
-    margin: 0;
-}
-
-.experience-role a
-{
-    color: var(--primary);
-    text-decoration: underline;
-    text-decoration-color: var(--light);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 3px;
-    transition: text-decoration-color 0.1s;
-}
-
-.experience-role a:hover,
-.experience-role a:active
-{
-    text-decoration-color: var(--primary);
-    transition: text-decoration-color 0.1s;
-}
-
-.experience-location
-{
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.8;
-    color: var(--secondary);
     margin: 0;
 }
 
@@ -398,20 +362,6 @@ body.work .home-connect
 .connect-links a
 {
     font-size: 18px;
-    font-weight: 400;
-    color: var(--primary);
-    text-decoration: underline;
-    text-decoration-color: var(--light);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 3px;
-    transition: text-decoration-color 0.1s;
-}
-
-.connect-links a:hover,
-.connect-links a:active
-{
-    text-decoration-color: var(--primary);
-    transition: text-decoration-color 0.1s;
 }
 
 .connect-time
@@ -496,11 +446,6 @@ body.work .home-connect
     {
         width: auto;
         justify-content: flex-start;
-    }
-
-    .connect-links a
-    {
-        font-size: 16px;
     }
 
     .connect-time

@@ -13,7 +13,7 @@ if (document.body.classList.contains('index'))
     {
         const { initRouter, setSceneCallbacks, isWorkRoute } = await import('./router.js');
 
-        // Scene lifecycle — load above 1200px, hide below
+        // Scene lifecycle — load above 1080px, hide below
         const { default: Sizes } = await import('../three/utils/sizes.js');
         const sizes = new Sizes();
         const canvas = document.querySelector('canvas.webgl');
@@ -57,7 +57,7 @@ if (document.body.classList.contains('index'))
         async function checkScene()
         {
             if (isWorkRoute()) return;
-            if (sizes.width >= 1200) await enableScene();
+            if (sizes.width >= 1080) await enableScene();
             else disableScene();
         }
         sizes.on('resize', checkScene);

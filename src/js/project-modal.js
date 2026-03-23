@@ -127,7 +127,8 @@ function loadMedia()
         }
 
         // IMG and IFRAME — wrap in placeholder, hide, set src, fade on load
-        wrapMediaElement(el);
+        const isHero = el.closest('.project-hero');
+        if (!isHero) wrapMediaElement(el);
         gsap.set(el, { opacity: 0 });
         el.setAttribute('src', el.getAttribute('data-src'));
         el.removeAttribute('data-src');

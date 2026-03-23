@@ -90,14 +90,15 @@
 
 .modal-handle
 {
-    position: sticky;
+    position: absolute;
     top: 0;
-    z-index: 1;
+    left: 0;
+    right: 0;
+    z-index: 2;
     display: flex;
     justify-content: center;
     padding: 12px 0 12px 0;
     cursor: grab;
-    background: var(--bg-white);
 }
 
 .modal-handle::after
@@ -111,10 +112,9 @@
 
 .modal-close-button
 {
-    position: sticky;
+    position: absolute;
     top: 24px;
-    float: right;
-    margin-right: 24px;
+    right: 24px;
     z-index: 1;
     width: 48px;
     height: 48px;
@@ -138,8 +138,19 @@
 .project-hero
 {
     width: 100%;
-    aspect-ratio: 16 / 9;
-    background: rgb(66, 153, 210);
+    height: 650px;
+    background: var(--bg-light-2);
+    overflow: hidden;
+    border-radius: 0;
+}
+
+.project-hero img
+{
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
 }
 
 .modal-body
@@ -153,6 +164,13 @@ body.project-open
 }
 
 /* Project content */
+
+.project-content
+{
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+}
 
 .project-content img,
 .project-content video,

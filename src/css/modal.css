@@ -34,7 +34,7 @@
     overflow-y: auto;
     background: #ffffff;
     border-radius: 24px 24px 0 0;
-    padding: 48px 24px 64px;
+    box-shadow: 0 4px 80px rgba(0, 0, 0, 0.1);
     -webkit-overflow-scrolling: touch;
 }
 
@@ -55,7 +55,6 @@
     .project-modal
     {
         max-width: 800px;
-        padding: 64px 48px 80px;
     }
 
     .project-modal-handle
@@ -68,26 +67,28 @@
 {
     .project-modal
     {
-        max-width: 1200px;
+        max-width: 1100px;
     }
 }
 
 .project-modal-close
 {
-    position: sticky;
-    top: 0;
-    float: right;
+    position: absolute;
+    top: 24px;
+    right: 24px;
     z-index: 1;
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     display: none;
     align-items: center;
     justify-content: center;
-    background: none;
+    background: rgba(255, 255, 255, 0.9);
     border: none;
+    border-radius: 50%;
     cursor: pointer;
-    color: var(--secondary);
-    transition: color 0.15s;
+    color: var(--dark);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: background 0.15s;
 }
 
 @media(min-width: 768px)
@@ -100,12 +101,29 @@
 
 .project-modal-close:hover
 {
-    color: var(--dark);
+    background: rgba(255, 255, 255, 1);
+    transition: background 0.1s;
 }
 
-.project-modal-content
+
+.project-hero
 {
-    clear: both;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: rgb(66, 153, 210);
+}
+
+.project-modal-body
+{
+    padding: 48px 24px 64px;
+}
+
+@media(min-width: 768px)
+{
+    .project-modal-body
+    {
+        padding: 64px 48px 80px;
+    }
 }
 
 body.project-open

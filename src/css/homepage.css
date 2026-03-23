@@ -230,53 +230,6 @@ body.work .home-header
 }
 
 
-/* Button */
-
-.button
-{
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-    height: 36px;
-    margin-top: 6px;
-    padding: 0 14px 0 16px;
-    border: 1px solid var(--light);
-    border-radius: 1000px;
-    font-size: 18px;
-    font-weight: 400;
-    font-family: inherit;
-    color: var(--primary);
-    text-decoration: none;
-    white-space: nowrap;
-    width: fit-content;
-    transition: border-color 0.15s, color 0.15s;
-}
-
-.button:hover,
-.button:active
-{
-    border-color: var(--secondary);
-    transition: border-color 0.1s, color 0.1s;
-}
-
-.button .pill-label
-{
-    padding-bottom: 1.5px;
-}
-
-.button .arrow
-{
-    color: var(--light);
-    transition: color 0.15s;
-}
-
-.button:hover .arrow,
-.button:active .arrow
-{
-    color: var(--secondary);
-    transition: color 0.1s;
-}
 
 /* Experience */
 
@@ -395,19 +348,6 @@ body.work .contact
     {
         margin: 0;
         font-size: 16px;
-    }
-
-    .button
-    {
-        font-size: 16px;
-        height: 34px;
-        gap: 6px;
-        padding: 0 12px 0 14px;
-    }
-
-    .button .pill-label
-    {
-        padding-bottom: 0;
     }
 
     .experience-entry

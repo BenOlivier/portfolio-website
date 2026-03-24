@@ -1,46 +1,53 @@
-/* Construction banner */
+/* Construction overlay */
 
-.construction-banner
+.construction-overlay
 {
     position: absolute;
-    top: 24px;
-    left: 24px;
-    z-index: 1;
-    display: inline-block;
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--secondary);
-    background: #ffffff;
-    border: 0.5px solid var(--bg-light-4);
-    border-radius: 8px;
-    padding: 6px 12px;
-    cursor: default;
-    white-space: nowrap;
+    inset: 0;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    background: rgba(130, 130, 130, 0.6);
+    -webkit-backdrop-filter: blur(40px);
+    backdrop-filter: blur(40px);
+    border-radius: 24px 24px 0 0;
+    padding: 40px;
+    text-align: center;
 }
 
-.construction-popover
+.construction-overlay img
 {
-    display: none;
-    position: absolute;
-    top: calc(100% + 8px);
-    left: 0;
-    width: 260px;
-    padding: 12px;
-    font-size: 13px;
+    width: 96px;
+    height: 96px;
+    opacity: 0.7;
+}
+
+.construction-text
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.construction-overlay h2
+{
+    font-size: 48px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 1);
+    line-height: 1.2;
+}
+
+.construction-overlay p
+{
+    font-size: 16px;
     font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
     line-height: 1.6;
-    color: var(--primary);
-    background: #ffffff;
-    border: 0.5px solid var(--bg-light-4);
-    border-radius: 8px;
-    white-space: normal;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-    z-index: 1;
-}
-
-.construction-banner:hover .construction-popover
-{
-    display: block;
+    max-width: 350px;
 }
 
 /* Project modal */
@@ -86,6 +93,11 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
     overscroll-behavior: none;
+}
+
+.modal:has(.construction-overlay)
+{
+    overflow: hidden;
 }
 
 .modal-handle

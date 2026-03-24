@@ -73,7 +73,7 @@ async function fetchProjectContent(slug)
     {
         container.querySelectorAll('img[src], iframe[src]').forEach((el) =>
         {
-            if (el.closest('.project-hero')) return;
+            if (el.closest('.project-hero') || el.closest('.construction-overlay')) return;
             el.setAttribute('data-src', el.getAttribute('src'));
             el.removeAttribute('src');
         });

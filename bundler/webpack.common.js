@@ -32,8 +32,8 @@ module.exports = {
             minify: true,
         }),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../src/html/spatial-meeting-ui.html'),
-            filename: 'spatial-meeting-ui.html',
+            template: path.resolve(__dirname, '../src/html/spatial-ui.html'),
+            filename: 'spatial-ui.html',
             minify: true,
         }),
         new HtmlWebpackPlugin({

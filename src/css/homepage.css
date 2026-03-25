@@ -172,7 +172,6 @@ body.work .home-header
     font-weight: 600;
     line-height: normal;
     color: var(--dark);
-    font-family: inherit;
     text-align: left;
     margin: 0;
 }

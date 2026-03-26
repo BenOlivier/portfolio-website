@@ -2,16 +2,16 @@ import gsap from 'gsap';
 import SplitType from 'split-type';
 
 // --- Home content enter ---
-const HOME_ENTER_BLUR = 6;
-const HOME_ENTER_TRANSLATE_X = 48;
+const HOME_ENTER_BLUR = 4;
+const HOME_ENTER_TRANSLATE_X = 92;
 const HOME_ENTER_TRANSLATE_Y = 0;
-const HOME_ENTER_DURATION = 0.6;
-const HOME_ENTER_STAGGER = 0.04;
+const HOME_ENTER_DURATION = 0.8;
+const HOME_ENTER_STAGGER = 0.03;
 const HOME_ENTER_LINE_STAGGER = 0.02;
 const HOME_ENTER_DELAY = 0.5;
 
 // --- Home content exit ---
-const HOME_EXIT_BLUR = 6;
+const HOME_EXIT_BLUR = 4;
 const HOME_EXIT_TRANSLATE_X = 48;
 const HOME_EXIT_TRANSLATE_Y = 0;
 const HOME_EXIT_DURATION = 0.2;
@@ -25,7 +25,7 @@ const WORK_ENTER_DURATION = 0.6;
 const WORK_ENTER_STAGGER = 0.15;
 const WORK_ENTER_DELAY = 0.2;
 const WORK_VIDEO_DELAY = 0.2;
-const WORK_VIDEO_DURATION = 0.8;
+const WORK_VIDEO_DURATION = 0.9;
 const WORK_VIDEO_EASE = 'power1.inOut';
 
 // --- Work cards exit ---
@@ -170,6 +170,11 @@ export function revealHome(options = {})
         teardownResize();
         revealComplete = false;
 
+        // Restore display before splitting so SplitType can calculate line breaks
+        homeContent.style.display = '';
+        homeContent.style.visibility = 'visible';
+        homeContent.style.pointerEvents = 'auto';
+
         const units = getHomeRevealUnits();
 
         if (!units.length)
@@ -178,10 +183,6 @@ export function revealHome(options = {})
             resolve();
             return;
         }
-
-        homeContent.style.display = '';
-        homeContent.style.visibility = 'visible';
-        homeContent.style.pointerEvents = 'auto';
 
         // Reset section containers (exitHome fades these to opacity 0 + blur)
         gsap.set(homeContent.children, {

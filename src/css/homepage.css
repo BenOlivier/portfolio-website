@@ -63,7 +63,7 @@
     overflow: hidden;
     aspect-ratio: 1 / 1;
     border-radius: 12px;
-    background: var(--bg-light-3);
+    background: var(--bg-light-2);
     text-decoration: none;
 }
 
@@ -133,7 +133,7 @@
     flex-direction: column;
     gap: 100px;
     padding-top: 64px;
-    padding-bottom: 64px;
+    padding-bottom: 48px;
     max-width: var(--content-width);
 }
 
@@ -232,6 +232,11 @@ body.work .toggle-pill
     transition: color 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
+.toggle-button:not(.active):hover
+{
+    color: var(--secondary);
+}
+
 .toggle-button.active
 {
     color: var(--primary);
@@ -302,11 +307,6 @@ body.work .contact
     gap: 32px;
     width: 100%;
     justify-content: space-between;
-}
-
-.contact-links a
-{
-    font-size: 18px;
 }
 
 .contact-time

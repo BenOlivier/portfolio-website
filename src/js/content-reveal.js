@@ -3,8 +3,8 @@ import SplitType from 'split-type';
 
 // --- Home content enter ---
 const HOME_ENTER_BLUR = 6;
-const HOME_ENTER_TRANSLATE_X = 0;
-const HOME_ENTER_TRANSLATE_Y = 24;
+const HOME_ENTER_TRANSLATE_X = 48;
+const HOME_ENTER_TRANSLATE_Y = 0;
 const HOME_ENTER_DURATION = 0.6;
 const HOME_ENTER_STAGGER = 0.04;
 const HOME_ENTER_LINE_STAGGER = 0.02;
@@ -12,15 +12,15 @@ const HOME_ENTER_DELAY = 0.5;
 
 // --- Home content exit ---
 const HOME_EXIT_BLUR = 6;
-const HOME_EXIT_TRANSLATE_X = 0;
-const HOME_EXIT_TRANSLATE_Y = -24;
+const HOME_EXIT_TRANSLATE_X = 48;
+const HOME_EXIT_TRANSLATE_Y = 0;
 const HOME_EXIT_DURATION = 0.2;
 const HOME_EXIT_DELAY = 0;
 
 // --- Work cards enter ---
 const WORK_ENTER_BLUR = 6;
-const WORK_ENTER_TRANSLATE_X = 0;
-const WORK_ENTER_TRANSLATE_Y = 24;
+const WORK_ENTER_TRANSLATE_X = -48;
+const WORK_ENTER_TRANSLATE_Y = 0;
 const WORK_ENTER_DURATION = 0.6;
 const WORK_ENTER_STAGGER = 0.15;
 const WORK_ENTER_DELAY = 0.2;
@@ -30,8 +30,8 @@ const WORK_VIDEO_EASE = 'power1.inOut';
 
 // --- Work cards exit ---
 const WORK_EXIT_BLUR = 6;
-const WORK_EXIT_TRANSLATE_X = 0;
-const WORK_EXIT_TRANSLATE_Y = -24;
+const WORK_EXIT_TRANSLATE_X = -48;
+const WORK_EXIT_TRANSLATE_Y = 0;
 const WORK_EXIT_DURATION = 0.2;
 const WORK_EXIT_DELAY = 0;
 

@@ -17,6 +17,15 @@ export function isWorkRoute()
     return location.pathname === '/work' || location.pathname.startsWith('/work/');
 }
 
+function syncToggle(view)
+{
+    const buttons = document.querySelectorAll('.toggle-button');
+    buttons.forEach((btn) =>
+    {
+        btn.classList.toggle('active', btn.dataset.view === view);
+    });
+}
+
 export function getProjectSlug()
 {
     const match = location.pathname.match(/^\/work\/([a-z0-9-]+)$/);
@@ -45,6 +54,7 @@ async function navigateToWork({ pushState = true } = {})
 
     if (pushState) history.pushState({}, '', '/work');
     document.body.classList.add('work');
+    syncToggle('work');
 
     // Release balloons + exit home content simultaneously
     const releasePromise = sceneMethods?.getExperience()?.objects?.release();
@@ -96,6 +106,7 @@ async function navigateToHome({ pushState = true } = {})
 
     if (pushState) history.pushState({}, '', '/');
     document.body.classList.remove('work');
+    syncToggle('about');
 
     // Exit work + reveal home simultaneously
     const exitPromise = exitWork();
@@ -152,6 +163,28 @@ export function initRouter()
             navigateToWork();
         });
     }
+
+    // Toggle buttons
+    const toggleButtons = document.querySelectorAll('.toggle-button');
+    toggleButtons.forEach((btn) =>
+    {
+        btn.addEventListener('click', () =>
+        {
+            const view = btn.dataset.view;
+            if (view === 'work' && !isWorkRoute())
+            {
+                toggleButtons.forEach((b) => b.classList.remove('active'));
+                btn.classList.add('active');
+                navigateToWork();
+            }
+            else if (view === 'about' && isWorkRoute())
+            {
+                toggleButtons.forEach((b) => b.classList.remove('active'));
+                btn.classList.add('active');
+                navigateToHome();
+            }
+        });
+    });
 
     // Intercept work card clicks (event delegation)
     const workGrid = document.querySelector('.work-grid');
@@ -210,12 +243,14 @@ export function initRouter()
     if (slug)
     {
         document.body.classList.add('work');
+        syncToggle('work');
         showWorkImmediate();
         navigateToProject(slug, { pushState: false });
     }
     else if (location.pathname === '/work')
     {
         document.body.classList.add('work');
+        syncToggle('work');
         showWorkImmediate();
     }
 }

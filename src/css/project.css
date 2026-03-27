@@ -194,8 +194,20 @@ body.project-open
 {
     display: block;
     width: 100%;
-    border-radius: 12px;
+    border-radius: 8px;
     background: var(--bg-light-2);
+}
+
+.project-content .crop-landscape
+{
+    overflow: hidden;
+}
+
+.media-wrapper
+{
+    background: var(--bg-light-2);
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 .project-content iframe
@@ -338,6 +350,24 @@ body.project-open
     .modal-body
     {
         padding: 0 48px 48px 48px;
+    }
+
+    .project-content img,
+    .project-content video,
+    .project-content iframe
+    {
+        border-radius: 12px;
+    }
+
+    .media-wrapper
+    {
+        border-radius: 12px;
+    }
+
+    .project-content .crop-landscape
+    {
+        aspect-ratio: 3 / 2;
+        object-fit: cover;
     }
 
     .project-hero

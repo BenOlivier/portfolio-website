@@ -93,9 +93,7 @@ async function fetchProjectContent(slug)
 function wrapMediaElement(el)
 {
     const wrapper = document.createElement('div');
-    wrapper.style.background = 'var(--bg-light-2)';
-    wrapper.style.borderRadius = '12px';
-    wrapper.style.overflow = 'hidden';
+    wrapper.className = 'media-wrapper';
     el.parentNode.insertBefore(wrapper, el);
     wrapper.appendChild(el);
     return wrapper;

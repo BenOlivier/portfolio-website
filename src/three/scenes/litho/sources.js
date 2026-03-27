@@ -2,11 +2,11 @@ export default [
     {
         name: 'litho',
         type: 'gltfModel',
-        path: 'models/litho.glb',
+        path: 'three/litho.glb',
     },
     {
         name: 'HDRI',
         type: 'hdrTexture',
-        path: 'images/environmentMap/autoshop.hdr',
+        path: 'three/studio_kontrast_04_1k.hdr',
     },
 ];

@@ -4,8 +4,8 @@
     <title>Ben Olivier | Horizon Workrooms</title>
     <meta charset="UTF-8">
     <meta name="description" content="Ben Olivier's work on Horizon Workrooms at Meta Reality Labs - VR productivity and collaboration.">
-    <link rel="icon" href="../../static/images/icons/favicon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="../../static/images/icons/apple-touch-icon.png">
+    <link rel="icon" href="../../static/icons/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../../static/icons/apple-touch-icon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,15 +13,8 @@
 </head>
 <body class="meta">
   <div class="container">
-    <div class="construction-overlay">
-      <img src="/static/images/icons/lock-icon.svg" alt="">
-      <div class="construction-text">
-        <h2>Under Construction</h2>
-        <p>This page is currently under construction. Please check back soon.</p>
-      </div>
-    </div>
     <div class="project-hero">
-      <img src="/static/images/work/meta/workrooms-meeting.jpg" alt="Horizon Workrooms">
+      <img src="../../static/projects/meta/workrooms-meeting.jpg" alt="Horizon Workrooms">
     </div>
     <div class="modal-body">
     <section class="project-header">
@@ -34,49 +27,53 @@
 
     <section class="project-content">
       <div class="text-container">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <h3>Context</h3>
+        <p>Horizon Workrooms is Meta's first party VR productivity solution, allowing users to meet and collaborate in the same virtual space.</p>
+        <p>Users can connect to their computer in the app, and use up to three large virtual screens for focused productivity sessions.</p>
       </div>
       <iframe src="https://www.youtube.com/embed/lgj50IxRrKQ?si=UkI9XyzAO-8X80Bz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       <div class="text-container">
-        <p>Horizon Workrooms is Meta's first party VR productivity solution which allows users to meet and collaborate in the same virtual space. This creates a sense of co-presence and physical connection that is impossible with 2D video calls.</p>
-        <p>The app also includes solo productivity features. Users can work on up to three large virtual screens in VR or MR, effectively removing the need for physical multi-monitor setups.</p>
+        <p>I was part of the personal productivity team, where we focused on providing a best-in-class experience for doing work in XR, making the most of the unique capabilities of the medium.</p>
+        <p>As a Product Design Prototyper, I identified and designed improvements to the app, and built high-fidelity prototypes to validate these ideas spatially.</p>
       </div>
-      <img src="/static/images/work/meta/workrooms-solo-productivity.jpg" alt="Workrooms Solo Productivity">
+      <img src="../../static/projects/meta/workrooms-solo-productivity.jpg" alt="Workrooms Solo Productivity">
       <div class="text-container">
-        <p>As a Product Design Prototyper on the Workrooms team it is my job was to design interactions, flows and features for the product. I build fully functional prototypes of these in Unity so that they can be user tested and validated. Finally, I work closely with engineering to see features implemented into the product and shipped.</p>
-        <p>Beyond designing, it is necessary to take a high-level view to identify areas of product that should be worked on, building my influence over strategy, and taking ownership over parts of the product.</p>
+        <h3>Desk Alignment Problem</h3>
+        <p>We identified a high level of drop off during our new user onboarding flow. Through user research we learned that people were getting stuck during an interaction which required them to align the virtual workspace to their real desk.</p>
+        <p>I prototyped a more intuitive single step interaction for aligning the workspace, which resulted in an 85% reduction in drop off.</p>
       </div>
-      <img src="/static/images/work/meta/workrooms-meeting.jpg" alt="Workrooms Meeting">
-    </section>
-
-    <section class="suggestions">
-      <hr>
-      <h2>Other Work</h2>
-      <div class="suggestions-row">
-        <div class="suggestions-card">
-          <a id="customuse-anchor" href="/customuse.html">
-            <div class="suggestions-image-container" id="customuse">
-              <img src="/static/images/work/customuse/customuse-thumbnail.jpg" alt="Customuse Hero">
-              <div class="suggestions-text-container">
-                <h3>Customuse</h3>
-                <p><span>2022 - 2023</span></p>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="suggestions-card">
-          <a id="litho-anchor" href="/litho.html">
-            <div class="suggestions-image-container" id="litho">
-              <img src="/static/images/work/litho/litho-thumbnail.jpg" alt="Litho Hero">
-              <div class="suggestions-text-container">
-                <h3>Litho Controller</h3>
-                <p><span>2019 - 2022</span></p>
-              </div>
-            </div>
-          </a>
-        </div>
+      <video class="crop-landscape" autoplay loop muted playsinline>
+        <source src="/projects/meta/desk-setup-interaction.mp4" type="video/mp4">
+      </video>
+      <div class="text-container">
+        <p>My technical knowledge allows me to effectively bridge between design and engineering. For this project, I was able to discuss rendering tradeoffs with the engineer, and deliver a finalised shader to them, avoiding any design detail from being lost in translation.</p>
       </div>
+      <video class="crop-landscape" autoplay loop muted playsinline>
+        <source src="/projects/meta/desk-setup-shader.mp4" type="video/mp4">
+      </video>
+      <div class="text-container">
+        <h3>Virtual Screen Manipulation</h3>
+        <p>One of the most highly requested features was the ability to reposition and resize virtual screens, allowing users to customise their setup and improve ergonomics.</p>
+        <p>I built several prototypes for this feature, exploring details such as auto-scaling screens based on distance, and snapping to center.</p>
+      </div>
+      <video class="crop-landscape" autoplay loop muted playsinline>
+        <source src="/projects/meta/screen-manipulation-prototype.mp4" type="video/mp4">
+      </video>
+      <div class="text-container">
+        <p>I worked closely with engineering during implementation to ensure the interaction felt right in production.</p>
+        <p>The screen customisation features were <a class="link" href="https://www.uploadvr.com/horizon-workrooms-overhaul/" target="_blank" rel="noopener noreferrer">well received</a> by Workrooms users, allowing for longer, more comfortable work sessions in the app.</p>
+      </div>
+      <video class="crop-landscape" autoplay loop muted playsinline>
+        <source src="/projects/meta/screen-manipulation-prod.mp4" type="video/mp4">
+      </video>
+      <div class="text-container">
+        <h3>Meeting Layouts</h3>
+        <p>I created a prototype for testing out different seating layouts in meetings, and seeing what it felt like to sit in different positions.</p>
+        <p>This prototype allowed me to quickly experiment with dynamic scaling of the screen share and video call participants, getting a true spatial understanding of comfort and legibility.</p>
+      </div>
+      <video class="crop-landscape" autoplay loop muted playsinline>
+        <source src="/projects/meta/meeting-layouts.mp4" type="video/mp4">
+      </video>
     </section>
     </div>
   </div>

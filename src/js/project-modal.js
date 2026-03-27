@@ -1,20 +1,20 @@
 import gsap from 'gsap';
 
 // --- Animation constants (desktop) ---
-const MODAL_ENTER_DURATION = 0.5;
-const MODAL_ENTER_Y = 60;
-const MODAL_ENTER_EASE = 'back.out(1.2)';
+const MODAL_ENTER_DURATION = 0.6;
+const MODAL_ENTER_Y = 64;
+const MODAL_ENTER_EASE = 'back.out(1)';
 const MODAL_SCRIM_DURATION = 0.3;
 const MODAL_EXIT_DURATION = 0.3;
-const MODAL_EXIT_Y = 40;
-const MODAL_EXIT_EASE = 'power2.in';
+const MODAL_EXIT_Y = 48;
+const MODAL_EXIT_EASE = 'power1.in';
 
 // --- Animation constants (mobile) ---
-const MOBILE_ENTER_DURATION = 0.6;
+const MOBILE_ENTER_DURATION = 0.45;
 const MOBILE_ENTER_EASE = 'back.out(0.6)';
-const MOBILE_EXIT_DURATION = 0.3;
-const MOBILE_EXIT_EASE = 'power2.in';
-const MOBILE_SNAP_BACK_DURATION = 0.5;
+const MOBILE_EXIT_DURATION = 0.2;
+const MOBILE_EXIT_EASE = 'none';
+const MOBILE_SNAP_BACK_DURATION = 0.4;
 const MOBILE_SNAP_BACK_EASE = 'back.out(0.6)';
 
 // --- Media fade ---
@@ -162,12 +162,16 @@ function resumeWorkVideos()
 
 function onDragStart(e)
 {
-    // Only allow drag when scrolled to top
-    if (modal.scrollTop > 0) return;
-
     isDragging = true;
     dragStartY = e.touches ? e.touches[0].clientY : e.clientY;
     dragCurrentY = 0;
+}
+
+function onContentDragStart(e)
+{
+    // Only initiate dismiss drag when content is scrolled to the very top
+    if (content.scrollTop > 0) return;
+    onDragStart(e);
 }
 
 function onDragMove(e)
@@ -177,11 +181,22 @@ function onDragMove(e)
     const clientY = e.touches ? e.touches[0].clientY : e.clientY;
     dragCurrentY = Math.max(0, clientY - dragStartY);
 
+    // Dismiss immediately once threshold is crossed — don't wait for release
+    if (dragCurrentY >= DRAG_DISMISS_THRESHOLD)
+    {
+        isDragging = false;
+        if (onCloseCallback) onCloseCallback({ fromDrag: true });
+        return;
+    }
+
+    // Prevent content scroll while dragging down
+    if (dragCurrentY > 0) e.preventDefault();
+
     // Apply transform directly for responsive feel
     gsap.set(modal, { y: dragCurrentY });
 
     // Fade scrim proportionally
-    const progress = Math.min(dragCurrentY / DRAG_DISMISS_THRESHOLD, 1);
+    const progress = dragCurrentY / DRAG_DISMISS_THRESHOLD;
     gsap.set(scrim, { opacity: 1 - progress * 0.5 });
 }
 
@@ -190,25 +205,17 @@ function onDragEnd()
     if (!isDragging) return;
     isDragging = false;
 
-    if (dragCurrentY >= DRAG_DISMISS_THRESHOLD)
-    {
-        // Dismiss — animate down off screen
-        if (onCloseCallback) onCloseCallback({ fromDrag: true });
-    }
-    else
-    {
-        // Snap back with bounce
-        gsap.to(modal, {
-            y: 0,
-            duration: MOBILE_SNAP_BACK_DURATION,
-            ease: MOBILE_SNAP_BACK_EASE,
-        });
-        gsap.to(scrim, {
-            opacity: 1,
-            duration: MOBILE_SNAP_BACK_DURATION,
-            ease: 'power2.out',
-        });
-    }
+    // Snap back with bounce (threshold was not reached)
+    gsap.to(modal, {
+        y: 0,
+        duration: MOBILE_SNAP_BACK_DURATION,
+        ease: MOBILE_SNAP_BACK_EASE,
+    });
+    gsap.to(scrim, {
+        opacity: 1,
+        duration: MOBILE_SNAP_BACK_DURATION,
+        ease: 'power2.out',
+    });
 }
 
 // --- Open modal ---
@@ -249,6 +256,11 @@ export async function openProjectModal(slug)
     // Animate modal — different behavior on mobile vs desktop
     if (isMobile())
     {
+        // Set modal height from live viewport — dvh/vh are unreliable on Chrome Android
+        // when the browser chrome has hidden and the visual viewport has grown.
+        // window.innerHeight is always accurate at the moment of opening.
+        gsap.set(modal, { height: window.innerHeight - 20 });
+
         return new Promise((resolve) =>
         {
             gsap.fromTo(modal,
@@ -374,8 +386,9 @@ export function initProjectModal(onClose)
         }
     });
 
-    // Drag-to-dismiss (touch on handle area)
+    // Drag-to-dismiss (handle always, content only when scrolled to top)
     handle.addEventListener('touchstart', onDragStart, { passive: true });
+    content.addEventListener('touchstart', onContentDragStart, { passive: true });
     window.addEventListener('touchmove', onDragMove, { passive: false });
     window.addEventListener('touchend', onDragEnd);
 }

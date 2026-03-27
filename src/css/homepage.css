@@ -229,12 +229,16 @@ body.work .toggle-pill
     font-weight: 500;
     color: var(--tertiary);
     cursor: pointer;
+    touch-action: manipulation;
     transition: color 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.toggle-button:not(.active):hover
+@media (hover: hover)
 {
-    color: var(--secondary);
+    .toggle-button:not(.active):hover
+    {
+        color: var(--secondary);
+    }
 }
 
 .toggle-button.active

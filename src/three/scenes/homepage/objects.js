@@ -20,7 +20,7 @@ const GRAB_ATTRACT = 2; // attraction strength toward grabbed balloon
 const REPEL_STRENGTH = 1; // gentle repel force between nearby balloons
 const REPEL_RADIUS = 1; // distance within which repulsion applies
 
-const BALLOON_COUNT = 12;
+const BALLOON_COUNT = 8;
 
 const PALETTES = [
     // Forest
@@ -30,7 +30,7 @@ const PALETTES = [
     [0xFFFFFF, 0xA9D6E5, 0x61A5C2, 0x1E78AD, 0x005A9B, 0xE1562B],
 
     // Turquoise
-    [0xA9E5E0, 0x61C2BA, 0x01867B, 0x005E56, 0xF5E6A9, 0xF7DC6F],
+    [0xA9E5E0, 0x61C2BA, 0x01867B, 0x005E56, 0xF5E6A9, 0xFFF7D4],
 
     // Peach
     [0xFAAD8A, 0xFA7053, 0xE6472B, 0xBE2111, 0x7C0B00, 0xB22A41],
@@ -155,8 +155,11 @@ export default class Objects
 
     createBBody(posX, posY)
     {
-        const radius = 0.2 * BALLOON_SCALE;
-        const offset = 0.1 * BALLOON_SCALE;
+        const radius = 0.15 * BALLOON_SCALE;
+        const topSphereOffset = new CANNON.Vec3(0.12, 0.18, 0);
+        const bottomSphereOffset = new CANNON.Vec3(0.14, -0.18, 0);
+        const boxHalf = new CANNON.Vec3(0.1, 0.3, 0.1);
+        const boxOffset = new CANNON.Vec3(-0.14, 0, 0);
 
         const body = new CANNON.Body({
             mass: 1,
@@ -164,8 +167,9 @@ export default class Objects
             linearDamping: 0.98,
             angularDamping: 0.98,
         });
-        body.addShape(new CANNON.Sphere(radius), new CANNON.Vec3(0, offset, 0));
-        body.addShape(new CANNON.Sphere(radius), new CANNON.Vec3(0, -offset, 0));
+        body.addShape(new CANNON.Sphere(radius), topSphereOffset);
+        body.addShape(new CANNON.Sphere(radius), bottomSphereOffset);
+        body.addShape(new CANNON.Box(boxHalf), boxOffset);
 
         body.quaternion.setFromEuler(
             Math.random() * Math.PI * 2,
@@ -173,7 +177,7 @@ export default class Objects
             Math.random() * Math.PI * 2,
         );
 
-        return { body, radius, offset };
+        return { body, radius, topSphereOffset, bottomSphereOffset, boxHalf, boxOffset };
     }
 
     respawn(balloon)
@@ -217,7 +221,10 @@ export default class Objects
             const { mesh, mat } = this.meshes[i];
             const spawnX = this.randomSpawnX();
             const spawnY = -halfH - SPAWN_MARGIN - i * 0.5;
-            const { body, radius, offset } = this.createBBody(spawnX, spawnY);
+            const {
+                body, radius, topSphereOffset, bottomSphereOffset,
+                boxHalf, boxOffset,
+            } = this.createBBody(spawnX, spawnY);
             this.world.addBody(body);
 
             let debugMesh = null;
@@ -227,13 +234,17 @@ export default class Objects
                 const debugMat = new THREE.MeshBasicMaterial({
                     color: 0x00ff00,
                     wireframe: true,
+                    depthTest: false,
                 });
                 debugMesh = new THREE.Group();
                 const top = new THREE.Mesh(geo, debugMat);
-                top.position.y = offset;
+                top.position.copy(topSphereOffset);
                 const bottom = new THREE.Mesh(geo, debugMat);
-                bottom.position.y = -offset;
-                debugMesh.add(top, bottom);
+                bottom.position.copy(bottomSphereOffset);
+                const boxGeo = new THREE.BoxGeometry(boxHalf.x * 2, boxHalf.y * 2, boxHalf.z * 2);
+                const box = new THREE.Mesh(boxGeo, debugMat);
+                box.position.set(boxOffset.x, boxOffset.y, boxOffset.z);
+                debugMesh.add(top, bottom, box);
                 this.scene.add(debugMesh);
             }
 

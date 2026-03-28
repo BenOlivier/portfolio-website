@@ -20,7 +20,7 @@ const GRAB_ATTRACT = 2; // attraction strength toward grabbed balloon
 const REPEL_STRENGTH = 1; // gentle repel force between nearby balloons
 const REPEL_RADIUS = 1; // distance within which repulsion applies
 
-const BALLOON_COUNT = 6;
+const BALLOON_COUNT = 12;
 
 const PALETTES = [
     // Forest

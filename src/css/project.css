@@ -82,6 +82,7 @@
 .modal
 {
     position: relative;
+    z-index: 1;
     width: 100%;
     height: calc(100vh - 20px);
     display: flex;
@@ -253,7 +254,19 @@ body.project-open
 
 /* Litho 3D points (legacy) */
 
-.litho .webgl
+.project-content canvas.webgl
+{
+    position: relative;
+    width: auto;
+    height: auto;
+    z-index: auto;
+    pointer-events: auto;
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+    background: var(--bg-light-2);
+}
+
+#points-container
 {
     position: relative;
 }
@@ -261,6 +274,8 @@ body.project-open
 .point
 {
     position: absolute;
+    top: 0;
+    left: 0;
     z-index: 1;
 }
 
@@ -380,6 +395,12 @@ body.project-open
 
     .media-wrapper
     {
+        border-radius: 12px;
+    }
+
+    .project-content canvas.webgl
+    {
+        aspect-ratio: 3 / 2;
         border-radius: 12px;
     }
 

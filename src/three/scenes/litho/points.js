@@ -24,7 +24,7 @@ export default class Points
                 position: new THREE.Vector3(-0.3, -0.28, 0),
                 element: document.getElementById('point-2'),
             },
-        ];
+        ].filter((p) => p.element !== null);
 
         for (const point of this.points)
         {

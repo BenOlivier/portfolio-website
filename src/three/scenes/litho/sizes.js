@@ -1,21 +1,34 @@
 import EventEmitter from '../../utils/event-emitter.js';
 
+const MOBILE_BREAKPOINT = 768;
+
+function computeSize()
+{
+    const container = document.querySelector('.project-content');
+    const width = container.offsetWidth;
+    const height = window.innerWidth >= MOBILE_BREAKPOINT
+        ? Math.round(width / 1.5)
+        : width;
+    return { width, height };
+}
+
 export default class Sizes extends EventEmitter
 {
     constructor()
     {
         super();
 
-        const container = document.getElementById('project-content');
-        this.width = container.offsetWidth;
-        this.height = this.width;
+        const { width, height } = computeSize();
+        this.width = width;
+        this.height = height;
         this.pixelRatio = Math.min(window.devicePixelRatio, 2);
 
         // Resize event
         window.addEventListener('resize', () =>
         {
-            this.width = container.offsetWidth;
-            this.height = this.width;
+            const size = computeSize();
+            this.width = size.width;
+            this.height = size.height;
             this.pixelRatio = Math.min(window.devicePixelRatio, 2);
 
             this.trigger('resize');

@@ -70,4 +70,16 @@ export default class Litho
         }
         this.renderer.update();
     }
+
+    dispose()
+    {
+        this.time.stop();
+        this.sizes.off('resize');
+        this.time.off('tick');
+        if (this.pointer) this.pointer.dispose();
+        this.renderer.renderer.dispose();
+        this.renderer.renderer.forceContextLoss();
+        window.experience = null;
+        instance = null;
+    }
 }

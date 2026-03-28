@@ -250,6 +250,20 @@ export async function openProjectModal(slug)
     {
         modal.style.willChange = '';
         loadMedia();
+
+        // Initialise Three.js scene for projects that need it
+        if (slug === 'litho')
+        {
+            const canvas = content.querySelector('canvas.webgl');
+            if (canvas)
+            {
+                import('../three/scenes/litho/experience.js').then(({ default: Litho }) =>
+                {
+                    new Litho(canvas);
+                }).catch((err) => console.error('[litho] scene init failed:', err));
+            }
+        }
+
         resolve();
     }
 
@@ -302,6 +316,12 @@ export async function closeProjectModal({ fromDrag = false } = {})
 
     function onComplete()
     {
+        // Dispose any active Three.js scene before clearing content
+        if (window.experience?.dispose)
+        {
+            window.experience.dispose();
+        }
+
         overlay.classList.remove('active');
         overlay.setAttribute('aria-hidden', 'true');
         content.innerHTML = '';

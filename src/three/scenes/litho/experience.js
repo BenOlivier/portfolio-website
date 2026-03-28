@@ -75,6 +75,7 @@ export default class Litho
     {
         this.time.stop();
         this.sizes.off('resize');
+        this.sizes.dispose();
         this.time.off('tick');
         if (this.pointer) this.pointer.dispose();
         this.renderer.renderer.dispose();

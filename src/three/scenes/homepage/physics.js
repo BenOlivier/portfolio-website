@@ -18,6 +18,6 @@ export default class Physics
 
     update()
     {
-        this.world.step(1 / 60, this.time.delta / 1000, 1);
+        this.world.step(1 / 60);
     }
 }

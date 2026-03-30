@@ -13,13 +13,6 @@
 </head>
 <body class="customuse">
   <div class="container">
-    <div class="construction-overlay">
-      <img src="../../static/icons/lock-icon.svg" alt="">
-      <div class="construction-text">
-        <h2>Under Construction</h2>
-        <p>This page is currently under construction. Please check back soon.</p>
-      </div>
-    </div>
     <div class="project-hero">
       <img src="../../static/projects/customuse/customuse-header.webp" alt="Customuse">
     </div>
@@ -34,53 +27,30 @@
     
     <section class="project-content">
       <div class="text-container">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>Customuse is a platform that makes designing game items accessible to anyone, no matter their skill level.</p>
+        <p>Users can share their designs, explore and remix other user’s creations, and upload items to Roblox.</p>
       </div>
-      <img src="../../static/projects/customuse/customuse-create-3d.jpg" alt="Customuse 1">
+      <img src="../../static/projects/customuse/customuse-create-3d.jpg" alt="">
       <div class="text-container">
-        <p>Customuse is a platform that enables users to create, share, and explore custom designs for the metaverse. It allows anyone to create in 3D, without the need for specialist skills and software.</p>
-        <p>Users can use the Customuse editor to design and remix avatar clothing, skins and items ready to be used in popular gaming and social platforms such as Roblox, Minecraft, TikTok, and Zepeto.</p>
+        <h3>Web + mobile app redesign</h3>
+        <p>I was tasked with redesigning the web and mobile editor apps from the ground up, adding improved features and streamlining the UX.</p>
+        <p>The challenge was to make powerful 3D tooling accessible to all skill levels, while delivering a consistent experience across both web and mobile.</p>
       </div>
-      <img src="../../static/projects/customuse/customuse-editor.jpg" alt="Customuse 1">
+      <img src="../../static/projects/customuse/customuse-editor.webp" alt="">
       <div class="text-container">
-        <p>As Lead Product Designer, I completeley overhauled the design of the web + mobile editor apps, and content discovery page. I worked closely with engineers and product managers to oversee successful implementation of the new designs.</p>
-        <p>As part of the redesign, we added exciting new AI features, allowing users to leverage generative AI to create new outfits in seconds.</p>
+        <p>Fitting the interface within limited screen real estate of mobile was an interesting design challenge. Particularly, the canvas (texture editor) and 3D viewport competed for space.</p>
+        <p>I added a button that minimised the 3D view into the corner of the screen, giving the user more space to work on the canvas, while keeping sight of how it looked on the model.</p>
       </div>
-      <iframe src="https://www.youtube.com/embed/6j93uzHV46M?si=5n9o8IYQrO002dJC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <video class="crop-square-mobile" autoplay loop muted playsinline>
+        <source src="/projects/customuse/customuse-editor-mobile.mp4" type="video/mp4">
+      </video>
       <div class="text-container">
-        <p>Customuse has seen fantastic growth, with over 3 million total creators using the platform. This success is only set to continue with the proliferation of self expression in virtual worlds and the democratisation of 3D tools.</p>
+        <p>Previously, models floated in space. I wrote a shader for a neutral ground plane to ground the model and provide a sense of space.</p>
+        <p>The ground shader used fresnel to fade out as the user panned the camera below the model. This avoids the jarring effect of the ground plane clipping through the camera.</p>
       </div>
-      <img src="../../static/projects/customuse/customuse-3-million.jpg" alt="Customuse 1">
-    </section>
-
-    <section class="suggestions">
-      <hr>
-      <h2>Other Work</h2>
-      <div class="suggestions-row">
-        <div class="suggestions-card">
-          <a id="meta-anchor" href="/meta.html">
-            <div class="suggestions-image-container" id="meta">
-              <img src="../../static/projects/meta/workrooms-meeting.webp" alt="Meta Hero">
-              <div class="suggestions-text-container">
-                <h3>Horizon Workrooms</h3>
-                <p><span>2023 - present</span></p>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="suggestions-card">
-          <a id="litho-anchor" href="/litho.html">
-            <div class="suggestions-image-container" id="litho">
-              <img src="../../static/projects/litho/litho-thumbnail.jpg" alt="Litho Hero">
-              <div class="suggestions-text-container">
-                <h3>Litho Controller</h3>
-                <p><span>2019 - 2022</span></p>
-              </div>
-            </div>
-          </a>
-        </div>
-      </div>
+      <video class="crop-square-mobile" autoplay loop muted playsinline>
+        <source src="/projects/customuse/dots-floor-shader-fresnel.mp4" type="video/mp4">
+      </video>
     </section>
     </div>
   </div>

@@ -1,3 +1,4 @@
+
 /* Construction overlay */
 
 .construction-overlay
@@ -207,9 +208,33 @@ body.project-open
     background: var(--bg-light-2);
 }
 
-.project-content .crop-landscape
+@media(max-width: 767px)
 {
-    overflow: hidden;
+    .project-content .crop-square-mobile
+    {
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        overflow: hidden;
+    }
+}
+
+@media(min-width: 768px)
+{
+    .project-content .crop-landscape-desktop
+    {
+        aspect-ratio: 3 / 2;
+        object-fit: cover;
+        overflow: hidden;
+    }
+
+    .project-content .crop-portrait-desktop
+    {
+        max-width: var(--content-width);
+        margin-left: auto;
+        margin-right: auto;
+        background: transparent;
+    }
+
 }
 
 .media-wrapper
@@ -404,11 +429,6 @@ body.project-open
         border-radius: 12px;
     }
 
-    .project-content .crop-landscape
-    {
-        aspect-ratio: 3 / 2;
-        object-fit: cover;
-    }
 
     .project-hero
     {
@@ -417,12 +437,12 @@ body.project-open
 
     .project-header
     {
-        max-width: 530px;
+        max-width: var(--content-width);
     }
 
     .text-container
     {
-        max-width: 530px;
+        max-width: var(--content-width);
     }
 
     .construction-overlay h2

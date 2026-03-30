@@ -94,6 +94,13 @@ function wrapMediaElement(el)
 {
     const wrapper = document.createElement('div');
     wrapper.className = 'media-wrapper';
+
+    // Copy media classes to wrapper so it matches the media's sizing
+    for (const cls of el.classList)
+    {
+        wrapper.classList.add(cls);
+    }
+
     el.parentNode.insertBefore(wrapper, el);
     wrapper.appendChild(el);
     return wrapper;

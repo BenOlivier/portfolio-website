@@ -166,16 +166,6 @@ body.work .home-header
     gap: 12px;
 }
 
-.home-header h1
-{
-    font-size: 22px;
-    font-weight: 600;
-    line-height: normal;
-    color: var(--dark);
-    text-align: left;
-    margin: 0;
-}
-
 /* Toggle */
 
 .toggle

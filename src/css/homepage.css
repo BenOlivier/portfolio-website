@@ -173,50 +173,43 @@ body.work .home-header
     position: relative;
     display: inline-flex;
     align-self: flex-start;
-    padding: 4px;
+    padding: 3px;
     border-radius: 1000px;
-    background: rgba(232, 232, 232, 0.2);
+    background: var(--bg-light-1);
+    box-shadow: inset 0px 3px 6px 0px rgba(0, 0, 0, 0.05), inset 0px 0px 3px 0px rgba(0, 0, 0, 0.08);
     overflow: hidden;
 }
 
 .toggle-pill
 {
     position: absolute;
-    top: 4px;
-    left: 4px;
-    width: 88px;
-    height: 36px;
+    top: 3px;
+    left: 3px;
+    width: 80px;
+    height: 32px;
     border-radius: 1000px;
     background: white;
-    box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.12), 0px 1px 3px 0px rgba(0, 0, 0, 0.16);
+    /* box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.12), 0px 1px 3px 0px rgba(0, 0, 0, 0.16); */
+    box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.08), 0px 0px 3px 0px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 body.work .toggle-pill
 {
-    transform: translateX(88px);
-}
-
-.toggle-inset
-{
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    box-shadow: inset 0px 2px 8px 0px rgba(0, 0, 0, 0.06), inset 0px 1px 3px 0px rgba(0, 0, 0, 0.2);
-    pointer-events: none;
+    transform: translateX(80px);
 }
 
 .toggle-button
 {
     position: relative;
     z-index: 1;
-    width: 88px;
-    height: 36px;
+    width: 80px;
+    height: 32px;
     border: none;
     border-radius: 1000px;
     background: none;
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 600;
     color: var(--tertiary);
     cursor: pointer;
     touch-action: manipulation;

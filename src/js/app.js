@@ -1,6 +1,7 @@
 import '../css/global.css';
 import '../css/homepage.css';
 import '../css/project.css';
+import * as transitions from './content-reveal.js';
 
 if (document.body.classList.contains('index'))
 {
@@ -9,12 +10,21 @@ if (document.body.classList.contains('index'))
         initHomeTime();
     });
 
-    import('./content-reveal.js').then(async (transitions) =>
+    (async () =>
     {
-        const { initRouter, setSceneCallbacks, isWorkRoute } = await import('./router.js');
+        // Inline route check — no need to wait for router.js to read location.pathname
+        const isWork = location.pathname === '/work' || location.pathname.startsWith('/work/');
 
-        // Scene lifecycle — load above 1080px, hide below
-        const { default: Sizes } = await import('../three/utils/sizes.js');
+        // Start animation immediately — don't wait for router/sizes to load
+        const revealPromise = isWork ? null : transitions.revealHome();
+        if (isWork) transitions.showWorkImmediate();
+
+        // Load router + sizes in parallel while animation is already running
+        const [{ initRouter, setSceneCallbacks }, { default: Sizes }] = await Promise.all([
+            import('./router.js'),
+            import('../three/utils/sizes.js'),
+        ]);
+
         const sizes = new Sizes();
         const canvas = document.querySelector('canvas.webgl');
         let sceneLoaded = false;
@@ -56,7 +66,7 @@ if (document.body.classList.contains('index'))
         // Responsive scene toggle — shared across initial load and navigate-back
         async function checkScene()
         {
-            if (isWorkRoute()) return;
+            if (location.pathname === '/work' || location.pathname.startsWith('/work/')) return;
             if (sizes.width >= 1080) await enableScene();
             else disableScene();
         }
@@ -65,21 +75,12 @@ if (document.body.classList.contains('index'))
         // Wire scene callbacks into router
         setSceneCallbacks({ enableScene, disableScene, checkScene, getExperience });
 
-        // Route-aware initialisation
-        if (isWorkRoute())
-        {
-            // Direct visit to /work — show work immediately, no scene
-            disableScene();
-        }
-        else
-        {
-            // Homepage — run content reveal, then enable scene
-            await transitions.revealHome();
-            checkScene();
-        }
+        // Wait for reveal to finish before loading Three.js scene
+        if (revealPromise) await revealPromise;
+        if (!isWork) checkScene();
 
         initRouter();
-    });
+    })();
 }
 
 if (document.body.classList.contains('litho'))
@@ -99,4 +100,3 @@ if (document.body.classList.contains('customuse'))
 if (document.body.classList.contains('meta'))
 {
 }
-

@@ -294,6 +294,7 @@ export default class Objects
                     this.activeBalloon = balloon;
                     document.body.style.cursor = 'grabbing';
                     document.body.style.userSelect = 'none';
+                    document.body.style.webkitUserSelect = 'none';
 
                     this.dragPlane.constant = 0;
 
@@ -353,6 +354,7 @@ export default class Objects
                 this.activeBalloon = null;
                 document.body.style.cursor = '';
                 document.body.style.userSelect = '';
+                document.body.style.webkitUserSelect = '';
 
                 if (this.constraint)
                 {
@@ -405,6 +407,7 @@ export default class Objects
             this.activeBalloon = null;
             document.body.style.cursor = '';
             document.body.style.userSelect = '';
+            document.body.style.webkitUserSelect = '';
             if (this.constraint)
             {
                 this.world.removeConstraint(this.constraint);

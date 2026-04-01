@@ -8,7 +8,7 @@ const HOME_ENTER_TRANSLATE_Y = 0;
 const HOME_ENTER_DURATION = 0.8;
 const HOME_ENTER_STAGGER = 0.03;
 const HOME_ENTER_LINE_STAGGER = 0.02;
-const HOME_ENTER_DELAY = 0.5;
+const HOME_ENTER_DELAY = 0.2;
 
 // --- Home content exit ---
 const HOME_EXIT_BLUR = 4;

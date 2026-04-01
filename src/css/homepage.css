@@ -223,7 +223,7 @@ body.work .toggle-pill
     color: var(--tertiary);
     cursor: pointer;
     touch-action: manipulation;
-    transition: color 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: color 0.1s;
 }
 
 @media (hover: hover)

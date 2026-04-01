@@ -166,6 +166,16 @@ body.work .home-header
     gap: 12px;
 }
 
+.home-header-text h1
+{
+    font-size: 22px;
+}
+
+.home-header-text h2
+{
+    color: var(--tertiary);
+}
+
 /* Toggle */
 
 .toggle
